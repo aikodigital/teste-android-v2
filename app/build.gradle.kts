@@ -1,9 +1,23 @@
+buildscript {
+    dependencies {
+        classpath(libs.secrets.gradle.plugin)
+    }
+}
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.ksp)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+}
+
+secrets {
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "local.defaults.properties"
+    ignoreList.add("keyToIgnore")
+    ignoreList.add("sdk.*")
 }
 
 android {
@@ -16,17 +30,24 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
+        debug {
+            buildConfigField("String", "API_URL", "\"http://api.olhovivo.sptrans.com.br/v2.1/\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "API_URL", "\"http://api.olhovivo.sptrans.com.br/v2.1/\"")
         }
     }
     compileOptions {
@@ -45,6 +66,7 @@ dependencies {
     kapt (libs.hilt.compiler)
 
     // Dependencies
+    implementation(libs.play.services.maps)
     implementation (libs.androidx.swiperefreshlayout)
     implementation (libs.threetenabp)
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
@@ -70,3 +92,4 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
+
