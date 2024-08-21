@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.google.accompanist.permissions)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.play.services.location)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -79,9 +80,6 @@ dependencies {
     implementation(libs.google.dagger.hilt.android)
     ksp(libs.google.dagger.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-
-    // Splashscreen
-    implementation(libs.androidx.core.splashscreen)
 
     // Mapbox
     implementation(libs.mapbox.android)

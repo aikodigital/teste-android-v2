@@ -1,6 +1,5 @@
 package com.aiko.teste.sptrans
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,12 +14,17 @@ import javax.inject.Named
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val apiService: APIService,
-    @Named("apiToken") private val apiToken: String,
-    private val sharedPreferences: SharedPreferences
+    @Named("apiToken") private val apiToken: String
 ) : ViewModel() {
 
     private val _authenticationResult = MutableLiveData<Result<Boolean>>()
     val authenticationResult: LiveData<Result<Boolean>> = _authenticationResult
+
+    private var permissionFinished = false
+    private var authenticationFinished = false
+
+    private val _setUpFinished = MutableLiveData(false)
+    val setUpFinished: LiveData<Boolean> = _setUpFinished
 
     fun authenticateApi() {
         val call = apiService.authenticate(apiToken)
@@ -37,15 +41,25 @@ class MainViewModel @Inject constructor(
                     _authenticationResult.value =
                         Result.failure(Exception("API error: ${response.code()}"))
                 }
+
+                authenticationFinished = true
+                checkSetUpFinished()
             }
 
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
                 _authenticationResult.value = Result.failure(t)
+                authenticationFinished = true
+                checkSetUpFinished()
             }
         })
     }
 
-    fun savePermissionResult(isPermissionsGranted: Boolean) {
-        sharedPreferences.edit().putBoolean("isPermissionsGranted" , isPermissionsGranted).apply()
+    fun permissionFinished() {
+        permissionFinished = true
+        checkSetUpFinished()
+    }
+
+    private fun checkSetUpFinished() {
+        if (permissionFinished && authenticationFinished) _setUpFinished.value = true
     }
 }
