@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SPTrans</string>
+    <string name="api_error_authentication_message">O aplicativo está com dificuldades para acessar o servidor, tente novamente mais tarde</string>
+    <string name="sharedPreferences">shared_preferences</string>
 </resources>

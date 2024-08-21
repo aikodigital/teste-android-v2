@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.google.accompanist.permissions)
+    implementation(libs.androidx.runtime.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -80,4 +82,12 @@ dependencies {
 
     // Splashscreen
     implementation(libs.androidx.core.splashscreen)
+
+    // Mapbox
+    implementation(libs.mapbox.android)
+    implementation(libs.mapbox.maps.compose)
+
+    // Retrofit2
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.retrofit2.converter.gson)
 }
