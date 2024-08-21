@@ -24,10 +24,10 @@ class MenuUtil (){
     private fun changeEyeVisibility(imageView: ImageView) {
         val currentTag = imageView.tag
         if (currentTag == "eye_closed") {
-            imageView.setImageResource(R.drawable.eye_open)
+            imageView.setImageResource(R.drawable.eye_open_ic)
             imageView.tag = "eye_open"
         } else {
-            imageView.setImageResource(R.drawable.eye_closed)
+            imageView.setImageResource(R.drawable.eye_closed_ic)
             imageView.tag = "eye_closed"
         }
     }
