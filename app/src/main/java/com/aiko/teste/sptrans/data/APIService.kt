@@ -2,6 +2,7 @@ package com.aiko.teste.sptrans.data
 
 import com.aiko.teste.sptrans.data.objects.BusPositions
 import com.aiko.teste.sptrans.data.objects.BusStop
+import com.aiko.teste.sptrans.data.objects.BusStopPrevisions
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -18,4 +19,8 @@ interface APIService {
     @Headers("Content-Type: application/json")
     @GET("Parada/Buscar")
     fun getBusStops(@Query("termosBusca") searchTerms: String) : Call<List<BusStop>>
+
+    @Headers("Content-Type: application/json")
+    @GET("Previsao/Parada")
+    fun getBusStopPrevisions(@Query("codigoParada") stopCode: String) : Call<BusStopPrevisions>
 }

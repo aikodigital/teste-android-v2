@@ -42,6 +42,7 @@ fun MapScreen(
         busStops = busStops,
         handlePointClick = ::handlePointClick
     )
+
     viewModel.getMapPoints()
 
     val centerLocationObserver = Observer<Point> { point ->
@@ -58,6 +59,6 @@ fun MapScreen(
 fun handlePointClick(pointAnnotation: PointAnnotation): Boolean {
     val busStop = mapScreenViewModel.getBusStopFromPoint(pointAnnotation.point)
     destinationsNavigator.popBackStack()
-    destinationsNavigator.navigate(BusStopScreenDestination(busStop.stopCode))
+    destinationsNavigator.navigate(BusStopScreenDestination(busStop.stopCode, busStop.stopName))
     return true
 }

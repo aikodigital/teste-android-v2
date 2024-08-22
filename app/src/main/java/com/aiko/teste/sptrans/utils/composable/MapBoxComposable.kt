@@ -16,12 +16,17 @@ import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
 import com.mapbox.maps.Style
+import com.mapbox.maps.plugin.animation.MapAnimationOptions
 import com.mapbox.maps.plugin.animation.flyTo
 import com.mapbox.maps.plugin.annotation.annotations
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotation
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
 import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun MapBoxMap(
@@ -46,23 +51,29 @@ fun MapBoxMap(
         update = { mapView ->
             if (centerPoint != null) {
                 mapView.mapboxMap
-                    .flyTo(CameraOptions.Builder().zoom(12.0).center(centerPoint).build())
+                    .flyTo(
+                        CameraOptions.Builder().zoom(12.0).center(centerPoint).build(),
+                        MapAnimationOptions.Builder().duration(400L).startDelay(100L).build()
+                    )
             }
 
             if (busStops != null) {
-                pointAnnotationManager?.let {
-                    busStops.forEach { busStop ->
-                        val pointAnnotationOptions = PointAnnotationOptions()
-                            .withPoint(busStop)
-                            .withIconImage(
-                                getBitmapFromImage(
-                                    context,
-                                    R.drawable.baseline_local_parking_24
+                CoroutineScope(Dispatchers.Main).launch {
+                    delay(1000L)
+                    pointAnnotationManager?.let {
+                        busStops.forEach { busStop ->
+                            val pointAnnotationOptions = PointAnnotationOptions()
+                                .withPoint(busStop)
+                                .withIconImage(
+                                    getBitmapFromImage(
+                                        context,
+                                        R.drawable.baseline_local_parking_24
+                                    )
                                 )
-                            )
-                        it.create(pointAnnotationOptions)
+                            it.create(pointAnnotationOptions)
+                        }
+                        it.addClickListener(handlePointClick)
                     }
-                    it.addClickListener(handlePointClick)
                 }
             }
             NoOpUpdate

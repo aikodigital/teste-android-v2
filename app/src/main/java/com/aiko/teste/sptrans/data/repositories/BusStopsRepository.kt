@@ -2,25 +2,24 @@ package com.aiko.teste.sptrans.data.repositories
 
 import com.aiko.teste.sptrans.data.APIService
 import com.aiko.teste.sptrans.data.objects.BusStop
+import com.aiko.teste.sptrans.data.objects.BusStopPrevisions
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class BusStopsRepository @Inject constructor(private val apiService: APIService) {
+class BusStopsRepository @Inject constructor(private val apiService: APIService): BaseRepository() {
     private var cachedData: List<BusStop>? = null
     fun getBusStops(): Result<List<BusStop>> {
-        return try {
-            val response = apiService.getBusStops("").execute()
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    cachedData = it
-                    Result.success(it)
-                } ?: Result.failure(Exception("Response body is null"))
-            } else {
-                Result.failure(Exception("API error: ${response.code()}"))
+        cachedData?.let { return Result.success(it) }
+
+        return makeApiCall { apiService.getBusStops("").execute() }.also { result ->
+            if (result.isSuccess) {
+                cachedData = result.getOrNull()
             }
-        } catch (e: Exception) {
-            Result.failure(e)
         }
+    }
+
+    fun getBusStopPrevisions(busStopCode: String): Result<BusStopPrevisions> {
+        return makeApiCall { apiService.getBusStopPrevisions(busStopCode).execute() }
     }
 }

@@ -7,8 +7,9 @@ data class BusStop(
     @SerializedName("np") val stopName: String,
     @SerializedName("py") val latitude: Double,
     @SerializedName("px") val longitude: Double,
+    @SerializedName("l") val lines: List<Line>
 ) {
     override fun toString(): String {
-        return "BusStop(stopCode='$stopCode', stopName='$stopName', latitude=$latitude, longitude=$longitude)"
+        return "BusStop(stopCode='$stopCode', stopName='$stopName', latitude=$latitude, longitude=$longitude, lines=$lines)"
     }
 }
