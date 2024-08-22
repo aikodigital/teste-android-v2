@@ -27,6 +27,8 @@ class MainFragment : Fragment() {
 
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
+        setButtonsClickListeners()
+
         binding.auth.setOnClickListener {
             lifecycleScope.launch {
                 authentication()
@@ -36,6 +38,7 @@ class MainFragment : Fragment() {
         binding.nav.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_mapsFragment)
         }
+
 
         return binding.root
 
@@ -67,6 +70,26 @@ class MainFragment : Fragment() {
 //            val position = SPTransApi.retrofitService.getLinePosition(cookie, 14)
         } catch (e: HttpException) {
             Log.e("SPTransApi", "Authentication failed: ${e.message}")
+        }
+    }
+
+    private fun setButtonsClickListeners() {
+        with(binding) {
+            busLocationBt.setOnClickListener {
+                findNavController().navigate(R.id.action_FirstFragment_to_busLocationFragment)
+            }
+
+            busLinesBt.setOnClickListener {
+                findNavController().navigate(R.id.action_FirstFragment_to_busLinesFragment)
+            }
+
+            busStopsBt.setOnClickListener {
+                findNavController().navigate(R.id.action_FirstFragment_to_busStopsFragment)
+            }
+
+            busCorridorBt.setOnClickListener {
+                findNavController().navigate(R.id.action_FirstFragment_to_busCorridorFragment)
+            }
         }
     }
 }

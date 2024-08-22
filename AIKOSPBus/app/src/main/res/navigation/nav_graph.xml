@@ -17,6 +17,18 @@
         <action
             android:id="@+id/action_FirstFragment_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_busCorridorFragment"
+            app:destination="@id/busCorridorFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_busLinesFragment"
+            app:destination="@id/busLinesFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_busLocationFragment"
+            app:destination="@id/busLocationFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_busStopsFragment"
+            app:destination="@id/busStopsFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -33,4 +45,24 @@
         android:name="com.example.aikospbus.feature_map.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/busCorridorFragment"
+        android:name="com.example.aikospbus.feature_bus_corridor.BusCorridorFragment"
+        android:label="fragment_bus_corridor"
+        tools:layout="@layout/fragment_bus_corridor" />
+    <fragment
+        android:id="@+id/busLinesFragment"
+        android:name="com.example.aikospbus.feature_bus_lines.BusLinesFragment"
+        android:label="fragment_bus_lines"
+        tools:layout="@layout/fragment_bus_lines" />
+    <fragment
+        android:id="@+id/busLocationFragment"
+        android:name="com.example.aikospbus.feature_bus_location.BusLocationFragment"
+        android:label="fragment_bus_location"
+        tools:layout="@layout/fragment_bus_location" />
+    <fragment
+        android:id="@+id/busStopsFragment"
+        android:name="com.example.aikospbus.feature_bus_stops.BusStopsFragment"
+        android:label="fragment_bus_stops"
+        tools:layout="@layout/fragment_bus_stops" />
 </navigation>

@@ -37,6 +37,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
