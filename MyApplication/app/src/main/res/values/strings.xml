@@ -1,0 +1,11 @@
+<resources>
+
+    //text menu
+    <string name="app_name">Aiko transportes</string>
+    <string name="text_menu_stop">Paradas</string>
+    <string name="text_menu_line">Linhas</string>
+    <string name="text_menu_buss">Ônibus</string>
+    <string name="title_main_activity">Para onde vc quer ir?</string>
+    <string name="text_search">Pesquisar</string>
+
+</resources>
