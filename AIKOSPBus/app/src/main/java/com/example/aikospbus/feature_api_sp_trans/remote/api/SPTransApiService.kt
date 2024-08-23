@@ -2,6 +2,10 @@ package com.example.aikospbus.feature_api_sp_trans.remote.api
 
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Line
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Bus
+import com.example.aikospbus.feature_api_sp_trans.remote.models.Corredor
+import com.example.aikospbus.feature_api_sp_trans.remote.models.Parada
+import com.example.aikospbus.feature_api_sp_trans.remote.models.PrevisaoChegada
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,7 +19,7 @@ interface SPTransApiService {
     suspend fun authentication(
         @Query("token")
         token: String
-    ): Response<String>
+    ): Response<Boolean>
 
     @GET("Linha/Buscar")
     suspend fun getLine(
@@ -32,6 +36,24 @@ interface SPTransApiService {
         @Query("codigoLinha")
         codigoLinha: Int
     ): Bus
+
+    @GET("Parada/Buscar")
+    suspend fun getStops(
+        @Header("Cookie") cookie: String,
+        @Query("termosBusca") termosBusca: String
+    ): List<Parada>
+
+    @GET("Corredor")
+    suspend fun getCorredores(
+        @Header("Cookie") cookie: String
+    ): List<Corredor>
+
+    @GET("Previsao")
+    suspend fun getPrevisaoChegada(
+        @Header("Cookie") cookie: String,
+        @Query("codigoParada") codigoParada: Int,
+        @Query("codigoLinha") codigoLinha: Int
+    ): PrevisaoChegada
 }
 
 object SPTransApi {
