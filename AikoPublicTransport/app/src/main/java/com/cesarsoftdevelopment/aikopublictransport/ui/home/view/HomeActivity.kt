@@ -1,4 +1,4 @@
-package com.cesarsoftdevelopment.aikopublictransport.ui.home
+package com.cesarsoftdevelopment.aikopublictransport.ui.home.view
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
