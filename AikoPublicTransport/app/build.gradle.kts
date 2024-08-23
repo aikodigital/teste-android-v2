@@ -2,6 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    id("androidx.navigation.safeargs")
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+
 }
 
 android {
@@ -34,6 +39,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    dataBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -45,7 +54,33 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.core.animation)
+
+    // MAPS
     implementation(libs.play.services.maps)
+
+    // RETROFIT
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    // UNIT TEST
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.core.testing)
+
+    // JETPACK NAVIGATION
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+    // HILT
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+    // SHIMMER
+    implementation(libs.shimmer)
+
+    // INSTRUMENTAL TEST
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
