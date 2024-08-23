@@ -35,11 +35,13 @@ android {
 
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 
     buildTypes {
         debug {
             buildConfigField("String", "API_URL", "\"http://api.olhovivo.sptrans.com.br/v2.1/\"")
+            buildConfigField("String", "API_TOKEN", "\"9003a3d066007886112ec5d2b3baa0325c3e2eca0951e18a6433a54583bc99ad\"")
         }
         release {
             isMinifyEnabled = false
@@ -48,6 +50,7 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "API_URL", "\"http://api.olhovivo.sptrans.com.br/v2.1/\"")
+            buildConfigField("String", "API_TOKEN", "\"9003a3d066007886112ec5d2b3baa0325c3e2eca0951e18a6433a54583bc99ad\"")
         }
     }
     compileOptions {
@@ -57,6 +60,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
 }
 
 dependencies {
@@ -66,6 +70,7 @@ dependencies {
     kapt (libs.hilt.compiler)
 
     // Dependencies
+    implementation (libs.maps.ktx)
     implementation(libs.play.services.maps)
     implementation (libs.androidx.swiperefreshlayout)
     implementation (libs.threetenabp)

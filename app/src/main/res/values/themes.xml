@@ -3,7 +3,52 @@
     <style name="Base.Theme.SpTrans" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorPrimary">#1D192B</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:windowLightStatusBar" >true</item>
+        <item name="colorSecondary">#1D192B</item>
+        <item name="colorSecondaryContainer">#1D192B</item>
+        <item name="colorOnSurface">#1D192B</item>
+        <item name="colorOnSurfaceVariant">#6C6B6D</item>
+        <item name="colorOnSecondaryContainer">#FFFFFF</item>
+        <item name="colorSurfaceContainer">#FFFFFF</item>
+        <item name="colorSurfaceContainerHigh">#E9E9E9</item>
     </style>
 
     <style name="Theme.SpTrans" parent="Base.Theme.SpTrans" />
+
+    <style name="Base.Theme.Provador.BottomNav" parent="Widget.Material3.BottomNavigationView">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
+        <item name="android:statusBarColor">@color/design_default_color_surface</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_secondary</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="M">true</item>
+        <item name="backgroundTint">#2E343B</item>
+        <item name="colorSecondaryContainer">#ffdbc8</item>
+    </style>
+
+    <style name="Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#FFFFFF</item>
+    </style>
+
+    <style name="Title">
+        <item name="android:fontFamily">@font/product_sans_bold</item>
+        <item name="fontFamily">@font/product_sans_bold</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextMessage">
+        <item name="android:fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

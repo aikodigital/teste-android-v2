@@ -1,60 +1,116 @@
 package com.matreis.teste.sptrans.presentation.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView.OnQueryTextListener
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.matreis.teste.sptrans.R
+import com.matreis.teste.sptrans.databinding.FragmentLinesBinding
+import com.matreis.teste.sptrans.presentation.adapter.LineAdapter
+import com.matreis.teste.sptrans.viewmodels.LinesViewModel
+import com.matreis.teste.sptrans.viewmodels.MapViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LinesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class LinesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentLinesBinding
+    private val linesViewModel: LinesViewModel by viewModels()
+    private val mapViewModel: MapViewModel by activityViewModels()
+    private val lineAdapter by lazy { LineAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lines, container, false)
+    ): View {
+        binding = FragmentLinesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LinesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LinesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initListeners()
+        setupRecyclerView()
+        initAdapterListeners()
+        initObservers()
     }
+
+    private fun initAdapterListeners() {
+        lineAdapter.onSeeOnMapClick = { line ->
+            //binding.progressClick.visibility = View.VISIBLE
+            mapViewModel.getLinesInformation(line.codLine ?: 0L)
+            findNavController().navigate(R.id.action_linesFragment_to_mapFragment)
+        }
+        lineAdapter.onSeeBusStopsClick = { line ->
+            //binding.progressClick.visibility = View.GONE
+        }
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvLines.apply {
+            layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+            setHasFixedSize(true)
+            adapter = lineAdapter
+        }
+    }
+
+    private fun initObservers() {
+        linesViewModel.lines.observe(viewLifecycleOwner) {
+            handleEmptyList(it.isEmpty())
+            lineAdapter.submitList(it)
+        }
+        linesViewModel.error.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { messageId ->
+                handleEmptyList(true)
+                Snackbar.make(binding.root, getString(messageId), Snackbar.LENGTH_SHORT).show()
+            }
+        }
+        linesViewModel.isLoading.observe(viewLifecycleOwner) {
+            if(it) {
+                binding.clHint.visibility = View.GONE
+                binding.clEmpty.visibility = View.GONE
+                binding.rvLines.visibility = View.GONE
+            }
+            binding.progressLines.visibility = if (it) View.VISIBLE else View.GONE
+        }
+
+
+    }
+
+    private fun handleEmptyList(empty: Boolean) {
+        binding.progressLines.visibility = View.GONE
+        if (empty) {
+            binding.rvLines.visibility = View.GONE
+            binding.clEmpty.visibility = View.VISIBLE
+        }else {
+            binding.rvLines.visibility = View.VISIBLE
+            binding.clEmpty.visibility = View.GONE
+            binding.clHint.visibility = View.GONE
+        }
+    }
+
+    private fun initListeners() {
+        binding.apply {
+            searchBar.setOnQueryTextListener(object: OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    p0?.let {
+                        linesViewModel.getLinesByTerm(it)
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    return true
+                }
+
+            })
+        }
+    }
+
 }
