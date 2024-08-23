@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.cesarsoftdevelopment.aikopublictransport.R
 
-
 class BusLinesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
