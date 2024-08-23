@@ -22,4 +22,9 @@
     <string name="error_get_bus_stops">Erro ao obter paradas</string>
     <string name="error_get_vehicle_positions">Falha ao obter posição dos veículos</string>
     <string name="error_get_lines_informations">Falha ao obter informações da linha</string>
+    <string name="error_get_bus_stop">Falha ao obter paradas</string>
+    <string name="no_bus_stop_found">Nenhuma parada encontrada</string>
+    <string name="line">Linha</string>
+    <string name="bus_detail">Detalhes do ônibus</string>
+    <string name="error_get_arrival_times">Falha ao obter previsões dos veículos</string>
 </resources>

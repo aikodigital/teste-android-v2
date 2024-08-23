@@ -9,4 +9,5 @@ data class Vehicle(
     @SerializedName("py") var lat: Double? = null,
     @SerializedName("px") var lng: Double? = null,
     var lineSign: String? = null,
+    var line: Line? = null
 )

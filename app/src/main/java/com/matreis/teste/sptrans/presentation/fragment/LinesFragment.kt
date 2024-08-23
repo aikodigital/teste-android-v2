@@ -23,7 +23,7 @@ class LinesFragment : Fragment() {
 
     private lateinit var binding: FragmentLinesBinding
     private val linesViewModel: LinesViewModel by viewModels()
-    private val mapViewModel: MapViewModel by activityViewModels()
+    //private val mapViewModel: MapViewModel by activityViewModels()
     private val lineAdapter by lazy { LineAdapter() }
 
     override fun onCreateView(
@@ -44,8 +44,10 @@ class LinesFragment : Fragment() {
     private fun initAdapterListeners() {
         lineAdapter.onSeeOnMapClick = { line ->
             //binding.progressClick.visibility = View.VISIBLE
-            mapViewModel.getLinesInformation(line.codLine ?: 0L)
-            findNavController().navigate(R.id.action_linesFragment_to_mapFragment)
+            val bundle = Bundle()
+            bundle.putSerializable("line", line)
+            //mapViewModel.getLinesInformation(line.codLine ?: 0L)
+            findNavController().navigate(R.id.action_linesFragment_to_mapFragment, bundle)
         }
         lineAdapter.onSeeBusStopsClick = { line ->
             //binding.progressClick.visibility = View.GONE
@@ -87,6 +89,7 @@ class LinesFragment : Fragment() {
         binding.progressLines.visibility = View.GONE
         if (empty) {
             binding.rvLines.visibility = View.GONE
+            binding.clHint.visibility = View.GONE
             binding.clEmpty.visibility = View.VISIBLE
         }else {
             binding.rvLines.visibility = View.VISIBLE

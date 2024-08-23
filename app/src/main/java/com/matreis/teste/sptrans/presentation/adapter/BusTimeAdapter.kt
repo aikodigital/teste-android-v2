@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.matreis.teste.sptrans.databinding.ItemBusTimeBinding
 import com.matreis.teste.sptrans.domain.model.Vehicle
 
-class BusTimeAdapter: RecyclerView.Adapter<BusTimeAdapter.MyBusTimeViewHolder>() {
+class BusTimeAdapter(
+    private val onItemClicked: (Vehicle) -> Unit
+): RecyclerView.Adapter<BusTimeAdapter.MyBusTimeViewHolder>() {
 
     private val vehicles = mutableListOf<Vehicle>()
     fun submitList(vehicles: List<Vehicle>) {
@@ -19,6 +21,9 @@ class BusTimeAdapter: RecyclerView.Adapter<BusTimeAdapter.MyBusTimeViewHolder>()
         fun bind(vehicle: Vehicle) {
             val busInfo = "${vehicle.prefix} às ${vehicle.estimatedArrivalTime}"
             binding.tvBusTime.text = busInfo
+            binding.root.setOnClickListener {
+                onItemClicked(vehicle)
+            }
         }
     }
 

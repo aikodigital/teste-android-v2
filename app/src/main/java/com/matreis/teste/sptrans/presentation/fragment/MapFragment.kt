@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener
@@ -17,7 +19,11 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.matreis.teste.sptrans.R
 import com.matreis.teste.sptrans.databinding.FragmentMapBinding
+import com.matreis.teste.sptrans.domain.model.Line
 import com.matreis.teste.sptrans.helper.BitmapHelper
+import com.matreis.teste.sptrans.helper.customGetSerializable
+import com.matreis.teste.sptrans.helper.getDirection
+import com.matreis.teste.sptrans.helper.orElse
 import com.matreis.teste.sptrans.presentation.dialog.DialogInfoBusStop
 import com.matreis.teste.sptrans.viewmodels.MapViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,10 +34,17 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentMapBinding
     private lateinit var map: GoogleMap
-    private val mapViewModel: MapViewModel by activityViewModels()
+    private val mapViewModel: MapViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if(arguments != null) {
+            val line = arguments?.customGetSerializable<Line>("line")
+            line?.let {
+                mapViewModel.setSelectedLine(it)
+                mapViewModel.getLinesInformation(it.codLine!!)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -45,7 +58,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.btnBack.setOnClickListener {
+        initListeners()
+        initObservers()
+    }
+
+    private fun initObservers() {
+        mapViewModel.selectedLine.observe(viewLifecycleOwner) {
+            binding.tvLineDescription.text = it.getDirection()
+        }
+    }
+
+    private fun initListeners() {
+        binding.materialButton.setOnClickListener {
             requireActivity().onBackPressed()
         }
     }
@@ -57,10 +81,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         map.uiSettings.isScrollGesturesEnabled = true
         map.uiSettings.isRotateGesturesEnabled = true
         map.uiSettings.isMyLocationButtonEnabled = true
+        val location = CameraUpdateFactory.newLatLngZoom(
+            LatLng(-23.555883, -46.66306), 10f
+        )
+        map.animateCamera(location)
         map.setOnMarkerClickListener { marker ->
-            val busStop = mapViewModel.busStops.value?.firstOrNull { it.name == marker.title }
+            val busStop = mapViewModel.getBusStopList().firstOrNull { it.name == marker.title }
             val dialog = DialogInfoBusStop(
                 seeTimes = {
+                    val bundle = Bundle()
+                    bundle.putLong("stopCod", it.stopCod!!)
+                    bundle.putLong("lineCod", mapViewModel.selectedLine.value!!.codLine!!)
+                    findNavController().navigate(R.id.action_mapFragment_to_busStopTimesFragment, bundle)
                 },
                 defineRoute = {
                 }
@@ -68,46 +100,47 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             busStop?.let {
                 dialog.setBusStop(it)
                 dialog.show(childFragmentManager, "dialog")
+            }.orElse {
+                marker.showInfoWindow()
             }
             true
         }
-        initObservers()
+        initMapsInformationObservers()
     }
 
-    private fun initObservers() {
-        mapViewModel.busStops.observe(viewLifecycleOwner) {
-            val location = CameraUpdateFactory.newLatLngZoom(
-                LatLng(it[0].lat!!, it[0].lng!!), 15f
-            )
-            map.animateCamera(location)
-            it.forEach { busStop ->
+    private fun initMapsInformationObservers() {
+        mapViewModel.markers.observe(viewLifecycleOwner) {
+            map.clear()
+            it.first.forEach { busStop ->
                 val latLng = LatLng(busStop.lat!!, busStop.lng!!)
                 map.addMarker(
                     MarkerOptions().position(latLng).title(busStop.name).icon(
                         BitmapHelper.vectorToBitmap(
                             requireContext(),
-                            R.drawable.bus_stop,
+                            R.drawable.pin_bus_stop,
                             ContextCompat.getColor(requireActivity(), R.color.md_theme_error)
                         )
                     )
                 )
             }
-        }
-
-        mapViewModel.vehiclePositions.observe(viewLifecycleOwner) {
-            it.forEach { vehicle ->
+            it.second.forEach { vehicle ->
                 val latLng = LatLng(vehicle.lat!!, vehicle.lng!!)
                 map.addMarker(
                     MarkerOptions().position(latLng).title(vehicle.prefix).icon(
                         BitmapHelper.vectorToBitmap(
                             requireContext(),
-                            R.drawable.baseline_directions_bus_24,
+                            R.drawable.pin_bus,
                             ContextCompat.getColor(requireActivity(), R.color.primary)
                         )
                     )
                 )
             }
         }
+    }
+
+    override fun onDestroy() {
+        mapViewModel.clearData()
+        super.onDestroy()
     }
 
 }

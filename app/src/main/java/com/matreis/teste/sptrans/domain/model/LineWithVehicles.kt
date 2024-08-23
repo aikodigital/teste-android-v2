@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class LineWithVehicles(
     @SerializedName("c"   ) var fullSign   : String?       = null,
-    @SerializedName("cl"  ) var lineCode  : Int?          = null,
+    @SerializedName("cl"  ) var lineCode  : Long?          = null,
     @SerializedName("sl"  ) var direction  : Int?          = null,
     @SerializedName("lt0" ) var destinationSign : String?       = null,
     @SerializedName("lt1" ) var originSign : String?       = null,

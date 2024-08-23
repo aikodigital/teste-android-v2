@@ -8,7 +8,15 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.matreis.teste.sptrans.presentation.fragment.MapFragment"
-        android:label="MapFragment" />
+        android:label="MapFragment" >
+        <action
+            android:id="@+id/action_mapFragment_to_busStopTimesFragment"
+            app:destination="@id/busStopTimesFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/busStopFragment"
         android:name="com.matreis.teste.sptrans.presentation.fragment.BusStopFragment"
@@ -40,4 +48,9 @@
         android:name="com.matreis.teste.sptrans.presentation.fragment.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/busStopTimesFragment"
+        android:name="com.matreis.teste.sptrans.presentation.fragment.BusStopTimesFragment"
+        android:label="fragment_bus_stop_times"
+        tools:layout="@layout/fragment_bus_stop_times" />
 </navigation>

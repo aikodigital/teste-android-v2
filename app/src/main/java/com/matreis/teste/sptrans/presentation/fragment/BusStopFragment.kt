@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import com.matreis.teste.sptrans.R
 import com.matreis.teste.sptrans.databinding.FragmentBusStopBinding
+import com.matreis.teste.sptrans.domain.model.Vehicle
 import com.matreis.teste.sptrans.presentation.adapter.BusStopWithVehicleAdapter
+import com.matreis.teste.sptrans.presentation.dialog.DialogBusInfo
 import com.matreis.teste.sptrans.viewmodels.BusStopViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +28,7 @@ class BusStopFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBusStopBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,14 +42,51 @@ class BusStopFragment : Fragment() {
     private fun setupRecyclerView() {
         binding.rvBusStop.apply {
             layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-            adapter = busStopAdapter
+            adapter = busStopAdapter.also { adapter ->
+                adapter.onVehicleClick = {
+                    binding.searchBar.clearFocus()
+                    val dialog = DialogBusInfo()
+                    dialog.setVehicle(it)
+                    dialog.show(childFragmentManager, "dialog")
+                }
+            }
             setHasFixedSize(true)
         }
     }
 
+
+
     private fun initObservers() {
         busStopViewModel.busStops.observe(viewLifecycleOwner) {
+            handleEmptyList(it.isEmpty())
             busStopAdapter.submitList(it)
+        }
+        busStopViewModel.isLoading.observe(viewLifecycleOwner) {
+            if(it) {
+                binding.clHint.visibility = View.GONE
+                binding.clEmpty.visibility = View.GONE
+                binding.rvBusStop.visibility = View.GONE
+            }
+            binding.progressStop.visibility = if (it) View.VISIBLE else View.GONE
+        }
+        busStopViewModel.error.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { messageId ->
+                handleEmptyList(true)
+                Snackbar.make(binding.root, getString(messageId), Snackbar.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun handleEmptyList(empty: Boolean) {
+        binding.progressStop.visibility = View.GONE
+        if (empty) {
+            binding.rvBusStop.visibility = View.GONE
+            binding.clHint.visibility = View.GONE
+            binding.clEmpty.visibility = View.VISIBLE
+        }else {
+            binding.rvBusStop.visibility = View.VISIBLE
+            binding.clEmpty.visibility = View.GONE
+            binding.clHint.visibility = View.GONE
         }
     }
 

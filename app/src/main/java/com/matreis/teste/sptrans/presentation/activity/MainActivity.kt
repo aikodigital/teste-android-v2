@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.mapFragment) {
+            if(destination.id == R.id.mapFragment || destination.id == R.id.busStopTimesFragment) {
                 binding.bottomNav.visibility = View.GONE
             }else {
                 binding.bottomNav.visibility = View.VISIBLE

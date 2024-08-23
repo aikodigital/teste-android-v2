@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.matreis.teste.sptrans.databinding.ItemBusStopBinding
 import com.matreis.teste.sptrans.domain.model.BusStop
+import com.matreis.teste.sptrans.domain.model.Vehicle
 
 class BusStopWithVehicleAdapter(): RecyclerView.Adapter<BusStopWithVehicleAdapter.MyBusStopWithVehicle>() {
 
+    var onVehicleClick: ((Vehicle) -> Unit) = {}
     private var busStops: MutableList<BusStop> = mutableListOf()
     fun submitList(busStops: List<BusStop>) {
         this.busStops.clear()
@@ -20,7 +22,9 @@ class BusStopWithVehicleAdapter(): RecyclerView.Adapter<BusStopWithVehicleAdapte
         fun bind(busStop: BusStop) {
             itemBusStopBinding.tvStopName.text = busStop.name
             itemBusStopBinding.tvStopAddress.text = busStop.address
-            val busTimeAdapter = BusTimeAdapter()
+            val busTimeAdapter = BusTimeAdapter {
+                onVehicleClick(it)
+            }
             itemBusStopBinding.gridBusTime.apply {
                 layoutManager = GridLayoutManager(context, 3)
                 adapter = busTimeAdapter

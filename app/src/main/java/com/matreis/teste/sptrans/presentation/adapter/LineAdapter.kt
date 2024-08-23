@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.matreis.teste.sptrans.R
 import com.matreis.teste.sptrans.databinding.ItemLineBinding
 import com.matreis.teste.sptrans.domain.model.Line
+import com.matreis.teste.sptrans.helper.getDirection
 
 class LineAdapter: RecyclerView.Adapter<LineAdapter.MyLineViewHolder>() {
 
@@ -25,11 +26,7 @@ class LineAdapter: RecyclerView.Adapter<LineAdapter.MyLineViewHolder>() {
     inner class MyLineViewHolder(private val binding: ItemLineBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(line: Line) {
             val lineNumber = "${line.firstNumericSign} - ${line.secondNumericSign}"
-            val lineName = when(line.direction) {
-                1 -> "${line.mainTerminalDescription} -> ${line.secondaryTerminalDescription}"
-                2 -> "${line.secondaryTerminalDescription} -> ${line.mainTerminalDescription}"
-                else -> line.mainTerminalDescription
-            }
+            val lineName = line.getDirection()
             binding.apply {
                 tvLineName.text = lineName
                 tvLineNumber.text = lineNumber
