@@ -27,6 +27,6 @@
     <string name="error_get_bus_stop">Falha ao obter paradas</string>
     <string name="no_bus_stop_found">Nenhuma parada encontrada</string>
     <string name="line">Linha</string>
-    <string name="bus_detail">Detalhes do ônibus</string>
+    <string name="bus_detail">Linha do ônibus</string>
     <string name="error_get_arrival_times">Falha ao obter previsões dos veículos</string>
 </resources>
