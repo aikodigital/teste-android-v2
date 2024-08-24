@@ -1,12 +1,12 @@
 package com.example.aikospbus.di
 
 import android.content.Context
-import com.example.aikospbus.data.WordDataBase
-import com.example.aikospbus.data.daos.WordDao
-import com.example.aikospbus.data.daos.WordDataSource
-import com.example.aikospbus.data.daos.WordLocalDataSource
-import com.example.aikospbus.data.repository.WordRepository
-import com.example.aikospbus.data.repository.WordRepositoryImpl
+import com.example.aikospbus.data.AppDataBase
+import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationDao
+import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationDataSource
+import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationLocalDataSource
+import com.example.aikospbus.feature_bus_location.data.repository.BusLocationRepository
+import com.example.aikospbus.feature_bus_location.data.repository.BusLocationRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,22 +18,22 @@ import dagger.hilt.components.SingletonComponent
 object RoomModule {
 
     @Provides
-    fun provideWordDataBase(@ApplicationContext context: Context): WordDataBase {
-        return WordDataBase.getDataBaseInstance(context)
+    fun provideAppDataBase(@ApplicationContext context: Context): AppDataBase {
+        return AppDataBase.getDataBaseInstance(context)
     }
 
     @Provides
-    fun wordDao(wordDataBase: WordDataBase) : WordDao {
-        return wordDataBase.wordDao()
+    fun BusLocationDao(appDataBase: AppDataBase) : BusLocationDao {
+        return appDataBase.BusLocationDao()
     }
 
     @Provides
-    fun provideLocalWordDataSource(wordDao: WordDao) : WordDataSource {
-        return WordLocalDataSource(wordDao)
+    fun provideLocalBusLocationDataSource(busLocationDao: BusLocationDao) : BusLocationDataSource {
+        return BusLocationLocalDataSource(busLocationDao)
     }
 
     @Provides
-    fun wordRepository(dataSource: WordDataSource): WordRepository {
-        return WordRepositoryImpl(dataSource)
+    fun BusLocationRepository(dataSource: BusLocationDataSource): BusLocationRepository {
+        return BusLocationRepositoryImpl(dataSource)
     }
 }

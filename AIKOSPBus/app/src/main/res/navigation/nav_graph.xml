@@ -57,7 +57,7 @@
         tools:layout="@layout/fragment_bus_lines" />
     <fragment
         android:id="@+id/busLocationFragment"
-        android:name="com.example.aikospbus.feature_bus_location.BusLocationFragment"
+        android:name="com.example.aikospbus.feature_bus_location.presentation.BusLocationFragment"
         android:label="fragment_bus_location"
         tools:layout="@layout/fragment_bus_location" />
     <fragment

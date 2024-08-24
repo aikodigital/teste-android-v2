@@ -1,4 +1,4 @@
-package com.example.aikospbus.feature_bus_location
+package com.example.aikospbus.feature_bus_location.presentation
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.aikospbus.data.models.Word
+import com.example.aikospbus.feature_bus_location.domain.model.BusLocation
 import com.example.aikospbus.databinding.FragmentBusLocationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,12 +34,12 @@ class BusLocationFragment : Fragment() {
     ): View {
         _binding = FragmentBusLocationBinding.inflate(inflater, container, false)
 
-        val wordObject = Word(
+        val busLocationObject = BusLocation(
             id = 0,
             word = "Teste",
         )
 
-        viewModel.insertWord(wordObject)
+        viewModel.insertBusLocation(busLocationObject)
 
         return binding.root
     }

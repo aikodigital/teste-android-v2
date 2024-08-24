@@ -4,36 +4,35 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.example.aikospbus.data.daos.WordDao
-import com.example.aikospbus.data.models.Word
+import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationDao
+import com.example.aikospbus.feature_bus_location.domain.model.BusLocation
 import com.example.aikospbus.data.roomConverters.WordConverter
 
 @Database(
-    entities = [Word::class],
+    entities = [BusLocation::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(
     WordConverter::class
 )
-abstract class WordDataBase: RoomDatabase() {
+abstract class AppDataBase: RoomDatabase() {
 
-    abstract fun wordDao(): WordDao
+    abstract fun BusLocationDao(): BusLocationDao
 
 
     companion object {
 
         @Volatile
-        private var INSTANCE: WordDataBase? = null
+        private var INSTANCE: AppDataBase? = null
 
-        fun getDataBaseInstance(context: Context): WordDataBase{
+        fun getDataBaseInstance(context: Context): AppDataBase{
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    WordDataBase::class.java,
-                    "word.db"
+                    AppDataBase::class.java,
+                    "app.db"
                 ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance

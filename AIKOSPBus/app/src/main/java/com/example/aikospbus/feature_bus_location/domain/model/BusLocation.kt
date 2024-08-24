@@ -1,10 +1,10 @@
-package com.example.aikospbus.data.models
+package com.example.aikospbus.feature_bus_location.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "word")
-data class Word(
+@Entity(tableName = "busLocation")
+data class BusLocation(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val word: String = ""

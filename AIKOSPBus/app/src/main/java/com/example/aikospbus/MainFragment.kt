@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.aikospbus.databinding.FragmentMainBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
-import com.example.aikospbus.feature_api_sp_trans.remote.models.Bus
+import com.example.aikospbus.feature_bus_location.data.remote.dto.Bus
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Corredor
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Parada
 import com.example.aikospbus.feature_api_sp_trans.remote.models.PrevisaoChegada

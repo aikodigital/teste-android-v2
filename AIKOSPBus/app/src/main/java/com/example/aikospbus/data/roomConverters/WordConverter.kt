@@ -1,7 +1,7 @@
 package com.example.aikospbus.data.roomConverters
 
 import androidx.room.TypeConverter
-import com.example.aikospbus.data.models.Word
+import com.example.aikospbus.feature_bus_location.domain.model.BusLocation
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.Collections
@@ -12,17 +12,17 @@ class WordConverter {
     private val gson = Gson()
 
     @TypeConverter
-    fun fromWordsToString(wordList: List<Word>): String {
-        return gson.toJson(wordList)
+    fun fromWordsToString(busLocationList: List<BusLocation>): String {
+        return gson.toJson(busLocationList)
     }
 
     @TypeConverter
-    fun stringToWords(wordString: String): List<Word>? {
+    fun stringToWords(wordString: String): List<BusLocation>? {
         if (wordString.isEmpty()) {
             return Collections.emptyList()
         }
 
-        val listType = object : TypeToken<List<Word>>() {}.type
+        val listType = object : TypeToken<List<BusLocation>>() {}.type
 
         return gson.fromJson(wordString,listType)
     }
