@@ -5,6 +5,7 @@ import com.example.aikospbus.data.AppDataBase
 import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationDao
 import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationDataSource
 import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationLocalDataSource
+import com.example.aikospbus.feature_bus_location.data.remote.api.BusLocationDataService
 import com.example.aikospbus.feature_bus_location.data.repository.BusLocationRepository
 import com.example.aikospbus.feature_bus_location.data.repository.BusLocationRepositoryImpl
 import dagger.Module
@@ -34,6 +35,7 @@ object RoomModule {
 
     @Provides
     fun BusLocationRepository(dataSource: BusLocationDataSource): BusLocationRepository {
-        return BusLocationRepositoryImpl(dataSource)
+        return BusLocationRepositoryImpl(dataSource,BusLocationDataService.create())
     }
+
 }

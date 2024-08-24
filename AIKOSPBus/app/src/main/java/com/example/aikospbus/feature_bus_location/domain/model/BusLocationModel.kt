@@ -1,12 +1,12 @@
-package com.example.aikospbus.feature_bus_location.data.remote.dto
+package com.example.aikospbus.feature_bus_location.domain.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Veiculo
-import com.google.gson.annotations.SerializedName
 
-data class Bus(
-    @SerializedName("hr")
+@Entity(tableName = "busLocation")
+data class BusLocationModel(
+    @PrimaryKey(autoGenerate = false)
     val horaConsulta: String,            // Horário da consulta da posição
-
-    @SerializedName("vs")
     val veiculos: List<Veiculo>          // Lista de veículos na linha
 )

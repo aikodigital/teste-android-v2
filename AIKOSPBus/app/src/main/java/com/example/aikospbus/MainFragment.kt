@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.aikospbus.databinding.FragmentMainBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
-import com.example.aikospbus.feature_bus_location.data.remote.dto.Bus
+import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Corredor
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Parada
 import com.example.aikospbus.feature_api_sp_trans.remote.models.PrevisaoChegada
@@ -42,7 +42,8 @@ class MainFragment : Fragment() {
 
         binding.nav.setOnClickListener {
 //            findNavController().navigate(R.id.action_FirstFragment_to_mapsFragment)
-           getPrevisaoChegada()
+//           getPrevisaoChegada()
+            getloc()
         }
 
 
@@ -70,6 +71,8 @@ class MainFragment : Fragment() {
                     SPTransApi.retrofitService.authentication("604a216ace42329aa7581b9c6056a8a3dc2f574a680411928d5570478ca4c707")
                         .apply {
                             COOKIE = headers().get("Set-Cookie").toString()
+                            val cookieHeader = headers().get("Set-Cookie") ?: ""
+                            ApiConfig.cookie = cookieHeader
                             println("COOKIE: $COOKIE")
                         }
 
@@ -99,7 +102,7 @@ class MainFragment : Fragment() {
 
     private fun getloc() {
         CoroutineScope(Dispatchers.IO).launch {
-            val response: Bus = SPTransApi.retrofitService.getLinePosition(COOKIE, 841)
+            val response: BusDto = SPTransApi.retrofitService.getLinePosition(ApiConfig.cookie, 841)
             response.veiculos.forEach { veiculo ->
                 println("Veiculo Prefixo: ${veiculo.prefixo}")
                 println("Localizacao: (${veiculo.latitude}, ${veiculo.longitude})")

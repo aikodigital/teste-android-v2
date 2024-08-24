@@ -71,6 +71,12 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
+    implementation("io.ktor:ktor-client-core:1.6.3")
+    implementation("io.ktor:ktor-client-android:1.6.3")
+    implementation("io.ktor:ktor-client-serialization:1.6.3")
+    implementation("io.ktor:ktor-client-logging:1.6.3")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("io.ktor:ktor-auth:1.6.3")
 
 
 }

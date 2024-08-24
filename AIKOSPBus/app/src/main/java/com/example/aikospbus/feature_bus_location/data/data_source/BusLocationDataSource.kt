@@ -1,14 +1,13 @@
 package com.example.aikospbus.feature_bus_location.data.data_source
 
-import com.example.aikospbus.feature_bus_location.domain.model.BusLocation
+import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
+import com.example.aikospbus.feature_bus_location.domain.model.BusLocationModel
 
 interface BusLocationDataSource {
 
-    suspend fun insertBusLocation(busLocation: BusLocation)
+    suspend fun insertBusLocation(busLocationModel: BusLocationModel)
 
-    suspend fun insertBusLocationList(busLocationList: List<BusLocation>)
+    suspend fun getBusLocation(): BusLocationModel
 
-    suspend fun getBusLocationWords(): List<BusLocation>
-
-    suspend fun updateBusLocation(busLocation: BusLocation)
+    suspend fun updateBusLocation(busLocationModel: BusLocationModel)
 }

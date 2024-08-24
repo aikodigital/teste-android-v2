@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationDao
-import com.example.aikospbus.feature_bus_location.domain.model.BusLocation
+import com.example.aikospbus.feature_bus_location.domain.model.BusLocationModel
 import com.example.aikospbus.data.roomConverters.WordConverter
 
 @Database(
-    entities = [BusLocation::class],
+    entities = [BusLocationModel::class],
     version = 1,
     exportSchema = false
 )
