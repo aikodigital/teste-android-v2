@@ -1,5 +1,6 @@
 package com.cesarsoftdevelopment.aikopublictransport.data.remote.network
 
+import com.cesarsoftdevelopment.aikopublictransport.data.network.PublicTransportApi
 import com.google.common.truth.Truth
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
@@ -40,7 +41,7 @@ class PublicTransportApiTest {
 
         runBlocking {
             enqueueMockResponse(filename = "buslinesresponse.json")
-            val responseBody = service.getLines("Lapa").body()
+            val responseBody = service.getBusLines("Lapa").body()
             val request = server.takeRequest()
             Truth.assertThat(responseBody).isNotNull()
             Truth.assertThat(request.path).isEqualTo("/Linha/Buscar?termosBusca=Lapa")
@@ -51,7 +52,7 @@ class PublicTransportApiTest {
     fun getBusLines_receivedResponse_correctContent() {
         runBlocking {
             enqueueMockResponse(filename = "buslinesresponse.json")
-            val responseBody = service.getLines("Lapa").body()
+            val responseBody = service.getBusLines("Lapa").body()
             val articlesList = responseBody!![0]
                 Truth.assertThat(articlesList.lineCode).isEqualTo(841)
                 Truth.assertThat(articlesList.circularLine).isEqualTo(false)

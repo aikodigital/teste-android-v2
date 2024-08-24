@@ -1,10 +1,8 @@
 package com.cesarsoftdevelopment.aikopublictransport.domain.usecase
 
-import com.cesarsoftdevelopment.aikopublictransport.domain.repository.BusLineRepository
+import com.cesarsoftdevelopment.aikopublictransport.domain.repository.BusLinesRepository
 
-class GetBusLineUseCase(private val busLineRepository: BusLineRepository) {
-    suspend fun invoke(termsSearch : String) = busLineRepository
-
-
+class GetBusLinesUseCase(private val busLinesRepository: BusLinesRepository) {
+    suspend operator fun invoke(termsSearch : String) = busLinesRepository.getBusLines(termsSearch)
 
 }

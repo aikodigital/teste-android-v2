@@ -1,9 +1,9 @@
 package com.cesarsoftdevelopment.aikopublictransport.domain.usecase
 
-import com.cesarsoftdevelopment.aikopublictransport.domain.repository.StopRepository
+import com.cesarsoftdevelopment.aikopublictransport.domain.repository.StopsRepository
 
-class GetStopByLineUseCase(private val stopsRepository: StopRepository) {
-    suspend fun invoke(lineCode: Int) = stopsRepository
+class GetStopsByLineUseCase(private val stopsRepository: StopsRepository) {
+    suspend operator fun invoke(lineCode: Int) = stopsRepository.getStopsByLine(lineCode)
 
 
 

@@ -1,7 +1,7 @@
 package com.cesarsoftdevelopment.aikopublictransport.data.repository.datasource
 
 import retrofit2.Response
-interface AuthenticateDataSource {
+interface UserRemoteDataSource {
     suspend fun authenticate(token: String): Response<Boolean>
 
 }

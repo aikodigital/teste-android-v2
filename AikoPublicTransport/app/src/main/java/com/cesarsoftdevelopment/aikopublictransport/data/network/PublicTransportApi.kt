@@ -1,4 +1,4 @@
-package com.cesarsoftdevelopment.aikopublictransport.data.source.remote.network
+package com.cesarsoftdevelopment.aikopublictransport.data.network
 
 import com.cesarsoftdevelopment.aikopublictransport.data.model.BusLineItem
 import com.cesarsoftdevelopment.aikopublictransport.data.model.EstimatedArrivalTime

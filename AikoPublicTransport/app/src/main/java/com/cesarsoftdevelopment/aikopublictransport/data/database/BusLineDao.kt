@@ -1,4 +1,4 @@
-package com.cesarsoftdevelopment.aikopublictransport.data.source.local.database
+package com.cesarsoftdevelopment.aikopublictransport.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert

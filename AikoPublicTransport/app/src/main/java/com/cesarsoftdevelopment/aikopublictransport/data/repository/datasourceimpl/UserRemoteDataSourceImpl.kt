@@ -1,4 +1,10 @@
 package com.cesarsoftdevelopment.aikopublictransport.data.repository.datasourceimpl
 
-class UserRemoteDataSourceImpl {
+import com.cesarsoftdevelopment.aikopublictransport.data.repository.datasource.UserRemoteDataSource
+import retrofit2.Response
+
+class UserRemoteDataSourceImpl : UserRemoteDataSource {
+    override suspend fun authenticate(token: String): Response<Boolean> {
+        TODO("Not yet implemented")
+    }
 }

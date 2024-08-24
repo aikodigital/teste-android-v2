@@ -5,4 +5,5 @@
     <string name="map">Mapa</string>
     <string name="bus_lines">Buscar Linhas</string>
     <string name="search_historic">Histórico</string>
+    <string name="text_default_line">118Y-10 - LAPA</string>
 </resources>

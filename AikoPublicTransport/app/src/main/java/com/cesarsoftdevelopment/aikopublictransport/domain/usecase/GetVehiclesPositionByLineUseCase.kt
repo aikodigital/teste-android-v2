@@ -1,11 +1,7 @@
 package com.cesarsoftdevelopment.aikopublictransport.domain.usecase
 
-import com.cesarsoftdevelopment.aikopublictransport.domain.repository.VehiclePositionRepository
+import com.cesarsoftdevelopment.aikopublictransport.domain.repository.VehiclesPositionRepository
 
-class GetVehiclePositionByLineUseCase(private val vehiclePositionRepository: VehiclePositionRepository) {
-    suspend fun invoke() = vehiclePositionRepository
-
-
-
-
+class GetVehiclesPositionByLineUseCase(private val vehiclesPositionRepository: VehiclesPositionRepository) {
+    suspend operator fun invoke(lineCode : Int) = vehiclesPositionRepository.getVehiclesPositionByLine(lineCode)
 }

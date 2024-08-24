@@ -1,6 +1,6 @@
 package com.cesarsoftdevelopment.aikopublictransport.di.modules
 
-import com.cesarsoftdevelopment.aikopublictransport.data.remote.network.PublicTransportApi
+import com.cesarsoftdevelopment.aikopublictransport.data.network.PublicTransportApi
 import com.cesarsoftdevelopment.aikopublictransport.utils.AppStrings
 import dagger.Module
 import dagger.Provides

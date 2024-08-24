@@ -1,11 +1,11 @@
 package com.cesarsoftdevelopment.aikopublictransport.domain.usecase
 
-import com.cesarsoftdevelopment.aikopublictransport.domain.repository.EstimatedArrivalTimeRepository
+import com.cesarsoftdevelopment.aikopublictransport.domain.repository.EstimatedArrivalTimesRepository
 
-class GetEstimatedArrivalTimeByStopUseCase(
-    private val estimatedArrivalTimeRepository: EstimatedArrivalTimeRepository
+class GetEstimatedArrivalTimesByStopUseCase(
+    private val estimatedArrivalTimesRepository: EstimatedArrivalTimesRepository
 ) {
-    suspend fun invoke(stopCode : Int) = estimatedArrivalTimeRepository
+    suspend operator fun invoke(stopCode : Int) = estimatedArrivalTimesRepository.getEstimatedArrivalTimesByStop(stopCode)
 
 
 }
