@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.aikospbus.data.models.Word
 import com.example.aikospbus.databinding.FragmentBusLocationBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BusLocationFragment : Fragment() {
 
     private var _binding: FragmentBusLocationBinding? = null
@@ -30,6 +33,14 @@ class BusLocationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBusLocationBinding.inflate(inflater, container, false)
+
+        val wordObject = Word(
+            id = 0,
+            word = "Teste",
+            counter = 0
+        )
+
+        viewModel.insertWord(wordObject)
 
         return binding.root
     }

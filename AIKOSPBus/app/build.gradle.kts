@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.hilt)
+    id("kotlin-kapt")
 }
 
 android {
@@ -59,4 +61,22 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
 
+
+    //ROOM
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
+    testImplementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.androidx.room.testing)
+    implementation(libs.kotlinx.serialization.json)
+    implementation("com.google.dagger:hilt-android:2.47") // Adjust version as needed
+    kapt("com.google.dagger:hilt-compiler:2.47")
 }
+
+//configurations.all {
+//    resolutionStrategy.eachDependency {
+//        if (requested.name == "javapoet") {
+//            useVersion("1.13.0")
+//        }
+//    }
+//}
