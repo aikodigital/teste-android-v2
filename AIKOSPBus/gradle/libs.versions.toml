@@ -1,26 +1,27 @@
 [versions]
-agp = "8.5.1"
-hilt = "2.47"
+agp = "7.4.2"
+hilt = "2.44"
 hiltCompiler = "2.44"
 android = "11.6.0"
-kotlin = "1.9.0"
-coreKtx = "1.13.1"
+javapoet = "1.13.0"
+kotlin = "1.8.0"
+coreKtx = "1.10.0"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
-appcompat = "1.7.0"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
 loggingInterceptor = "4.9.0"
 mapboxAndroidSdk = "10.11.2"
-material = "1.12.0"
+material = "1.8.0"
 constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.6.0"
-navigationUiKtx = "2.6.0"
+navigationUiKtx = "2.5.3"
 googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 playServicesMaps = "18.1.0"
 retrofit = "2.9.0"
 legacySupportV4 = "1.0.0"
-lifecycleLivedataKtx = "2.8.4"
-lifecycleViewmodelKtx = "2.8.4"
+lifecycleLivedataKtx = "2.6.1"
+lifecycleViewmodelKtx = "2.6.1"
 fragmentKtx = "1.5.6"
 
 room = "2.5.1"
@@ -29,7 +30,9 @@ kotlinx-serialization-json = "1.5.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltCompiler" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
+javapoet = { module = "com.squareup:javapoet", version.ref = "javapoet" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -57,6 +60,5 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-android-libraries-mapsplatform-secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
-kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version = "1.8.0" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 

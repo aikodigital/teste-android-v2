@@ -3,7 +3,8 @@ plugins {
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt)
-    id("kotlin-kapt")
+//    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -39,6 +40,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    ksp {
+        arg("dagger.hilt.android.internal.disableAndroidSuperclassValidation", "true")
+    }
 }
 
 dependencies {
@@ -65,12 +69,13 @@ dependencies {
     //ROOM
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     testImplementation(libs.androidx.room.testing)
     androidTestImplementation(libs.androidx.room.testing)
     implementation(libs.kotlinx.serialization.json)
-    implementation("com.google.dagger:hilt-android:2.47") // Adjust version as needed
-    kapt("com.google.dagger:hilt-compiler:2.47")
+    implementation(libs.hilt.android) // Adjust version as needed
+    ksp(libs.hilt.compiler)
+    implementation(libs.javapoet)
 }
 
 //configurations.all {

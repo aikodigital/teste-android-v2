@@ -37,7 +37,6 @@ class BusLocationFragment : Fragment() {
         val wordObject = Word(
             id = 0,
             word = "Teste",
-            counter = 0
         )
 
         viewModel.insertWord(wordObject)
