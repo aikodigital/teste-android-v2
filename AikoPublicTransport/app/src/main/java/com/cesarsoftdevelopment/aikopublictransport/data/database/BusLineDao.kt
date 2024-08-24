@@ -1,9 +1,10 @@
-package com.cesarsoftdevelopment.aikopublictransport.data.local.database
+package com.cesarsoftdevelopment.aikopublictransport.data.source.local.database
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.cesarsoftdevelopment.aikopublictransport.data.model.BusLineEntity
 
 @Dao
 interface BusLineDao {

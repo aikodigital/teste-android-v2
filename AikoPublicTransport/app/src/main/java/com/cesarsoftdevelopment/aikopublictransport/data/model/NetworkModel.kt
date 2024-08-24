@@ -1,8 +1,8 @@
-package com.cesarsoftdevelopment.aikopublictransport.data.remote.model
+package com.cesarsoftdevelopment.aikopublictransport.data.model
 
 import com.google.gson.annotations.SerializedName
-class NetworkBusLine : ArrayList<NetworkBusLineItem>()
-data class NetworkBusLineItem(
+
+data class BusLineItem(
     @SerializedName("c")
     val fullSign : Int,
     @SerializedName("cl")
@@ -26,11 +26,11 @@ data class NetworkBusLineItem(
     @SerializedName("ts")
     val secondaryTerminal : String?,
     @SerializedName("vs")
-    val vehicles : List<NetworkVehicleItem>,
+    val vehicles : List<VehicleItem>,
 )
 
-class NetworkStop : ArrayList<NetworkStopItem>()
-data class NetworkStopItem(
+
+data class StopItem(
     @SerializedName("cp")
     val stopCode : Int,
     @SerializedName("np")
@@ -42,18 +42,19 @@ data class NetworkStopItem(
     @SerializedName("px")
     val stopLongitude : Double,
     @SerializedName("l")
-    val lines : List<NetworkBusLineItem>,
+    val lines : List<BusLineItem>,
 
-)
+    )
 
-data class NetworkVehiclePosition(
+data class VehiclePosition(
     @SerializedName("hr")
     val currentTime : String,
     @SerializedName("vs")
-    val vehicles : List<NetworkVehicleItem>
+    val vehicles : List<VehicleItem>
 )
 
-data class NetworkVehicleItem(
+
+data class VehicleItem(
     @SerializedName("p")
     val vehiclePrefix : String?,
     @SerializedName("a")
@@ -68,9 +69,9 @@ data class NetworkVehicleItem(
     val vehicleLongitude : Double,
 )
 
-data class NetworkEstimatedArrivalTime (
+data class EstimatedArrivalTime (
     @SerializedName("hr")
     val currentTime : String,
     @SerializedName("p")
-    val stop : NetworkStopItem,
+    val stop : StopItem,
 )

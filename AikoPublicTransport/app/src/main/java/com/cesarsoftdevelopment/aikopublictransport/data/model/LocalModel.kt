@@ -1,4 +1,4 @@
-package com.cesarsoftdevelopment.aikopublictransport.data.local.database
+package com.cesarsoftdevelopment.aikopublictransport.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
