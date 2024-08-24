@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.aikospbus.databinding.FragmentMainBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Bus
@@ -143,8 +144,8 @@ class MainFragment : Fragment() {
     private fun setButtonsClickListeners() {
         with(binding) {
             busLocationBt.setOnClickListener {
-//                findNavController().navigate(R.id.action_FirstFragment_to_busLocationFragment)
-                getloc()
+                findNavController().navigate(R.id.action_FirstFragment_to_busLocationFragment)
+//                getloc()
             }
 
             busLinesBt.setOnClickListener {

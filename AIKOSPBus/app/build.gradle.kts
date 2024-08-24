@@ -2,9 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-//    id("kotlin-kapt")
-    id("com.google.devtools.ksp")
 }
 
 android {
@@ -40,9 +39,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    ksp {
-        arg("dagger.hilt.android.internal.disableAndroidSuperclassValidation", "true")
-    }
 }
 
 dependencies {
@@ -64,24 +60,17 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
+    implementation(libs.javapoet)
 
+    //HILT
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
 
     //ROOM
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-    testImplementation(libs.androidx.room.testing)
-    androidTestImplementation(libs.androidx.room.testing)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.hilt.android) // Adjust version as needed
-    ksp(libs.hilt.compiler)
-    implementation(libs.javapoet)
-}
+    implementation(libs.androidx.room.ktx)
 
-//configurations.all {
-//    resolutionStrategy.eachDependency {
-//        if (requested.name == "javapoet") {
-//            useVersion("1.13.0")
-//        }
-//    }
-//}
+
+
+}
