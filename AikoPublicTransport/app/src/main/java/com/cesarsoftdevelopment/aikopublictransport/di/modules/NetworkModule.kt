@@ -1,5 +1,6 @@
 package com.cesarsoftdevelopment.aikopublictransport.di.modules
 
+import com.cesarsoftdevelopment.aikopublictransport.data.remote.network.PublicTransportApi
 import com.cesarsoftdevelopment.aikopublictransport.utils.AppStrings
 import dagger.Module
 import dagger.Provides
@@ -23,7 +24,6 @@ class NetworkModule {
             val request = chain.request()
                 .newBuilder()
                 .build()
-
             chain.proceed(request)
         }
     }
@@ -55,10 +55,10 @@ class NetworkModule {
             .build()
     }
 
-//    @Singleton
-//    @Provides
-//    fun publicTransportApi(retrofit: Retrofit) : PetApi {
-//        return retrofit.create(PetApi::class.java)
-//    }
+    @Singleton
+    @Provides
+    fun publicTransportApi(retrofit: Retrofit) : PublicTransportApi {
+        return retrofit.create(PublicTransportApi::class.java)
+    }
 
 }

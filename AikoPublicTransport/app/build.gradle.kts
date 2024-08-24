@@ -79,6 +79,11 @@ dependencies {
 
     // SHIMMER
     implementation(libs.shimmer)
+    
+    // ROOM
+    implementation("androidx.room:room-runtime:2.2.0")
+    implementation("androidx.room:room-ktx:2.2.0")
+    kapt("androidx.room:room-compiler:2.2.0")
 
     // INSTRUMENTAL TEST
     testImplementation(libs.junit)

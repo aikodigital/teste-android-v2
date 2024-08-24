@@ -54,14 +54,22 @@ class HomeActivity : AppCompatActivity() {
     private fun setUpNavigationBar() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.mapsFragment -> {
-                    navController.navigate(R.id.mapsFragment)
+
+                R.id.searchHistoricFragment -> {
+                    navController.navigate(R.id.searchHistoricFragment)
                     true
                 }
+
                 R.id.busLinesFragment -> {
                     navController.navigate(R.id.busLinesFragment)
                     true
                 }
+
+                R.id.mapsFragment -> {
+                    navController.navigate(R.id.mapsFragment)
+                    true
+                }
+
                 else -> false
             }
         }

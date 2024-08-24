@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_graph"
-    app:startDestination="@id/mapsFragment">
+    app:startDestination="@id/searchHistoricFragment">
 
     <fragment
         android:id="@+id/mapsFragment"
@@ -15,4 +15,9 @@
         android:name="com.cesarsoftdevelopment.aikopublictransport.ui.home.view.BusLinesFragment"
         android:label="fragment_bus_lines"
         tools:layout="@layout/fragment_bus_lines" />
+    <fragment
+        android:id="@+id/searchHistoricFragment"
+        android:name="com.cesarsoftdevelopment.aikopublictransport.ui.home.view.SearchHistoricFragment"
+        android:label="SearchHistoricFragment"
+        tools:layout="@layout/fragment_search_historic"/>
 </navigation>
