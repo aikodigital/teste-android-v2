@@ -68,6 +68,8 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.mockwebserver)
+    testImplementation(libs.truth)
 
     // JETPACK NAVIGATION
     implementation(libs.androidx.navigation.fragment.ktx)

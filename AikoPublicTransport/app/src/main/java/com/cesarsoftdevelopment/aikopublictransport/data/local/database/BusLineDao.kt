@@ -11,10 +11,8 @@ interface BusLineDao {
     fun getAllBusLines(): List<BusLineEntity>
     @Query("DELETE FROM bus_line WHERE lineCode = :code")
     fun deleteBusLineByCode(code: Int)
-
     @Query("DELETE FROM bus_line")
     fun deleteAllBusLines()
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBusLine(busLine: BusLineEntity)
 
