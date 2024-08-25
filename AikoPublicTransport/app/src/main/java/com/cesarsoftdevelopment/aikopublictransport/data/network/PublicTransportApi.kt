@@ -6,6 +6,7 @@ import com.cesarsoftdevelopment.aikopublictransport.data.model.StopItem
 import com.cesarsoftdevelopment.aikopublictransport.data.model.VehiclePosition
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface PublicTransportApi {
@@ -29,7 +30,7 @@ interface PublicTransportApi {
         @Query("codigoParada") stopCode: Int
     ): Response<EstimatedArrivalTime>
 
-    @GET("/Previsao/Parada")
+    @POST("/Login/Autenticar")
     suspend fun authenticate(
         @Query("token") token: String
     ): Response<Boolean>

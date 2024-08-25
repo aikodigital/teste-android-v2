@@ -20,4 +20,9 @@
         android:name="com.cesarsoftdevelopment.aikopublictransport.ui.home.view.SearchHistoricFragment"
         android:label="SearchHistoricFragment"
         tools:layout="@layout/fragment_search_historic"/>
+    <fragment
+        android:id="@+id/noInternetFragment"
+        android:name="com.cesarsoftdevelopment.aikopublictransport.ui.home.view.NoInternetFragment"
+        android:label="fragment_no_internet"
+        tools:layout="@layout/fragment_no_internet" />
 </navigation>

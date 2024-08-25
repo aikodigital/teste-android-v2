@@ -1,18 +1,20 @@
 package com.cesarsoftdevelopment.aikopublictransport.data.repository.datasourceimpl
 
+import com.cesarsoftdevelopment.aikopublictransport.data.model.BusLineItem
 import com.cesarsoftdevelopment.aikopublictransport.data.network.PublicTransportApi
-import com.cesarsoftdevelopment.aikopublictransport.data.repository.datasource.UserRemoteDataSource
+import com.cesarsoftdevelopment.aikopublictransport.data.repository.datasource.BusLinesRemoteDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import retrofit2.Response
+import javax.inject.Inject
 
-class UserRemoteDataSourceImpl(private val publicTransportApi: PublicTransportApi) : UserRemoteDataSource {
-    override suspend fun authenticate(token: String): Response<Boolean> {
+class BusLinesRemoteDataSourceImpl (private val publicTransportApi: PublicTransportApi) : BusLinesRemoteDataSource {
+    override suspend fun getBusLines(termsSearch: String): Response<List<BusLineItem>> {
 
         return withContext(Dispatchers.IO) {
             try {
-                val response = publicTransportApi.authenticate(token)
+                val response = publicTransportApi.getBusLines(termsSearch)
 
                 if (response.isSuccessful) {
                     val busLineList = response.body()
@@ -29,6 +31,6 @@ class UserRemoteDataSourceImpl(private val publicTransportApi: PublicTransportAp
                 Response.error(500, ResponseBody.create(null, "Exception occurred: ${err.message}"))
             }
         }
-
     }
+
 }

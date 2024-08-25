@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class BusLineItem(
     @SerializedName("c")
-    val fullSign : Int,
+    val fullSign : String?,
     @SerializedName("cl")
     val lineCode : Int,
     @SerializedName("lc")
