@@ -2,6 +2,7 @@ package com.matreis.teste.sptrans.presentation.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding: FragmentMapBinding
     private lateinit var map: GoogleMap
     private val mapViewModel: MapViewModel by viewModels()
+    private val vehiclesMarkers = mutableListOf<Marker>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,19 +83,17 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    /**
+     * Uncomment line 94 and 182-184 for getting road speed
+     * its important to say that will cause a delay in the map loading
+     * and it may cause ui freezing and will disable marker click
+     */
     @SuppressLint("PotentialBehaviorOverride")
     override fun onMapReady(p0: GoogleMap) {
         map = p0
-        map.uiSettings.isZoomControlsEnabled = true
-        map.uiSettings.isZoomGesturesEnabled = true
-        map.uiSettings.isScrollGesturesEnabled = true
-        map.uiSettings.isRotateGesturesEnabled = true
-        map.uiSettings.isMyLocationButtonEnabled = true
+        setMapUiSettings()
+        setDefaultMapCamera()
         //mapViewModel.getRoadSpeed(requireContext(), map)
-        val location = CameraUpdateFactory.newLatLngZoom(
-            LatLng(-23.555883, -46.66306), 10f
-        )
-        map.animateCamera(location)
         map.setOnMarkerClickListener { marker ->
             showMarkerInfo(marker)
             true
@@ -118,6 +118,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    private fun setMapUiSettings() {
+        map.uiSettings.isZoomControlsEnabled = true
+        map.uiSettings.isZoomGesturesEnabled = true
+        map.uiSettings.isScrollGesturesEnabled = true
+        map.uiSettings.isRotateGesturesEnabled = true
+        map.uiSettings.isMyLocationButtonEnabled = true
+    }
+
+    private fun setDefaultMapCamera() {
+        val location = CameraUpdateFactory.newLatLngZoom(
+            LatLng(-23.555883, -46.66306), 10f
+        )
+        map.animateCamera(location)
+    }
+
     private fun safeNavigateToBusStopFragment(busStop: BusStop) {
         val bundle = Bundle()
         bundle.putLong("stopCod", busStop.stopCod!!)
@@ -126,9 +141,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initMapsInformationObservers() {
-        mapViewModel.markers.observe(viewLifecycleOwner) { markers ->
-            map.clear()
-            markers.busStops.forEach { busStop ->
+        mapViewModel.error.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { error ->
+                Snackbar.make(binding.root, getString(error), Snackbar.LENGTH_LONG).show()
+            }
+        }
+        mapViewModel.busStops.observe(viewLifecycleOwner) { busStops ->
+            busStops.forEach { busStop ->
                 val latLng = LatLng(busStop.lat!!, busStop.lng!!)
                 map.addMarker(
                     MarkerOptions().position(latLng).title(busStop.name).icon(
@@ -140,9 +159,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     )
                 )
             }
-            markers.vehicles.forEach { vehicle ->
+        }
+        mapViewModel.vehicles.observe(viewLifecycleOwner) { vehicles ->
+            clearVehicleMarkers()
+            vehicles.forEach { vehicle ->
                 val latLng = LatLng(vehicle.lat!!, vehicle.lng!!)
-                map.addMarker(
+                val marker = map.addMarker(
                     MarkerOptions().position(latLng).title(vehicle.prefix).icon(
                         BitmapHelper.vectorToBitmap(
                             requireContext(),
@@ -151,16 +173,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         )
                     )
                 )
+                marker?.let {
+                    vehiclesMarkers.add(it)
+                }
             }
+
         }
-        mapViewModel.error.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { error ->
-                Snackbar.make(binding.root, getString(error), Snackbar.LENGTH_LONG).show()
-            }
-        }
-       /* mapViewModel.kmlLayer.observe(viewLifecycleOwner) { kmlLayer ->
+       /*mapViewModel.kmlLayer.observe(viewLifecycleOwner) { kmlLayer ->
             kmlLayer?.addLayerToMap()
-        }*/
+       }*/
+    }
+
+    private fun clearVehicleMarkers() {
+        vehiclesMarkers.forEach {
+            it.remove()
+        }
     }
 
 }

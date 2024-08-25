@@ -12,7 +12,6 @@ import com.matreis.teste.sptrans.R
 import com.matreis.teste.sptrans.data.preferences.UserPreferences
 import com.matreis.teste.sptrans.domain.model.BusStop
 import com.matreis.teste.sptrans.domain.model.Line
-import com.matreis.teste.sptrans.domain.model.MapMarkers
 import com.matreis.teste.sptrans.domain.model.Vehicle
 import com.matreis.teste.sptrans.domain.usecase.GetBusStopUseCase
 import com.matreis.teste.sptrans.domain.usecase.GetRoadSpeedUseCase
@@ -49,11 +48,14 @@ class MapViewModel @Inject constructor(
     private val _error = MutableLiveData<Event<Int>>()
     val error: LiveData<Event<Int>> get() = _error
 
-    private val _markers = MutableLiveData<MapMarkers>()
-    val markers: LiveData<MapMarkers> get() = _markers
-
     private val _kmlLayer = MutableLiveData<KmlLayer?>()
     val kmlLayer: LiveData<KmlLayer?> get() = _kmlLayer
+
+    private val _busStops = MutableLiveData<List<BusStop>>()
+    val busStops: LiveData<List<BusStop>> get() = _busStops
+
+    private val _vehicles = MutableLiveData<List<Vehicle>>()
+    val vehicles: LiveData<List<Vehicle>> get() = _vehicles
 
     private var busStopList = listOf<BusStop>()
 
@@ -64,10 +66,11 @@ class MapViewModel @Inject constructor(
             try {
                 val busStops = getBusStopByLine(lineCode)
                 busStopList = busStops
+                _busStops.postValue(busStops)
                 do {
                     Log.i("MapViewModel", "Getting vehicle positions for line: $lineCode")
                     val vehiclePositions = getVehiclePositionByLine(lineCode)
-                    _markers.postValue(MapMarkers(busStopList, vehiclePositions))
+                    _vehicles.postValue(vehiclePositions)
                     delay(updateInterval.toDuration(DurationUnit.SECONDS))
                 }while (isActive && keepUpdating)
             }catch (e: Exception){
