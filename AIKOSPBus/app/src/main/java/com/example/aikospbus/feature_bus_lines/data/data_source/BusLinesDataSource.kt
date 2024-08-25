@@ -6,5 +6,5 @@ interface BusLinesDataSource {
 
     suspend fun insertBusLines(busLinesModel: List<BusLinesModel>)
 
-    suspend fun getBusLines(): BusLinesModel
+    suspend fun getBusLines(): List<BusLinesModel>?
 }

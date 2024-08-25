@@ -13,5 +13,5 @@ interface BusLinesDao {
     suspend fun insertBusLines(busLinesModel: List<BusLinesModel>)
 
     @Query("SELECT * FROM busLines")
-    suspend fun getBusLines(): BusLinesModel
+    suspend fun getBusLines(): List<BusLinesModel>?
 }

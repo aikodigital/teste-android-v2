@@ -8,7 +8,7 @@ class BusLinesLocalDataSource(private val busLinesDao: BusLinesDao) : BusLinesDa
         return busLinesDao.insertBusLines(busLinesModel)
     }
 
-    override suspend fun getBusLines(): BusLinesModel {
+    override suspend fun getBusLines(): List<BusLinesModel>? {
         return busLinesDao.getBusLines()
     }
 }

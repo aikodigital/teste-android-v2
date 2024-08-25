@@ -23,7 +23,7 @@ class BusLinesRepositoryImpl @Inject constructor(
     override fun getRemoteBusLines(
         cookie: String,
         searchTerms: String
-    ): Flow<Resource<BusLinesModel>> = flow {
+    ): Flow<Resource<List<BusLinesModel>?>> = flow {
         emit(Resource.Loading())
         val localBusLinesData = localDataSource.getBusLines()
         emit(Resource.Loading(data = localBusLinesData))
