@@ -40,10 +40,12 @@ class BusLocationFragment : Fragment() {
 //        )
 //
 //        viewModel.insertBusLocation(busLocationObject)
-        viewModel.getRemoteBusLocationData(ApiConfig.cookie,2506)
-        val result = viewModel.busDtoLocationDataModel.value
-        println("RESULTADO DA API: $result")
 
+        viewModel.getRemoteBusLocationData(ApiConfig.cookie,2506)
+        viewModel.busDtoLocationDataModel.observe(viewLifecycleOwner) { busLocationData ->
+//            println("VIEWMODEL: ${busLocationData?.veiculos[0].latitude}")
+            println("VIEWMODEL: ${busLocationData?.veiculos}")
+        }
         return binding.root
     }
 }

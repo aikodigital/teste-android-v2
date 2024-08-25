@@ -35,6 +35,7 @@ class BusLocationViewModel @Inject constructor(
             when (result) {
                 is Resource.Success -> {
                     _busDtoLocationDataModel.value = result.data
+                    println("RESULTADO DA API: ${result.data?.veiculos}")
                     println("API SUCCESS")
                 }
                 is Resource.Error -> {
