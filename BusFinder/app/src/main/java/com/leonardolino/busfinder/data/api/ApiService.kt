@@ -1,6 +1,7 @@
 package com.leonardolino.busfinder.data.api
 
 import com.leonardolino.busfinder.data.model.BusStopDto
+import com.leonardolino.busfinder.data.model.NextArrivalsDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -14,4 +15,7 @@ interface ApiService {
 
     @GET("/Parada/Buscar")
     suspend fun getBusStops(@Query("termosBusca") terms: String): List<BusStopDto>
+
+    @GET("/Previsao/Parada")
+    suspend fun getNextArrivals(@Query("codigoParada") stopCode: Int): NextArrivalsDto
 }

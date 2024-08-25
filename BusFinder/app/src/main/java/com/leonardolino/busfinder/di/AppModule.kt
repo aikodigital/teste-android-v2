@@ -5,6 +5,7 @@ import com.leonardolino.busfinder.data.repository.BusRepositoryImpl
 import com.leonardolino.busfinder.domain.repository.BusRepository
 import com.leonardolino.busfinder.domain.usecase.AuthenticateUseCase
 import com.leonardolino.busfinder.domain.usecase.GetBusStopsUseCase
+import com.leonardolino.busfinder.domain.usecase.GetNextArrivalsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +14,6 @@ import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -81,5 +81,11 @@ object AppModule {
     @Singleton
     fun provideAuthenticateUseCase(repository: BusRepository): AuthenticateUseCase {
         return AuthenticateUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetNextArrivalsUseCase(repository: BusRepository): GetNextArrivalsUseCase {
+        return GetNextArrivalsUseCase(repository)
     }
 }
