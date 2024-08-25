@@ -1,6 +1,6 @@
 package com.example.aikospbus.feature_api_sp_trans.remote.api
 
-import com.example.aikospbus.feature_api_sp_trans.remote.models.Line
+import com.example.aikospbus.feature_bus_lines.data.remote.dto.BusLinesDto
 import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
 import com.example.aikospbus.feature_bus_corridor.data.remote.dto.BusCorridorDto
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Parada
@@ -26,7 +26,7 @@ interface SPTransApiService {
         cookie: String,
         @Query("termosBusca")
         termosBusca: String
-    ): List<Line>
+    ): List<BusLinesDto>
 
     @GET("Posicao/Linha")
     suspend fun getLinePosition(
@@ -46,7 +46,6 @@ interface SPTransApiService {
     suspend fun getCorredores(
         @Header("Cookie") cookie: String
     ): List<BusCorridorDto>
-//    ): List<BusCorridorDto>
 
     @GET("Previsao")
     suspend fun getPrevisaoChegada(

@@ -36,7 +36,6 @@ class BusCorridorFragment : Fragment() {
 
         viewModel.getRemoteBusCorridorData(ApiConfig.cookie)
         viewModel.busDtoCorridorDataModel.observe(viewLifecycleOwner) { busLocationData ->
-//            println("VIEWMODEL: ${busLocationData?.veiculos[0].latitude}")
             println("VIEWMODEL: ${busLocationData?.codigoCorredor}")
             println("VIEWMODEL: ${busLocationData?.nomeCorredor}")
         }

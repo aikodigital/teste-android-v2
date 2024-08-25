@@ -1,8 +1,8 @@
-package com.example.aikospbus.feature_api_sp_trans.remote.models
+package com.example.aikospbus.feature_bus_lines.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class Line(
+data class BusLinesDto(
     @SerializedName("cl")
     val codigoLinha: Int,
 

@@ -1,4 +1,4 @@
-package com.example.aikospbus.feature_bus_lines
+package com.example.aikospbus.feature_bus_lines.presentation
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.aikospbus.ApiConfig
 import com.example.aikospbus.databinding.FragmentBusLinesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BusLinesFragment : Fragment() {
 
     private var _binding: FragmentBusLinesBinding? = null
@@ -30,6 +33,12 @@ class BusLinesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBusLinesBinding.inflate(inflater, container, false)
+
+        viewModel.getRemoteBuslinesData(ApiConfig.cookie,"Lapa")
+        viewModel.busDtoLinesDataModel.observe(viewLifecycleOwner) { busLocationData ->
+            println("VIEWMODEL: ${busLocationData?.sentido}")
+            println("VIEWMODEL: ${busLocationData?.tipo}")
+        }
 
         return binding.root
     }

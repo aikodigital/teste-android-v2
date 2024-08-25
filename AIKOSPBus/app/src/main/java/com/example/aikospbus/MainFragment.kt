@@ -152,8 +152,8 @@ class MainFragment : Fragment() {
             }
 
             busLinesBt.setOnClickListener {
-//                findNavController().navigate(R.id.action_FirstFragment_to_busLinesFragment)
-                getlinhas()
+                findNavController().navigate(R.id.action_FirstFragment_to_busLinesFragment)
+//                getlinhas()
             }
 
             busStopsBt.setOnClickListener {
