@@ -1,30 +1,39 @@
 package com.matreis.teste.sptrans.viewmodels
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.GoogleMap
+import com.google.maps.android.data.kml.KmlLayer
 import com.matreis.teste.sptrans.R
 import com.matreis.teste.sptrans.domain.model.BusStop
 import com.matreis.teste.sptrans.domain.model.Line
-import com.matreis.teste.sptrans.domain.model.TimeWithVehicle
+import com.matreis.teste.sptrans.domain.model.MapMarkers
 import com.matreis.teste.sptrans.domain.model.Vehicle
-import com.matreis.teste.sptrans.domain.model.VehiclePosition
 import com.matreis.teste.sptrans.domain.usecase.GetBusStopUseCase
+import com.matreis.teste.sptrans.domain.usecase.GetRoadSpeedUseCase
 import com.matreis.teste.sptrans.domain.usecase.GetVehiclePositionUseCase
 import com.matreis.teste.sptrans.helper.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipInputStream
 import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
     private val getBusStopUseCase: GetBusStopUseCase,
-    private val getVehiclePositionUseCase: GetVehiclePositionUseCase
+    private val getVehiclePositionUseCase: GetVehiclePositionUseCase,
+    private val getRoadSpeedUseCase: GetRoadSpeedUseCase
 ) : ViewModel() {
 
     private var keepUpdating = true
@@ -32,88 +41,121 @@ class MapViewModel @Inject constructor(
     private val _selectedLine = MutableLiveData<Line>()
     val selectedLine: LiveData<Line> get() = _selectedLine
 
-    private val _vehiclePositions = MutableLiveData<List<Vehicle>>()
-    val vehiclePositions: LiveData<List<Vehicle>> get() = _vehiclePositions
-
-    private val _busStops = MutableLiveData<List<BusStop>>()
-    val busStops: LiveData<List<BusStop>> get() = _busStops
-
     private val _error = MutableLiveData<Event<Int>>()
     val error: LiveData<Event<Int>> get() = _error
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> get() = _isLoading
+    private val _markers = MutableLiveData<MapMarkers>()
+    val markers: LiveData<MapMarkers> get() = _markers
 
-    private val loadComplete = MutableLiveData<Boolean>()
-    val loadCompleteEvent: LiveData<Boolean> get() = loadComplete
-
-    private val _markers = MutableLiveData<Pair<List<BusStop>,List<Vehicle>>>()
-    val markers: LiveData<Pair<List<BusStop>,List<Vehicle>>> get() = _markers
+    private val _kmlLayer = MutableLiveData<KmlLayer?>()
+    val kmlLayer: LiveData<KmlLayer?> get() = _kmlLayer
 
     private var busStopList = listOf<BusStop>()
 
     fun getLinesInformation(lineCode: Long) {
         viewModelScope.launch {
             keepUpdating = true
-            _isLoading.value = true
             try {
                 val busStops = getBusStopByLine(lineCode)
                 busStopList = busStops
                 do {
                     Log.i("MapViewModel", "Getting vehicle positions for line: $lineCode")
                     val vehiclePositions = getVehiclePositionByLine(lineCode)
-                    _markers.postValue(Pair(busStopList, vehiclePositions))
+                    _markers.postValue(MapMarkers(busStopList, vehiclePositions))
                     delay(5000)
                 }while (keepUpdating && isActive)
-                //loadComplete.postValue(true)
             }catch (e: Exception){
                 e.printStackTrace()
                 _error.value = Event(R.string.error_get_lines_informations)
             }
-            _isLoading.value = false
         }
     }
 
-    private suspend fun getBusStopByLine(lineCode: Long): List<BusStop> {
-        //_isLoading.value = true
-        /*coroutineScope {
+    private suspend fun getBusStopByLine(lineCode: Long): List<BusStop> = getBusStopUseCase(lineCode).body() ?: emptyList()
 
-        }*/
-        val response = getBusStopUseCase(lineCode)
-        /*if (response.isSuccessful) {
-            _busStops.value = response.body()
-            //_isLoading.value = false
-        }*/ /*else {
-                _error.value = Event(R.string.error_get_bus_stops)
-            }*/
-        return response.body() ?: emptyList()
-    }
-
-    private suspend fun getVehiclePositionByLine(lineCode: Long): List<Vehicle> {
-        /*coroutineScope {
-            val response = getVehiclePositionUseCase(lineCode)
-            if (response.isSuccessful) {
-                _vehiclePositions.value = response.body()?.vehicles
-                //_isLoading.value = false
-            } else {
-                _error.value = Event(R.string.error_get_vehicle_positions)
-                //_isLoading.value = false
-            }
-        }*/
-        return getVehiclePositionUseCase(lineCode).body()?.vehicles ?: emptyList()
-    }
+    private suspend fun getVehiclePositionByLine(lineCode: Long): List<Vehicle> = getVehiclePositionUseCase(lineCode).body()?.vehicles ?: emptyList()
 
     fun setSelectedLine(it: Line) {
         _selectedLine.value = it
     }
 
-    fun clearData() {
-        keepUpdating = false
-        _busStops.value = emptyList()
-        _vehiclePositions.value = emptyList()
+    fun getBusStopList(): List<BusStop> = busStopList
+
+    fun getRoadSpeed(context: Context, googleMap: GoogleMap) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val kmlFile = File(context.getExternalFilesDir(null), "TA.kml")
+                if(kmlFile.exists()) {
+                    val inputStream = FileInputStream(kmlFile)
+                    val kmlLayer = KmlLayer(googleMap, inputStream, context)
+                    _kmlLayer.postValue(kmlLayer)
+                }else {
+                    val fileName = "road_speed.kmz"
+                    val externalFile = File(context.getExternalFilesDir(null), fileName)
+                    val downloadedFilePath = downloadFile(externalFile)
+                    downloadedFilePath?.let {
+                        val outputZipDir = context.getExternalFilesDir(null)
+                        val file = unzipFile(externalFile, outputZipDir!!)
+                        file?.let {
+                            val inputStream = FileInputStream(it)
+                            val kmlLayer = KmlLayer(googleMap, inputStream, context)
+                            _kmlLayer.postValue(kmlLayer)
+                        }
+                    }
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
-    fun getBusStopList(): List<BusStop> = busStopList
+    private suspend fun downloadFile(outputDir: File): String? {
+        val response = getRoadSpeedUseCase()
+        if (response.isSuccessful) {
+            /*val fileName = "road_speed.kmz"
+            val externalFile = File(context.getExternalFilesDir(null), fileName)*/
+            //val outputDir = context.getExternalFilesDir(null)
+            val roadSpeed = response.body()?.byteStream()
+            outputDir.outputStream().use { outputStream ->
+                val buffer = ByteArray(4 * 1024) // Buffer size
+                var bytesRead: Int
+                while (roadSpeed!!.read(buffer).also { bytesRead = it } != -1) {
+                    outputStream.write(buffer, 0, bytesRead)
+                }
+                outputStream.flush()
+                return outputDir.absolutePath
+            }
+        }
+        return null
+    }
+
+    private fun unzipFile(zipFile: File, outputDir: File): File? {
+        ZipInputStream(FileInputStream(zipFile)).use { zis ->
+            var entry: ZipEntry? = zis.nextEntry
+
+            // Loop through entries in the .kmz file
+            var kmlFile: File?  = null
+            while (entry != null) {
+                // Check if the entry is the .kml file
+                if (entry.name.endsWith(".kml")) {
+                    kmlFile = File(outputDir, entry.name)
+
+                    // Create the output .kml file
+                    FileOutputStream(kmlFile).use { fos ->
+                        zis.copyTo(fos)
+                    }
+                    /*val km = File(context.getExternalFilesDir(null), entry.name)
+                    val kmlLayer = KmlLayer(googleMap, km.inputStream(), context)
+                    _kmlLayer.postValue(kmlLayer)*/
+                    break // Stop after finding the .kml file
+                }
+                zis.closeEntry()
+                entry = zis.nextEntry
+            }
+            zis.closeEntry()
+            return kmlFile
+        }
+    }
 
 }
 

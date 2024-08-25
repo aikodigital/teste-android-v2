@@ -1,5 +1,6 @@
 package com.matreis.teste.sptrans.presentation.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.matreis.teste.sptrans.R
 import com.matreis.teste.sptrans.databinding.FragmentMapBinding
+import com.matreis.teste.sptrans.domain.model.BusStop
 import com.matreis.teste.sptrans.domain.model.Line
 import com.matreis.teste.sptrans.helper.BitmapHelper
 import com.matreis.teste.sptrans.helper.customGetSerializable
@@ -27,6 +30,8 @@ import com.matreis.teste.sptrans.helper.orElse
 import com.matreis.teste.sptrans.presentation.dialog.DialogInfoBusStop
 import com.matreis.teste.sptrans.viewmodels.MapViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -41,6 +46,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         if(arguments != null) {
             val line = arguments?.customGetSerializable<Line>("line")
             line?.let {
+
                 mapViewModel.setSelectedLine(it)
                 mapViewModel.getLinesInformation(it.codLine!!)
             }
@@ -74,6 +80,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    @SuppressLint("PotentialBehaviorOverride")
     override fun onMapReady(p0: GoogleMap) {
         map = p0
         map.uiSettings.isZoomControlsEnabled = true
@@ -81,37 +88,46 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         map.uiSettings.isScrollGesturesEnabled = true
         map.uiSettings.isRotateGesturesEnabled = true
         map.uiSettings.isMyLocationButtonEnabled = true
+        //mapViewModel.getRoadSpeed(requireContext(), map)
         val location = CameraUpdateFactory.newLatLngZoom(
             LatLng(-23.555883, -46.66306), 10f
         )
         map.animateCamera(location)
         map.setOnMarkerClickListener { marker ->
-            val busStop = mapViewModel.getBusStopList().firstOrNull { it.name == marker.title }
-            val dialog = DialogInfoBusStop(
-                seeTimes = {
-                    val bundle = Bundle()
-                    bundle.putLong("stopCod", it.stopCod!!)
-                    bundle.putLong("lineCod", mapViewModel.selectedLine.value!!.codLine!!)
-                    findNavController().navigate(R.id.action_mapFragment_to_busStopTimesFragment, bundle)
-                },
-                defineRoute = {
-                }
-            )
-            busStop?.let {
-                dialog.setBusStop(it)
-                dialog.show(childFragmentManager, "dialog")
-            }.orElse {
-                marker.showInfoWindow()
-            }
+            showMarkerInfo(marker)
             true
         }
         initMapsInformationObservers()
     }
 
+    private fun showMarkerInfo(marker: Marker) {
+        val busStop = mapViewModel.getBusStopList().firstOrNull { it.name == marker.title }
+        val dialog = DialogInfoBusStop(
+            seeTimes = {
+                safeNavigateToBusStopFragment(it)
+            },
+            defineRoute = {
+            }
+        )
+        busStop?.let {
+            dialog.setBusStop(it)
+            dialog.show(childFragmentManager, "dialog")
+        }.orElse {
+            marker.showInfoWindow()
+        }
+    }
+
+    private fun safeNavigateToBusStopFragment(busStop: BusStop) {
+        val bundle = Bundle()
+        bundle.putLong("stopCod", busStop.stopCod!!)
+        bundle.putLong("lineCod", mapViewModel.selectedLine.value!!.codLine!!)
+        findNavController().navigate(R.id.action_mapFragment_to_busStopTimesFragment, bundle)
+    }
+
     private fun initMapsInformationObservers() {
-        mapViewModel.markers.observe(viewLifecycleOwner) {
+        mapViewModel.markers.observe(viewLifecycleOwner) { markers ->
             map.clear()
-            it.first.forEach { busStop ->
+            markers.busStops.forEach { busStop ->
                 val latLng = LatLng(busStop.lat!!, busStop.lng!!)
                 map.addMarker(
                     MarkerOptions().position(latLng).title(busStop.name).icon(
@@ -123,7 +139,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     )
                 )
             }
-            it.second.forEach { vehicle ->
+            markers.vehicles.forEach { vehicle ->
                 val latLng = LatLng(vehicle.lat!!, vehicle.lng!!)
                 map.addMarker(
                     MarkerOptions().position(latLng).title(vehicle.prefix).icon(
@@ -136,11 +152,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 )
             }
         }
-    }
-
-    override fun onDestroy() {
-        mapViewModel.clearData()
-        super.onDestroy()
+       /* mapViewModel.kmlLayer.observe(viewLifecycleOwner) { kmlLayer ->
+            kmlLayer?.addLayerToMap()
+        }*/
     }
 
 }

@@ -4,6 +4,7 @@ import com.matreis.teste.sptrans.data.datasource.arrivaltime.ArrivalTimeRemoteDa
 import com.matreis.teste.sptrans.data.datasource.auth.AuthRemoteDataSource
 import com.matreis.teste.sptrans.data.datasource.busstop.BusStopRemoteDataSource
 import com.matreis.teste.sptrans.data.datasource.lines.LinesRemoteDataSource
+import com.matreis.teste.sptrans.data.datasource.roadspeed.RoadSpeedRemoteDataSource
 import com.matreis.teste.sptrans.data.datasource.vehicleposition.VehiclePositionRemoteDataSource
 import com.matreis.teste.sptrans.data.preferences.UserPreferences
 import com.matreis.teste.sptrans.data.repository.arrivaltime.ArrivalTimeRepository
@@ -16,6 +17,8 @@ import com.matreis.teste.sptrans.data.repository.lines.LinesRepository
 import com.matreis.teste.sptrans.data.repository.lines.LinesRepositoryImp
 import com.matreis.teste.sptrans.data.repository.preferences.UserPreferencesRepository
 import com.matreis.teste.sptrans.data.repository.preferences.UserPreferencesRepositoryImp
+import com.matreis.teste.sptrans.data.repository.roadspeed.RoadSpeedRepository
+import com.matreis.teste.sptrans.data.repository.roadspeed.RoadSpeedRepositoryImp
 import com.matreis.teste.sptrans.data.repository.vehicleposition.VehiclePositionRepository
 import com.matreis.teste.sptrans.data.repository.vehicleposition.VehiclePositionRepositoryImp
 import dagger.Module
@@ -62,6 +65,12 @@ class RepositoryModule {
     @Singleton
     fun provideUserPreferencesRepository(userPreferences: UserPreferences): UserPreferencesRepository {
         return UserPreferencesRepositoryImp(userPreferences)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRoadSpeedRepository(roadSpeedRemoteDataSource: RoadSpeedRemoteDataSource): RoadSpeedRepository {
+        return RoadSpeedRepositoryImp(roadSpeedRemoteDataSource)
     }
 
 }

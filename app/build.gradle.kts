@@ -70,6 +70,9 @@ dependencies {
     kapt (libs.hilt.compiler)
 
     // Dependencies
+    implementation("org.apache.directory.studio:org.apache.commons.io:2.4")
+    implementation(libs.android.maps.utils.v382)
+    implementation(libs.maps.utils.ktx)
     implementation (libs.maps.ktx)
     implementation(libs.play.services.maps)
     implementation (libs.androidx.swiperefreshlayout)

@@ -1,17 +1,16 @@
 package com.matreis.teste.sptrans.data.api
 
-import android.app.Service
 import com.matreis.teste.sptrans.domain.model.BusStop
 import com.matreis.teste.sptrans.domain.model.Line
 import com.matreis.teste.sptrans.domain.model.TimeWithBusStop
 import com.matreis.teste.sptrans.domain.model.TimeWithVehicle
 import com.matreis.teste.sptrans.domain.model.VehiclePosition
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
+import retrofit2.http.Streaming
 
 interface SpTransService {
 
@@ -44,5 +43,9 @@ interface SpTransService {
 
     @GET("Previsao/Parada")
     suspend fun getArrivalTimeByBusStop(@Query("codigoParada") stopCode: Long): Response<TimeWithBusStop>
+
+    @Streaming
+    @GET("KMZ")
+    suspend fun getRoadSpeed(): Response<ResponseBody>
 
 }

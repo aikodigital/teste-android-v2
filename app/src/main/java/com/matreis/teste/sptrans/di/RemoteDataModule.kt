@@ -9,6 +9,8 @@ import com.matreis.teste.sptrans.data.datasource.busstop.BusStopRemoteDataSource
 import com.matreis.teste.sptrans.data.datasource.busstop.BusStopRemoteDataSourceImp
 import com.matreis.teste.sptrans.data.datasource.lines.LinesRemoteDataSource
 import com.matreis.teste.sptrans.data.datasource.lines.LinesRemoteDataSourceImp
+import com.matreis.teste.sptrans.data.datasource.roadspeed.RoadSpeedRemoteDataSource
+import com.matreis.teste.sptrans.data.datasource.roadspeed.RoadSpeedRemoteDataSourceImp
 import com.matreis.teste.sptrans.data.datasource.vehicleposition.VehiclePositionRemoteDataSource
 import com.matreis.teste.sptrans.data.datasource.vehicleposition.VehiclePositionRemoteDataSourceImp
 import dagger.Module
@@ -51,5 +53,10 @@ class RemoteDataModule {
         return AuthRemoteDataSourceImp(service)
     }
 
+    @Provides
+    @Singleton
+    fun provideRoadSpeedRemoteDataSource(service: SpTransService): RoadSpeedRemoteDataSource {
+        return RoadSpeedRemoteDataSourceImp(service)
+    }
 
 }
