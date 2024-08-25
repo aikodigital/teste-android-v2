@@ -1,4 +1,4 @@
-package com.example.aikospbus.data
+package com.example.aikospbus.roomDataBase
 
 import android.content.Context
 import androidx.room.Database
@@ -7,19 +7,23 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationDao
 import com.example.aikospbus.feature_bus_location.domain.model.BusLocationModel
-import com.example.aikospbus.data.roomConverters.WordConverter
+import com.example.aikospbus.roomDataBase.roomConverters.BusLocationConverter
+import com.example.aikospbus.feature_bus_corridor.data.data_source.BusCorridorDao
+import com.example.aikospbus.feature_bus_corridor.domain.model.BusCorridorModel
 
 @Database(
-    entities = [BusLocationModel::class],
+    entities = [BusLocationModel::class,BusCorridorModel::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(
-    WordConverter::class
+    BusLocationConverter::class
 )
 abstract class AppDataBase: RoomDatabase() {
 
     abstract fun BusLocationDao(): BusLocationDao
+
+    abstract fun BusCorridorDao(): BusCorridorDao
 
 
     companion object {

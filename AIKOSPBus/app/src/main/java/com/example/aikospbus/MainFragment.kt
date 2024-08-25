@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.aikospbus.databinding.FragmentMainBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
 import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
-import com.example.aikospbus.feature_api_sp_trans.remote.models.Corredor
+import com.example.aikospbus.feature_bus_corridor.data.remote.dto.BusCorridorDto
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Parada
 import com.example.aikospbus.feature_api_sp_trans.remote.models.PrevisaoChegada
 import kotlinx.coroutines.CoroutineScope
@@ -124,15 +124,15 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun getCorridor() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response: List<Corredor> = SPTransApi.retrofitService.getCorredores(COOKIE)
-            response.forEach { corredor ->
-                println("Codigo do Corredor: ${corredor.codigoCorredor}")
-                println("Nome do Corredor: ${corredor.nomeCorredor}")
-            }
-        }
-    }
+//    private fun getCorridor() {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val response: List<BusCorridorDto> = SPTransApi.retrofitService.getCorredores(COOKIE)
+//            response.forEach { corredor ->
+//                println("Codigo do Corredor: ${corredor.codigoCorredor}")
+//                println("Nome do Corredor: ${corredor.nomeCorredor}")
+//            }
+//        }
+//    }
 
     private fun getPrevisaoChegada() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -162,8 +162,8 @@ class MainFragment : Fragment() {
             }
 
             busCorridorBt.setOnClickListener {
-//                findNavController().navigate(R.id.action_FirstFragment_to_busCorridorFragment)
-                getCorridor()
+                findNavController().navigate(R.id.action_FirstFragment_to_busCorridorFragment)
+//                    getCorridor()
             }
         }
     }

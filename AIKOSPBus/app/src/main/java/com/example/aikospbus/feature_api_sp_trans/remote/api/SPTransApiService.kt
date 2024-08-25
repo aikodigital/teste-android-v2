@@ -2,7 +2,7 @@ package com.example.aikospbus.feature_api_sp_trans.remote.api
 
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Line
 import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
-import com.example.aikospbus.feature_api_sp_trans.remote.models.Corredor
+import com.example.aikospbus.feature_bus_corridor.data.remote.dto.BusCorridorDto
 import com.example.aikospbus.feature_api_sp_trans.remote.models.Parada
 import com.example.aikospbus.feature_api_sp_trans.remote.models.PrevisaoChegada
 import retrofit2.Response
@@ -45,7 +45,8 @@ interface SPTransApiService {
     @GET("Corredor")
     suspend fun getCorredores(
         @Header("Cookie") cookie: String
-    ): List<Corredor>
+    ): List<BusCorridorDto>
+//    ): List<BusCorridorDto>
 
     @GET("Previsao")
     suspend fun getPrevisaoChegada(

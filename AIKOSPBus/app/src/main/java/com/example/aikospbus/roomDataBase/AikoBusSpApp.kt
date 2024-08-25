@@ -1,4 +1,4 @@
-package com.example.aikospbus.data
+package com.example.aikospbus.roomDataBase
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

@@ -1,11 +1,11 @@
-package com.example.aikospbus.data.roomConverters
+package com.example.aikospbus.roomDataBase.roomConverters
 
 import androidx.room.TypeConverter
-import com.example.aikospbus.feature_api_sp_trans.remote.models.Veiculo
+import com.example.aikospbus.feature_bus_location.domain.model.Veiculo
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class WordConverter {
+class BusLocationConverter {
 
     private val gson = Gson()
 

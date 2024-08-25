@@ -3,9 +3,8 @@ package com.example.aikospbus.feature_bus_location.presentation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
 import com.example.aikospbus.feature_bus_location.domain.model.BusLocationModel
-import com.example.aikospbus.feature_bus_location.domain.use_case.BusLocationUseCase
+import com.example.aikospbus.feature_bus_location.domain.use_case.InsertBusLocationUseCase
 import com.example.aikospbus.feature_bus_location.domain.use_case.GetRemoteBusLocationDataUseCase
 import com.example.aikospbus.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BusLocationViewModel @Inject constructor(
-    private val busLocationUseCase: BusLocationUseCase,
+    private val insertBusLocationUseCase: InsertBusLocationUseCase,
     private val getRemoteBusLocationDataUseCase: GetRemoteBusLocationDataUseCase
 ): ViewModel() {
 
@@ -27,7 +26,7 @@ class BusLocationViewModel @Inject constructor(
 
 
     fun insertBusLocation(busLocationModel: BusLocationModel) = viewModelScope.launch {
-        busLocationUseCase(busLocationModel)
+        insertBusLocationUseCase(busLocationModel)
     }
 
     fun getRemoteBusLocationData(cookie: String, lineCode: Int) = viewModelScope.launch {

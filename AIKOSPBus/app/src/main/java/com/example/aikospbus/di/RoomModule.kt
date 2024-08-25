@@ -1,7 +1,13 @@
 package com.example.aikospbus.di
 
 import android.content.Context
-import com.example.aikospbus.data.AppDataBase
+import com.example.aikospbus.roomDataBase.AppDataBase
+import com.example.aikospbus.feature_bus_corridor.data.data_source.BusCorridorDao
+import com.example.aikospbus.feature_bus_corridor.data.data_source.BusCorridorDataSource
+import com.example.aikospbus.feature_bus_corridor.data.data_source.BusCorridorLocalDataSource
+import com.example.aikospbus.feature_bus_corridor.data.remote.api.BusCorridorDataService
+import com.example.aikospbus.feature_bus_corridor.data.repository.BusCorridorRepository
+import com.example.aikospbus.feature_bus_corridor.data.repository.BusCorridorRepositoryImpl
 import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationDao
 import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationDataSource
 import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationLocalDataSource
@@ -36,6 +42,21 @@ object RoomModule {
     @Provides
     fun BusLocationRepository(dataSource: BusLocationDataSource): BusLocationRepository {
         return BusLocationRepositoryImpl(dataSource,BusLocationDataService.create())
+    }
+
+    @Provides
+    fun BusCorridorDao(appDataBase: AppDataBase): BusCorridorDao {
+        return appDataBase.BusCorridorDao()
+    }
+
+    @Provides
+    fun provideLocalBusCorridorDataSource(busCorridorDao: BusCorridorDao) : BusCorridorDataSource {
+        return BusCorridorLocalDataSource(busCorridorDao)
+    }
+
+    @Provides
+    fun BusCorridorRepository(dataSource: BusCorridorDataSource): BusCorridorRepository {
+        return BusCorridorRepositoryImpl(dataSource, BusCorridorDataService.create())
     }
 
 }

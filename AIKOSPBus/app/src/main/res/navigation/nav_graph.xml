@@ -47,7 +47,7 @@
         tools:layout="@layout/fragment_maps" />
     <fragment
         android:id="@+id/busCorridorFragment"
-        android:name="com.example.aikospbus.feature_bus_corridor.BusCorridorFragment"
+        android:name="com.example.aikospbus.feature_bus_corridor.presentation.BusCorridorFragment"
         android:label="fragment_bus_corridor"
         tools:layout="@layout/fragment_bus_corridor" />
     <fragment
