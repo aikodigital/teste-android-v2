@@ -188,6 +188,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         vehiclesMarkers.forEach {
             it.remove()
         }
+        vehiclesMarkers.clear()
     }
 
 }
