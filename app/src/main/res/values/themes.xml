@@ -51,4 +51,7 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="MySpinnerStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/black</item> </style>
+
 </resources>

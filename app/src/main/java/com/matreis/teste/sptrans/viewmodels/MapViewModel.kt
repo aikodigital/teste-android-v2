@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.GoogleMap
 import com.google.maps.android.data.kml.KmlLayer
 import com.matreis.teste.sptrans.R
+import com.matreis.teste.sptrans.data.preferences.UserPreferences
 import com.matreis.teste.sptrans.domain.model.BusStop
 import com.matreis.teste.sptrans.domain.model.Line
 import com.matreis.teste.sptrans.domain.model.MapMarkers
@@ -28,15 +29,19 @@ import java.io.FileOutputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import javax.inject.Inject
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
     private val getBusStopUseCase: GetBusStopUseCase,
     private val getVehiclePositionUseCase: GetVehiclePositionUseCase,
-    private val getRoadSpeedUseCase: GetRoadSpeedUseCase
+    private val getRoadSpeedUseCase: GetRoadSpeedUseCase,
+    private val userPreferences: UserPreferences
 ) : ViewModel() {
 
     private var keepUpdating = true
+    private var updateInterval = 0;
 
     private val _selectedLine = MutableLiveData<Line>()
     val selectedLine: LiveData<Line> get() = _selectedLine
@@ -54,7 +59,8 @@ class MapViewModel @Inject constructor(
 
     fun getLinesInformation(lineCode: Long) {
         viewModelScope.launch {
-            keepUpdating = true
+            keepUpdating = userPreferences.getAutoUpdate()
+            updateInterval = userPreferences.getAutoUpdateInterval()
             try {
                 val busStops = getBusStopByLine(lineCode)
                 busStopList = busStops
@@ -62,8 +68,8 @@ class MapViewModel @Inject constructor(
                     Log.i("MapViewModel", "Getting vehicle positions for line: $lineCode")
                     val vehiclePositions = getVehiclePositionByLine(lineCode)
                     _markers.postValue(MapMarkers(busStopList, vehiclePositions))
-                    delay(5000)
-                }while (keepUpdating && isActive)
+                    delay(updateInterval.toDuration(DurationUnit.SECONDS))
+                }while (isActive && keepUpdating)
             }catch (e: Exception){
                 e.printStackTrace()
                 _error.value = Event(R.string.error_get_lines_informations)
@@ -132,22 +138,14 @@ class MapViewModel @Inject constructor(
     private fun unzipFile(zipFile: File, outputDir: File): File? {
         ZipInputStream(FileInputStream(zipFile)).use { zis ->
             var entry: ZipEntry? = zis.nextEntry
-
-            // Loop through entries in the .kmz file
             var kmlFile: File?  = null
             while (entry != null) {
-                // Check if the entry is the .kml file
                 if (entry.name.endsWith(".kml")) {
                     kmlFile = File(outputDir, entry.name)
-
-                    // Create the output .kml file
                     FileOutputStream(kmlFile).use { fos ->
                         zis.copyTo(fos)
                     }
-                    /*val km = File(context.getExternalFilesDir(null), entry.name)
-                    val kmlLayer = KmlLayer(googleMap, km.inputStream(), context)
-                    _kmlLayer.postValue(kmlLayer)*/
-                    break // Stop after finding the .kml file
+                    break
                 }
                 zis.closeEntry()
                 entry = zis.nextEntry
