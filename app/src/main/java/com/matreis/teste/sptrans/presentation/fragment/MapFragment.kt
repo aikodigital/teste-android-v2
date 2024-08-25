@@ -19,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.matreis.teste.sptrans.R
 import com.matreis.teste.sptrans.databinding.FragmentMapBinding
 import com.matreis.teste.sptrans.domain.model.BusStop
@@ -150,6 +151,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         )
                     )
                 )
+            }
+        }
+        mapViewModel.error.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { error ->
+                Snackbar.make(binding.root, getString(error), Snackbar.LENGTH_LONG).show()
             }
         }
        /* mapViewModel.kmlLayer.observe(viewLifecycleOwner) { kmlLayer ->
