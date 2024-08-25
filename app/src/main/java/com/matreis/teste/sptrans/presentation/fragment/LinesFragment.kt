@@ -43,10 +43,8 @@ class LinesFragment : Fragment() {
 
     private fun initAdapterListeners() {
         lineAdapter.onSeeOnMapClick = { line ->
-            //binding.progressClick.visibility = View.VISIBLE
             val bundle = Bundle()
             bundle.putSerializable("line", line)
-            //mapViewModel.getLinesInformation(line.codLine ?: 0L)
             findNavController().navigate(R.id.action_linesFragment_to_mapFragment, bundle)
         }
         lineAdapter.onSeeBusStopsClick = { line ->

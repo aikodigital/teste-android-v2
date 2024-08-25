@@ -31,6 +31,7 @@
     <string name="ten_seconds">10 segundos</string>
     <string name="fifteen_seconds">15 segundos</string>
     <string name="twenty_seconds">20 segundos</string>
+    <string name="click_on_bus">Clique no ônibus para ver detalhes</string>
 
     <string-array name="intervals">
         <item value="5 segundos"/>

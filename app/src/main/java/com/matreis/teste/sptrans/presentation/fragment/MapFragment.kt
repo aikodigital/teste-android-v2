@@ -78,7 +78,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initListeners() {
-        binding.materialButton.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
     }

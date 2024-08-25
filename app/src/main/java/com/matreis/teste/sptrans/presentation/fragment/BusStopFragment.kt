@@ -66,6 +66,7 @@ class BusStopFragment : Fragment() {
                 binding.clHint.visibility = View.GONE
                 binding.clEmpty.visibility = View.GONE
                 binding.rvBusStop.visibility = View.GONE
+                binding.tvHint.visibility = View.GONE
             }
             binding.progressStop.visibility = if (it) View.VISIBLE else View.GONE
         }
@@ -82,9 +83,11 @@ class BusStopFragment : Fragment() {
         if (empty) {
             binding.rvBusStop.visibility = View.GONE
             binding.clHint.visibility = View.GONE
+            binding.tvHint.visibility = View.GONE
             binding.clEmpty.visibility = View.VISIBLE
         }else {
             binding.rvBusStop.visibility = View.VISIBLE
+            binding.tvHint.visibility = View.VISIBLE
             binding.clEmpty.visibility = View.GONE
             binding.clHint.visibility = View.GONE
         }
