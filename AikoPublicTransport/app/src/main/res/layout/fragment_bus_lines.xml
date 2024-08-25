@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.view.BusLinesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</FrameLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            />
+
+        <!-- RecyclerView to scroll -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginTop="80dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
+
+        <!-- SearchBar fixed at the top -->
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/searchbar_hint"
+            android:layout_gravity="top" />
+
+
+        <com.google.android.material.search.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/searchbar_hint"
+            app:layout_anchor="@id/search_bar"
+            android:visibility="visible" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

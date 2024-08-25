@@ -15,6 +15,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.cesarsoftdevelopment.aikopublictransport.R
 import com.cesarsoftdevelopment.aikopublictransport.databinding.ActivityHomeBinding
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.adapters.BusLinesAdapter
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesViewModel
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesViewModelFactory
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.HomeViewModel
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.HomeViewModelFactory
 import com.cesarsoftdevelopment.aikopublictransport.utils.Resource
@@ -32,11 +35,23 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     @Inject
-    lateinit var factory : HomeViewModelFactory
+    lateinit var homeViewModelFactory : HomeViewModelFactory
 
-    private val viewModel : HomeViewModel by viewModels {
-        factory
+    private val homeViewModel : HomeViewModel by viewModels {
+        homeViewModelFactory
     }
+
+    @Inject
+    lateinit var busLinesViewModelFactory : BusLinesViewModelFactory
+
+    val busLinesViewModel : BusLinesViewModel by viewModels {
+        busLinesViewModelFactory
+    }
+
+
+    @Inject
+    lateinit var busLinesAdapter: BusLinesAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,13 +89,13 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun observeInternetConnection() {
-        viewModel.isInternetAvailable.observe(this, Observer { response ->
+        homeViewModel.isInternetAvailable.observe(this, Observer { response ->
 
             when(response) {
 
                 is Resource.Success -> {
                     response.data?.let {
-                        observeAuthentication()
+                        //observeAuthentication()
                     }
                 }
 
@@ -97,17 +112,11 @@ class HomeActivity : AppCompatActivity() {
     }
     private fun observeAuthentication() {
 
-        viewModel.authenticate()
+        homeViewModel.authenticate()
 
-        viewModel.authenticated.observe(this, Observer { response ->
+        homeViewModel.authenticated.observe(this, Observer { response ->
 
             when(response) {
-
-                is Resource.Success -> {
-                    response.data?.let {
-                        navController.navigate(R.id.searchHistoricFragment)
-                    }
-                }
 
                 is Resource.Error -> {
                     response.message?.let {

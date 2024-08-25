@@ -1,44 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.card.MaterialCardView
+    <data>
+        <variable
+            name="busLine"
+            type="com.cesarsoftdevelopment.aikopublictransport.data.model.BusLineItem"/>
+
+<!--        <variable-->
+<!--            name="viewModel"-->
+<!--            type="com.cesarsoftdevelopment.pets.ui.home.viewmodel.PetListViewModel"/>-->
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="12dp">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="6dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="12dp">
 
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radiobutton_bus_line"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:paddingBottom="6dp">
 
-            <TextView
-                android:id="@+id/text_bus_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/open_sans_medium"
-                android:text="@string/text_default_line"
-                app:layout_constraintBottom_toBottomOf="@+id/radiobutton_bus_line"
-                app:layout_constraintStart_toEndOf="@+id/radiobutton_bus_line"
-                app:layout_constraintTop_toTopOf="@+id/radiobutton_bus_line" />
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radiobutton_bus_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/text_bus_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/open_sans_medium"
+                    android:text="@string/text_default_line"
+                    app:layout_constraintBottom_toBottomOf="@+id/radiobutton_bus_line"
+                    app:layout_constraintStart_toEndOf="@+id/radiobutton_bus_line"
+                    app:layout_constraintTop_toTopOf="@+id/radiobutton_bus_line"
+                    app:firstLineNumber="@{busLine.firstLineNumber}"
+                    app:secondLineNumber="@{busLine.secondLineNumber}"
+                    app:primaryTerminal="@{busLine.primaryTerminal}"
 
-    </com.google.android.material.card.MaterialCardView>
+                    />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
