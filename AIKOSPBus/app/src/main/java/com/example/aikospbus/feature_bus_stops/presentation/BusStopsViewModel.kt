@@ -19,23 +19,20 @@ class BusStopsViewModel @Inject constructor(
     private val getRemoteBusStopsUseCase: GetRemoteBusStopsUseCase
 ) : ViewModel() {
 
-    private val _busDtoStopsDataModel = MutableLiveData<BusStopsModel?>()
+    private val _busDtoStopsDataModel = MutableLiveData<List<BusStopsModel>?>()
 
-    val busDtoStopsDataModel: MutableLiveData<BusStopsModel?>
+    val busDtoStopsDataModel: MutableLiveData<List<BusStopsModel>?>
         get() = _busDtoStopsDataModel
 
     fun getRemoteBusStopsData(cookie: String, searchTerms: String) = viewModelScope.launch {
         getRemoteBusStopsUseCase(cookie, searchTerms).onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _busDtoStopsDataModel.value = result.data
-                    println("RESULTADO DA API: ${result.data?.nomeParada}")
-                    println("RESULTADO DA API: ${result.data?.latitude}")
-                    println("RESULTADO DA API: ${result.data?.longitude}")
-                    println("API SUCCESS")
+                    // Atribua uma lista ao _busDtoStopsDataModel
+                    _busDtoStopsDataModel.value = result.data // Aqui, 'result.data' deve ser uma lista de 'BusStopsModel'
                 }
                 is Resource.Error -> {
-                    _busDtoStopsDataModel.value = result.data
+                    _busDtoStopsDataModel.value = result.data // Mesmo tratamento em caso de erro
                     println("API ERROR")
                 }
                 is Resource.Loading -> {
