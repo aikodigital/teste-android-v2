@@ -1,8 +1,8 @@
-package com.example.aikospbus.feature_api_sp_trans.remote.models
+package com.example.aikospbus.feature_bus_stops.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class Parada(
+data class BusStopsDto(
     @SerializedName("cp")
     val codigoParada: Int,              // Código identificador da parada
 

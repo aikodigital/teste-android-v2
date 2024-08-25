@@ -12,8 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.aikospbus.databinding.FragmentMainBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
 import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
-import com.example.aikospbus.feature_bus_corridor.data.remote.dto.BusCorridorDto
-import com.example.aikospbus.feature_api_sp_trans.remote.models.Parada
+import com.example.aikospbus.feature_bus_stops.data.remote.dto.BusStopsDto
 import com.example.aikospbus.feature_api_sp_trans.remote.models.PrevisaoChegada
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -114,7 +113,7 @@ class MainFragment : Fragment() {
 
     private fun getParada() {
         CoroutineScope(Dispatchers.IO).launch {
-            val response: List<Parada> = SPTransApi.retrofitService.getStops(COOKIE, "afonso")
+            val response: List<BusStopsDto> = SPTransApi.retrofitService.getStops(COOKIE, "afonso")
             response.forEach { parada ->
                 println("Codigo da Parada: ${parada.codigoParada}")
                 println("Nome da Parada: ${parada.nomeParada}")
@@ -157,8 +156,8 @@ class MainFragment : Fragment() {
             }
 
             busStopsBt.setOnClickListener {
-//                findNavController().navigate(R.id.action_FirstFragment_to_busStopsFragment)
-                getParada()
+                findNavController().navigate(R.id.action_FirstFragment_to_busStopsFragment)
+//                getParada()
             }
 
             busCorridorBt.setOnClickListener {

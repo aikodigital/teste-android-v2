@@ -20,7 +20,7 @@ class BusCorridorRepositoryImpl @Inject constructor(
 
     override suspend fun getBusCorridor() = localDataSource.getBusCorridor()
 
-    override fun getRemoteBusLocation(cookie: String): Flow<Resource<BusCorridorModel>> = flow {
+    override fun getRemoteBusCorridor(cookie: String): Flow<Resource<BusCorridorModel>> = flow {
         emit(Resource.Loading())
         val localBusCorridorData = localDataSource.getBusCorridor()
         emit(Resource.Loading(data = localBusCorridorData))

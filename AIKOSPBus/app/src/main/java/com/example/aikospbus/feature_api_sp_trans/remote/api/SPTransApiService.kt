@@ -3,7 +3,7 @@ package com.example.aikospbus.feature_api_sp_trans.remote.api
 import com.example.aikospbus.feature_bus_lines.data.remote.dto.BusLinesDto
 import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
 import com.example.aikospbus.feature_bus_corridor.data.remote.dto.BusCorridorDto
-import com.example.aikospbus.feature_api_sp_trans.remote.models.Parada
+import com.example.aikospbus.feature_bus_stops.data.remote.dto.BusStopsDto
 import com.example.aikospbus.feature_api_sp_trans.remote.models.PrevisaoChegada
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -20,6 +20,7 @@ interface SPTransApiService {
         token: String
     ): Response<Boolean>
 
+    //FEATURE_BUS_LINES
     @GET("Linha/Buscar")
     suspend fun getLine(
         @Header("Cookie")
@@ -28,6 +29,7 @@ interface SPTransApiService {
         termosBusca: String
     ): List<BusLinesDto>
 
+    //FEATURE_BUS_LOCATION
     @GET("Posicao/Linha")
     suspend fun getLinePosition(
         @Header("Cookie")
@@ -36,12 +38,14 @@ interface SPTransApiService {
         codigoLinha: Int
     ): BusDto
 
+    //FEATURE_BUS_STOPS
     @GET("Parada/Buscar")
     suspend fun getStops(
         @Header("Cookie") cookie: String,
         @Query("termosBusca") termosBusca: String
-    ): List<Parada>
+    ): List<BusStopsDto>
 
+    //FEATURE_BUS_CORRIDORS
     @GET("Corredor")
     suspend fun getCorredores(
         @Header("Cookie") cookie: String

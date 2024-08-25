@@ -9,6 +9,6 @@ import javax.inject.Inject
 class GetRemoteBusCorridorUseCase @Inject constructor(private val busCorridorRepository: BusCorridorRepository){
 
     operator fun invoke(cookie: String): Flow<Resource<BusCorridorModel>> {
-        return busCorridorRepository.getRemoteBusLocation(cookie)
+        return busCorridorRepository.getRemoteBusCorridor(cookie)
     }
 }

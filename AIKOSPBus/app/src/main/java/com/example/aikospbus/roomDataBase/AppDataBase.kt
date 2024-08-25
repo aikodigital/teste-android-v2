@@ -12,9 +12,11 @@ import com.example.aikospbus.feature_bus_corridor.data.data_source.BusCorridorDa
 import com.example.aikospbus.feature_bus_corridor.domain.model.BusCorridorModel
 import com.example.aikospbus.feature_bus_lines.data.data_source.BusLinesDao
 import com.example.aikospbus.feature_bus_lines.domain.model.BusLinesModel
+import com.example.aikospbus.feature_bus_stops.data.data_source.BusStopsDao
+import com.example.aikospbus.feature_bus_stops.domain.model.BusStopsModel
 
 @Database(
-    entities = [BusLocationModel::class,BusCorridorModel::class,BusLinesModel::class],
+    entities = [BusLocationModel::class,BusCorridorModel::class,BusLinesModel::class,BusStopsModel::class],
     version = 1,
     exportSchema = false
 )
@@ -28,6 +30,8 @@ abstract class AppDataBase: RoomDatabase() {
     abstract fun BusCorridorDao(): BusCorridorDao
 
     abstract fun BusLinesDao(): BusLinesDao
+
+    abstract fun BusStopsDao(): BusStopsDao
 
 
     companion object {

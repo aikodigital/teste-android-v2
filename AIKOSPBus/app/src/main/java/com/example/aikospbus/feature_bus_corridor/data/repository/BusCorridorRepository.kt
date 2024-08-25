@@ -10,6 +10,6 @@ interface BusCorridorRepository {
 
     suspend fun getBusCorridor() : BusCorridorModel
 
-    fun getRemoteBusLocation(cookie: String): Flow<Resource<BusCorridorModel>>
+    fun getRemoteBusCorridor(cookie: String): Flow<Resource<BusCorridorModel>>
 
 }

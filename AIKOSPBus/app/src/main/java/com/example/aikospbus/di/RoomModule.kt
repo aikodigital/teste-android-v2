@@ -20,6 +20,12 @@ import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationLo
 import com.example.aikospbus.feature_bus_location.data.remote.api.BusLocationDataService
 import com.example.aikospbus.feature_bus_location.data.repository.BusLocationRepository
 import com.example.aikospbus.feature_bus_location.data.repository.BusLocationRepositoryImpl
+import com.example.aikospbus.feature_bus_stops.data.data_source.BusStopsDao
+import com.example.aikospbus.feature_bus_stops.data.data_source.BusStopsDataSource
+import com.example.aikospbus.feature_bus_stops.data.data_source.BusStopsLocalDataSource
+import com.example.aikospbus.feature_bus_stops.data.remote.api.BusStopsDataService
+import com.example.aikospbus.feature_bus_stops.data.repository.BusStopsRepository
+import com.example.aikospbus.feature_bus_stops.data.repository.BusStopsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -76,8 +82,22 @@ object RoomModule {
     }
 
     @Provides
-    fun BusLinesRepository(datasSource: BusLinesDataSource) : BusLinesRepository {
-        return BusLinesRepositoryImpl(datasSource, BusLinesDataService.create())
+    fun BusLinesRepository(dataSource: BusLinesDataSource) : BusLinesRepository {
+        return BusLinesRepositoryImpl(dataSource, BusLinesDataService.create())
     }
 
+    @Provides
+    fun BusStopsDao(appDataBase: AppDataBase) : BusStopsDao {
+        return appDataBase.BusStopsDao()
+    }
+
+    @Provides
+    fun provideLocalBusStopsDataSource(busStopsDao: BusStopsDao) : BusStopsDataSource {
+        return BusStopsLocalDataSource(busStopsDao)
+    }
+
+    @Provides
+    fun BusStopsRepository(dataSource: BusStopsDataSource) : BusStopsRepository {
+        return BusStopsRepositoryImpl(dataSource, BusStopsDataService.create())
+    }
 }
