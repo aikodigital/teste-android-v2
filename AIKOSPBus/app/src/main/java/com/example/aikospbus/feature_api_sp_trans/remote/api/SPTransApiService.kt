@@ -51,6 +51,7 @@ interface SPTransApiService {
         @Header("Cookie") cookie: String
     ): List<BusCorridorDto>
 
+    //FEATURE_BUS_PREVISAO_CHEGADA
     @GET("Previsao")
     suspend fun getPrevisaoChegada(
         @Header("Cookie") cookie: String,
