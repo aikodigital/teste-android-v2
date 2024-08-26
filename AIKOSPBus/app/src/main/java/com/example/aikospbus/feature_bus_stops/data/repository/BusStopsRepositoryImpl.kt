@@ -29,7 +29,7 @@ class BusStopsRepositoryImpl @Inject constructor(
         emit(Resource.Loading(data = localBusStopsData))
 
         try {
-            val busStopsData = apiData.requestBusStopsData(cookie,searchTerms)
+            val busStopsData = apiData.requestBusStopsData(cookie, searchTerms)
 
             if (busStopsData == null) {
                 emit(
@@ -39,22 +39,20 @@ class BusStopsRepositoryImpl @Inject constructor(
                     )
                 )
             } else {
-                if (busStopsData != null) {
-                    val updateBusStopsModelData: List<BusStopsModel> = busStopsData.map { dto ->
-                        BusStopsModel(
-                            codigoParada = dto.codigoParada,
-                            nomeParada = dto.nomeParada,
-                            enderecoParada = dto.enderecoParada,
-                            latitude = dto.latitude,
-                            longitude = dto.longitude
-                        )
-                    }
-
-
-                    localDataSource.insertBusStops(updateBusStopsModelData)
-                    val newStopsData = localDataSource.getBusStops()
-                    emit(Resource.Success(data = newStopsData))
+                val updateBusStopsModelData: List<BusStopsModel> = busStopsData.map { dto ->
+                    BusStopsModel(
+                        codigoParada = dto.codigoParada,
+                        nomeParada = dto.nomeParada,
+                        enderecoParada = dto.enderecoParada,
+                        latitude = dto.latitude,
+                        longitude = dto.longitude
+                    )
                 }
+
+
+                localDataSource.insertBusStops(updateBusStopsModelData)
+                val newStopsData = localDataSource.getBusStops()
+                emit(Resource.Success(data = newStopsData))
             }
         } catch (e: ClientRequestException) {
             emit(

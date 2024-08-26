@@ -8,7 +8,7 @@ interface BusStopsRepository {
 
     suspend fun insertBusStops(busStopsModel: List<BusStopsModel>)
 
-    suspend fun getBusStops() : List<BusStopsModel>?
+    suspend fun getBusStops(): List<BusStopsModel>?
 
-    fun getRemoteBusStops(cookie: String, searchTerms: String) : Flow<Resource<List<BusStopsModel>?>>
+    fun getRemoteBusStops(cookie: String, searchTerms: String): Flow<Resource<List<BusStopsModel>?>>
 }

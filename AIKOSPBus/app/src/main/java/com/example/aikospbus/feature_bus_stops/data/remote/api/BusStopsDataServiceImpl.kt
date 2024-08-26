@@ -11,14 +11,11 @@ class BusStopsDataServiceImpl(private val apiService: SPTransApiService) : BusSt
         searchTerms: String
     ): List<BusStopsDto>? {
         return try {
-            val response = apiService.getStops(cookie,searchTerms)
-            println("Resposta completa: ${response}")
+            val response = apiService.getStops(cookie, searchTerms)
             response
         } catch (e: HttpException) {
-            println("Erro na resposta da API: ${e.message()}")
             null
         } catch (e: Exception) {
-            println("Erro ao fazer requisição: ${e.message}")
             null
         }
     }

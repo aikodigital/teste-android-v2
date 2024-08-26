@@ -13,7 +13,6 @@ import com.example.aikospbus.R.id.action_busStopsFragment_to_stopPredictionFragm
 import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusStopsBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.CookieManager
-import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 @AndroidEntryPoint
 class BusStopsFragment : Fragment(), OnMapReadyCallback {
@@ -39,12 +37,6 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
 
     private val viewModel: BusStopsViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +48,6 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         setHeaderConfig()
-
         handleApiCookies()
 
         viewModel.busDtoStopsDataModel.observe(viewLifecycleOwner) { busStopsData ->

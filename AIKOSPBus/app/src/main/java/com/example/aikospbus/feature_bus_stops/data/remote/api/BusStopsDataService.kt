@@ -5,7 +5,7 @@ import com.example.aikospbus.feature_bus_stops.data.remote.dto.BusStopsDto
 
 interface BusStopsDataService {
 
-    suspend fun requestBusStopsData(cookie: String, searchTerms: String) : List<BusStopsDto>?
+    suspend fun requestBusStopsData(cookie: String, searchTerms: String): List<BusStopsDto>?
 
     companion object {
         fun create(): BusStopsDataService {
