@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aikospbus.ApiConfig
 import com.example.aikospbus.R
+import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusLocationBinding
 import com.example.aikospbus.databinding.FragmentStopPredictionBinding
 import com.example.aikospbus.feature_bus_lines.domain.model.BusLinesModel
@@ -49,6 +51,8 @@ class StopPredictionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStopPredictionBinding.inflate(inflater, container, false)
+
+        setHeaderConfig()
 
         viewModel.getRemoteBusStopsPredictionData(ApiConfig.cookie,340015333)
 
@@ -96,4 +100,13 @@ class StopPredictionFragment : Fragment() {
             }
         }
     }
-}
+
+    private fun setHeaderConfig() {
+        val customHeader = binding.customHeader
+
+        customHeader.setConfig(object : CustomHeader.HeaderClickListener {
+            override fun setBackButtonClickListener() {
+                findNavController().popBackStack()
+            }
+        }, title = "Lista veiculos")
+    }}
