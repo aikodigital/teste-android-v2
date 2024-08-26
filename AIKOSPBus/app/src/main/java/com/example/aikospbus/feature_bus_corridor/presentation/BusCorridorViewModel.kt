@@ -19,27 +19,19 @@ class BusCorridorViewModel @Inject constructor(
     private val getRemoteBusCorridorUseCase: GetRemoteBusCorridorUseCase
 ) : ViewModel() {
 
-    private val _busDtoCorridorDataModel = MutableLiveData<BusCorridorModel?>()
-
-    val busDtoCorridorDataModel: MutableLiveData<BusCorridorModel?>
-        get() = _busDtoCorridorDataModel
+    var busCorridorLiveData: MutableLiveData<List<BusCorridorModel>?> = MutableLiveData()
 
     fun getRemoteBusCorridorData(cookie: String) = viewModelScope.launch {
         getRemoteBusCorridorUseCase(cookie).onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _busDtoCorridorDataModel.value = result.data
-                    println("RESULTADO DA API: ${result.data?.nomeCorredor}")
-                    println("RESULTADO DA API: ${result.data?.codigoCorredor}")
-                    println("API SUCCESS")
+                    busCorridorLiveData.value = result.data
                 }
                 is Resource.Error -> {
-                    _busDtoCorridorDataModel.value = result.data
-                    println("API ERROR")
+                    busCorridorLiveData.value = result.data
                 }
                 is Resource.Loading -> {
-                    _busDtoCorridorDataModel.value = result.data
-                    println("API LOADING")
+                    busCorridorLiveData.value = result.data
                 }
             }
         }.launchIn(this)

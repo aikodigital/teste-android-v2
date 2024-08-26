@@ -13,5 +13,5 @@ interface BusCorridorDao {
     suspend fun insertBusCorridor(busCorridorModel: List<BusCorridorModel>)
 
     @Query("SELECT * FROM busCorridor")
-    suspend fun getBusCorridor(): BusCorridorModel
+    suspend fun getBusCorridor(): List<BusCorridorModel>?
 }

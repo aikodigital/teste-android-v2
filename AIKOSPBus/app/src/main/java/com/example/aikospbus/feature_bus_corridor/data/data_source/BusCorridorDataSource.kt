@@ -6,6 +6,6 @@ interface BusCorridorDataSource {
 
     suspend fun insertBusCorridor(busCorridorModel: List<BusCorridorModel>)
 
-    suspend fun getBusCorridor(): BusCorridorModel
+    suspend fun getBusCorridor(): List<BusCorridorModel>?
 
 }

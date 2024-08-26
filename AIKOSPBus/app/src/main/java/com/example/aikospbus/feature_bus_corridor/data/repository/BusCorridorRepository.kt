@@ -8,8 +8,8 @@ interface BusCorridorRepository {
 
     suspend fun insertBusCorridor(busCorridorModel: List<BusCorridorModel>)
 
-    suspend fun getBusCorridor() : BusCorridorModel
+    suspend fun getBusCorridor() : List<BusCorridorModel>?
 
-    fun getRemoteBusCorridor(cookie: String): Flow<Resource<BusCorridorModel>>
+    fun getRemoteBusCorridor(cookie: String): Flow<Resource<List<BusCorridorModel>?>>
 
 }

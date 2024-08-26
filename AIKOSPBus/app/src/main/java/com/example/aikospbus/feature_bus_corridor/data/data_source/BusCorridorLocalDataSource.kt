@@ -8,7 +8,7 @@ class BusCorridorLocalDataSource(private val busCorridorDao: BusCorridorDao) : B
         return busCorridorDao.insertBusCorridor(busCorridorModel)
     }
 
-    override suspend fun getBusCorridor(): BusCorridorModel {
+    override suspend fun getBusCorridor(): List<BusCorridorModel>? {
         return busCorridorDao.getBusCorridor()
     }
 
