@@ -49,7 +49,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         if(arguments != null) {
             val line = arguments?.customGetSerializable<Line>("line")
             line?.let {
-
                 mapViewModel.setSelectedLine(it)
                 mapViewModel.getLinesInformation(it.codLine!!)
             }
@@ -59,7 +58,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMapBinding.inflate(inflater, container, false)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)

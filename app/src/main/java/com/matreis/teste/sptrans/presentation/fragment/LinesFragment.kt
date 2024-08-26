@@ -37,30 +37,24 @@ class LinesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initListeners()
         setupRecyclerView()
-        initAdapterListeners()
         initObservers()
-    }
-
-    private fun initAdapterListeners() {
-        lineAdapter.onSeeOnMapClick = { line ->
-            val bundle = Bundle()
-            bundle.putSerializable("line", line)
-            findNavController().navigate(R.id.action_linesFragment_to_mapFragment, bundle)
-        }
-        lineAdapter.onSeeBusStopsClick = { line ->
-            //binding.progressClick.visibility = View.GONE
-        }
-        lineAdapter.onFavoriteClick = { line ->
-            linesViewModel.saveFavoriteLine(line)
-            Snackbar.make(binding.root, getString(R.string.line_added_to_favorites), Snackbar.LENGTH_SHORT).show()
-        }
     }
 
     private fun setupRecyclerView() {
         binding.rvLines.apply {
             layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
-            adapter = lineAdapter
+            adapter = lineAdapter.also {
+                it.onSeeOnMapClick = { line ->
+                    val bundle = Bundle()
+                    bundle.putSerializable("line", line)
+                    findNavController().navigate(R.id.action_linesFragment_to_mapFragment, bundle)
+                }
+                it.onFavoriteClick = { line ->
+                    linesViewModel.saveFavoriteLine(line)
+                    Snackbar.make(binding.root, getString(R.string.line_added_to_favorites), Snackbar.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
