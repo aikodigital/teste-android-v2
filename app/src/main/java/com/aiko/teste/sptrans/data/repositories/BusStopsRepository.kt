@@ -8,7 +8,7 @@ import javax.inject.Singleton
 
 @Singleton
 class BusStopsRepository @Inject constructor(private val apiService: APIService): BaseRepository() {
-    private var cachedData: List<BusStop>? = null
+    var cachedData: List<BusStop>? = null
     fun getBusStops(): Result<List<BusStop>> {
         cachedData?.let { return Result.success(it) }
 

@@ -57,6 +57,17 @@ fun MapBoxMap(
                         CameraOptions.Builder().zoom(12.0).center(centerPoint).build(),
                         MapAnimationOptions.Builder().duration(400L).startDelay(100L).build()
                     )
+                pointAnnotationManager?.let {
+                    val pointAnnotationOptions = PointAnnotationOptions()
+                        .withPoint(centerPoint)
+                        .withIconImage(
+                            getBitmapFromImage(
+                                context,
+                                R.drawable.baseline_location_on_24
+                            )
+                        )
+                    it.create(pointAnnotationOptions)
+                }
             }
 
             if (!busses.isNullOrEmpty()) {

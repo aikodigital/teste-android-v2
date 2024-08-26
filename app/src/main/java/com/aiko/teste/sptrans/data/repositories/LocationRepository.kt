@@ -8,8 +8,9 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.mapbox.geojson.Point
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
-
+@Singleton
 class LocationRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val fusedLocationProviderClient: FusedLocationProviderClient
