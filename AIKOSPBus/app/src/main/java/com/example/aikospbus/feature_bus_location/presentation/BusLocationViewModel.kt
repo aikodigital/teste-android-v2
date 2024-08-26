@@ -1,5 +1,6 @@
 package com.example.aikospbus.feature_bus_location.presentation
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,9 +21,12 @@ class BusLocationViewModel @Inject constructor(
 ): ViewModel() {
 
     private val _busDtoLocationDataModel = MutableLiveData<BusLocationModel?>()
-
     val busDtoLocationDataModel: MutableLiveData<BusLocationModel?>
         get() = _busDtoLocationDataModel
+
+    private val _hasVehicleData = MutableLiveData<String>()
+    val hasVehicleData: LiveData<String>
+        get() = _hasVehicleData
 
 
     fun insertBusLocation(busLocationModel: BusLocationModel) = viewModelScope.launch {
@@ -34,18 +38,20 @@ class BusLocationViewModel @Inject constructor(
             when (result) {
                 is Resource.Success -> {
                     _busDtoLocationDataModel.value = result.data
-                    println("RESULTADO DA API: ${result.data?.vehicleDtos}")
-                    println("API SUCCESS")
+                    updateHasVehicleData("Success")
                 }
                 is Resource.Error -> {
                     _busDtoLocationDataModel.value = result.data
-                    println("API ERROR")
+                    updateHasVehicleData("Error")
                 }
                 is Resource.Loading -> {
                     _busDtoLocationDataModel.value = result.data
-                    println("API LOADING")
                 }
             }
         }.launchIn(this)
+    }
+
+    private fun updateHasVehicleData(status: String) {
+        _hasVehicleData.value = status
     }
 }

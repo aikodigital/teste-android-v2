@@ -49,12 +49,6 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
     ): View {
         _binding = FragmentBusLocationBinding.inflate(inflater, container, false)
 
-//        val busLocationObject = BusLocation(
-//            id = 0,
-//            word = "Teste",
-//        )
-//
-//        viewModel.insertBusLocation(busLocationObject)
         setHeaderConfig()
 
         val mapFragment = childFragmentManager
@@ -63,6 +57,15 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
 
 
         handleApiCookies()
+
+        binding.errorLayoutBt.setOnClickListener {
+            binding.mapLayout.visibility = View.VISIBLE
+            binding.errorLayout.visibility = View.GONE
+        }
+
+        viewModel.hasVehicleData.observe(viewLifecycleOwner) {
+            handleScreenLayout(it)
+        }
 
         viewModel.busDtoLocationDataModel.observe(viewLifecycleOwner) { busLocationData ->
             busLocationData?.vehicleDtos?.forEach { vehicle ->
@@ -105,6 +108,19 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
             } else {
                 CookieManager.authentication()
                 viewModel.getRemoteBusLocationData(CookieManager.cookie, ApiConfig.searchLocationLine)
+            }
+        }
+    }
+
+    private fun handleScreenLayout(apiStatus: String) {
+        when (apiStatus) {
+            "Success" -> {
+                binding.mapLayout.visibility = View.VISIBLE
+                binding.errorLayout.visibility = View.GONE
+            }
+            "Error" -> {
+                binding.mapLayout.visibility = View.GONE
+                binding.errorLayout.visibility = View.VISIBLE
             }
         }
     }
