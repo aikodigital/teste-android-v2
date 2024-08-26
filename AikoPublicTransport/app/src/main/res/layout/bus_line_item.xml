@@ -8,16 +8,12 @@
         <variable
             name="busLine"
             type="com.cesarsoftdevelopment.aikopublictransport.data.model.BusLineItem"/>
-
-<!--        <variable-->
-<!--            name="viewModel"-->
-<!--            type="com.cesarsoftdevelopment.pets.ui.home.viewmodel.PetListViewModel"/>-->
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -28,9 +24,12 @@
             android:layout_margin="12dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="6dp">
+                android:paddingBottom="6dp"
+                android:background="@color/white"
+                >
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radiobutton_bus_line"
@@ -52,9 +51,7 @@
                     app:layout_constraintTop_toTopOf="@+id/radiobutton_bus_line"
                     app:firstLineNumber="@{busLine.firstLineNumber}"
                     app:secondLineNumber="@{busLine.secondLineNumber}"
-                    app:primaryTerminal="@{busLine.primaryTerminal}"
-
-                    />
+                    app:primaryTerminal="@{busLine.primaryTerminal}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
