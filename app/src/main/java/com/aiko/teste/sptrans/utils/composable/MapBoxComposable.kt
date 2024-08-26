@@ -1,6 +1,5 @@
 package com.aiko.teste.sptrans.utils.composable
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,8 +29,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private lateinit var mapView: MapView
-
 @Composable
 fun MapBoxMap(
     modifier: Modifier = Modifier,
@@ -47,15 +44,13 @@ fun MapBoxMap(
 
     AndroidView(
         factory = {
-            MapView(it).also {
-                mapView = it
+            MapView(it).also { mapView ->
                 mapView.mapboxMap.loadStyle(Style.STANDARD)
                 val annotationApi = mapView.annotations
                 pointAnnotationManager = annotationApi.createPointAnnotationManager()
-                mapView
             }
         },
-        update = {
+        update = { mapView ->
             if (centerPoint != null) {
                 mapView.mapboxMap
                     .flyTo(
@@ -64,13 +59,11 @@ fun MapBoxMap(
                     )
             }
 
-
             if (!busses.isNullOrEmpty()) {
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(1000L)
                     pointAnnotationManager?.let {
                         busses.forEach { bus ->
-                            Log.d("MapBoxMap", "bus = $bus")
                             val pointAnnotationOptions = PointAnnotationOptions()
                                 .withPoint(Point.fromLngLat(bus.longitude, bus.latitude))
                                 .withIconImage(

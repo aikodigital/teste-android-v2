@@ -30,7 +30,6 @@ class MapScreenViewModel @Inject constructor(
     fun getMapPoints() {
         getCenterLocation()
         getBusStops()
-        //getBusPositions()
     }
 
     fun getBusStopFromPoint(point: Point): BusStop {
@@ -59,31 +58,4 @@ class MapScreenViewModel @Inject constructor(
             }
         }
     }
-
-    /*private fun getBusPositions() {
-        val call = apiService.getBusPositions()
-        call.enqueue(object : Callback<BusPositions> {
-            override fun onResponse(call: Call<BusPositions>, response: Response<BusPositions>) {
-                if (response.isSuccessful) {
-                    response.body()?.let { busPositions ->
-                        val busPoints: List<Point>
-                        busPositions.lines.forEach { bus ->
-                            bus.positions.forEach()
-                        }
-                        _busPositions.value = Result.success(busPositions)
-                    }?: run {
-                        _busPositions.value = Result.failure(Exception("Empty body response"))
-                    }
-                } else {
-                    _busPositions.value =
-                        Result.failure(Exception("API error: ${response.code()}"))
-                }
-            }
-
-            override fun onFailure(call: Call<BusPositions>, t: Throwable) {
-                _busPositions.value = Result.failure(t)
-            }
-
-        })
-    }*/
 }

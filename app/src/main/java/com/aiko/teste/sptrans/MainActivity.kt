@@ -62,12 +62,10 @@ class MainActivity : ComponentActivity() {
         val requestPermissionLauncher = rememberLauncherForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted ->
-            Log.d(tag, "permission is granted = $isGranted")
             viewModel.permissionFinished()
         }
 
         LaunchedEffect(permissionState) {
-            Log.d(tag, "permissionState = ${permissionState.status}")
             if (!permissionState.status.isGranted) {
                 requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_COARSE_LOCATION)
             } else {

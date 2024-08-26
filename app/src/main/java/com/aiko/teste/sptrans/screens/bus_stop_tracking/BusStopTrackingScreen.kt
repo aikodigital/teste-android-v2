@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import com.aiko.teste.sptrans.data.objects.BusPosition
-import com.aiko.teste.sptrans.data.objects.Line
+import com.aiko.teste.sptrans.data.objects.BusLine
 import com.aiko.teste.sptrans.utils.composable.MapBoxMap
 import com.mapbox.geojson.Point
 import com.ramcosta.composedestinations.annotation.Destination
@@ -35,5 +35,5 @@ fun BusStopTrackingScreen(
 
 data class BusStopTrackingScreenArgs(
     val busStopCode: String,
-    val busStopLines: Array<Line>
+    val busStopLines: Array<BusLine>
 )
