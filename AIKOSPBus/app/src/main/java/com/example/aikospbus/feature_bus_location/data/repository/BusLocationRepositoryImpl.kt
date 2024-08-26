@@ -2,7 +2,6 @@ package com.example.aikospbus.feature_bus_location.data.repository
 
 import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationDataSource
 import com.example.aikospbus.feature_bus_location.data.remote.api.BusLocationDataService
-import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
 import com.example.aikospbus.feature_bus_location.domain.model.BusLocationModel
 import com.example.aikospbus.util.Resource
 import io.ktor.client.features.ClientRequestException
@@ -44,7 +43,7 @@ class BusLocationRepositoryImpl @Inject constructor(
                 if (busLocationData != null) {
                     val updateBusLocationModelData = BusLocationModel(
                         horaConsulta = busLocationData.horaConsulta,
-                        veiculos = busLocationData.veiculos
+                        vehicleDtos = busLocationData.vehicleDtos
                     )
 
                     localDataSource.insertBusLocation(updateBusLocationModelData)

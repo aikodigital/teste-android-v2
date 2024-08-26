@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    app:strokeColor="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/aiko_grey"
+            android:backgroundTint="@color/grey"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/aiko_grey"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/bus_ic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/bus_ic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/bus_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="118Y"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/bus_ic"
+            app:layout_constraintTop_toTopOf="@+id/bus_ic" />
+
+        <TextView
+            android:id="@+id/bus_stop_prevision_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="Previsao de chegada: "
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@+id/bus_name_text"
+            app:layout_constraintTop_toBottomOf="@+id/bus_name_text" />
+
+        <TextView
+            android:id="@+id/bus_prevision_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23:00"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@+id/bus_stop_prevision_text"
+            app:layout_constraintStart_toEndOf="@+id/bus_stop_prevision_text"
+            app:layout_constraintTop_toTopOf="@+id/bus_stop_prevision_text" />
+
+        <TextView
+            android:id="@+id/lastAtt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="5dp"
+            android:text="Ultima atualização:"
+            android:textSize="11sp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bus_stop_prevision_text"
+            app:layout_constraintStart_toStartOf="@+id/bus_stop_prevision_text"/>
+
+        <TextView
+            android:id="@+id/last_att_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:text="23:00"
+            android:textSize="11sp"
+            app:layout_constraintTop_toTopOf="@+id/lastAtt"
+            app:layout_constraintBottom_toBottomOf="@+id/lastAtt"
+            app:layout_constraintStart_toEndOf="@+id/lastAtt"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

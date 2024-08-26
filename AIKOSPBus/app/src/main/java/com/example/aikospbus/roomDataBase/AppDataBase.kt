@@ -12,16 +12,22 @@ import com.example.aikospbus.feature_bus_corridor.data.data_source.BusCorridorDa
 import com.example.aikospbus.feature_bus_corridor.domain.model.BusCorridorModel
 import com.example.aikospbus.feature_bus_lines.data.data_source.BusLinesDao
 import com.example.aikospbus.feature_bus_lines.domain.model.BusLinesModel
+import com.example.aikospbus.feature_bus_stop_prediction.data.data_source.StopPredictionDao
+import com.example.aikospbus.feature_bus_stop_prediction.domain.model.StopPredictionModel
 import com.example.aikospbus.feature_bus_stops.data.data_source.BusStopsDao
 import com.example.aikospbus.feature_bus_stops.domain.model.BusStopsModel
+import com.example.aikospbus.roomDataBase.roomConverters.BusLinesConverter
+import com.example.aikospbus.roomDataBase.roomConverters.StopPredictionConverter
 
 @Database(
-    entities = [BusLocationModel::class,BusCorridorModel::class,BusLinesModel::class,BusStopsModel::class],
+    entities = [BusLocationModel::class,BusCorridorModel::class,BusLinesModel::class,BusStopsModel::class,StopPredictionModel::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(
-    BusLocationConverter::class
+    BusLocationConverter::class,
+    StopPredictionConverter::class,
+    BusLinesConverter::class
 )
 abstract class AppDataBase: RoomDatabase() {
 
@@ -32,6 +38,8 @@ abstract class AppDataBase: RoomDatabase() {
     abstract fun BusLinesDao(): BusLinesDao
 
     abstract fun BusStopsDao(): BusStopsDao
+
+    abstract fun StopPredictionsDao(): StopPredictionDao
 
 
     companion object {

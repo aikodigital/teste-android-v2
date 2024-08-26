@@ -6,9 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.aikospbus.ApiConfig
+import com.example.aikospbus.MainFragment.Companion.COOKIE
 import com.example.aikospbus.R
+import com.example.aikospbus.R.id.action_busStopsFragment_to_stopPredictionFragment
+import com.example.aikospbus.R.id.action_mapsFragment_to_stopPredictionFragment
 import com.example.aikospbus.databinding.FragmentBusStopsBinding
+import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,6 +21,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 @AndroidEntryPoint
 class BusStopsFragment : Fragment(), OnMapReadyCallback {
@@ -59,8 +68,16 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun addBusStopsOnMap(name: String, location: LatLng) {
+        mMap.setOnMapClickListener { 
+            authentication()
+        }
+
         val sp = LatLng(location.latitude, location.longitude)
         mMap.addMarker(MarkerOptions().position(sp).title(name))
+        mMap.setOnMarkerClickListener { marker ->
+            findNavController().navigate(action_busStopsFragment_to_stopPredictionFragment)
+            true
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -69,5 +86,31 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sp))
         val cameraUpdate = CameraUpdateFactory.zoomTo(10f)
         mMap.moveCamera(cameraUpdate)
+    }
+
+    private fun authentication() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response =
+                    SPTransApi.retrofitService.authentication("604a216ace42329aa7581b9c6056a8a3dc2f574a680411928d5570478ca4c707")
+                        .apply {
+                            COOKIE = headers().get("Set-Cookie").toString()
+                            val cookieHeader = headers().get("Set-Cookie") ?: ""
+                            ApiConfig.cookie = cookieHeader
+                            println("COOKIE: $COOKIE")
+                        }
+
+                if (response.isSuccessful) {
+                    val result = response.body()
+                    println("Login response: $result")
+                } else {
+                    println("Erro de autenticação: ${response.errorBody()?.string()}")
+                }
+            } catch (e: HttpException) {
+                println("Erro HTTP: ${e.message()}")
+            } catch (e: Exception) {
+                println("Erro: ${e.message}")
+            }
+        }
     }
 }

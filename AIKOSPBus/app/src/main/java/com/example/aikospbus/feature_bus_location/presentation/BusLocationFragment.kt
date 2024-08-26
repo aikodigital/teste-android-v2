@@ -56,7 +56,7 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
         viewModel.getRemoteBusLocationData(ApiConfig.cookie,2506)
 
         viewModel.busDtoLocationDataModel.observe(viewLifecycleOwner) { busLocationData ->
-                busLocationData?.veiculos?.forEach { vehicle ->
+                busLocationData?.vehicleDtos?.forEach { vehicle ->
                     val latLng = LatLng(vehicle.latitude, vehicle.longitude)
                     addBusLocationOnMap(vehicle.prefixo.toString(), latLng)
                 }

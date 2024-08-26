@@ -41,7 +41,11 @@
         android:id="@+id/mapsFragment"
         android:name="com.example.aikospbus.feature_map.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_stopPredictionFragment"
+            app:destination="@id/stopPredictionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/busCorridorFragment"
         android:name="com.example.aikospbus.feature_bus_corridor.presentation.BusCorridorFragment"
@@ -69,5 +73,13 @@
         <action
             android:id="@+id/action_busStopsFragment_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_busStopsFragment_to_stopPredictionFragment"
+            app:destination="@id/stopPredictionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/stopPredictionFragment"
+        android:name="com.example.aikospbus.feature_bus_stop_prediction.presentation.StopPredictionFragment"
+        android:label="fragment_stop_prediction"
+        tools:layout="@layout/fragment_stop_prediction" />
 </navigation>

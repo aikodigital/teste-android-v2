@@ -20,6 +20,12 @@ import com.example.aikospbus.feature_bus_location.data.data_source.BusLocationLo
 import com.example.aikospbus.feature_bus_location.data.remote.api.BusLocationDataService
 import com.example.aikospbus.feature_bus_location.data.repository.BusLocationRepository
 import com.example.aikospbus.feature_bus_location.data.repository.BusLocationRepositoryImpl
+import com.example.aikospbus.feature_bus_stop_prediction.data.data_source.StopPredictionDao
+import com.example.aikospbus.feature_bus_stop_prediction.data.data_source.StopPredictionDataSource
+import com.example.aikospbus.feature_bus_stop_prediction.data.data_source.StopPredictionLocalDataSource
+import com.example.aikospbus.feature_bus_stop_prediction.data.remote.api.StopPredictionDataService
+import com.example.aikospbus.feature_bus_stop_prediction.data.repository.StopPredictionRepository
+import com.example.aikospbus.feature_bus_stop_prediction.data.repository.StopPredictionRepositoryImpl
 import com.example.aikospbus.feature_bus_stops.data.data_source.BusStopsDao
 import com.example.aikospbus.feature_bus_stops.data.data_source.BusStopsDataSource
 import com.example.aikospbus.feature_bus_stops.data.data_source.BusStopsLocalDataSource
@@ -99,5 +105,20 @@ object RoomModule {
     @Provides
     fun BusStopsRepository(dataSource: BusStopsDataSource) : BusStopsRepository {
         return BusStopsRepositoryImpl(dataSource, BusStopsDataService.create())
+    }
+
+    @Provides
+    fun StopsPredictionDao(appDataBase: AppDataBase): StopPredictionDao {
+        return appDataBase.StopPredictionsDao()
+    }
+
+    @Provides
+    fun provideLocalStopsPredictionDataSource(stopPredictionDao: StopPredictionDao) : StopPredictionDataSource {
+        return StopPredictionLocalDataSource(stopPredictionDao)
+    }
+
+    @Provides
+    fun StopsPredictionsRepository(dataSource: StopPredictionDataSource) : StopPredictionRepository {
+        return StopPredictionRepositoryImpl(dataSource, StopPredictionDataService.create())
     }
 }

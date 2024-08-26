@@ -3,8 +3,8 @@ package com.example.aikospbus.feature_api_sp_trans.remote.api
 import com.example.aikospbus.feature_bus_lines.data.remote.dto.BusLinesDto
 import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
 import com.example.aikospbus.feature_bus_corridor.data.remote.dto.BusCorridorDto
+import com.example.aikospbus.feature_bus_stop_prediction.data.remote.dto.BusStopPredictionDto
 import com.example.aikospbus.feature_bus_stops.data.remote.dto.BusStopsDto
-import com.example.aikospbus.feature_api_sp_trans.remote.models.PrevisaoChegada
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -52,12 +52,11 @@ interface SPTransApiService {
     ): List<BusCorridorDto>
 
     //FEATURE_BUS_PREVISAO_CHEGADA
-    @GET("Previsao")
+    @GET("Previsao/Parada")
     suspend fun getPrevisaoChegada(
         @Header("Cookie") cookie: String,
         @Query("codigoParada") codigoParada: Int,
-        @Query("codigoLinha") codigoLinha: Int
-    ): PrevisaoChegada
+    ): BusStopPredictionDto
 }
 
 object SPTransApi {

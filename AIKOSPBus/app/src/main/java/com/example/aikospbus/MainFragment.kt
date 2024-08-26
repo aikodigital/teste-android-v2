@@ -13,7 +13,6 @@ import com.example.aikospbus.databinding.FragmentMainBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
 import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
 import com.example.aikospbus.feature_bus_stops.data.remote.dto.BusStopsDto
-import com.example.aikospbus.feature_api_sp_trans.remote.models.PrevisaoChegada
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -102,7 +101,7 @@ class MainFragment : Fragment() {
     private fun getloc() {
         CoroutineScope(Dispatchers.IO).launch {
             val response: BusDto = SPTransApi.retrofitService.getLinePosition(ApiConfig.cookie, 841)
-            response.veiculos.forEach { veiculo ->
+            response.vehicleDtos.forEach { veiculo ->
                 println("Veiculo Prefixo: ${veiculo.prefixo}")
                 println("Localizacao: (${veiculo.latitude}, ${veiculo.longitude})")
                 println("Acessivel: ${veiculo.acessibilidade}")
@@ -133,14 +132,14 @@ class MainFragment : Fragment() {
 //        }
 //    }
 
-    private fun getPrevisaoChegada() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val previsao: PrevisaoChegada = SPTransApi.retrofitService.getPrevisaoChegada(COOKIE, 340015333, 2506)
-
-            println("Linha: ${previsao.codigoLinha}")
-            println("Horário Previsto: ${previsao.horarioPrevisto}")
-        }
-    }
+//    private fun getPrevisaoChegada() {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val previsao: StopPredictionDto = SPTransApi.retrofitService.getPrevisaoChegada(COOKIE, 340015333, 2506)
+//
+//            println("Linha: ${previsao.codigoLinha}")
+//            println("Horário Previsto: ${previsao.horarioPrevisto}")
+//        }
+//    }
 
 
     private fun setButtonsClickListeners() {
