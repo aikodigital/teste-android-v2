@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+    implementation(libs.play.services.location)
 
     // UNIT TEST
     testImplementation(libs.mockito.core)

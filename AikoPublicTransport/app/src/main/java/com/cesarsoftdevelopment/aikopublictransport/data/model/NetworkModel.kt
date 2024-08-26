@@ -1,7 +1,10 @@
 package com.cesarsoftdevelopment.aikopublictransport.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
+import kotlinx.parcelize.Parcelize
+@Parcelize
 data class BusLineItem(
     @SerializedName("c")
     val fullSign : String?,
@@ -27,9 +30,10 @@ data class BusLineItem(
     val secondaryTerminal : String?,
     @SerializedName("vs")
     val vehicles : List<VehicleItem>,
-)
+) : Parcelable
 
 
+@Parcelize
 data class StopItem(
     @SerializedName("cp")
     val stopCode : Int,
@@ -44,16 +48,18 @@ data class StopItem(
     @SerializedName("l")
     val lines : List<BusLineItem>,
 
-    )
+    ) : Parcelable
 
+@Parcelize
 data class VehiclePosition(
     @SerializedName("hr")
     val currentTime : String,
     @SerializedName("vs")
     val vehicles : List<VehicleItem>
-)
+) : Parcelable
 
 
+@Parcelize
 data class VehicleItem(
     @SerializedName("p")
     val vehiclePrefix : String?,
@@ -67,11 +73,19 @@ data class VehicleItem(
     val vehicleLatitude : Double,
     @SerializedName("px")
     val vehicleLongitude : Double,
-)
+) : Parcelable
 
+@Parcelize
 data class EstimatedArrivalTime (
     @SerializedName("hr")
     val currentTime : String,
     @SerializedName("p")
     val stop : StopItem,
-)
+) : Parcelable
+
+
+@Parcelize
+data class Objects(
+    val stops : List<StopItem>,
+    val vehicles : List<VehicleItem>
+) : Parcelable

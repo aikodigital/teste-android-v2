@@ -24,6 +24,7 @@ playServicesMaps = "19.0.0"
 retrofit = "2.9.0"
 shimmer = "0.1.0"
 truth = "1.4.4"
+playServicesLocation = "21.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -54,6 +55,7 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

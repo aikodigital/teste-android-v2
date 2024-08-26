@@ -20,6 +20,8 @@ import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesVi
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesViewModelFactory
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.HomeViewModel
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.HomeViewModelFactory
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.MapViewModel
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.MapViewModelFactory
 import com.cesarsoftdevelopment.aikopublictransport.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +48,13 @@ class HomeActivity : AppCompatActivity() {
 
     val busLinesViewModel : BusLinesViewModel by viewModels {
         busLinesViewModelFactory
+    }
+
+    @Inject
+    lateinit var mapViewModelFactory : MapViewModelFactory
+
+    val mapViewModel : MapViewModel by viewModels {
+        mapViewModelFactory
     }
 
 

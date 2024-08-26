@@ -7,6 +7,7 @@ import com.cesarsoftdevelopment.aikopublictransport.domain.usecase.GetStopsByLin
 import com.cesarsoftdevelopment.aikopublictransport.domain.usecase.GetVehiclesPositionByLineUseCase
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesViewModelFactory
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.HomeViewModelFactory
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.MapViewModelFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,6 +44,14 @@ class FactoryModule {
             getVehiclesPositionByLineUseCase,
             getStopsByLineUseCase
 
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideMapViewModelFactory(application: Application) : MapViewModelFactory {
+        return MapViewModelFactory(
+            application
         )
     }
 

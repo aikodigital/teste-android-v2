@@ -15,7 +15,7 @@ import com.cesarsoftdevelopment.aikopublictransport.utils.Resource
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class BusLinesViewModel @Inject constructor(
+class BusLinesViewModel (
     private val getBusLinesUseCase: GetBusLinesUseCase,
     private val getVehiclesPositionByLineUseCase: GetVehiclesPositionByLineUseCase,
     private val getStopsByLineUseCase: GetStopsByLineUseCase
