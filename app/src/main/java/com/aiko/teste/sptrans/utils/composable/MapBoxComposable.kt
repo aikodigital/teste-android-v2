@@ -1,6 +1,6 @@
 package com.aiko.teste.sptrans.utils.composable
 
-import androidx.compose.foundation.layout.fillMaxSize
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -11,11 +11,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.viewinterop.NoOpUpdate
 import com.aiko.teste.sptrans.R
+import com.aiko.teste.sptrans.data.objects.BusPosition
 import com.aiko.teste.sptrans.utils.getBitmapFromImage
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
 import com.mapbox.maps.Style
+import com.mapbox.maps.extension.style.layers.properties.generated.TextAnchor
 import com.mapbox.maps.plugin.animation.MapAnimationOptions
 import com.mapbox.maps.plugin.animation.flyTo
 import com.mapbox.maps.plugin.annotation.annotations
@@ -28,12 +30,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+private lateinit var mapView: MapView
+
 @Composable
 fun MapBoxMap(
-    modifier: Modifier = Modifier.fillMaxSize(),
+    modifier: Modifier = Modifier,
     centerPoint: Point?,
     busStops: List<Point>?,
-    handlePointClick: (PointAnnotation) -> Boolean
+    busses: List<BusPosition>? = listOf(),
+    handleBusStopClick: (PointAnnotation) -> Boolean = { false }
 ) {
     var pointAnnotationManager: PointAnnotationManager? by remember {
         mutableStateOf(null)
@@ -42,19 +47,44 @@ fun MapBoxMap(
 
     AndroidView(
         factory = {
-            MapView(it).also { mapView ->
+            MapView(it).also {
+                mapView = it
                 mapView.mapboxMap.loadStyle(Style.STANDARD)
                 val annotationApi = mapView.annotations
                 pointAnnotationManager = annotationApi.createPointAnnotationManager()
+                mapView
             }
         },
-        update = { mapView ->
+        update = {
             if (centerPoint != null) {
                 mapView.mapboxMap
                     .flyTo(
                         CameraOptions.Builder().zoom(12.0).center(centerPoint).build(),
                         MapAnimationOptions.Builder().duration(400L).startDelay(100L).build()
                     )
+            }
+
+
+            if (!busses.isNullOrEmpty()) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    delay(1000L)
+                    pointAnnotationManager?.let {
+                        busses.forEach { bus ->
+                            Log.d("MapBoxMap", "bus = $bus")
+                            val pointAnnotationOptions = PointAnnotationOptions()
+                                .withPoint(Point.fromLngLat(bus.longitude, bus.latitude))
+                                .withIconImage(
+                                    getBitmapFromImage(
+                                        context,
+                                        R.drawable.baseline_directions_bus_24
+                                    )
+                                )
+                                .withTextField(bus.busCode)
+                                .withTextAnchor(TextAnchor.TOP)
+                            it.create(pointAnnotationOptions)
+                        }
+                    }
+                }
             }
 
             if (busStops != null) {
@@ -72,7 +102,7 @@ fun MapBoxMap(
                                 )
                             it.create(pointAnnotationOptions)
                         }
-                        it.addClickListener(handlePointClick)
+                        it.addClickListener(handleBusStopClick)
                     }
                 }
             }

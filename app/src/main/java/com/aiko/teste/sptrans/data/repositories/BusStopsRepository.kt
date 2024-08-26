@@ -19,6 +19,10 @@ class BusStopsRepository @Inject constructor(private val apiService: APIService)
         }
     }
 
+    fun getBusStop(busStopCode: String): BusStop {
+        return cachedData!!.filter { it.stopCode == busStopCode }[0]
+    }
+
     fun getBusStopPrevisions(busStopCode: String): Result<BusStopPrevisions> {
         return makeApiCall { apiService.getBusStopPrevisions(busStopCode).execute() }
     }

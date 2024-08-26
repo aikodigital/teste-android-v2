@@ -40,7 +40,7 @@ fun MapScreen(
     MapBoxMap(
         centerPoint = centerLocation,
         busStops = busStops,
-        handlePointClick = ::handlePointClick
+        handleBusStopClick = ::handlePointClick
     )
 
     viewModel.getMapPoints()

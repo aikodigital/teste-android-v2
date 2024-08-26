@@ -30,13 +30,16 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.aiko.teste.sptrans.data.objects.Line
+import com.aiko.teste.sptrans.screens.bus_stop_tracking.BusStopTrackingScreenArgs
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
+import com.ramcosta.composedestinations.generated.destinations.BusStopTrackingScreenDestination
 import com.ramcosta.composedestinations.generated.destinations.MapScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-private lateinit var _busStopCode: String
-private lateinit var _busStopName: String
+private lateinit var stopCode: String
+private lateinit var stopName: String
+private lateinit var destinationsNavigator: DestinationsNavigator
 @Destination<RootGraph>
 @Composable
 fun BusStopScreen(
@@ -45,8 +48,10 @@ fun BusStopScreen(
     busStopName: String,
     viewModel: BusStopScreenViewModel = hiltViewModel<BusStopScreenViewModel>()
 ) {
-    _busStopCode = busStopCode
-    _busStopName = busStopName
+    stopCode = busStopCode
+    stopName = busStopName
+    destinationsNavigator = navigator
+
     var busStopLines: List<Line> by remember {
         mutableStateOf(listOf())
     }
@@ -130,7 +135,7 @@ private fun CategorizedLazyColumn(
     ) {
         stickyHeader {
             LineHeader(
-                text = "Parada: $_busStopName",
+                text = "Parada: $stopName",
                 backgroundColor = Color.Black,
                 contentColor = Color.White,
                 onClick = { onHeaderClick(lines) }
@@ -153,5 +158,6 @@ private fun CategorizedLazyColumn(
 }
 
 private fun handleHeaderClick(lines: List<Line>) {
-
+    val navArgs = BusStopTrackingScreenArgs(stopCode, lines.toTypedArray())
+    destinationsNavigator.navigate(BusStopTrackingScreenDestination(navArgs))
 }
