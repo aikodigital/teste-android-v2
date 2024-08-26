@@ -1,32 +1,35 @@
-package com.leonardolino.busfinder.presentation.components
+package com.leonardolino.busfinder.presentation.screens
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.ui.graphics.toArgb
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.leonardolino.busfinder.R
+import com.leonardolino.busfinder.domain.model.EstimatedArrival
+import com.leonardolino.busfinder.presentation.components.ArrivalsBottomSheet
+import com.leonardolino.busfinder.presentation.components.ErrorMessage
+import com.leonardolino.busfinder.presentation.components.LoadingIndicator
 import com.leonardolino.busfinder.presentation.state.UiState
 import com.leonardolino.busfinder.presentation.viewmodel.MapViewModel
+import com.leonardolino.busfinder.utils.getBitmapDescriptorFromResource
 
 @Composable
-fun GoogleMapScreen(
+fun MapScreen(
     modifier: Modifier = Modifier,
-    viewModel: MapViewModel = hiltViewModel()
+    viewModel: MapViewModel,
+    onListItemClick: (EstimatedArrival.Stop.Line) -> Unit
 ) {
     val busStopListState by viewModel.busStopsListState.collectAsState()
     val arrivalsState by viewModel.arrivalsState.collectAsState()
@@ -39,28 +42,28 @@ fun GoogleMapScreen(
     Scaffold { paddingValues ->
         when (val state = busStopListState) {
             is UiState.Loading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
+                LoadingIndicator()
             }
 
             is UiState.Error -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = state.message, textAlign = TextAlign.Center)
-                }
+                ErrorMessage(message = state.message)
             }
 
             is UiState.Success -> {
                 GoogleMap(
                     modifier = modifier.padding(paddingValues),
-                    cameraPositionState = cameraPosition
+                    cameraPositionState = cameraPosition,
+                    uiSettings = MapUiSettings(
+                        mapToolbarEnabled = false,
+                        zoomControlsEnabled = false,
+                        tiltGesturesEnabled = false
+                    )
                 ) {
+                    val markerIcon = getBitmapDescriptorFromResource(
+                        R.drawable.flag_24dp_e8eaed_fill1_wght400_grad0_opsz24,
+                        100, 100,
+                        tintColor = MaterialTheme.colorScheme.tertiary.toArgb()
+                    )
                     for (stop in state.data) {
                         val markerState =
                             remember { MarkerState(LatLng(stop.latitude, stop.longitude)) }
@@ -68,6 +71,7 @@ fun GoogleMapScreen(
                             state = markerState,
                             title = stop.name,
                             snippet = stop.address,
+                            icon = markerIcon,
                             onInfoWindowClick = {
                                 viewModel.onInfoWindowClick(stop.code)
                             },
@@ -79,6 +83,7 @@ fun GoogleMapScreen(
                     ArrivalsBottomSheet(
                         onDismissRequest = { viewModel.hideBottomSheet() },
                         contentState = arrivalsState,
+                        onListItemClick = onListItemClick
                     )
                 }
             }

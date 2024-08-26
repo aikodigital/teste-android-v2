@@ -1,4 +1,4 @@
-package com.leonardolino.busfinder.ui.theme
+package com.leonardolino.busfinder.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

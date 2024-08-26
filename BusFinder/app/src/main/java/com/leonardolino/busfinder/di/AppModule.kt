@@ -5,7 +5,9 @@ import com.leonardolino.busfinder.data.repository.BusRepositoryImpl
 import com.leonardolino.busfinder.domain.repository.BusRepository
 import com.leonardolino.busfinder.domain.usecase.AuthenticateUseCase
 import com.leonardolino.busfinder.domain.usecase.GetBusStopsUseCase
+import com.leonardolino.busfinder.domain.usecase.GetLineInfoUseCase
 import com.leonardolino.busfinder.domain.usecase.GetNextArrivalsUseCase
+import com.leonardolino.busfinder.domain.usecase.GetVehiclesPositionUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -87,5 +89,17 @@ object AppModule {
     @Singleton
     fun provideGetNextArrivalsUseCase(repository: BusRepository): GetNextArrivalsUseCase {
         return GetNextArrivalsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetVehiclesPositionUseCase(repository: BusRepository): GetVehiclesPositionUseCase {
+        return GetVehiclesPositionUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetLineInfoUseCase(repository: BusRepository): GetLineInfoUseCase {
+        return GetLineInfoUseCase(repository)
     }
 }

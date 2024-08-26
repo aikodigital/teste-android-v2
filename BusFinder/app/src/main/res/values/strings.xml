@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BusFinder</string>
+    <string name="next_arrivals">Próximas chegadas</string>
+    <string name="search_hint">Pesquise o nome ou número da linha</string>
+    <string name="search_no_items">Nenhum resultado encontrado</string>
+    <string name="is_circular">É circular?</string>
+    <string name="vehicles_current_number">Quantidade atual de veículos</string>
 </resources>
