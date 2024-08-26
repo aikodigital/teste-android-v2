@@ -49,10 +49,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    @Inject
-    lateinit var busLinesAdapter: BusLinesAdapter
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setUpSplashScreen()

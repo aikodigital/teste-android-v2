@@ -40,7 +40,9 @@ class BusLinesViewModel @Inject constructor(
     }
 
     fun setSelectedLineCode(lineCode : Int) {
+        Log.i("RECEBENDO VALUE", lineCode.toString())
         _selectedLineCode.postValue(lineCode)
+        Log.i("RECEBENDO LIVEDATA",selectedLineCode.value.toString() )
     }
 
 

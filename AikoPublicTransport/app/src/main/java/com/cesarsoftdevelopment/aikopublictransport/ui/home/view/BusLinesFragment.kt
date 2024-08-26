@@ -40,12 +40,12 @@ class BusLinesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        busLinesAdapter = (activity as HomeActivity).busLinesAdapter
         busLinesViewModel = (activity as HomeActivity).busLinesViewModel
         setUpBinding()
         setList()
-        setSearchView()
         observeSelectedLineCode()
+        setSearchView()
+
     }
 
     private fun setSearchView() {
@@ -68,8 +68,9 @@ class BusLinesFragment : Fragment() {
     }
 
     private fun observeSelectedLineCode() {
+
         busLinesViewModel.selectedLineCode.observe(viewLifecycleOwner, Observer { selectedLineCode ->
-            Log.i("LOG_FRAGMENT", "Selected line code: $selectedLineCode")
+            Log.i("PORRA", "Selected line code: $selectedLineCode")
         })
 
     }
@@ -103,6 +104,7 @@ class BusLinesFragment : Fragment() {
     }
 
     private fun setList() {
+        busLinesAdapter = BusLinesAdapter(busLinesViewModel)
         binding.recyclerView.apply {
             adapter = busLinesAdapter
         }

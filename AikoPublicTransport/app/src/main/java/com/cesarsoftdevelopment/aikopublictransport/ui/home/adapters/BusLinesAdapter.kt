@@ -11,8 +11,7 @@ import com.cesarsoftdevelopment.aikopublictransport.databinding.BusLineItemBindi
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesViewModel
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.HomeViewModel
 
-class BusLinesAdapter(private val busLinesViewModel: BusLinesViewModel) :
-    ListAdapter<BusLineItem, BusLinesAdapter.ViewHolder>(BusLinesDiffCallback())  {
+class BusLinesAdapter(private val busLinesViewModel: BusLinesViewModel) : ListAdapter<BusLineItem, BusLinesAdapter.ViewHolder>(BusLinesDiffCallback())  {
 
     private var selectedPosition: Int = -1
 

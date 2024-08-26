@@ -11,11 +11,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class AdapterModule {
-    @Singleton
-    @Provides
-    fun provideNewsAdapter(busLinesViewModel: BusLinesViewModel) : BusLinesAdapter {
-        return BusLinesAdapter(busLinesViewModel)
-    }
 
 }
 
