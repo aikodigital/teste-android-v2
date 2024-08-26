@@ -7,14 +7,18 @@ import androidx.lifecycle.viewModelScope
 import com.matreis.teste.sptrans.R
 import com.matreis.teste.sptrans.domain.model.TimeWithBusStop
 import com.matreis.teste.sptrans.domain.usecase.GetArrivalTimeUseCase
+import com.matreis.teste.sptrans.helper.CoroutineDispatcherType.IO
+import com.matreis.teste.sptrans.helper.Dispatcher
 import com.matreis.teste.sptrans.helper.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ArrivalTimesViewModel @Inject constructor(
-    private val getArrivalTimesUseCase: GetArrivalTimeUseCase
+    private val getArrivalTimesUseCase: GetArrivalTimeUseCase,
+    @Dispatcher(IO) private val coroutineDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private var selectedLine: Long? = 0L
@@ -30,7 +34,7 @@ class ArrivalTimesViewModel @Inject constructor(
 
     fun getArrivalTimes(stopCode: Long) {
         _isLoading.value = true
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineDispatcher) {
             try {
                 val response = getArrivalTimesUseCase.getByBusStop(stopCode)
                 if (response.isSuccessful) {

@@ -16,8 +16,11 @@ import com.matreis.teste.sptrans.domain.model.Vehicle
 import com.matreis.teste.sptrans.domain.usecase.GetBusStopUseCase
 import com.matreis.teste.sptrans.domain.usecase.GetRoadSpeedUseCase
 import com.matreis.teste.sptrans.domain.usecase.GetVehiclePositionUseCase
+import com.matreis.teste.sptrans.helper.CoroutineDispatcherType.IO
+import com.matreis.teste.sptrans.helper.Dispatcher
 import com.matreis.teste.sptrans.helper.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -36,7 +39,8 @@ class MapViewModel @Inject constructor(
     private val getBusStopUseCase: GetBusStopUseCase,
     private val getVehiclePositionUseCase: GetVehiclePositionUseCase,
     private val getRoadSpeedUseCase: GetRoadSpeedUseCase,
-    private val userPreferences: UserPreferences
+    private val userPreferences: UserPreferences,
+    @Dispatcher(IO) private val coroutineDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private var keepUpdating = true
@@ -60,7 +64,7 @@ class MapViewModel @Inject constructor(
     private var busStopList = listOf<BusStop>()
 
     fun getLinesInformation(lineCode: Long) {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineDispatcher) {
             keepUpdating = userPreferences.getAutoUpdate()
             updateInterval = userPreferences.getAutoUpdateInterval()
             try {
@@ -75,7 +79,7 @@ class MapViewModel @Inject constructor(
                 }while (isActive && keepUpdating)
             }catch (e: Exception){
                 e.printStackTrace()
-                _error.value = Event(R.string.error_get_lines_informations)
+                _error.postValue(Event(R.string.error_get_lines_informations))
             }
         }
     }

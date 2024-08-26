@@ -45,8 +45,7 @@ class BusStopFragment : Fragment() {
             adapter = busStopAdapter.also { adapter ->
                 adapter.onVehicleClick = {
                     binding.searchBar.clearFocus()
-                    val dialog = DialogBusInfo()
-                    dialog.setVehicle(it)
+                    val dialog = DialogBusInfo(it)
                     dialog.show(childFragmentManager, "dialog")
                 }
             }

@@ -12,8 +12,11 @@ import com.matreis.teste.sptrans.domain.model.LineWithVehicles
 import com.matreis.teste.sptrans.domain.model.Vehicle
 import com.matreis.teste.sptrans.domain.usecase.GetArrivalTimeUseCase
 import com.matreis.teste.sptrans.domain.usecase.GetBusStopUseCase
+import com.matreis.teste.sptrans.helper.CoroutineDispatcherType.IO
+import com.matreis.teste.sptrans.helper.Dispatcher
 import com.matreis.teste.sptrans.helper.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class BusStopViewModel @Inject constructor(
     private val getBusStopUseCase: GetBusStopUseCase,
-    private val getArrivalTimeUseCase: GetArrivalTimeUseCase
+    private val getArrivalTimeUseCase: GetArrivalTimeUseCase,
+    @Dispatcher(IO) private val coroutineDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _busStops = MutableLiveData<List<BusStop>>()
@@ -35,7 +39,7 @@ class BusStopViewModel @Inject constructor(
 
     fun getBusStop(term: String) {
         _isLoading.value = true
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineDispatcher) {
            try {
                val response = getBusStopUseCase(term)
                if (response.isSuccessful) {

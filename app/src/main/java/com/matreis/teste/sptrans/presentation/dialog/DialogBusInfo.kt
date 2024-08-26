@@ -11,12 +11,14 @@ import com.matreis.teste.sptrans.domain.model.BusStop
 import com.matreis.teste.sptrans.domain.model.Vehicle
 import com.matreis.teste.sptrans.helper.getDirection
 
-class DialogBusInfo : BottomSheetDialogFragment() {
+class DialogBusInfo(
+    private val vehicle: Vehicle
+) : BottomSheetDialogFragment() {
 
-    private lateinit var vehicle: Vehicle
+    /*private lateinit var vehicle: Vehicle
     fun setVehicle(vehicle: Vehicle) {
         this.vehicle = vehicle
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
