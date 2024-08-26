@@ -12,6 +12,7 @@ import com.example.aikospbus.MainFragment.Companion.COOKIE
 import com.example.aikospbus.R
 import com.example.aikospbus.R.id.action_busStopsFragment_to_stopPredictionFragment
 import com.example.aikospbus.R.id.action_mapsFragment_to_stopPredictionFragment
+import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusStopsBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -55,6 +56,8 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        setHeaderConfig()
+
         viewModel.getRemoteBusStopsData(ApiConfig.cookie,ApiConfig.searchStops)
 
         viewModel.busDtoStopsDataModel.observe(viewLifecycleOwner) { busStopsData ->
@@ -83,6 +86,16 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sp))
         val cameraUpdate = CameraUpdateFactory.zoomTo(10f)
         mMap.moveCamera(cameraUpdate)
+    }
+
+    private fun setHeaderConfig() {
+        val customHeader = binding.customHeader
+
+        customHeader.setConfig(object : CustomHeader.HeaderClickListener {
+            override fun setBackButtonClickListener() {
+                findNavController().popBackStack()
+            }
+        }, title = "Mapa")
     }
 
 }
