@@ -1,6 +1,7 @@
 package com.cesarsoftdevelopment.aikopublictransport.di.modules
 
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.adapters.BusLinesAdapter
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,8 +13,8 @@ import javax.inject.Singleton
 class AdapterModule {
     @Singleton
     @Provides
-    fun provideNewsAdapter() : BusLinesAdapter {
-        return BusLinesAdapter()
+    fun provideNewsAdapter(busLinesViewModel: BusLinesViewModel) : BusLinesAdapter {
+        return BusLinesAdapter(busLinesViewModel)
     }
 
 }

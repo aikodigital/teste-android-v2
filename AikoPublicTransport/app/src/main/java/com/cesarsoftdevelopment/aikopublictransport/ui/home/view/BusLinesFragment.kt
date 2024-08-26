@@ -45,9 +45,10 @@ class BusLinesFragment : Fragment() {
         setUpBinding()
         setList()
         setSearchView()
+        observeSelectedLineCode()
     }
 
-    private fun setSearchView(){
+    private fun setSearchView() {
 
         binding.searchView
             .editText
@@ -63,6 +64,13 @@ class BusLinesFragment : Fragment() {
 
                 false
             }
+
+    }
+
+    private fun observeSelectedLineCode() {
+        busLinesViewModel.selectedLineCode.observe(viewLifecycleOwner, Observer { selectedLineCode ->
+            Log.i("LOG_FRAGMENT", "Selected line code: $selectedLineCode")
+        })
 
     }
 

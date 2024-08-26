@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cesarsoftdevelopment.aikopublictransport.data.model.BusLineItem
 import com.cesarsoftdevelopment.aikopublictransport.databinding.BusLineItemBinding
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesViewModel
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.HomeViewModel
 
-class BusLinesAdapter : ListAdapter<BusLineItem, BusLinesAdapter.ViewHolder>(BusLinesDiffCallback())  {
+class BusLinesAdapter(private val busLinesViewModel: BusLinesViewModel) :
+    ListAdapter<BusLineItem, BusLinesAdapter.ViewHolder>(BusLinesDiffCallback())  {
 
     private var selectedPosition: Int = -1
 
@@ -21,7 +24,9 @@ class BusLinesAdapter : ListAdapter<BusLineItem, BusLinesAdapter.ViewHolder>(Bus
             return oldItem == newItem
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position), position == selectedPosition)
@@ -32,6 +37,7 @@ class BusLinesAdapter : ListAdapter<BusLineItem, BusLinesAdapter.ViewHolder>(Bus
 
             notifyItemChanged(previousPosition)
             notifyItemChanged(selectedPosition)
+            busLinesViewModel.setSelectedLineCode(getItem(position).lineCode)
         }
 
     }
@@ -48,16 +54,21 @@ class BusLinesAdapter : ListAdapter<BusLineItem, BusLinesAdapter.ViewHolder>(Bus
         }
 
         companion object {
-            fun from(parent: ViewGroup): ViewHolder {
+            fun from(
+                parent: ViewGroup
+            ): ViewHolder {
                 val binding = BusLineItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                return ViewHolder(binding)
+                return ViewHolder(
+                    binding
+                )
             }
         }
     }
+
 
 
 }
