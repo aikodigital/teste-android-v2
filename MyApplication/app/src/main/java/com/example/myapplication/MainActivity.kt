@@ -1,72 +1,63 @@
 package com.example.myapplication
 
+import BussFragment
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.widget.EditText
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.net.PlacesClient
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
-    private val ruas = listOf(
-        "Avenida Paulista",
-        "Rua Oscar Freire",
-        "Avenida Ibirapuera",
-        "Rua 25 de Março"
-    )
+class MainActivity : AppCompatActivity() {
 
-    private var ruaIndex = 0
-    private var charIndex = 0
-    private lateinit var placesClient: PlacesClient
-    private lateinit var googleMap: GoogleMap
+    private lateinit var bottomNavigation: BottomNavigationView
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val editText = findViewById<EditText>(R.id.editTextText)
-        val mapFragment =
-            supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+        bottomNavigation = findViewById(R.id.bottomNavigation)
+        progressBar = findViewById(R.id.progress_bar)
 
-        if (!Places.isInitialized()) {
-            Places.initialize(applicationContext, "YOUR_API_KEY")
+        if (savedInstanceState == null) {
+            changeFragment(BussFragment())
         }
-        placesClient = Places.createClient(this)
 
-        mapFragment.getMapAsync(this)
-
-        val handler = Handler(Looper.getMainLooper())
-        val runnable = object : Runnable {
-            override fun run() {
-                val currentRua = ruas[ruaIndex]
-
-                // Escreve a rua letra por letra
-                if (charIndex < currentRua.length) {
-                    editText.hint = currentRua.substring(0, charIndex + 1)
-                    charIndex++
-                    handler.postDelayed(this, 150)
-                } else {
-                    charIndex = 0
-                    ruaIndex = (ruaIndex + 1) % ruas.size
-                    handler.postDelayed(this, 1000)
-                }
-            }
-        }
-        handler.post(runnable)
+        navOptions()
     }
 
-    override fun onMapReady(map: GoogleMap) {
-        googleMap = map
+    private fun navOptions() {
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.lines -> {
+                    changeFragment(LineFragment())
+                    true
+                }
+                R.id.busStop -> {
+                    changeFragment(MapFragment())
+                    true
+                }
+                R.id.bus -> {
+                    changeFragment(BussFragment())
+                    true
+                }
+                else -> false
+            }
+        }
+    }
 
-        val avenidaPaulista = LatLng(-23.5615, -46.6559) // Exemplo de coordenadas
-        googleMap.addMarker(MarkerOptions().position(avenidaPaulista).title("Avenida Paulista"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(avenidaPaulista, 15f))
+    private fun changeFragment(fragment: Fragment) {
+        progressBar.visibility = View.VISIBLE
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.map_container, fragment)
+            .addToBackStack(null)
+            .commit()
+
+        // Adiciona um listener para quando a transação for completada
+        supportFragmentManager.addOnBackStackChangedListener {
+            progressBar.visibility = View.GONE
+        }
     }
 }
