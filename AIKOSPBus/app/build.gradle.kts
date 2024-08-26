@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -77,6 +78,11 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:1.6.3")
     implementation("ch.qos.logback:logback-classic:1.2.3")
     implementation("io.ktor:ktor-auth:1.6.3")
+
+    //TEST
+    implementation("androidx.arch.core:core-testing:2.1.0")
+    androidTestImplementation("androidx.test:core:1.5.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
 
 }
