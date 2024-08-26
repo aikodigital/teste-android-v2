@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">SpTrans</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+    <string name="lines">Pauta</string>
+    <string name="settings">Ajustes</string>
+    <string name="stops">Paradas</string>
+    <string name="search_lines_input_above">Busque en el campo de arriba el nombre o el número de línea</string>
+    <string name="search_for_lines">Busque linhas por termo ou número</string>
+    <string name="more_options">Más opciones</string>
+    <string name="bus_stop">Paradas</string>
+    <string name="search_for_stops">Busque uma parada pelo nome ou end.</string>
+    <string name="search_stops_input_above">Busque la parada escribiendo el nombre o la dirección, completa o parcial, en el campo de arriba</string>
+    <string name="bus_update">Actualizaciones automáticas de autobuses</string>
+    <string name="update_frequency">Frecuencia de actualización</string>
+    <string name="filters">Filtros</string>
+    <string name="see_stops">Ver paradas</string>
+    <string name="see_stops_by_lines">Ver paradas de línea</string>
+    <string name="see_on_map">Ver no mapa</string>
+    <string name="see_time">Ver horarios</string>
+    <string name="define_route">Establecer ruta</string>
+    <string name="error_get_lines">No se pueden obtener líneas</string>
+    <string name="no_lines_found">No se encontraron líneas</string>
+    <string name="error_get_bus_stops">Error al obtener paradas</string>
+    <string name="error_get_vehicle_positions">No se pudo obtener la posición del vehículo</string>
+    <string name="error_get_lines_informations">No se pudo obtener información de la línea</string>
+    <string name="error_get_bus_stop">No se pudieron conseguir paradas</string>
+    <string name="no_bus_stop_found">No se encontraron paradas</string>
+    <string name="line">Línea</string>
+    <string name="bus_detail">Línea de autobús</string>
+    <string name="error_get_arrival_times">No se pudieron obtener las predicciones del vehículo</string>
+    <string name="five_seconds">5 segundos</string>
+    <string name="ten_seconds">10 segundos</string>
+    <string name="fifteen_seconds">15 segundos</string>
+    <string name="twenty_seconds">20 segundos</string>
+    <string name="click_on_bus">Haga clic en el autobús para ver detalles</string>
+    <string name="no_lines_favorited_lines">No hay líneas favoritas</string>
+    <string name="favorited_lines">Líneas favoritas</string>
+    <string name="add_to_favorite">Añadir a favoritos</string>
+    <string name="remove_favorite">Remover dos favoritos</string>
+    <string name="line_added_to_favorites">Añadido a favoritos</string>
+    <string name="favorite_lines">Líneas favoritas</string>
+
+    <string-array name="intervals">
+        <item value="5 segundos" />
+        <item value="10 segundos" />
+        <item value="15 segundos" />
+        <item value="30 segundos" />
+    </string-array>
+
+</resources>

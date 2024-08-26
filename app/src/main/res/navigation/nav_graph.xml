@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/linesFragment">
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.matreis.teste.sptrans.presentation.fragment.MapFragment"
+        android:label="MapFragment" >
+        <action
+            android:id="@+id/action_mapFragment_to_busStopTimesFragment"
+            app:destination="@id/busStopTimesFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/busStopFragment"
+        android:name="com.matreis.teste.sptrans.presentation.fragment.BusStopFragment"
+        android:label="fragment_bus_stop"
+        tools:layout="@layout/fragment_bus_stop" >
+        <action
+            android:id="@+id/action_busStopFragment_to_mapFragment"
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/linesFragment"
+        android:name="com.matreis.teste.sptrans.presentation.fragment.LinesFragment"
+        android:label="fragment_lines"
+        tools:layout="@layout/fragment_lines" >
+        <action
+            android:id="@+id/action_linesFragment_to_mapFragment"
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.matreis.teste.sptrans.presentation.fragment.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/busStopTimesFragment"
+        android:name="com.matreis.teste.sptrans.presentation.fragment.BusStopTimesFragment"
+        android:label="fragment_bus_stop_times"
+        tools:layout="@layout/fragment_bus_stop_times" />
+    <fragment
+        android:id="@+id/favoriteLiensFragment"
+        android:name="com.matreis.teste.sptrans.presentation.fragment.FavoriteLiensFragment"
+        android:label="fragment_favorite_liens"
+        tools:layout="@layout/fragment_favorite_liens" >
+        <action
+            android:id="@+id/action_favoriteLiensFragment_to_mapFragment"
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+</navigation>

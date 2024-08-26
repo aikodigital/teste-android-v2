@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<item android:id="@+id/menuSeeStops"
+        android:title="@string/see_stops"/>
+
+    <item android:id="@+id/menuSeeOnMap"
+        android:title="@string/see_on_map"/>-->
+
+    <item android:id="@+id/menuAddFavorite"
+        android:title="@string/add_to_favorite"/>
+
+</menu>

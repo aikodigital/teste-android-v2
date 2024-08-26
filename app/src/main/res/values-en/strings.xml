@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">SpTrans</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lines">Lines</string>
+    <string name="settings">Settings</string>
+    <string name="stops">Stops</string>
+    <string name="search_lines_input_above">Search the field above for the name or line number</string>
+    <string name="search_for_lines">Search bus line by term or number</string>
+    <string name="more_options">More options</string>
+    <string name="bus_stop">Stops</string>
+    <string name="search_for_stops">Search for a stop by name or address.</string>
+    <string name="search_stops_input_above">Search for the stop by typing the name or address, full or partial, in the field above</string>
+    <string name="bus_update">Automatic bus updates</string>
+    <string name="update_frequency">Update frequency</string>
+    <string name="filters">Filters</string>
+    <string name="see_stops">See stops</string>
+    <string name="see_stops_by_lines">See line stops</string>
+    <string name="see_on_map">See no map</string>
+    <string name="see_time">See timetables</string>
+    <string name="define_route">Set route</string>
+    <string name="error_get_lines">Unable to get lines</string>
+    <string name="no_lines_found">No lines found</string>
+    <string name="error_get_bus_stops">Error getting stops</string>
+    <string name="error_get_vehicle_positions">Failed to obtain vehicle position</string>
+    <string name="error_get_lines_informations">Failed to get line information</string>
+    <string name="error_get_bus_stop">Failed to get stops</string>
+    <string name="no_bus_stop_found">No stops found</string>
+    <string name="line">Line</string>
+    <string name="bus_detail">Bus line</string>
+    <string name="error_get_arrival_times">Failed to get vehicle predictions</string>
+    <string name="five_seconds">5 seconds</string>
+    <string name="ten_seconds">10 seconds</string>
+    <string name="fifteen_seconds">15 seconds</string>
+    <string name="twenty_seconds">20 seconds</string>
+    <string name="click_on_bus">Click on the bus to see details</string>
+    <string name="no_lines_favorited_lines">No favorite lines</string>
+    <string name="favorited_lines">Favorite lines</string>
+    <string name="add_to_favorite">Add to favorites</string>
+    <string name="remove_favorite">Remove from favorites</string>
+    <string name="line_added_to_favorites">Added to favorites</string>
+    <string name="favorite_lines">Favorite lines</string>
+
+    <string-array name="intervals">
+        <item value="5 segundos" />
+        <item value="10 segundos" />
+        <item value="15 segundos" />
+        <item value="30 segundos" />
+    </string-array>
+
+</resources>
