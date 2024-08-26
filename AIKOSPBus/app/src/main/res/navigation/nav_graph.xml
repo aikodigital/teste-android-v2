@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.example.aikospbus.MainFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_busCorridorFragment"
+            app:destination="@id/busCorridorFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_busLinesFragment"
+            app:destination="@id/busLinesFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_busLocationFragment"
+            app:destination="@id/busLocationFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_busStopsFragment"
+            app:destination="@id/busStopsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/busCorridorFragment"
+        android:name="com.example.aikospbus.feature_bus_corridor.presentation.BusCorridorFragment"
+        android:label="fragment_bus_corridor"
+        tools:layout="@layout/fragment_bus_corridor" />
+    <fragment
+        android:id="@+id/busLinesFragment"
+        android:name="com.example.aikospbus.feature_bus_lines.presentation.BusLinesFragment"
+        android:label="fragment_bus_lines"
+        tools:layout="@layout/fragment_bus_lines" />
+    <fragment
+        android:id="@+id/busLocationFragment"
+        android:name="com.example.aikospbus.feature_bus_location.presentation.BusLocationFragment"
+        android:label="fragment_bus_location"
+        tools:layout="@layout/fragment_bus_location" >
+    </fragment>
+    <fragment
+        android:id="@+id/busStopsFragment"
+        android:name="com.example.aikospbus.feature_bus_stops.presentation.BusStopsFragment"
+        android:label="fragment_bus_stops"
+        tools:layout="@layout/fragment_bus_stops" >
+        <action
+            android:id="@+id/action_busStopsFragment_to_stopPredictionFragment"
+            app:destination="@id/stopPredictionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stopPredictionFragment"
+        android:name="com.example.aikospbus.feature_bus_stop_prediction.presentation.StopPredictionFragment"
+        android:label="fragment_stop_prediction"
+        tools:layout="@layout/fragment_stop_prediction" />
+</navigation>
