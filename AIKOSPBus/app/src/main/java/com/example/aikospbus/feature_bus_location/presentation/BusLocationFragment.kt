@@ -16,7 +16,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,12 +35,6 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
     }
 
     private val viewModel: BusLocationViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -104,10 +97,16 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
     private fun handleApiCookies() {
         CoroutineScope(Dispatchers.Main).launch {
             if (CookieManager.isCookieValid()) {
-                viewModel.getRemoteBusLocationData(CookieManager.cookie, ApiConfig.searchLocationLine)
+                viewModel.getRemoteBusLocationData(
+                    CookieManager.cookie,
+                    ApiConfig.searchLocationLine
+                )
             } else {
                 CookieManager.authentication()
-                viewModel.getRemoteBusLocationData(CookieManager.cookie, ApiConfig.searchLocationLine)
+                viewModel.getRemoteBusLocationData(
+                    CookieManager.cookie,
+                    ApiConfig.searchLocationLine
+                )
             }
         }
     }
@@ -118,6 +117,7 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
                 binding.mapLayout.visibility = View.VISIBLE
                 binding.errorLayout.visibility = View.GONE
             }
+
             "Error" -> {
                 binding.mapLayout.visibility = View.GONE
                 binding.errorLayout.visibility = View.VISIBLE

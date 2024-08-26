@@ -7,6 +7,6 @@ import com.example.aikospbus.feature_bus_location.data.remote.dto.VehicleDto
 @Entity(tableName = "busLocation")
 data class BusLocationModel(
     @PrimaryKey(autoGenerate = false)
-    val horaConsulta: String,            // Horário da consulta da posição
-    val vehicleDtos: List<VehicleDto>          // Lista de veículos na linha
+    val horaConsulta: String,
+    val vehicleDtos: List<VehicleDto>
 )

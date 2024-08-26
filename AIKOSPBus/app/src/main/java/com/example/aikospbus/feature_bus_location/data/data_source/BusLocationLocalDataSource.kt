@@ -1,11 +1,11 @@
 package com.example.aikospbus.feature_bus_location.data.data_source
 
-import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
 import com.example.aikospbus.feature_bus_location.domain.model.BusLocationModel
 
-class BusLocationLocalDataSource(private val busLocationDao: BusLocationDao) : BusLocationDataSource {
+class BusLocationLocalDataSource(private val busLocationDao: BusLocationDao) :
+    BusLocationDataSource {
     override suspend fun insertBusLocation(busLocationModel: BusLocationModel) {
-       return busLocationDao.insertBusLocation(busLocationModel)
+        return busLocationDao.insertBusLocation(busLocationModel)
     }
 
     override suspend fun getBusLocation(): BusLocationModel {

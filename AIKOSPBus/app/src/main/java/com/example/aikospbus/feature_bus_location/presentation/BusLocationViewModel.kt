@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aikospbus.feature_bus_location.domain.model.BusLocationModel
-import com.example.aikospbus.feature_bus_location.domain.use_case.InsertBusLocationUseCase
 import com.example.aikospbus.feature_bus_location.domain.use_case.GetRemoteBusLocationDataUseCase
 import com.example.aikospbus.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,9 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BusLocationViewModel @Inject constructor(
-    private val insertBusLocationUseCase: InsertBusLocationUseCase,
     private val getRemoteBusLocationDataUseCase: GetRemoteBusLocationDataUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _busDtoLocationDataModel = MutableLiveData<BusLocationModel?>()
     val busDtoLocationDataModel: MutableLiveData<BusLocationModel?>
@@ -29,10 +27,6 @@ class BusLocationViewModel @Inject constructor(
         get() = _hasVehicleData
 
 
-    fun insertBusLocation(busLocationModel: BusLocationModel) = viewModelScope.launch {
-        insertBusLocationUseCase(busLocationModel)
-    }
-
     fun getRemoteBusLocationData(cookie: String, lineCode: Int) = viewModelScope.launch {
         getRemoteBusLocationDataUseCase(cookie, lineCode).onEach { result ->
             when (result) {
@@ -40,10 +34,12 @@ class BusLocationViewModel @Inject constructor(
                     _busDtoLocationDataModel.value = result.data
                     updateHasVehicleData("Success")
                 }
+
                 is Resource.Error -> {
                     _busDtoLocationDataModel.value = result.data
                     updateHasVehicleData("Error")
                 }
+
                 is Resource.Loading -> {
                     _busDtoLocationDataModel.value = result.data
                 }
