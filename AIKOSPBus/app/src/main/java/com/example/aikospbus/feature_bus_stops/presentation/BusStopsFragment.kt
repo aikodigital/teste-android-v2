@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.aikospbus.ApiConfig
+import com.example.aikospbus.feature_api_sp_trans.ApiConfig
 import com.example.aikospbus.R
 import com.example.aikospbus.R.id.action_busStopsFragment_to_stopPredictionFragment
 import com.example.aikospbus.common.custom_components.CustomHeader

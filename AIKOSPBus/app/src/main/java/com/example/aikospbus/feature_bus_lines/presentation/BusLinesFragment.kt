@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.aikospbus.ApiConfig
+import com.example.aikospbus.feature_api_sp_trans.ApiConfig
 import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusLinesBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.CookieManager

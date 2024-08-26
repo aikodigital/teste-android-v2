@@ -8,21 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.aikospbus.R.drawable.arrow_down_ic
 import com.example.aikospbus.R.drawable.arrow_up_ic
 import com.example.aikospbus.databinding.FragmentMainBinding
-import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
-import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
-import com.example.aikospbus.feature_bus_location.presentation.BusLocationViewModel
-import com.example.aikospbus.feature_bus_stops.data.remote.dto.BusStopsDto
+import com.example.aikospbus.feature_api_sp_trans.ApiConfig
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -43,7 +34,7 @@ class MainFragment : Fragment() {
         handleStopsSearch()
 
         binding.mainLayout.setOnClickListener {
-         hideSoftKeyboard()
+            hideSoftKeyboard()
         }
 
 

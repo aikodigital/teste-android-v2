@@ -16,20 +16,18 @@ import com.example.aikospbus.feature_bus_stop_prediction.data.data_source.StopPr
 import com.example.aikospbus.feature_bus_stop_prediction.domain.model.StopPredictionModel
 import com.example.aikospbus.feature_bus_stops.data.data_source.BusStopsDao
 import com.example.aikospbus.feature_bus_stops.domain.model.BusStopsModel
-import com.example.aikospbus.roomDataBase.roomConverters.BusLinesConverter
 import com.example.aikospbus.roomDataBase.roomConverters.StopPredictionConverter
 
 @Database(
-    entities = [BusLocationModel::class,BusCorridorModel::class,BusLinesModel::class,BusStopsModel::class,StopPredictionModel::class],
+    entities = [BusLocationModel::class, BusCorridorModel::class, BusLinesModel::class, BusStopsModel::class, StopPredictionModel::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(
     BusLocationConverter::class,
     StopPredictionConverter::class,
-    BusLinesConverter::class
 )
-abstract class AppDataBase: RoomDatabase() {
+abstract class AppDataBase : RoomDatabase() {
 
     abstract fun BusLocationDao(): BusLocationDao
 
@@ -39,7 +37,7 @@ abstract class AppDataBase: RoomDatabase() {
 
     abstract fun BusStopsDao(): BusStopsDao
 
-    abstract fun StopPredictionsDao(): StopPredictionDao
+    abstract fun stopPredictionsDao(): StopPredictionDao
 
 
     companion object {
@@ -47,7 +45,7 @@ abstract class AppDataBase: RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDataBase? = null
 
-        fun getDataBaseInstance(context: Context): AppDataBase{
+        fun getDataBaseInstance(context: Context): AppDataBase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,

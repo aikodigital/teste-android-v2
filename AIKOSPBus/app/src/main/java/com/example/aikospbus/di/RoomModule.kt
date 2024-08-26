@@ -109,7 +109,7 @@ object RoomModule {
 
     @Provides
     fun stopsPredictionDao(appDataBase: AppDataBase): StopPredictionDao {
-        return appDataBase.StopPredictionsDao()
+        return appDataBase.stopPredictionsDao()
     }
 
     @Provides
