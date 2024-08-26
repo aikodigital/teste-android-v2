@@ -8,9 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.cesarsoftdevelopment.aikopublictransport.R
+import com.cesarsoftdevelopment.aikopublictransport.data.model.Objects
+import com.cesarsoftdevelopment.aikopublictransport.data.model.StopItem
 import com.cesarsoftdevelopment.aikopublictransport.databinding.FragmentBusLinesBinding
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.adapters.BusLinesAdapter
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesViewModel
@@ -18,7 +22,6 @@ import com.cesarsoftdevelopment.aikopublictransport.utils.Resource
 import javax.inject.Inject
 
 class BusLinesFragment : Fragment() {
-
     private lateinit var binding : FragmentBusLinesBinding
     private lateinit var busLinesAdapter: BusLinesAdapter
     private lateinit var busLinesViewModel : BusLinesViewModel
@@ -46,23 +49,16 @@ class BusLinesFragment : Fragment() {
         busLinesViewModel.removeObserve()
         observeSelectedLineCode()
         setSearchView()
-
     }
 
     private fun setSearchView() {
-
         binding.searchView
             .editText
             .setOnEditorActionListener { v: TextView?, actionId: Int, event: KeyEvent? ->
-
                 binding.searchBar.setText(binding.searchView.text)
-
                 val termsSearch = binding.searchView.text.toString()
-
                 getBusLines(termsSearch)
-
                 binding.searchView.hide()
-
                 false
             }
 
@@ -72,22 +68,111 @@ class BusLinesFragment : Fragment() {
 
         busLinesViewModel.selectedLineCode.observe(viewLifecycleOwner, Observer { selectedLineCode ->
             if(selectedLineCode != null) {
-                binding.fabGoMap.visibility = View.VISIBLE
-                Log.i("PORRA", "Selected line code: $selectedLineCode")
+                binding.fabGoMap.apply {
+                    visibility = View.VISIBLE
+                    setOnClickListener {
+                        getStops(selectedLineCode)
+                    }
+                }
+
             }else {
                 binding.fabGoMap.visibility = View.GONE
             }
+        })
+    }
 
+
+    private fun getStops(lineCode : Int) {
+        busLinesViewModel.getStopsByLine(lineCode)
+        busLinesViewModel.stops.observe(viewLifecycleOwner, Observer { stopsResponse ->
+            when (stopsResponse) {
+                is Resource.Success -> {
+                    if(!stopsResponse.data.isNullOrEmpty()) {
+                        getVehicle(
+                            lineCode,
+                            stopsResponse.data
+                        )
+                    }else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Sem paradas",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        hideProgressBar()
+                    }
+
+                }
+
+                is Resource.Error -> {
+                    Log.e("BindingAdapter", "Error: ${stopsResponse.message}")
+                }
+
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+
+                else -> {
+                    Log.e("BindingAdapter", "Error: $stopsResponse")
+                }
+            }
+        })
+
+    }
+
+    private fun getVehicle(lineCode : Int, stopItems: List<StopItem>?) {
+        busLinesViewModel.getVehicles(lineCode)
+        busLinesViewModel.vehicles.observe(viewLifecycleOwner, Observer { vehicleResponse ->
+            when (vehicleResponse) {
+                is Resource.Success -> {
+                    if (!stopItems.isNullOrEmpty()) {
+
+                        if(vehicleResponse.data != null && vehicleResponse.data.vehicles.isNotEmpty()) {
+                            val objects = Objects(
+                                stopItems,
+                                vehicleResponse.data
+                            )
+                            requireView().findNavController().navigate(
+                                BusLinesFragmentDirections.actionBusLinesFragmentToMapsFragment(objects)
+                            )
+
+                        }else {
+                            Toast.makeText(
+                                requireContext(),
+                                "Sem Veículos",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            hideProgressBar()
+                        }
+                    }else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Sem Paradas",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        hideProgressBar()
+                    }
+
+                }
+
+                is Resource.Error -> {
+                    Log.e("BindingAdapter", "Error: ${vehicleResponse.message}")
+                }
+
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+
+                else -> {
+                    Log.e("BindingAdapter", "Error: $vehicleResponse")
+                }
+            }
         })
 
     }
 
     private fun getBusLines(termsSearch : String) {
-
         busLinesViewModel.getBusLines(termsSearch)
-
         busLinesViewModel.busLines.observe(viewLifecycleOwner, Observer { response ->
-
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()

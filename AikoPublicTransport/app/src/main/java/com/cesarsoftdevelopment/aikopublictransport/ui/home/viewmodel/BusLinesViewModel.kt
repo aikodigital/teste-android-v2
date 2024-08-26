@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.cesarsoftdevelopment.aikopublictransport.data.model.BusLineItem
 import com.cesarsoftdevelopment.aikopublictransport.data.model.StopItem
 import com.cesarsoftdevelopment.aikopublictransport.data.model.VehicleItem
+import com.cesarsoftdevelopment.aikopublictransport.data.model.VehiclePosition
 import com.cesarsoftdevelopment.aikopublictransport.domain.usecase.GetBusLinesUseCase
 import com.cesarsoftdevelopment.aikopublictransport.domain.usecase.GetStopsByLineUseCase
 import com.cesarsoftdevelopment.aikopublictransport.domain.usecase.GetVehiclesPositionByLineUseCase
@@ -24,11 +25,11 @@ class BusLinesViewModel (
     private val _busLines : MutableLiveData<Resource<List<BusLineItem>>> = MutableLiveData()
     val busLines : LiveData<Resource<List<BusLineItem>>> = _busLines
 
-    private val _vehicles : MutableLiveData<Resource<List<VehicleItem>>> = MutableLiveData()
-    val vehicles : LiveData<Resource<List<VehicleItem>>> = _vehicles
+    private val _vehicle : MutableLiveData<Resource<VehiclePosition?>> = MutableLiveData()
+    val vehicles : LiveData<Resource<VehiclePosition?>> = _vehicle
 
-    private val _stops : MutableLiveData<Resource<List<StopItem>>> = MutableLiveData()
-    val stops : LiveData<Resource<List<StopItem>>> = _stops
+    private val _stops : MutableLiveData<Resource<List<StopItem>?>> = MutableLiveData()
+    val stops : LiveData<Resource<List<StopItem>?>> = _stops
 
     private val _selectedLineCode : MutableLiveData<Int?> = MutableLiveData()
     val selectedLineCode : LiveData<Int?> = _selectedLineCode
@@ -52,11 +53,11 @@ class BusLinesViewModel (
 
         viewModelScope.launch {
             try {
-                val response = getStopsByLineUseCase.invoke(lineCode)
-                _stops.postValue(response)
+                val response = getVehiclesPositionByLineUseCase.invoke(lineCode)
+                _vehicle.postValue(response)
 
             }catch (err : Exception) {
-                _stops.postValue(Resource.Error(err.message.toString()))
+                _vehicle.postValue(Resource.Error(err.message.toString()))
             }
         }
     }

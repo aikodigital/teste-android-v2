@@ -15,12 +15,12 @@ interface PublicTransportApi {
         @Query("termosBusca") termsSearch: String
     ): Response<List<BusLineItem>>
 
-    @GET("/Parada/Buscar")
+    @GET("/Parada/BuscarParadasPorLinha")
     suspend fun getStopsByLine(
         @Query("codigoLinha") lineCode: Int
     ): Response<List<StopItem>>
 
-    @GET("/Parada/Buscar")
+    @GET("/Posicao/Linha")
     suspend fun getVehiclesPositionByLine(
         @Query("codigoLinha") lineCode: Int
     ): Response<VehiclePosition>

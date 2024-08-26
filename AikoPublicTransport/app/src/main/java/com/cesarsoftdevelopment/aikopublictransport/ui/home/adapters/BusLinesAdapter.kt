@@ -36,7 +36,7 @@ class BusLinesAdapter(private val busLinesViewModel: BusLinesViewModel) : ListAd
 
             notifyItemChanged(previousPosition)
             notifyItemChanged(selectedPosition)
-            busLinesViewModel.setSelectedLineCode(getItem(position).lineCode)
+            busLinesViewModel.setSelectedLineCode(getItem(position).lineCode!!)
         }
 
     }

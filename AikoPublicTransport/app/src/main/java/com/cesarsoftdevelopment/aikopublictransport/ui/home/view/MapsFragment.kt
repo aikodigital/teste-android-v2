@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +49,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapViewModel = (activity as HomeActivity).mapViewModel
+        val args = MapsFragmentArgs.fromBundle(requireArguments()).objects
+        if (args != null) {
+            Log.i("MAPS ARGS", args.vehicle?.vehicles.toString())
+            Log.i("MAPS ARGS", args.stops.toString())
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

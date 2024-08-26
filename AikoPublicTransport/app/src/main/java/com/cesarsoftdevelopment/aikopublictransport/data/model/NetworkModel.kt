@@ -9,53 +9,53 @@ data class BusLineItem(
     @SerializedName("c")
     val fullSign : String?,
     @SerializedName("cl")
-    val lineCode : Int,
+    val lineCode : Int?,
     @SerializedName("lc")
-    val circularLine : Boolean,
+    val circularLine : Boolean?,
     @SerializedName("lt")
     val firstLineNumber : String?,
     @SerializedName("tl")
-    val secondLineNumber : Int,
+    val secondLineNumber : Int?,
     @SerializedName("sl")
-    val lineDirection : Int,
+    val lineDirection : Int?,
     @SerializedName("lt0")
     val lineDestinationSign : String?,
     @SerializedName("lt1")
     val lineOriginSign : String?,
     @SerializedName("qv")
-    val quantityLocatedVehicles : Int,
+    val quantityLocatedVehicles : Int?,
     @SerializedName("tp")
     val primaryTerminal : String?,
     @SerializedName("ts")
     val secondaryTerminal : String?,
     @SerializedName("vs")
-    val vehicles : List<VehicleItem>,
+    val vehicles : List<VehicleItem?>,
 ) : Parcelable
 
 
 @Parcelize
 data class StopItem(
     @SerializedName("cp")
-    val stopCode : Int,
+    val stopCode : Int?,
     @SerializedName("np")
     val stopName : String?,
     @SerializedName("ed")
     val stopAddress : String?,
     @SerializedName("py")
-    val stopLatitude : Double,
+    val stopLatitude : Double?,
     @SerializedName("px")
-    val stopLongitude : Double,
+    val stopLongitude : Double?,
     @SerializedName("l")
-    val lines : List<BusLineItem>,
+    val lines : List<BusLineItem?>,
 
     ) : Parcelable
 
 @Parcelize
 data class VehiclePosition(
     @SerializedName("hr")
-    val currentTime : String,
+    val currentTime : String?,
     @SerializedName("vs")
-    val vehicles : List<VehicleItem>
+    val vehicles : List<VehicleItem?>
 ) : Parcelable
 
 
@@ -64,28 +64,28 @@ data class VehicleItem(
     @SerializedName("p")
     val vehiclePrefix : String?,
     @SerializedName("a")
-    val disabledAccess : Boolean,
+    val disabledAccess : Boolean?,
     @SerializedName("t")
     val estimatedArrivalTime : String?,
     @SerializedName("ta")
     val universalTime : String?,
     @SerializedName("py")
-    val vehicleLatitude : Double,
+    val vehicleLatitude : Double?,
     @SerializedName("px")
-    val vehicleLongitude : Double,
+    val vehicleLongitude : Double?,
 ) : Parcelable
 
 @Parcelize
 data class EstimatedArrivalTime (
     @SerializedName("hr")
-    val currentTime : String,
+    val currentTime : String?,
     @SerializedName("p")
-    val stop : StopItem,
+    val stop : StopItem?,
 ) : Parcelable
 
 
 @Parcelize
 data class Objects(
-    val stops : List<StopItem>,
-    val vehicles : List<VehicleItem>
+    val stops : List<StopItem?>?,
+    val vehicle : VehiclePosition?
 ) : Parcelable
