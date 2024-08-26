@@ -11,7 +11,7 @@
     <string name="bus_stop">Paradas</string>
     <string name="search_for_stops">Busque uma parada pelo nome ou end.</string>
     <string name="search_stops_input_above">Busque pela parada digitando o nome ou endereço, completo ou parcial, no campo acima</string>
-    <string name="bus_update">Atualização de ônibus</string>
+    <string name="bus_update">Atualizações de ônibus automática</string>
     <string name="update_frequency">Frequência de atualização</string>
     <string name="filters">Filtros</string>
     <string name="see_stops">Ver paradas</string>
