@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.aikospbus.ApiConfig
 import com.example.aikospbus.R
+import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusLocationBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -48,6 +50,7 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
 //        )
 //
 //        viewModel.insertBusLocation(busLocationObject)
+        setHeaderConfig()
 
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -77,5 +80,15 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sp))
         val cameraUpdate = CameraUpdateFactory.zoomTo(10f)
         mMap.moveCamera(cameraUpdate)
+    }
+
+    private fun setHeaderConfig() {
+        val customHeader = binding.customHeader
+
+        customHeader.setConfig(object : CustomHeader.HeaderClickListener {
+            override fun setBackButtonClickListener() {
+                findNavController().popBackStack()
+            }
+        }, title = "Mapa")
     }
 }

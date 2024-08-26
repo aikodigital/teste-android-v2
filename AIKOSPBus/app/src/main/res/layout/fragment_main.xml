@@ -31,7 +31,7 @@
             android:text="SP Bus"
             android:textColor="@color/aiko_blue"
             android:textSize="11sp"
-            android:textStyle="bold"
+            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="@+id/menu_header_icon"
             app:layout_constraintTop_toBottomOf="@+id/menu_header_icon" />
 
@@ -51,7 +51,7 @@
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:background="@color/aiko_grey"
+        android:background="@drawable/round_search_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_header">
@@ -97,7 +97,7 @@
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:queryHint="Buscar por linhas"
-        android:background="@drawable/round_edit_text_background"
+        android:background="@drawable/round_serach_view"
         android:padding="10dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/bus_location_bt"
@@ -109,7 +109,7 @@
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:background="@color/aiko_grey"
+        android:background="@drawable/round_search_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bus_location_search">
@@ -155,7 +155,7 @@
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:queryHint="Buscar por nome"
-        android:background="@drawable/round_edit_text_background"
+        android:background="@drawable/round_serach_view"
         android:padding="10dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/bus_lines_bt"
@@ -167,7 +167,7 @@
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:background="@color/aiko_grey"
+        android:background="@drawable/round_search_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bus_lines_search">
@@ -213,7 +213,7 @@
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:queryHint="Buscar por nome"
-        android:background="@drawable/round_edit_text_background"
+        android:background="@drawable/round_serach_view"
         android:padding="10dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/bus_stops_bt"
@@ -226,7 +226,7 @@
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:background="@color/aiko_grey"
+        android:background="@drawable/round_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bus_stops_search">
