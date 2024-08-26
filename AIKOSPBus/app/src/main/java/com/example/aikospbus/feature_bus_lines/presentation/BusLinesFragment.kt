@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aikospbus.ApiConfig
 import com.example.aikospbus.R
+import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusLinesBinding
 import com.example.aikospbus.feature_bus_lines.domain.model.BusLinesModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,8 +42,9 @@ class BusLinesFragment : Fragment() {
     ): View {
         _binding = FragmentBusLinesBinding.inflate(inflater, container, false)
 
-        viewModel.getRemoteBusLinesData(ApiConfig.cookie,ApiConfig.searchBusLines)
+        setHeaderConfig()
 
+        viewModel.getRemoteBusLinesData(ApiConfig.cookie,ApiConfig.searchBusLines)
 
         viewModel.busLinesLiveData.observe(viewLifecycleOwner) { newList ->
             busLinesList.clear()
@@ -81,5 +83,15 @@ class BusLinesFragment : Fragment() {
                 setHasFixedSize(false)
             }
         }
+    }
+
+    private fun setHeaderConfig() {
+        val customHeader = binding.customHeader
+
+        customHeader.setConfig(object : CustomHeader.HeaderClickListener {
+            override fun setBackButtonClickListener() {
+                findNavController().popBackStack()
+            }
+        }, title = "Lista de linhas")
     }
 }

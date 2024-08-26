@@ -15,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,6 +73,7 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
     private fun addBusLocationOnMap(name: String, location: LatLng) {
         val sp = LatLng(location.latitude, location.longitude)
         mMap.addMarker(MarkerOptions().position(sp).title(name))
+//        mMap.addMarker(MarkerOptions().position(sp).title(name).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)))
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
