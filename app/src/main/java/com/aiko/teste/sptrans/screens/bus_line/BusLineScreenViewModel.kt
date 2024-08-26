@@ -11,6 +11,7 @@ import com.aiko.teste.sptrans.data.repositories.LocationRepository
 import com.mapbox.geojson.Point
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,8 +21,8 @@ class BusLineScreenViewModel @Inject constructor(
     private val busLinesRepository: BusLinesRepository,
     private val busStopsRepository: BusStopsRepository,
     private val locationSource: LocationRepository
-) :
-    ViewModel() {
+) : ViewModel() {
+    private val refreshDataIntervalMillis = 10000L
     private val _busStops = MutableLiveData<List<Point>>()
     val busStops: LiveData<List<Point>> = _busStops
 
@@ -45,12 +46,15 @@ class BusLineScreenViewModel @Inject constructor(
 
     fun getBusPositions(busLineCode: String) {
         viewModelScope.launch {
-            val result = withContext(Dispatchers.IO) {
-                busLinesRepository.getBusPositions(busLineCode)
-            }
-            if (result.isSuccess) {
-                val data = result.getOrNull()
-                _busPositions.value = data?.positions ?: emptyList()
+            while (true) {
+                val result = withContext(Dispatchers.IO) {
+                    busLinesRepository.getBusPositions(busLineCode)
+                }
+                if (result.isSuccess) {
+                    val data = result.getOrNull()
+                    _busPositions.value = data?.positions ?: emptyList()
+                }
+                delay(refreshDataIntervalMillis)
             }
         }
     }
