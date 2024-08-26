@@ -8,7 +8,10 @@ interface StopPredictionRepository {
 
     suspend fun insertStopPrediction(stopPredictionModel: StopPredictionModel)
 
-    suspend fun getStopPrediction() : List<StopPredictionModel>?
+    suspend fun getStopPrediction(): List<StopPredictionModel>?
 
-    fun getRemoteStopPrediction(cookie: String, stopCode: Int) : Flow<Resource<List<StopPredictionModel>?>>
+    fun getRemoteStopPrediction(
+        cookie: String,
+        stopCode: Int
+    ): Flow<Resource<List<StopPredictionModel>?>>
 }

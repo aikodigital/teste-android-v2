@@ -40,16 +40,14 @@ class StopPredictionRepositoryImpl @Inject constructor(
                     )
                 )
             } else {
-                if (busStopPredictionData != null) {
-                    val updateStopModelData = StopPredictionModel(
-                        horaPrevisao = busStopPredictionData.horaPrevisao,
-                        parada = busStopPredictionData.parada
-                    )
+                val updateStopModelData = StopPredictionModel(
+                    horaPrevisao = busStopPredictionData.horaPrevisao,
+                    parada = busStopPredictionData.parada
+                )
 
-                    localDataSource.insertStopPrediction(updateStopModelData)
-                    val newBusLocationData = localDataSource.getStopPrediction()
-                    emit(Resource.Success(data = newBusLocationData))
-                }
+                localDataSource.insertStopPrediction(updateStopModelData)
+                val newBusLocationData = localDataSource.getStopPrediction()
+                emit(Resource.Success(data = newBusLocationData))
             }
         } catch (e: ClientRequestException) {
             emit(

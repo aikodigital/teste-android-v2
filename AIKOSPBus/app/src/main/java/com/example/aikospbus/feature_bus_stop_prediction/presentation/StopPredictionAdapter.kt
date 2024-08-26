@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aikospbus.databinding.StopPredictionItemBinding
 import com.example.aikospbus.feature_bus_stop_prediction.data.remote.dto.VeiculosTestDto
-import com.example.aikospbus.feature_bus_stop_prediction.domain.model.StopPredictionModel
-import com.example.aikospbus.feature_bus_stop_prediction.domain.model.VeiculoTestModel
 
 class StopPredictionAdapter(private val stopPredictionList: ArrayList<VeiculosTestDto>) :
     RecyclerView.Adapter<StopPredictionAdapter.StopPredictionViewHolder>() {
@@ -36,7 +34,8 @@ class StopPredictionAdapter(private val stopPredictionList: ArrayList<VeiculosTe
         parent: ViewGroup,
         viewType: Int
     ): StopPredictionViewHolder {
-        val view = StopPredictionItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val view =
+            StopPredictionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StopPredictionViewHolder(view, clickListener)
     }
 

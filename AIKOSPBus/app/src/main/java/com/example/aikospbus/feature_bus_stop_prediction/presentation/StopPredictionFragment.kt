@@ -9,19 +9,10 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aikospbus.ApiConfig
-import com.example.aikospbus.R
 import com.example.aikospbus.common.custom_components.CustomHeader
-import com.example.aikospbus.databinding.FragmentBusLocationBinding
 import com.example.aikospbus.databinding.FragmentStopPredictionBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.CookieManager
-import com.example.aikospbus.feature_bus_lines.domain.model.BusLinesModel
-import com.example.aikospbus.feature_bus_lines.presentation.BusLinesAdapter
-import com.example.aikospbus.feature_bus_lines.presentation.BusLinesViewModel
 import com.example.aikospbus.feature_bus_stop_prediction.data.remote.dto.VeiculosTestDto
-import com.example.aikospbus.feature_bus_stop_prediction.domain.model.StopPredictionModel
-import com.example.aikospbus.feature_bus_stop_prediction.domain.model.VeiculoTestModel
-import com.example.aikospbus.feature_bus_stops.domain.model.BusStopsModel
-import com.example.aikospbus.feature_bus_stops.presentation.BusStopsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,11 +33,6 @@ class StopPredictionFragment : Fragment() {
 
     private val viewModel: StopPredictionViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

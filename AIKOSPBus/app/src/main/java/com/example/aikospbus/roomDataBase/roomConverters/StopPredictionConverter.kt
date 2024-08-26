@@ -4,8 +4,6 @@ import androidx.room.TypeConverter
 import com.example.aikospbus.feature_bus_stop_prediction.data.remote.dto.BusLinesTestDto
 import com.example.aikospbus.feature_bus_stop_prediction.data.remote.dto.ParadaTestDto
 import com.example.aikospbus.feature_bus_stop_prediction.data.remote.dto.VeiculosTestDto
-import com.example.aikospbus.feature_bus_stop_prediction.domain.model.BusLinesTestMode
-import com.example.aikospbus.feature_bus_stop_prediction.domain.model.ParadaTestModel
 import com.example.aikospbus.feature_bus_stop_prediction.domain.model.StopPredictionModel
 import com.example.aikospbus.feature_bus_stop_prediction.domain.model.VeiculoTestModel
 import com.google.gson.Gson
@@ -57,28 +55,6 @@ class StopPredictionConverter {
     fun toVeiculosTestDto(veiculosString: String): List<VeiculosTestDto> {
         val type = object : TypeToken<List<VeiculosTestDto>>() {}.type
         return gson.fromJson(veiculosString, type)
-    }
-
-    // Conversores para modelos de domínio
-    @TypeConverter
-    fun fromParadaTestModel(parada: ParadaTestModel): String {
-        return gson.toJson(parada)
-    }
-
-    @TypeConverter
-    fun toParadaTestModel(paradaString: String): ParadaTestModel {
-        return gson.fromJson(paradaString, ParadaTestModel::class.java)
-    }
-
-    @TypeConverter
-    fun fromBusLinesTestMode(linhas: List<BusLinesTestMode>): String {
-        return gson.toJson(linhas)
-    }
-
-    @TypeConverter
-    fun toBusLinesTestMode(linhasString: String): List<BusLinesTestMode> {
-        val type = object : TypeToken<List<BusLinesTestMode>>() {}.type
-        return gson.fromJson(linhasString, type)
     }
 
     @TypeConverter

@@ -13,5 +13,5 @@ interface StopPredictionDao {
     suspend fun insertStopPrediction(stopPredictionModel: StopPredictionModel)
 
     @Query("SELECT * FROM stopPrediction")
-    suspend fun getStopPrediction() : List<StopPredictionModel>?
+    suspend fun getStopPrediction(): List<StopPredictionModel>?
 }

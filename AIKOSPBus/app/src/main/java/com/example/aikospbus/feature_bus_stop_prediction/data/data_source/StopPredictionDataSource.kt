@@ -6,5 +6,5 @@ interface StopPredictionDataSource {
 
     suspend fun insertStopPrediction(stopPredictionModel: StopPredictionModel)
 
-    suspend fun getStopPrediction() : List<StopPredictionModel>?
+    suspend fun getStopPrediction(): List<StopPredictionModel>?
 }
