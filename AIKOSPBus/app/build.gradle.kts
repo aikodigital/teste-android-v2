@@ -72,17 +72,18 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
-    implementation("io.ktor:ktor-client-core:1.6.3")
-    implementation("io.ktor:ktor-client-android:1.6.3")
-    implementation("io.ktor:ktor-client-serialization:1.6.3")
-    implementation("io.ktor:ktor-client-logging:1.6.3")
-    implementation("ch.qos.logback:logback-classic:1.2.3")
-    implementation("io.ktor:ktor-auth:1.6.3")
+    //GET API SP TRANS - TOOLS
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.logback.classic)
+    implementation(libs.ktor.auth)
 
     //TEST
-    implementation("androidx.arch.core:core-testing:2.1.0")
-    androidTestImplementation("androidx.test:core:1.5.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    implementation(libs.androidx.core.testing)
+    androidTestImplementation(libs.androidx.core)
+    testImplementation(libs.kotlinx.coroutines.test)
 
 
 }
