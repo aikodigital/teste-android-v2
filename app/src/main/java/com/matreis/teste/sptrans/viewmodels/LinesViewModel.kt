@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.matreis.teste.sptrans.R
 import com.matreis.teste.sptrans.domain.model.Line
 import com.matreis.teste.sptrans.domain.usecase.GetLineUseCase
+import com.matreis.teste.sptrans.domain.usecase.SaveFavoriteLineUseCase
 import com.matreis.teste.sptrans.helper.CoroutineDispatcherType.*
 import com.matreis.teste.sptrans.helper.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,7 @@ import com.matreis.teste.sptrans.helper.Dispatcher
 @HiltViewModel
 class LinesViewModel @Inject constructor(
     private val getLineUseCase: GetLineUseCase,
+    private val saveFavoriteLineUseCase: SaveFavoriteLineUseCase,
     @Dispatcher(IO) private val coroutineDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
@@ -46,6 +48,12 @@ class LinesViewModel @Inject constructor(
             }finally {
                 _isLoading.postValue(false)
             }
+        }
+    }
+
+    fun saveFavoriteLine(line: Line) {
+        viewModelScope.launch(Dispatchers.IO) {
+            saveFavoriteLineUseCase(line)
         }
     }
 

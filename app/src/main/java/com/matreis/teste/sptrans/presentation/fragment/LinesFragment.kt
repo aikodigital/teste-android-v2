@@ -24,7 +24,7 @@ class LinesFragment : Fragment() {
     private lateinit var binding: FragmentLinesBinding
     private val linesViewModel: LinesViewModel by viewModels()
     //private val mapViewModel: MapViewModel by activityViewModels()
-    private val lineAdapter by lazy { LineAdapter() }
+    private val lineAdapter by lazy { LineAdapter(false) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +49,10 @@ class LinesFragment : Fragment() {
         }
         lineAdapter.onSeeBusStopsClick = { line ->
             //binding.progressClick.visibility = View.GONE
+        }
+        lineAdapter.onFavoriteClick = { line ->
+            linesViewModel.saveFavoriteLine(line)
+            Snackbar.make(binding.root, getString(R.string.line_added_to_favorites), Snackbar.LENGTH_SHORT).show()
         }
     }
 

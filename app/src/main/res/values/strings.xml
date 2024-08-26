@@ -34,12 +34,18 @@
     <string name="fifteen_seconds">15 segundos</string>
     <string name="twenty_seconds">20 segundos</string>
     <string name="click_on_bus">Clique no ônibus para ver detalhes</string>
+    <string name="no_lines_favorited_lines">Nenhuma linha favoritada</string>
+    <string name="favorited_lines">Linhas favoritadas</string>
+    <string name="add_to_favorite">Adicionr às favoritas</string>
+    <string name="remove_favorite">Remover dos favoritos</string>
+    <string name="line_added_to_favorites">Adicionada aos favoritos</string>
+    <string name="favorite_lines">Linhas favoritas</string>
 
     <string-array name="intervals">
-        <item value="5 segundos"/>
-        <item value="10 segundos"/>
-        <item value="15 segundos"/>
-        <item value="30 segundos"/>
+        <item value="5 segundos" />
+        <item value="10 segundos" />
+        <item value="15 segundos" />
+        <item value="30 segundos" />
     </string-array>
 
 </resources>

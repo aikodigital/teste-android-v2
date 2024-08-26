@@ -1,6 +1,8 @@
 package com.matreis.teste.sptrans.di
 
 import android.content.Context
+import androidx.room.Room
+import com.matreis.teste.sptrans.data.db.SpTransDatabase
 import com.matreis.teste.sptrans.data.preferences.UserPreferences
 import com.matreis.teste.sptrans.data.preferences.UserPreferencesImp
 import dagger.Module
@@ -19,5 +21,18 @@ class DatabaseModule {
     fun providePreferencesDataStore(@ApplicationContext context: Context): UserPreferences {
         return UserPreferencesImp(context)
     }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext context: Context): SpTransDatabase {
+        return Room.databaseBuilder(
+            context,
+            SpTransDatabase::class.java,
+            "sptrans_database"
+        ).build()
+    }
+
+    @Provides
+    fun provideLineDao(database: SpTransDatabase) = database.lineDao()
 
 }

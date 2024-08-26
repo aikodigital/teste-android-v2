@@ -53,4 +53,17 @@
         android:name="com.matreis.teste.sptrans.presentation.fragment.BusStopTimesFragment"
         android:label="fragment_bus_stop_times"
         tools:layout="@layout/fragment_bus_stop_times" />
+    <fragment
+        android:id="@+id/favoriteLiensFragment"
+        android:name="com.matreis.teste.sptrans.presentation.fragment.FavoriteLiensFragment"
+        android:label="fragment_favorite_liens"
+        tools:layout="@layout/fragment_favorite_liens" >
+        <action
+            android:id="@+id/action_favoriteLiensFragment_to_mapFragment"
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 </navigation>

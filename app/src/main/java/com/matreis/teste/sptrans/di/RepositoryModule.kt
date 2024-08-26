@@ -3,6 +3,7 @@ package com.matreis.teste.sptrans.di
 import com.matreis.teste.sptrans.data.datasource.arrivaltime.ArrivalTimeRemoteDataSource
 import com.matreis.teste.sptrans.data.datasource.auth.AuthRemoteDataSource
 import com.matreis.teste.sptrans.data.datasource.busstop.BusStopRemoteDataSource
+import com.matreis.teste.sptrans.data.datasource.lines.LinesLocalDataSource
 import com.matreis.teste.sptrans.data.datasource.lines.LinesRemoteDataSource
 import com.matreis.teste.sptrans.data.datasource.roadspeed.RoadSpeedRemoteDataSource
 import com.matreis.teste.sptrans.data.datasource.vehicleposition.VehiclePositionRemoteDataSource
@@ -51,8 +52,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideLinesRepository(remoteDataSource: LinesRemoteDataSource): LinesRepository {
-        return LinesRepositoryImp(remoteDataSource)
+    fun provideLinesRepository(remoteDataSource: LinesRemoteDataSource, localDataSource: LinesLocalDataSource): LinesRepository {
+        return LinesRepositoryImp(remoteDataSource, localDataSource)
     }
 
     @Provides

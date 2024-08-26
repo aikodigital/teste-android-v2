@@ -11,9 +11,13 @@ import com.matreis.teste.sptrans.databinding.ItemLineBinding
 import com.matreis.teste.sptrans.domain.model.Line
 import com.matreis.teste.sptrans.helper.getDirection
 
-class LineAdapter: RecyclerView.Adapter<LineAdapter.MyLineViewHolder>() {
+class LineAdapter(
+    private val isFavoriteScreen: Boolean
+): RecyclerView.Adapter<LineAdapter.MyLineViewHolder>() {
 
     var onSeeOnMapClick: ((Line) -> Unit) = {}
+    var onDeleteFromFavoriteClick: ((Line) -> Unit) = {}
+    var onFavoriteClick: ((Line) -> Unit) = {}
     var onSeeBusStopsClick: ((Line) -> Unit) = {}
 
     private val lines = mutableListOf<Line>()
@@ -31,11 +35,7 @@ class LineAdapter: RecyclerView.Adapter<LineAdapter.MyLineViewHolder>() {
                 tvLineName.text = lineName
                 tvLineNumber.text = lineNumber
                 binding.btnMore.setOnClickListener {
-                    createPopupMenu(it, {
-                        onSeeOnMapClick(line)
-                    }, {
-                        onSeeBusStopsClick(line)
-                    })
+                    createPopupMenu(it)
                 }
                 binding.clRoot.setOnClickListener {
                     onSeeOnMapClick(line)
@@ -44,13 +44,14 @@ class LineAdapter: RecyclerView.Adapter<LineAdapter.MyLineViewHolder>() {
 
         }
 
-        private fun createPopupMenu(anchorView: View, seeOnMap: (Line) -> Unit, seeBusStops: (Line) -> Unit) {
+        private fun createPopupMenu(anchorView: View) {
             val popupMenu = PopupMenu(binding.root.context, anchorView, Gravity.END)
-            popupMenu.menuInflater.inflate(R.menu.lines_menu, popupMenu.menu)
+            val menuId = if (isFavoriteScreen) R.menu.menu_favorite_line else R.menu.lines_menu
+            popupMenu.menuInflater.inflate(menuId, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { menuItem ->
                 when(menuItem.itemId) {
-                    R.id.menuSeeOnMap -> seeOnMap(lines[adapterPosition])
-                    R.id.menuSeeStops -> seeBusStops(lines[adapterPosition])
+                    R.id.menuAddFavorite -> onFavoriteClick(lines[adapterPosition])
+                    R.id.menuDeleteFavorite -> onDeleteFromFavoriteClick(lines[adapterPosition])
                 }
                 true
             }

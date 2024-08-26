@@ -41,7 +41,11 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "API_URL", "\"http://api.olhovivo.sptrans.com.br/v2.1/\"")
-            buildConfigField("String", "API_TOKEN", "\"9003a3d066007886112ec5d2b3baa0325c3e2eca0951e18a6433a54583bc99ad\"")
+            buildConfigField(
+                "String",
+                "API_TOKEN",
+                "\"9003a3d066007886112ec5d2b3baa0325c3e2eca0951e18a6433a54583bc99ad\""
+            )
         }
         release {
             isMinifyEnabled = false
@@ -50,7 +54,11 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "API_URL", "\"http://api.olhovivo.sptrans.com.br/v2.1/\"")
-            buildConfigField("String", "API_TOKEN", "\"9003a3d066007886112ec5d2b3baa0325c3e2eca0951e18a6433a54583bc99ad\"")
+            buildConfigField(
+                "String",
+                "API_TOKEN",
+                "\"9003a3d066007886112ec5d2b3baa0325c3e2eca0951e18a6433a54583bc99ad\""
+            )
         }
     }
     compileOptions {
@@ -65,30 +73,32 @@ android {
 
 dependencies {
     // Annotation processor
-    kapt (libs.androidx.lifecycle.compiler)
-    kapt (libs.androidx.lifecycle.compiler)
-    kapt (libs.hilt.compiler)
+    kapt(libs.androidx.lifecycle.compiler)
+    kapt(libs.androidx.lifecycle.compiler)
+    kapt(libs.hilt.compiler)
+    ksp(libs.androidx.room.compiler)
 
     // Dependencies
-    implementation("org.apache.directory.studio:org.apache.commons.io:2.4")
+    implementation (libs.androidx.room.runtime)
+    implementation (libs.androidx.room.ktx)
     implementation(libs.android.maps.utils.v382)
     implementation(libs.maps.utils.ktx)
-    implementation (libs.maps.ktx)
+    implementation(libs.maps.ktx)
     implementation(libs.play.services.maps)
-    implementation (libs.androidx.swiperefreshlayout)
-    implementation (libs.threetenabp)
-    implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation (libs.androidx.lifecycle.livedata.ktx)
-    implementation (libs.kotlinx.coroutines.android)
-    implementation (libs.androidx.navigation.fragment.ktx)
-    implementation (libs.androidx.navigation.ui.ktx)
-    implementation (libs.androidx.datastore.preferences)
-    implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation (libs.androidx.lifecycle.livedata.ktx)
-    implementation (libs.hilt.android)
-    implementation (libs.okhttp)
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.threetenabp)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.hilt.android)
+    implementation(libs.okhttp)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
     implementation(libs.androidx.fragment)
 
     implementation(libs.androidx.core.ktx)
