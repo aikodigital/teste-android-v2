@@ -40,7 +40,14 @@ class BusLocationRepositoryImpl @Inject constructor(
                     )
                 )
             } else {
-                if (busLocationData != null) {
+                if (busLocationData.vehicleDtos.isEmpty()) {
+                    emit(
+                        Resource.Error(
+                            message = "oops, something went wrong",
+                            data = localBusLocationData
+                        )
+                    )
+                } else {
                     val updateBusLocationModelData = BusLocationModel(
                         horaConsulta = busLocationData.horaConsulta,
                         vehicleDtos = busLocationData.vehicleDtos

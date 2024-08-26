@@ -7,17 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.SearchView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.aikospbus.R.drawable.arrow_down_ic
+import com.example.aikospbus.R.drawable.arrow_up_ic
 import com.example.aikospbus.databinding.FragmentMainBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
 import com.example.aikospbus.feature_bus_location.data.remote.dto.BusDto
+import com.example.aikospbus.feature_bus_location.presentation.BusLocationViewModel
 import com.example.aikospbus.feature_bus_stops.data.remote.dto.BusStopsDto
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
@@ -31,6 +38,9 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
         setButtonsClickListeners()
+        handleLocationSearch()
+        handleLinesSearch()
+        handleStopsSearch()
 
         binding.auth.setOnClickListener {
             lifecycleScope.launch {
@@ -38,10 +48,8 @@ class MainFragment : Fragment() {
             }
         }
 
-        binding.nav.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_mapsFragment)
-//           getPrevisaoChegada()
-            getloc()
+        binding.mainLayout.setOnClickListener {
+         hideSoftKeyboard()
         }
 
 
@@ -88,80 +96,92 @@ class MainFragment : Fragment() {
         }
     }
 
-
-    private fun getlinhas() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = SPTransApi.retrofitService.getLine(COOKIE, "lapa")
-            response.forEach { line ->
-                println("Linha: ${line}")
+    private fun handleLocationSearch() {
+        binding.busLocationBt.setOnClickListener {
+            if (binding.busLocationSearch.visibility == View.GONE) {
+                binding.busLocationSearch.visibility = View.VISIBLE
+                binding.locationSearchArrow.setImageResource(arrow_up_ic)
+            } else {
+                binding.busLocationSearch.visibility = View.GONE
+                binding.locationSearchArrow.setImageResource(arrow_down_ic)
             }
         }
+
+        val searchView: SearchView = binding.busLocationSearch
+        searchView.isIconifiedByDefault = false
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                ApiConfig.searchLocationLine = query?.toInt() ?: 11111
+                findNavController().navigate(R.id.action_FirstFragment_to_busLocationFragment)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
     }
 
-    private fun getloc() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response: BusDto = SPTransApi.retrofitService.getLinePosition(ApiConfig.cookie, 841)
-            response.vehicleDtos.forEach { veiculo ->
-                println("Veiculo Prefixo: ${veiculo.prefixo}")
-                println("Localizacao: (${veiculo.latitude}, ${veiculo.longitude})")
-                println("Acessivel: ${veiculo.acessibilidade}")
-                println("Horario da Amostra: ${veiculo.horarioAmostra}")
+    private fun handleLinesSearch() {
+        binding.busLinesBt.setOnClickListener {
+            if (binding.busLinesSearch.visibility == View.GONE) {
+                binding.busLinesSearch.visibility = View.VISIBLE
+                binding.linesSearchArrow.setImageResource(arrow_up_ic)
+            } else {
+                binding.busLinesSearch.visibility = View.GONE
+                binding.linesSearchArrow.setImageResource(arrow_down_ic)
             }
         }
+
+        val searchView: SearchView = binding.busLinesSearch
+        searchView.isIconifiedByDefault = false
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                ApiConfig.searchBusLines = query.toString()
+                findNavController().navigate(R.id.action_FirstFragment_to_busLinesFragment)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
     }
 
-    private fun getParada() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response: List<BusStopsDto> = SPTransApi.retrofitService.getStops(COOKIE, "afonso")
-            response.forEach { parada ->
-                println("Codigo da Parada: ${parada.codigoParada}")
-                println("Nome da Parada: ${parada.nomeParada}")
-                println("Endereco: ${parada.enderecoParada}")
-                println("Localizacao: (${parada.latitude}, ${parada.longitude})")
+    private fun handleStopsSearch() {
+        binding.busStopsBt.setOnClickListener {
+            if (binding.busStopsSearch.visibility == View.GONE) {
+                binding.busStopsSearch.visibility = View.VISIBLE
+                binding.stopsSearchArrow.setImageResource(arrow_up_ic)
+            } else {
+                binding.busStopsSearch.visibility = View.GONE
+                binding.stopsSearchArrow.setImageResource(arrow_down_ic)
             }
         }
+
+        val searchView: SearchView = binding.busStopsSearch
+        searchView.isIconifiedByDefault = false
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                ApiConfig.searchStops = query.toString()
+                findNavController().navigate(R.id.action_FirstFragment_to_busStopsFragment)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
     }
-
-//    private fun getCorridor() {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val response: List<BusCorridorDto> = SPTransApi.retrofitService.getCorredores(COOKIE)
-//            response.forEach { corredor ->
-//                println("Codigo do Corredor: ${corredor.codigoCorredor}")
-//                println("Nome do Corredor: ${corredor.nomeCorredor}")
-//            }
-//        }
-//    }
-
-//    private fun getPrevisaoChegada() {
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val previsao: StopPredictionDto = SPTransApi.retrofitService.getPrevisaoChegada(COOKIE, 340015333, 2506)
-//
-//            println("Linha: ${previsao.codigoLinha}")
-//            println("Horário Previsto: ${previsao.horarioPrevisto}")
-//        }
-//    }
 
 
     private fun setButtonsClickListeners() {
         with(binding) {
-            busLocationBt.setOnClickListener {
-                findNavController().navigate(R.id.action_FirstFragment_to_busLocationFragment)
-//                getloc()
-            }
-
-            busLinesBt.setOnClickListener {
-                findNavController().navigate(R.id.action_FirstFragment_to_busLinesFragment)
-//                getlinhas()
-            }
-
-            busStopsBt.setOnClickListener {
-                findNavController().navigate(R.id.action_FirstFragment_to_busStopsFragment)
-//                getParada()
-            }
-
             busCorridorBt.setOnClickListener {
                 findNavController().navigate(R.id.action_FirstFragment_to_busCorridorFragment)
-//                    getCorridor()
             }
         }
     }

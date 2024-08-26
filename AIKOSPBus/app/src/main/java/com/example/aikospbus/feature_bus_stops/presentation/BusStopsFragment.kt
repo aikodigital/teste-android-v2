@@ -55,7 +55,7 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        viewModel.getRemoteBusStopsData(ApiConfig.cookie,"Afonso")
+        viewModel.getRemoteBusStopsData(ApiConfig.cookie,ApiConfig.searchStops)
 
         viewModel.busDtoStopsDataModel.observe(viewLifecycleOwner) { busStopsData ->
             busStopsData?.forEach { stop ->
@@ -68,9 +68,6 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun addBusStopsOnMap(name: String, location: LatLng) {
-        mMap.setOnMapClickListener { 
-            authentication()
-        }
 
         val sp = LatLng(location.latitude, location.longitude)
         mMap.addMarker(MarkerOptions().position(sp).title(name))
@@ -88,29 +85,4 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
         mMap.moveCamera(cameraUpdate)
     }
 
-    private fun authentication() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response =
-                    SPTransApi.retrofitService.authentication("604a216ace42329aa7581b9c6056a8a3dc2f574a680411928d5570478ca4c707")
-                        .apply {
-                            COOKIE = headers().get("Set-Cookie").toString()
-                            val cookieHeader = headers().get("Set-Cookie") ?: ""
-                            ApiConfig.cookie = cookieHeader
-                            println("COOKIE: $COOKIE")
-                        }
-
-                if (response.isSuccessful) {
-                    val result = response.body()
-                    println("Login response: $result")
-                } else {
-                    println("Erro de autenticação: ${response.errorBody()?.string()}")
-                }
-            } catch (e: HttpException) {
-                println("Erro HTTP: ${e.message()}")
-            } catch (e: Exception) {
-                println("Erro: ${e.message}")
-            }
-        }
-    }
 }

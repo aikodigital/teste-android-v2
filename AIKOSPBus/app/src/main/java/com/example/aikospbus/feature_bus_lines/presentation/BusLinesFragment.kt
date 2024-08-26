@@ -41,7 +41,7 @@ class BusLinesFragment : Fragment() {
     ): View {
         _binding = FragmentBusLinesBinding.inflate(inflater, container, false)
 
-        viewModel.getRemoteBusLinesData(ApiConfig.cookie,"Lapa")
+        viewModel.getRemoteBusLinesData(ApiConfig.cookie,ApiConfig.searchBusLines)
 
 
         viewModel.busLinesLiveData.observe(viewLifecycleOwner) { newList ->

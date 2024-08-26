@@ -53,7 +53,8 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        viewModel.getRemoteBusLocationData(ApiConfig.cookie,2506)
+        println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB ${ApiConfig.searchLocationLine}")
+        viewModel.getRemoteBusLocationData(ApiConfig.cookie,ApiConfig.searchLocationLine)
 
         viewModel.busDtoLocationDataModel.observe(viewLifecycleOwner) { busLocationData ->
                 busLocationData?.vehicleDtos?.forEach { vehicle ->
