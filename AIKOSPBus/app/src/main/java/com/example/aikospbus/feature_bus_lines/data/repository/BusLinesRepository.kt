@@ -9,7 +9,7 @@ interface BusLinesRepository {
 
     suspend fun insertBusLines(busLinesModel: List<BusLinesModel>)
 
-    suspend fun getBusLines() : List<BusLinesModel>?
+    suspend fun getBusLines(): List<BusLinesModel>?
 
     fun getRemoteBusLines(cookie: String, searchTerms: String): Flow<Resource<List<BusLinesModel>?>>
 }

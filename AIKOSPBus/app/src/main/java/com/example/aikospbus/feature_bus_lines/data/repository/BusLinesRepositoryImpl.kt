@@ -12,7 +12,7 @@ import javax.inject.Inject
 class BusLinesRepositoryImpl @Inject constructor(
     private val localDataSource: BusLinesDataSource,
     private val apiData: BusLinesDataService
-): BusLinesRepository {
+) : BusLinesRepository {
 
     override suspend fun insertBusLines(busLinesModel: List<BusLinesModel>) {
         localDataSource.insertBusLines(busLinesModel)
@@ -29,7 +29,7 @@ class BusLinesRepositoryImpl @Inject constructor(
         emit(Resource.Loading(data = localBusLinesData))
 
         try {
-            val busLinesData = apiData.requestBusLinesData(cookie,searchTerms)
+            val busLinesData = apiData.requestBusLinesData(cookie, searchTerms)
 
             if (busLinesData == null) {
                 emit(
@@ -39,23 +39,21 @@ class BusLinesRepositoryImpl @Inject constructor(
                     )
                 )
             } else {
-                if (busLinesData != null) {
-                    val updateBusLinesModelData: List<BusLinesModel> = busLinesData.map { dto ->
-                        BusLinesModel(
-                            codigoLinha = dto.codigoLinha,
-                            circular = dto.circular,
-                            letreiro = dto.letreiro,
-                            sentido = dto.sentido,
-                            terminalPrincipal = dto.terminalPrincipal,
-                            tipo = dto.tipo,
-                            terminalSecundario = dto.terminalSecundario
-                        )
-                    }
-
-                    localDataSource.insertBusLines(updateBusLinesModelData)
-                    val newBusLinesData = localDataSource.getBusLines()
-                    emit(Resource.Success(data = newBusLinesData))
+                val updateBusLinesModelData: List<BusLinesModel> = busLinesData.map { dto ->
+                    BusLinesModel(
+                        codigoLinha = dto.codigoLinha,
+                        circular = dto.circular,
+                        letreiro = dto.letreiro,
+                        sentido = dto.sentido,
+                        terminalPrincipal = dto.terminalPrincipal,
+                        tipo = dto.tipo,
+                        terminalSecundario = dto.terminalSecundario
+                    )
                 }
+
+                localDataSource.insertBusLines(updateBusLinesModelData)
+                val newBusLinesData = localDataSource.getBusLines()
+                emit(Resource.Success(data = newBusLinesData))
             }
         } catch (e: ClientRequestException) {
             emit(

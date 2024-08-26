@@ -2,9 +2,7 @@ package com.example.aikospbus.feature_bus_lines.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.RecyclerView
-import com.example.aikospbus.databinding.FragmentBusLinesBinding
 import com.example.aikospbus.databinding.LinesItemBinding
 import com.example.aikospbus.feature_bus_lines.domain.model.BusLinesModel
 

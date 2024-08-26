@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aikospbus.ApiConfig
-import com.example.aikospbus.R
 import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusLinesBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.CookieManager
@@ -25,7 +24,7 @@ class BusLinesFragment : Fragment() {
     private var _binding: FragmentBusLinesBinding? = null
     private val binding get() = _binding!!
 
-    private var busLinesList : ArrayList<BusLinesModel> = ArrayList()
+    private var busLinesList: ArrayList<BusLinesModel> = ArrayList()
     private val busLinesAdapter = BusLinesAdapter(busLinesList)
 
     companion object {
@@ -34,11 +33,6 @@ class BusLinesFragment : Fragment() {
 
     private val viewModel: BusLinesViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

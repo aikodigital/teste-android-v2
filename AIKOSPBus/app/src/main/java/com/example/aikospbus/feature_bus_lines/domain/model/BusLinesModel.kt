@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "busLines")
-class BusLinesModel (
+class BusLinesModel(
     @PrimaryKey(autoGenerate = false)
     val codigoLinha: Int,
     val circular: Boolean,

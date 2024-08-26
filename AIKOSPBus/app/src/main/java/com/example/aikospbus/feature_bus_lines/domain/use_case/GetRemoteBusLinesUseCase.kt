@@ -9,6 +9,6 @@ import javax.inject.Inject
 class GetRemoteBusLinesUseCase @Inject constructor(private val busLinesRepository: BusLinesRepository) {
 
     operator fun invoke(cookie: String, searchTerms: String): Flow<Resource<List<BusLinesModel>?>> {
-        return busLinesRepository.getRemoteBusLines(cookie,searchTerms)
+        return busLinesRepository.getRemoteBusLines(cookie, searchTerms)
     }
 }
