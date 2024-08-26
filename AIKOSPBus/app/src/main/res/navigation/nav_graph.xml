@@ -12,9 +12,6 @@
         tools:layout="@layout/fragment_main">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <action
             android:id="@+id/action_FirstFragment_to_busCorridorFragment"
             app:destination="@id/busCorridorFragment" />
         <action
@@ -26,25 +23,6 @@
         <action
             android:id="@+id/action_FirstFragment_to_busStopsFragment"
             app:destination="@id/busStopsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.aikospbus.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mapsFragment"
-        android:name="com.example.aikospbus.feature_map.MapsFragment"
-        android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" >
-        <action
-            android:id="@+id/action_mapsFragment_to_stopPredictionFragment"
-            app:destination="@id/stopPredictionFragment" />
     </fragment>
     <fragment
         android:id="@+id/busCorridorFragment"
@@ -61,18 +39,12 @@
         android:name="com.example.aikospbus.feature_bus_location.presentation.BusLocationFragment"
         android:label="fragment_bus_location"
         tools:layout="@layout/fragment_bus_location" >
-        <action
-            android:id="@+id/action_busLocationFragment_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/busStopsFragment"
         android:name="com.example.aikospbus.feature_bus_stops.presentation.BusStopsFragment"
         android:label="fragment_bus_stops"
         tools:layout="@layout/fragment_bus_stops" >
-        <action
-            android:id="@+id/action_busStopsFragment_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
         <action
             android:id="@+id/action_busStopsFragment_to_stopPredictionFragment"
             app:destination="@id/stopPredictionFragment" />

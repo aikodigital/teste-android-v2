@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.aikospbus.ApiConfig
 import com.example.aikospbus.R
 import com.example.aikospbus.R.id.action_busStopsFragment_to_stopPredictionFragment
-import com.example.aikospbus.R.id.action_mapsFragment_to_stopPredictionFragment
 import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusStopsBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.CookieManager
