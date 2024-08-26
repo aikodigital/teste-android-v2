@@ -42,12 +42,6 @@ class MainFragment : Fragment() {
         handleLinesSearch()
         handleStopsSearch()
 
-        binding.auth.setOnClickListener {
-            lifecycleScope.launch {
-                authentication()
-            }
-        }
-
         binding.mainLayout.setOnClickListener {
          hideSoftKeyboard()
         }
@@ -70,31 +64,6 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun authentication() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response =
-                    SPTransApi.retrofitService.authentication("604a216ace42329aa7581b9c6056a8a3dc2f574a680411928d5570478ca4c707")
-                        .apply {
-                            COOKIE = headers().get("Set-Cookie").toString()
-                            val cookieHeader = headers().get("Set-Cookie") ?: ""
-                            ApiConfig.cookie = cookieHeader
-                            println("COOKIE: $COOKIE")
-                        }
-
-                if (response.isSuccessful) {
-                    val result = response.body()
-                    println("Login response: $result")
-                } else {
-                    println("Erro de autenticação: ${response.errorBody()?.string()}")
-                }
-            } catch (e: HttpException) {
-                println("Erro HTTP: ${e.message()}")
-            } catch (e: Exception) {
-                println("Erro: ${e.message}")
-            }
-        }
-    }
 
     private fun handleLocationSearch() {
         binding.busLocationBt.setOnClickListener {
@@ -184,9 +153,5 @@ class MainFragment : Fragment() {
                 findNavController().navigate(R.id.action_FirstFragment_to_busCorridorFragment)
             }
         }
-    }
-
-    companion object {
-        lateinit var COOKIE: String
     }
 }

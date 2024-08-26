@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.aikospbus.ApiConfig
-import com.example.aikospbus.MainFragment.Companion.COOKIE
 import com.example.aikospbus.R
 import com.example.aikospbus.R.id.action_busStopsFragment_to_stopPredictionFragment
 import com.example.aikospbus.R.id.action_mapsFragment_to_stopPredictionFragment
 import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusStopsBinding
+import com.example.aikospbus.feature_api_sp_trans.remote.api.CookieManager
 import com.example.aikospbus.feature_api_sp_trans.remote.api.SPTransApi
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -58,23 +58,23 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
 
         setHeaderConfig()
 
-        viewModel.getRemoteBusStopsData(ApiConfig.cookie,ApiConfig.searchStops)
+        handleApiCookies()
 
         viewModel.busDtoStopsDataModel.observe(viewLifecycleOwner) { busStopsData ->
             busStopsData?.forEach { stop ->
                 val latLng = LatLng(stop.latitude, stop.longitude)
-                addBusStopsOnMap(stop.nomeParada, latLng)
+                addBusStopsOnMap(stop.codigoParada, latLng)
             }
         }
 
         return binding.root
     }
 
-    private fun addBusStopsOnMap(name: String, location: LatLng) {
-
+    private fun addBusStopsOnMap(stopCode: Int, location: LatLng) {
         val sp = LatLng(location.latitude, location.longitude)
-        mMap.addMarker(MarkerOptions().position(sp).title(name))
+        mMap.addMarker(MarkerOptions().position(sp).title(stopCode.toString()))
         mMap.setOnMarkerClickListener { marker ->
+            ApiConfig.stopCode = marker.title?.toInt() ?: 0
             findNavController().navigate(action_busStopsFragment_to_stopPredictionFragment)
             true
         }
@@ -96,6 +96,17 @@ class BusStopsFragment : Fragment(), OnMapReadyCallback {
                 findNavController().popBackStack()
             }
         }, title = "Mapa")
+    }
+
+    private fun handleApiCookies() {
+        CoroutineScope(Dispatchers.Main).launch {
+            if (CookieManager.isCookieValid()) {
+                viewModel.getRemoteBusStopsData(CookieManager.cookie, ApiConfig.searchStops)
+            } else {
+                CookieManager.authentication()
+                viewModel.getRemoteBusStopsData(CookieManager.cookie, ApiConfig.searchStops)
+            }
+        }
     }
 
 }

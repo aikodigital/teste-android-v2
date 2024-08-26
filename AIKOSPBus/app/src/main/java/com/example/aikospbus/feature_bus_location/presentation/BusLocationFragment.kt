@@ -11,6 +11,7 @@ import com.example.aikospbus.ApiConfig
 import com.example.aikospbus.R
 import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusLocationBinding
+import com.example.aikospbus.feature_api_sp_trans.remote.api.CookieManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -19,6 +20,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BusLocationFragment : Fragment(), OnMapReadyCallback {
@@ -57,14 +61,14 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB ${ApiConfig.searchLocationLine}")
-        viewModel.getRemoteBusLocationData(ApiConfig.cookie,ApiConfig.searchLocationLine)
+
+        handleApiCookies()
 
         viewModel.busDtoLocationDataModel.observe(viewLifecycleOwner) { busLocationData ->
-                busLocationData?.vehicleDtos?.forEach { vehicle ->
-                    val latLng = LatLng(vehicle.latitude, vehicle.longitude)
-                    addBusLocationOnMap(vehicle.prefixo.toString(), latLng)
-                }
+            busLocationData?.vehicleDtos?.forEach { vehicle ->
+                val latLng = LatLng(vehicle.latitude, vehicle.longitude)
+                addBusLocationOnMap(vehicle.prefixo.toString(), latLng)
+            }
         }
 
         return binding.root
@@ -92,5 +96,16 @@ class BusLocationFragment : Fragment(), OnMapReadyCallback {
                 findNavController().popBackStack()
             }
         }, title = "Mapa")
+    }
+
+    private fun handleApiCookies() {
+        CoroutineScope(Dispatchers.Main).launch {
+            if (CookieManager.isCookieValid()) {
+                viewModel.getRemoteBusLocationData(CookieManager.cookie, ApiConfig.searchLocationLine)
+            } else {
+                CookieManager.authentication()
+                viewModel.getRemoteBusLocationData(CookieManager.cookie, ApiConfig.searchLocationLine)
+            }
+        }
     }
 }

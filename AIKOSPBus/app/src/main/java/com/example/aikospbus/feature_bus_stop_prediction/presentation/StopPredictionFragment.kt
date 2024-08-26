@@ -13,6 +13,7 @@ import com.example.aikospbus.R
 import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusLocationBinding
 import com.example.aikospbus.databinding.FragmentStopPredictionBinding
+import com.example.aikospbus.feature_api_sp_trans.remote.api.CookieManager
 import com.example.aikospbus.feature_bus_lines.domain.model.BusLinesModel
 import com.example.aikospbus.feature_bus_lines.presentation.BusLinesAdapter
 import com.example.aikospbus.feature_bus_lines.presentation.BusLinesViewModel
@@ -22,6 +23,9 @@ import com.example.aikospbus.feature_bus_stop_prediction.domain.model.VeiculoTes
 import com.example.aikospbus.feature_bus_stops.domain.model.BusStopsModel
 import com.example.aikospbus.feature_bus_stops.presentation.BusStopsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class StopPredictionFragment : Fragment() {
@@ -29,7 +33,7 @@ class StopPredictionFragment : Fragment() {
     private var _binding: FragmentStopPredictionBinding? = null
     private val binding get() = _binding!!
 
-    private var busStopsList : ArrayList<VeiculosTestDto> = ArrayList()
+    private var busStopsList: ArrayList<VeiculosTestDto> = ArrayList()
     private val busStopsAdapter = StopPredictionAdapter(busStopsList)
 
     companion object {
@@ -37,8 +41,6 @@ class StopPredictionFragment : Fragment() {
     }
 
     private val viewModel: StopPredictionViewModel by viewModels()
-    private val viewModelLines: BusLinesViewModel by viewModels()
-    private val viewModelStops: BusStopsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +55,7 @@ class StopPredictionFragment : Fragment() {
         _binding = FragmentStopPredictionBinding.inflate(inflater, container, false)
 
         setHeaderConfig()
-
-        viewModel.getRemoteBusStopsPredictionData(ApiConfig.cookie,340015333)
+        handleApiCookies()
 
         viewModel.veiculoListLiveData.observe(viewLifecycleOwner) { newList ->
             busStopsList.clear()
@@ -80,7 +81,6 @@ class StopPredictionFragment : Fragment() {
     private fun setAdapterOnClickListener() {
         busStopsAdapter.setOnItemClickListener(object : StopPredictionAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
-//                findNavController().navigate(R.id.action_FirstFragment_to_busCorridorFragment)
             }
         })
     }
@@ -109,4 +109,16 @@ class StopPredictionFragment : Fragment() {
                 findNavController().popBackStack()
             }
         }, title = "Lista veiculos")
-    }}
+    }
+
+    private fun handleApiCookies() {
+        CoroutineScope(Dispatchers.Main).launch {
+            if (CookieManager.isCookieValid()) {
+                viewModel.getRemoteBusStopsPredictionData(CookieManager.cookie, ApiConfig.stopCode)
+            } else {
+                CookieManager.authentication()
+                viewModel.getRemoteBusStopsPredictionData(CookieManager.cookie, ApiConfig.stopCode)
+            }
+        }
+    }
+}

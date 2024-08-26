@@ -12,8 +12,12 @@ import com.example.aikospbus.ApiConfig
 import com.example.aikospbus.R
 import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusLinesBinding
+import com.example.aikospbus.feature_api_sp_trans.remote.api.CookieManager
 import com.example.aikospbus.feature_bus_lines.domain.model.BusLinesModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BusLinesFragment : Fragment() {
@@ -44,7 +48,7 @@ class BusLinesFragment : Fragment() {
 
         setHeaderConfig()
 
-        viewModel.getRemoteBusLinesData(ApiConfig.cookie,ApiConfig.searchBusLines)
+        handleApiCookies()
 
         viewModel.busLinesLiveData.observe(viewLifecycleOwner) { newList ->
             busLinesList.clear()
@@ -93,5 +97,16 @@ class BusLinesFragment : Fragment() {
                 findNavController().popBackStack()
             }
         }, title = "Lista de linhas")
+    }
+
+    private fun handleApiCookies() {
+        CoroutineScope(Dispatchers.Main).launch {
+            if (CookieManager.isCookieValid()) {
+                viewModel.getRemoteBusLinesData(CookieManager.cookie, ApiConfig.searchBusLines)
+            } else {
+                CookieManager.authentication()
+                viewModel.getRemoteBusLinesData(CookieManager.cookie, ApiConfig.searchBusLines)
+            }
+        }
     }
 }
