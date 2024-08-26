@@ -1,3 +1,9 @@
+# Como rodar o projeto
+
+Clone o projeto em sua máquina e na raiz do projeto (ou no diretório app do projeto) crie um arquivo chamado **secrets.properties** e adicione, sem aspas simples ou duplas:  
+**MAPS_API_KEY='API-KEY-GOOGLE-MAPS'**  
+Onde **'API-KEY-GOOGLE-MAPS'** é sua chave de acesso da api do Google Maps.
+
 # Teste Android
 
 ![Aiko](imagens/aiko.png)
