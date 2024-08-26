@@ -10,6 +10,9 @@ import com.cesarsoftdevelopment.aikopublictransport.data.model.BusLineItem
 import com.cesarsoftdevelopment.aikopublictransport.databinding.BusLineItemBinding
 
 class BusLinesAdapter : ListAdapter<BusLineItem, BusLinesAdapter.ViewHolder>(BusLinesDiffCallback())  {
+
+    private var selectedPosition: Int = -1
+
     class BusLinesDiffCallback : DiffUtil.ItemCallback<BusLineItem>() {
         override fun areItemsTheSame(oldItem: BusLineItem, newItem: BusLineItem): Boolean {
             return oldItem.lineCode == newItem.lineCode
@@ -21,22 +24,27 @@ class BusLinesAdapter : ListAdapter<BusLineItem, BusLinesAdapter.ViewHolder>(Bus
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), position == selectedPosition)
+
+        holder.binding.radiobuttonBusLine.setOnClickListener {
+            val previousPosition = selectedPosition
+            selectedPosition = holder.adapterPosition
+
+            notifyItemChanged(previousPosition)
+            notifyItemChanged(selectedPosition)
+        }
+
     }
 
 
     class ViewHolder private constructor(
-        private val binding: BusLineItemBinding
+        val binding: BusLineItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item : BusLineItem) {
+        fun bind(item : BusLineItem, isSelected: Boolean) {
             binding.busLine = item
+            binding.radiobuttonBusLine.isChecked = isSelected
             binding.executePendingBindings()
 
-//            binding.imageButtonEdit.setOnClickListener { view ->
-//                view.findNavController().navigate(
-//                    PetListFragmentDirections.actionPetListFragmentToPetEditFragment(pet)
-//                )
-//            }
         }
 
         companion object {

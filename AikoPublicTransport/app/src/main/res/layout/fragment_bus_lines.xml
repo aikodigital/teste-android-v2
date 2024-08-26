@@ -10,14 +10,6 @@
         android:layout_height="match_parent">
 
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            />
-
         <!-- RecyclerView to scroll -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -29,6 +21,26 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_go_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="100dp"
+            android:layout_marginEnd="12dp"
+            app:srcCompat="@drawable/ic_bus"
+            android:backgroundTint="#8EAFE1"
+            app:tint="@color/blue"
+
+            />
 
         <!-- SearchBar fixed at the top -->
         <com.google.android.material.search.SearchBar
@@ -52,6 +64,8 @@
             android:backgroundTint="@color/white"
 
             />
+
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
