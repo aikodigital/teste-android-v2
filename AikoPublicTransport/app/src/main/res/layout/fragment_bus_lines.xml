@@ -39,6 +39,7 @@
             app:srcCompat="@drawable/ic_bus"
             android:backgroundTint="#8EAFE1"
             app:tint="@color/blue"
+            android:visibility="gone"
 
             />
 

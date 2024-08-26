@@ -43,6 +43,7 @@ class BusLinesFragment : Fragment() {
         busLinesViewModel = (activity as HomeActivity).busLinesViewModel
         setUpBinding()
         setList()
+        busLinesViewModel.removeObserve()
         observeSelectedLineCode()
         setSearchView()
 
@@ -70,7 +71,13 @@ class BusLinesFragment : Fragment() {
     private fun observeSelectedLineCode() {
 
         busLinesViewModel.selectedLineCode.observe(viewLifecycleOwner, Observer { selectedLineCode ->
-            Log.i("PORRA", "Selected line code: $selectedLineCode")
+            if(selectedLineCode != null) {
+                binding.fabGoMap.visibility = View.VISIBLE
+                Log.i("PORRA", "Selected line code: $selectedLineCode")
+            }else {
+                binding.fabGoMap.visibility = View.GONE
+            }
+
         })
 
     }
@@ -121,6 +128,7 @@ class BusLinesFragment : Fragment() {
     private fun hideProgressBar() {
         binding.progressBar.visibility = View.GONE
     }
+
 
 
 }
