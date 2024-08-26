@@ -48,15 +48,15 @@ class BusStopViewModel @Inject constructor(
                        val arrivalTime = getArrivalTimeByStop(it.stopCod!!)
                        it.vehicles.addAll(arrivalTime)
                    }
-                   _isLoading.value = false
-                   _busStops.value = stops
+                   _isLoading.postValue(false)
+                   _busStops.postValue(stops)
                }else {
-                   _isLoading.value = false
+                   _isLoading.postValue(false)
                    _error.postValue(Event(R.string.no_bus_stop_found))
                    Log.e("BusStopViewModel", "getBusStop: ${response.errorBody()}")
                }
            }catch (e: Exception) {
-               _isLoading.value = false
+               _isLoading.postValue(false)
                _error.postValue(Event(R.string.error_get_bus_stop))
                e.printStackTrace()
            }

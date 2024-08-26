@@ -38,14 +38,14 @@ class ArrivalTimesViewModel @Inject constructor(
             try {
                 val response = getArrivalTimesUseCase.getByBusStop(stopCode)
                 if (response.isSuccessful) {
-                    _isLoading.value = false
-                    _timeWithBusStop.value = response.body()
+                    _isLoading.postValue(false)
+                    _timeWithBusStop.postValue(response.body())
                 } else {
-                    _isLoading.value = false
+                    _isLoading.postValue(false)
                     _error.postValue(Event(R.string.error_get_arrival_times))
                 }
             }catch (e: Exception) {
-                _isLoading.value = false
+                _isLoading.postValue(false)
                 _error.postValue(Event(R.string.error_get_arrival_times))
                 e.printStackTrace()
             }
