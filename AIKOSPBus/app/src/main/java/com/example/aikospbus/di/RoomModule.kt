@@ -48,18 +48,18 @@ object RoomModule {
     }
 
     @Provides
-    fun BusLocationDao(appDataBase: AppDataBase) : BusLocationDao {
+    fun BusLocationDao(appDataBase: AppDataBase): BusLocationDao {
         return appDataBase.BusLocationDao()
     }
 
     @Provides
-    fun provideLocalBusLocationDataSource(busLocationDao: BusLocationDao) : BusLocationDataSource {
+    fun provideLocalBusLocationDataSource(busLocationDao: BusLocationDao): BusLocationDataSource {
         return BusLocationLocalDataSource(busLocationDao)
     }
 
     @Provides
     fun BusLocationRepository(dataSource: BusLocationDataSource): BusLocationRepository {
-        return BusLocationRepositoryImpl(dataSource,BusLocationDataService.create())
+        return BusLocationRepositoryImpl(dataSource, BusLocationDataService.create())
     }
 
     @Provides
@@ -68,7 +68,7 @@ object RoomModule {
     }
 
     @Provides
-    fun provideLocalBusCorridorDataSource(busCorridorDao: BusCorridorDao) : BusCorridorDataSource {
+    fun provideLocalBusCorridorDataSource(busCorridorDao: BusCorridorDao): BusCorridorDataSource {
         return BusCorridorLocalDataSource(busCorridorDao)
     }
 
@@ -83,42 +83,42 @@ object RoomModule {
     }
 
     @Provides
-    fun provideLocalBusLinesDataSource(busLinesDao: BusLinesDao) : BusLinesDataSource {
+    fun provideLocalBusLinesDataSource(busLinesDao: BusLinesDao): BusLinesDataSource {
         return BusLinesLocalDataSource(busLinesDao)
     }
 
     @Provides
-    fun BusLinesRepository(dataSource: BusLinesDataSource) : BusLinesRepository {
+    fun BusLinesRepository(dataSource: BusLinesDataSource): BusLinesRepository {
         return BusLinesRepositoryImpl(dataSource, BusLinesDataService.create())
     }
 
     @Provides
-    fun BusStopsDao(appDataBase: AppDataBase) : BusStopsDao {
+    fun BusStopsDao(appDataBase: AppDataBase): BusStopsDao {
         return appDataBase.BusStopsDao()
     }
 
     @Provides
-    fun provideLocalBusStopsDataSource(busStopsDao: BusStopsDao) : BusStopsDataSource {
+    fun provideLocalBusStopsDataSource(busStopsDao: BusStopsDao): BusStopsDataSource {
         return BusStopsLocalDataSource(busStopsDao)
     }
 
     @Provides
-    fun BusStopsRepository(dataSource: BusStopsDataSource) : BusStopsRepository {
+    fun BusStopsRepository(dataSource: BusStopsDataSource): BusStopsRepository {
         return BusStopsRepositoryImpl(dataSource, BusStopsDataService.create())
     }
 
     @Provides
-    fun StopsPredictionDao(appDataBase: AppDataBase): StopPredictionDao {
+    fun stopsPredictionDao(appDataBase: AppDataBase): StopPredictionDao {
         return appDataBase.StopPredictionsDao()
     }
 
     @Provides
-    fun provideLocalStopsPredictionDataSource(stopPredictionDao: StopPredictionDao) : StopPredictionDataSource {
+    fun provideLocalStopsPredictionDataSource(stopPredictionDao: StopPredictionDao): StopPredictionDataSource {
         return StopPredictionLocalDataSource(stopPredictionDao)
     }
 
     @Provides
-    fun StopsPredictionsRepository(dataSource: StopPredictionDataSource) : StopPredictionRepository {
+    fun stopsPredictionsRepository(dataSource: StopPredictionDataSource): StopPredictionRepository {
         return StopPredictionRepositoryImpl(dataSource, StopPredictionDataService.create())
     }
 }

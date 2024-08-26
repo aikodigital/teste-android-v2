@@ -20,7 +20,6 @@ interface SPTransApiService {
         token: String
     ): Response<Boolean>
 
-    //FEATURE_BUS_LINES
     @GET("Linha/Buscar")
     suspend fun getLine(
         @Header("Cookie")
@@ -29,7 +28,6 @@ interface SPTransApiService {
         termosBusca: String
     ): List<BusLinesDto>
 
-    //FEATURE_BUS_LOCATION
     @GET("Posicao/Linha")
     suspend fun getLinePosition(
         @Header("Cookie")
@@ -38,20 +36,17 @@ interface SPTransApiService {
         codigoLinha: Int
     ): BusDto
 
-    //FEATURE_BUS_STOPS
     @GET("Parada/Buscar")
     suspend fun getStops(
         @Header("Cookie") cookie: String,
         @Query("termosBusca") termosBusca: String
     ): List<BusStopsDto>
 
-    //FEATURE_BUS_CORRIDORS
     @GET("Corredor")
     suspend fun getCorredores(
         @Header("Cookie") cookie: String
     ): List<BusCorridorDto>
 
-    //FEATURE_BUS_PREVISAO_CHEGADA
     @GET("Previsao/Parada")
     suspend fun getPrevisaoChegada(
         @Header("Cookie") cookie: String,

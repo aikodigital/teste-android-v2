@@ -7,7 +7,7 @@ import com.example.aikospbus.databinding.CorridorItemBinding
 import com.example.aikospbus.feature_bus_corridor.domain.model.BusCorridorModel
 
 class BusCorridorAdapter(private val corridorList: ArrayList<BusCorridorModel>) :
-RecyclerView.Adapter<BusCorridorAdapter.BusCorridorViewHolder>() {
+    RecyclerView.Adapter<BusCorridorAdapter.BusCorridorViewHolder>() {
 
     private lateinit var clickListener: OnItemClickListener
 
@@ -33,12 +33,12 @@ RecyclerView.Adapter<BusCorridorAdapter.BusCorridorViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BusCorridorAdapter.BusCorridorViewHolder {
+    ): BusCorridorViewHolder {
         val view = CorridorItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BusCorridorViewHolder(view, clickListener)
     }
 
-    override fun onBindViewHolder(holder: BusCorridorAdapter.BusCorridorViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BusCorridorViewHolder, position: Int) {
         val newCorridorList = corridorList[position]
 
         holder.binding.busCorridorName.text = newCorridorList.nomeCorredor

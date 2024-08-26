@@ -13,8 +13,8 @@ class CustomHeader @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attributeSet, defStyleAttr) {
 
-    private var binding: CustomHeaderBinding = CustomHeaderBinding.inflate(LayoutInflater.from(context),this)
-    private var clickListener: HeaderClickListener? = null
+    private var binding: CustomHeaderBinding =
+        CustomHeaderBinding.inflate(LayoutInflater.from(context), this)
 
     private var tittleText: String? = ""
         set(value) {
@@ -35,7 +35,7 @@ class CustomHeader @JvmOverloads constructor(
         fun setBackButtonClickListener()
     }
 
-    fun setConfig(listener: HeaderClickListener? = null, title :String? = null) {
+    fun setConfig(listener: HeaderClickListener? = null, title: String? = null) {
         setListener(listener)
         setTitle(title)
     }

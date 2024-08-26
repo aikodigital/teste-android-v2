@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "busCorridor")
-class BusCorridorModel (
+class BusCorridorModel(
     @PrimaryKey(autoGenerate = false)
     val codigoCorredor: Int,
     val nomeCorredor: String

@@ -6,7 +6,7 @@ import com.example.aikospbus.util.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetRemoteBusCorridorUseCase @Inject constructor(private val busCorridorRepository: BusCorridorRepository){
+class GetRemoteBusCorridorUseCase @Inject constructor(private val busCorridorRepository: BusCorridorRepository) {
 
     operator fun invoke(cookie: String): Flow<Resource<List<BusCorridorModel>?>> {
         return busCorridorRepository.getRemoteBusCorridor(cookie)

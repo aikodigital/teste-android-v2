@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.aikospbus.ApiConfig
+import com.example.aikospbus.common.custom_components.CustomHeader
 import com.example.aikospbus.databinding.FragmentBusCorridorBinding
 import com.example.aikospbus.feature_api_sp_trans.remote.api.CookieManager
 import com.example.aikospbus.feature_bus_corridor.domain.model.BusCorridorModel
-import com.example.aikospbus.feature_bus_lines.domain.model.BusLinesModel
-import com.example.aikospbus.feature_bus_lines.presentation.BusLinesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +23,7 @@ class BusCorridorFragment : Fragment() {
     private var _binding: FragmentBusCorridorBinding? = null
     private val binding get() = _binding!!
 
-    private var busCorridorList : ArrayList<BusCorridorModel> = ArrayList()
+    private var busCorridorList: ArrayList<BusCorridorModel> = ArrayList()
     private val busCorridorAdapter = BusCorridorAdapter(busCorridorList)
 
     companion object {
@@ -33,19 +32,13 @@ class BusCorridorFragment : Fragment() {
 
     private val viewModel: BusCorridorViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBusCorridorBinding.inflate(inflater, container, false)
 
-
+        setHeaderConfig()
         handleApiCookies()
 
         viewModel.busCorridorLiveData.observe(viewLifecycleOwner) { newList ->
@@ -85,6 +78,16 @@ class BusCorridorFragment : Fragment() {
                 setHasFixedSize(false)
             }
         }
+    }
+
+    private fun setHeaderConfig() {
+        val customHeader = binding.customHeader
+
+        customHeader.setConfig(object : CustomHeader.HeaderClickListener {
+            override fun setBackButtonClickListener() {
+                findNavController().popBackStack()
+            }
+        }, title = "Lista corredores")
     }
 
     private fun handleApiCookies() {

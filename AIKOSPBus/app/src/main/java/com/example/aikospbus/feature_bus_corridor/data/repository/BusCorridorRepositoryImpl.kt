@@ -12,7 +12,7 @@ import javax.inject.Inject
 class BusCorridorRepositoryImpl @Inject constructor(
     private val localDataSource: BusCorridorDataSource,
     private val apiData: BusCorridorDataService
-): BusCorridorRepository {
+) : BusCorridorRepository {
 
     override suspend fun insertBusCorridor(busCorridorModel: List<BusCorridorModel>) {
         localDataSource.insertBusCorridor(busCorridorModel)
@@ -20,43 +20,43 @@ class BusCorridorRepositoryImpl @Inject constructor(
 
     override suspend fun getBusCorridor() = localDataSource.getBusCorridor()
 
-    override fun getRemoteBusCorridor(cookie: String): Flow<Resource<List<BusCorridorModel>?>> = flow {
-        emit(Resource.Loading())
-        val localBusCorridorData = localDataSource.getBusCorridor()
-        emit(Resource.Loading(data = localBusCorridorData))
+    override fun getRemoteBusCorridor(cookie: String): Flow<Resource<List<BusCorridorModel>?>> =
+        flow {
+            emit(Resource.Loading())
+            val localBusCorridorData = localDataSource.getBusCorridor()
+            emit(Resource.Loading(data = localBusCorridorData))
 
-        try {
-            val busCorridorData = apiData.requestBusCorridorData(cookie)
+            try {
+                val busCorridorData = apiData.requestBusCorridorData(cookie)
 
-            if (busCorridorData == null) {
-                emit(
-                    Resource.Error(
-                        message = "oops, something went wrong",
-                        data = localBusCorridorData
-                    )
-                )
-            } else {
-                if (busCorridorData != null) {
-                    val updateBusCorridorModelData: List<BusCorridorModel> = busCorridorData.map { dto ->
-                        BusCorridorModel(
-                            codigoCorredor = dto.codigoCorredor,
-                            nomeCorredor = dto.nomeCorredor
+                if (busCorridorData == null) {
+                    emit(
+                        Resource.Error(
+                            message = "oops, something went wrong",
+                            data = localBusCorridorData
                         )
-                    }
+                    )
+                } else {
+                    val updateBusCorridorModelData: List<BusCorridorModel> =
+                        busCorridorData.map { dto ->
+                            BusCorridorModel(
+                                codigoCorredor = dto.codigoCorredor,
+                                nomeCorredor = dto.nomeCorredor
+                            )
+                        }
 
 
                     localDataSource.insertBusCorridor(updateBusCorridorModelData)
                     val newCorridorData = localDataSource.getBusCorridor()
                     emit(Resource.Success(data = newCorridorData))
                 }
-            }
-        } catch (e: ClientRequestException) {
-            emit(
-                Resource.Error(
-                    message = "opps, something went wrong",
-                    data = localBusCorridorData
+            } catch (e: ClientRequestException) {
+                emit(
+                    Resource.Error(
+                        message = "opps, something went wrong",
+                        data = localBusCorridorData
+                    )
                 )
-            )
+            }
         }
-    }
 }

@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aikospbus.feature_bus_corridor.domain.model.BusCorridorModel
 import com.example.aikospbus.feature_bus_corridor.domain.useCase.GetRemoteBusCorridorUseCase
-import com.example.aikospbus.feature_bus_corridor.domain.useCase.InsertBusCorridorUseCase
 import com.example.aikospbus.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -15,7 +14,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BusCorridorViewModel @Inject constructor(
-    private val insertBusCorridorUseCase: InsertBusCorridorUseCase,
     private val getRemoteBusCorridorUseCase: GetRemoteBusCorridorUseCase
 ) : ViewModel() {
 
@@ -27,9 +25,11 @@ class BusCorridorViewModel @Inject constructor(
                 is Resource.Success -> {
                     busCorridorLiveData.value = result.data
                 }
+
                 is Resource.Error -> {
                     busCorridorLiveData.value = result.data
                 }
+
                 is Resource.Loading -> {
                     busCorridorLiveData.value = result.data
                 }

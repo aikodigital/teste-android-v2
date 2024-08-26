@@ -4,7 +4,7 @@ import com.example.aikospbus.feature_bus_corridor.data.repository.BusCorridorRep
 import com.example.aikospbus.feature_bus_corridor.domain.model.BusCorridorModel
 import javax.inject.Inject
 
-class InsertBusCorridorUseCase @Inject constructor(private val busCorridorRepository: BusCorridorRepository ) {
+class InsertBusCorridorUseCase @Inject constructor(private val busCorridorRepository: BusCorridorRepository) {
 
     suspend operator fun invoke(busCorridorModel: List<BusCorridorModel>) {
         busCorridorRepository.insertBusCorridor(busCorridorModel)
