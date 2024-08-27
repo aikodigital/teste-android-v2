@@ -45,6 +45,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var args : Objects? = null
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
+    private lateinit var bottomSheet : FrameLayout
     private lateinit var estimatedTimeAdapter: EstimatedTimeAdapter
 
     override fun onCreateView(
@@ -73,6 +74,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         //setBottomSheetBehavior()
         setUpBinding()
         setList()
+
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
     }
 
@@ -151,10 +154,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
                         if (markerSelected.tag == "stop_marker") {
                             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                            Log.i("stop code", stop.stopCode.toString())
                             getEstimatedTime(stop.stopCode)
                         } else {
-                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
                         }
 
                         true
@@ -238,33 +240,21 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setBottomSheet() {
-        val bottomSheet = binding.bottomSheet
+        bottomSheet = binding.bottomSheet
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.isHideable = true
+
+        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_HIDDEN -> {}
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+        })
     }
 
-
-//    private fun setBottomSheetBehavior() {
-//
-//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-//
-//        // Listener para mudanças de estado
-//        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-//            override fun onStateChanged(bottomSheet: View, newState: Int) {
-//                when (newState) {
-//                    BottomSheetBehavior.STATE_EXPANDED -> {
-//                        // Ações quando o Bottom Sheet está expandido
-//                    }
-//                    BottomSheetBehavior.STATE_COLLAPSED -> {
-//                        // Ações quando o Bottom Sheet está colapsado
-//                    }
-//                }
-//            }
-//
-//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-//                // Ações durante o deslizamento (opcional)
-//            }
-//        })
-//    }
 
     private fun setArgs() {
         args = MapsFragmentArgs.fromBundle(requireArguments()).objects
