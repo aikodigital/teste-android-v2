@@ -1,0 +1,37 @@
+<resources>
+    <string name="mapa">Mapa</string>
+    <string name="Mapa" />
+    <string name="Linhas" />
+    <string name="ônibus" />
+    <string name="ver_no_mapa">Visualizar no mapa</string>
+    <string name="buscar">Buscar</string>
+
+    //text menu
+    <string name="app_name">Aiko transportes</string>
+    <string name="text_menu_stop">Paradas</string>
+    <string name="text_menu_line">Linhas</string>
+    <string name="text_menu_buss">Ônibus</string>
+    <string name="title_main_activity">Para onde vc quer ir?</string>
+    <string name="text_search">Pesquisar</string>
+
+
+    <string name="bus_stop_name">Nome da Parada: %1$s</string>
+    <string name="bus_stop_address">Endereço: %1$s</string>
+    <string name="title_line_buss">Seja bem vindo, procure por alguma linha de ônibus de São Paulo</string>
+    <string name="exemp_line">Exemplo: 8100</string>
+    <string name="nibus_circulando">ônibus circulando</string>
+    <string name="chegada">Chegada:</string>
+    <string name="_18_20">18:33</string>
+    <string name="prefixo_23422">prefixo: 23422</string>
+    <string name="term_string">TERM. BARRA FUNDA</string>
+    <string name="numer_buss">1234-ABCD</string>
+    <string name="letreiro_line">Letreiro: 9015-10</string>
+    <string name="destiny_string">Destino: AVENIDA PAULISTA</string>
+    <string name="origem_term">Origiem: TERM. PIRITUBA</string>
+    <string name="qtd_veic">Quantidade: 1 veículo</string>
+    <string name="lines_text_prox">Linhas próximas</string>
+    <string name="next_buss">Próximos ônibus</string>
+    <string name="ponto_de_nibus">Ponto de Ônibus</string>
+    <string name="endere_o">Endereço</string>
+
+</resources>

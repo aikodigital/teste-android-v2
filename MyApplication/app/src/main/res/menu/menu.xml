@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/lines"
+        android:icon="@drawable/icon_line_buss"
+        android:title="@string/text_menu_line" />
+    <item
+        android:id="@+id/busStop"
+        android:icon="@drawable/icon_ping_buss"
+        android:title="@string/text_menu_stop" />
+
+
+
+</menu>
