@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Aiko Public Transport</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="map">Mapa</string>
+    <string name="bus_lines">Buscar Linhas</string>
+    <string name="search_historic">Histórico</string>
+    <string name="text_default_line">118Y-10 - LAPA</string>
+    <string name="text_no_connection">Verifique sua conexão com a internet</string>
+    <string name="text_left_app">Sair do aplicativo</string>
+    <string name="searchbar_hint">Pesquise aqui</string>
+    <string name="empty_list">Sem pesquisas no momento.</string>
+    <string name="search_way">Busque pelo nome ou pelo número da linha.</string>
+</resources>

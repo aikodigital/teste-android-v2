@@ -1,0 +1,1370 @@
+[
+  {
+    "cl": 841,
+    "lc": false,
+    "lt": "118Y",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "LAUZANE PAULISTA"
+  },
+  {
+    "cl": 33609,
+    "lc": false,
+    "lt": "118Y",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "LAUZANE PAULISTA"
+  },
+  {
+    "cl": 2273,
+    "lc": false,
+    "lt": "119L",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "VL. SULINA"
+  },
+  {
+    "cl": 35041,
+    "lc": false,
+    "lt": "119L",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "VL. SULINA"
+  },
+  {
+    "cl": 843,
+    "lc": false,
+    "lt": "128Y",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "JD. PERY ALTO"
+  },
+  {
+    "cl": 33611,
+    "lc": false,
+    "lt": "128Y",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "JD. PERY ALTO"
+  },
+  {
+    "cl": 2451,
+    "lc": false,
+    "lt": "139A",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "VL. IÓRIO"
+  },
+  {
+    "cl": 35219,
+    "lc": false,
+    "lt": "139A",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "VL. IÓRIO"
+  },
+  {
+    "cl": 531,
+    "lc": false,
+    "lt": "148L",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "COHAB ANTÁRTICA"
+  },
+  {
+    "cl": 33299,
+    "lc": false,
+    "lt": "148L",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "COHAB ANTÁRTICA"
+  },
+  {
+    "cl": 558,
+    "lc": false,
+    "lt": "178A",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "METRÔ SANTANA"
+  },
+  {
+    "cl": 33326,
+    "lc": false,
+    "lt": "178A",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "METRÔ SANTANA"
+  },
+  {
+    "cl": 2450,
+    "lc": false,
+    "lt": "189L",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "CONEXÃO VL. IÓRIO"
+  },
+  {
+    "cl": 35218,
+    "lc": false,
+    "lt": "189L",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "CONEXÃO VL. IÓRIO"
+  },
+  {
+    "cl": 2604,
+    "lc": true,
+    "lt": "189L",
+    "sl": 1,
+    "tl": 21,
+    "tp": "LAPA",
+    "ts": "CONEXÃO VL. IÓRIO"
+  },
+  {
+    "cl": 35372,
+    "lc": true,
+    "lt": "189L",
+    "sl": 2,
+    "tl": 21,
+    "tp": "LAPA",
+    "ts": "CONEXÃO VL. IÓRIO"
+  },
+  {
+    "cl": 2265,
+    "lc": false,
+    "lt": "211L",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "MANDAQUI"
+  },
+  {
+    "cl": 35033,
+    "lc": false,
+    "lt": "211L",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "MANDAQUI"
+  },
+  {
+    "cl": 498,
+    "lc": false,
+    "lt": "748A",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "JD. D'ABRIL"
+  },
+  {
+    "cl": 33266,
+    "lc": false,
+    "lt": "748A",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "JD. D'ABRIL"
+  },
+  {
+    "cl": 499,
+    "lc": false,
+    "lt": "748A",
+    "sl": 1,
+    "tl": 41,
+    "tp": "LAPA",
+    "ts": "JD. PERI PERI"
+  },
+  {
+    "cl": 33267,
+    "lc": false,
+    "lt": "748A",
+    "sl": 2,
+    "tl": 41,
+    "tp": "LAPA",
+    "ts": "JD. PERI PERI"
+  },
+  {
+    "cl": 472,
+    "lc": false,
+    "lt": "7725",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "RIO PEQUENO"
+  },
+  {
+    "cl": 33240,
+    "lc": false,
+    "lt": "7725",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "RIO PEQUENO"
+  },
+  {
+    "cl": 1251,
+    "lc": false,
+    "lt": "8001",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "VL. PIAUÍ"
+  },
+  {
+    "cl": 34019,
+    "lc": false,
+    "lt": "8001",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "VL. PIAUÍ"
+  },
+  {
+    "cl": 1252,
+    "lc": false,
+    "lt": "8002",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 34020,
+    "lc": false,
+    "lt": "8002",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 1253,
+    "lc": false,
+    "lt": "8003",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "REMÉDIOS"
+  },
+  {
+    "cl": 34021,
+    "lc": false,
+    "lt": "8003",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "REMÉDIOS"
+  },
+  {
+    "cl": 1254,
+    "lc": false,
+    "lt": "8004",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "STA. MÔNICA"
+  },
+  {
+    "cl": 34022,
+    "lc": false,
+    "lt": "8004",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "STA. MÔNICA"
+  },
+  {
+    "cl": 798,
+    "lc": false,
+    "lt": "8010",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "PERUS"
+  },
+  {
+    "cl": 33566,
+    "lc": false,
+    "lt": "8010",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "PERUS"
+  },
+  {
+    "cl": 800,
+    "lc": false,
+    "lt": "8013",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "TERM. JD. BRITANIA"
+  },
+  {
+    "cl": 33568,
+    "lc": false,
+    "lt": "8013",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "TERM. JD. BRITANIA"
+  },
+  {
+    "cl": 797,
+    "lc": false,
+    "lt": "8038",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "PQ. CONTINENTAL"
+  },
+  {
+    "cl": 33565,
+    "lc": false,
+    "lt": "8038",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "PQ. CONTINENTAL"
+  },
+  {
+    "cl": 406,
+    "lc": false,
+    "lt": "8040",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "SOL NASCENTE"
+  },
+  {
+    "cl": 33174,
+    "lc": false,
+    "lt": "8040",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "SOL NASCENTE"
+  },
+  {
+    "cl": 407,
+    "lc": false,
+    "lt": "8043",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "HAB. TURÍSTICA"
+  },
+  {
+    "cl": 33175,
+    "lc": false,
+    "lt": "8043",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "HAB. TURÍSTICA"
+  },
+  {
+    "cl": 408,
+    "lc": false,
+    "lt": "8047",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "JARAGUÁ"
+  },
+  {
+    "cl": 33176,
+    "lc": false,
+    "lt": "8047",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "JARAGUÁ"
+  },
+  {
+    "cl": 411,
+    "lc": false,
+    "lt": "8047",
+    "sl": 1,
+    "tl": 51,
+    "tp": "LAPA",
+    "ts": "JARAGUÁ"
+  },
+  {
+    "cl": 33179,
+    "lc": false,
+    "lt": "8047",
+    "sl": 2,
+    "tl": 51,
+    "tp": "LAPA",
+    "ts": "JARAGUÁ"
+  },
+  {
+    "cl": 412,
+    "lc": false,
+    "lt": "8050",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "PQ. MORRO DOCE"
+  },
+  {
+    "cl": 33180,
+    "lc": false,
+    "lt": "8050",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "PQ. MORRO DOCE"
+  },
+  {
+    "cl": 413,
+    "lc": false,
+    "lt": "8050",
+    "sl": 1,
+    "tl": 21,
+    "tp": "LAPA",
+    "ts": "ANHANGUERA"
+  },
+  {
+    "cl": 33181,
+    "lc": false,
+    "lt": "8050",
+    "sl": 2,
+    "tl": 21,
+    "tp": "LAPA",
+    "ts": "ANHANGUERA"
+  },
+  {
+    "cl": 415,
+    "lc": false,
+    "lt": "8050",
+    "sl": 1,
+    "tl": 31,
+    "tp": "LAPA",
+    "ts": "PQ. MORRO DOCE"
+  },
+  {
+    "cl": 33183,
+    "lc": false,
+    "lt": "8050",
+    "sl": 2,
+    "tl": 31,
+    "tp": "LAPA",
+    "ts": "PQ. MORRO DOCE"
+  },
+  {
+    "cl": 414,
+    "lc": false,
+    "lt": "8055",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "PERUS"
+  },
+  {
+    "cl": 33182,
+    "lc": false,
+    "lt": "8055",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "PERUS"
+  },
+  {
+    "cl": 418,
+    "lc": false,
+    "lt": "8060",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "VL. PIAUÍ"
+  },
+  {
+    "cl": 33186,
+    "lc": false,
+    "lt": "8060",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "VL. PIAUÍ"
+  },
+  {
+    "cl": 420,
+    "lc": true,
+    "lt": "8062",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "PQ. SÃO DOMINGOS"
+  },
+  {
+    "cl": 33188,
+    "lc": true,
+    "lt": "8062",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "PQ. SÃO DOMINGOS"
+  },
+  {
+    "cl": 421,
+    "lc": false,
+    "lt": "8065",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "VL. CLARICE"
+  },
+  {
+    "cl": 33189,
+    "lc": false,
+    "lt": "8065",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "VL. CLARICE"
+  },
+  {
+    "cl": 2245,
+    "lc": false,
+    "lt": "809H",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "JD. BOA VISTA"
+  },
+  {
+    "cl": 35013,
+    "lc": false,
+    "lt": "809H",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "JD. BOA VISTA"
+  },
+  {
+    "cl": 1949,
+    "lc": false,
+    "lt": "809L",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "CAMPO LIMPO"
+  },
+  {
+    "cl": 34717,
+    "lc": false,
+    "lt": "809L",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "CAMPO LIMPO"
+  },
+  {
+    "cl": 2244,
+    "lc": false,
+    "lt": "809N",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "VL. DALVA"
+  },
+  {
+    "cl": 35012,
+    "lc": false,
+    "lt": "809N",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "VL. DALVA"
+  },
+  {
+    "cl": 2246,
+    "lc": false,
+    "lt": "809T",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "COHAB RAPOSO TAVARES"
+  },
+  {
+    "cl": 35014,
+    "lc": false,
+    "lt": "809T",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "COHAB RAPOSO TAVARES"
+  },
+  {
+    "cl": 1262,
+    "lc": false,
+    "lt": "8100",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 34030,
+    "lc": false,
+    "lt": "8100",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 1263,
+    "lc": false,
+    "lt": "8200",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 34031,
+    "lc": false,
+    "lt": "8200",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 1248,
+    "lc": true,
+    "lt": "8252",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "METRÔ BARRA FUNDA"
+  },
+  {
+    "cl": 34016,
+    "lc": true,
+    "lt": "8252",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "METRÔ BARRA FUNDA"
+  },
+  {
+    "cl": 2507,
+    "lc": false,
+    "lt": "8300",
+    "sl": 1,
+    "tl": 1,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 35275,
+    "lc": false,
+    "lt": "8300",
+    "sl": 2,
+    "tl": 1,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 1264,
+    "lc": false,
+    "lt": "8300",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 34032,
+    "lc": false,
+    "lt": "8300",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 1361,
+    "lc": false,
+    "lt": "8542",
+    "sl": 1,
+    "tl": 21,
+    "tp": "TERM. LAPA",
+    "ts": "BRASILÂNDIA"
+  },
+  {
+    "cl": 34129,
+    "lc": false,
+    "lt": "8542",
+    "sl": 2,
+    "tl": 21,
+    "tp": "TERM. LAPA",
+    "ts": "BRASILÂNDIA"
+  },
+  {
+    "cl": 578,
+    "lc": false,
+    "lt": "8548",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "PARADA DE TAIPAS"
+  },
+  {
+    "cl": 33346,
+    "lc": false,
+    "lt": "8548",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "PARADA DE TAIPAS"
+  },
+  {
+    "cl": 307,
+    "lc": false,
+    "lt": "874T",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "IPIRANGA"
+  },
+  {
+    "cl": 33075,
+    "lc": false,
+    "lt": "874T",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "IPIRANGA"
+  },
+  {
+    "cl": 1268,
+    "lc": false,
+    "lt": "9012",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "ITABERABA"
+  },
+  {
+    "cl": 34036,
+    "lc": false,
+    "lt": "9012",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "ITABERABA"
+  },
+  {
+    "cl": 1425,
+    "lc": false,
+    "lt": "9014",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "MORRO GRANDE"
+  },
+  {
+    "cl": 34193,
+    "lc": false,
+    "lt": "9014",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. LAPA",
+    "ts": "MORRO GRANDE"
+  },
+  {
+    "cl": 1426,
+    "lc": false,
+    "lt": "9014",
+    "sl": 1,
+    "tl": 42,
+    "tp": "TERM. LAPA",
+    "ts": "JD. IRACEMA"
+  },
+  {
+    "cl": 34194,
+    "lc": false,
+    "lt": "9014",
+    "sl": 2,
+    "tl": 42,
+    "tp": "TERM. LAPA",
+    "ts": "JD. IRACEMA"
+  },
+  {
+    "cl": 883,
+    "lc": false,
+    "lt": "9047",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "JD. PAULISTANO"
+  },
+  {
+    "cl": 33651,
+    "lc": false,
+    "lt": "9047",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "JD. PAULISTANO"
+  },
+  {
+    "cl": 885,
+    "lc": false,
+    "lt": "9181",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "VL. TEREZINHA"
+  },
+  {
+    "cl": 33653,
+    "lc": false,
+    "lt": "9181",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "VL. TEREZINHA"
+  },
+  {
+    "cl": 809,
+    "lc": false,
+    "lt": "9188",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "CAPELA DA LAGOA "
+  },
+  {
+    "cl": 33577,
+    "lc": false,
+    "lt": "9188",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "CAPELA DA LAGOA "
+  },
+  {
+    "cl": 1711,
+    "lc": false,
+    "lt": "9188",
+    "sl": 1,
+    "tl": 42,
+    "tp": "LAPA",
+    "ts": "CAPELA DA LAGOA"
+  },
+  {
+    "cl": 34479,
+    "lc": false,
+    "lt": "9188",
+    "sl": 2,
+    "tl": 42,
+    "tp": "LAPA",
+    "ts": "CAPELA DA LAGOA"
+  },
+  {
+    "cl": 587,
+    "lc": false,
+    "lt": "938C",
+    "sl": 1,
+    "tl": 21,
+    "tp": "TERM. LAPA",
+    "ts": "COHAB TAIPAS"
+  },
+  {
+    "cl": 33355,
+    "lc": false,
+    "lt": "938C",
+    "sl": 2,
+    "tl": 21,
+    "tp": "TERM. LAPA",
+    "ts": "COHAB TAIPAS"
+  },
+  {
+    "cl": 1368,
+    "lc": false,
+    "lt": "938L",
+    "sl": 1,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "TERM. CACHOEIRINHA"
+  },
+  {
+    "cl": 34136,
+    "lc": false,
+    "lt": "938L",
+    "sl": 2,
+    "tl": 10,
+    "tp": "LAPA",
+    "ts": "TERM. CACHOEIRINHA"
+  },
+  {
+    "cl": 35052,
+    "lc": false,
+    "lt": "N103",
+    "sl": 2,
+    "tl": 11,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 2284,
+    "lc": false,
+    "lt": "N103",
+    "sl": 1,
+    "tl": 11,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 2285,
+    "lc": false,
+    "lt": "N104",
+    "sl": 1,
+    "tl": 11,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 35053,
+    "lc": false,
+    "lt": "N104",
+    "sl": 2,
+    "tl": 11,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. PIRITUBA"
+  },
+  {
+    "cl": 35054,
+    "lc": false,
+    "lt": "N105",
+    "sl": 2,
+    "tl": 11,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. CACHOEIRINHA"
+  },
+  {
+    "cl": 2286,
+    "lc": false,
+    "lt": "N105",
+    "sl": 1,
+    "tl": 11,
+    "tp": "TERM. LAPA",
+    "ts": "TERM. CACHOEIRINHA"
+  },
+  {
+    "cl": 2430,
+    "lc": true,
+    "lt": "N831",
+    "sl": 1,
+    "tl": 11,
+    "tp": "PQ. DA LAPA",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35198,
+    "lc": true,
+    "lt": "N831",
+    "sl": 2,
+    "tl": 11,
+    "tp": "PQ. DA LAPA",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 1333,
+    "lc": true,
+    "lt": "7272",
+    "sl": 1,
+    "tl": 10,
+    "tp": "PÇA. RAMOS DE AZEVEDO",
+    "ts": "MERCADO DA LAPA"
+  },
+  {
+    "cl": 34101,
+    "lc": true,
+    "lt": "7272",
+    "sl": 2,
+    "tl": 10,
+    "tp": "PÇA. RAMOS DE AZEVEDO",
+    "ts": "MERCADO DA LAPA"
+  },
+  {
+    "cl": 1334,
+    "lc": true,
+    "lt": "7281",
+    "sl": 1,
+    "tl": 10,
+    "tp": "PÇA. RAMOS DE AZEVEDO",
+    "ts": "LAPA"
+  },
+  {
+    "cl": 34102,
+    "lc": true,
+    "lt": "7281",
+    "sl": 2,
+    "tl": 10,
+    "tp": "PÇA. RAMOS DE AZEVEDO",
+    "ts": "LAPA"
+  },
+  {
+    "cl": 2506,
+    "lc": false,
+    "lt": "8000",
+    "sl": 1,
+    "tl": 1,
+    "tp": "PÇA. RAMOS DE AZEVEDO",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35274,
+    "lc": false,
+    "lt": "8000",
+    "sl": 2,
+    "tl": 1,
+    "tp": "PÇA. RAMOS DE AZEVEDO",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 1273,
+    "lc": false,
+    "lt": "8000",
+    "sl": 1,
+    "tl": 10,
+    "tp": "PÇA. RAMOS DE AZEVEDO",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 34041,
+    "lc": false,
+    "lt": "8000",
+    "sl": 2,
+    "tl": 10,
+    "tp": "PÇA. RAMOS DE AZEVEDO",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 2582,
+    "lc": true,
+    "lt": "8003",
+    "sl": 1,
+    "tl": 21,
+    "tp": "REMÉDIOS",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35350,
+    "lc": true,
+    "lt": "8003",
+    "sl": 2,
+    "tl": 21,
+    "tp": "REMÉDIOS",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 1337,
+    "lc": true,
+    "lt": "817C",
+    "sl": 1,
+    "tl": 10,
+    "tp": "HOSP. DAS CLÍNICAS",
+    "ts": "LAPA"
+  },
+  {
+    "cl": 34105,
+    "lc": true,
+    "lt": "817C",
+    "sl": 2,
+    "tl": 10,
+    "tp": "HOSP. DAS CLÍNICAS",
+    "ts": "LAPA"
+  },
+  {
+    "cl": 2487,
+    "lc": true,
+    "lt": "847J",
+    "sl": 1,
+    "tl": 21,
+    "tp": "CITY JARAGUA",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35255,
+    "lc": true,
+    "lt": "847J",
+    "sl": 2,
+    "tl": 21,
+    "tp": "CITY JARAGUA",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 1428,
+    "lc": false,
+    "lt": "856R",
+    "sl": 1,
+    "tl": 10,
+    "tp": "SOCORRO",
+    "ts": "LAPA"
+  },
+  {
+    "cl": 34196,
+    "lc": false,
+    "lt": "856R",
+    "sl": 2,
+    "tl": 10,
+    "tp": "SOCORRO",
+    "ts": "LAPA"
+  },
+  {
+    "cl": 1339,
+    "lc": false,
+    "lt": "8615",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. PQ. D. PEDRO II",
+    "ts": "PQ. DA LAPA"
+  },
+  {
+    "cl": 34107,
+    "lc": false,
+    "lt": "8615",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. PQ. D. PEDRO II",
+    "ts": "PQ. DA LAPA"
+  },
+  {
+    "cl": 2485,
+    "lc": true,
+    "lt": "8686",
+    "sl": 1,
+    "tl": 21,
+    "tp": "MANGALOT",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35253,
+    "lc": true,
+    "lt": "8686",
+    "sl": 2,
+    "tl": 21,
+    "tp": "MANGALOT",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 2510,
+    "lc": false,
+    "lt": "875C",
+    "sl": 1,
+    "tl": 1,
+    "tp": "METRÔ STA. CRUZ",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35278,
+    "lc": false,
+    "lt": "875C",
+    "sl": 2,
+    "tl": 1,
+    "tp": "METRÔ STA. CRUZ",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 478,
+    "lc": false,
+    "lt": "875C",
+    "sl": 1,
+    "tl": 10,
+    "tp": "METRÔ STA. CRUZ",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 33246,
+    "lc": false,
+    "lt": "875C",
+    "sl": 2,
+    "tl": 10,
+    "tp": "METRÔ STA. CRUZ",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 1340,
+    "lc": false,
+    "lt": "875H",
+    "sl": 1,
+    "tl": 10,
+    "tp": "METRÔ VL. MARIANA",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 34108,
+    "lc": false,
+    "lt": "875H",
+    "sl": 2,
+    "tl": 10,
+    "tp": "METRÔ VL. MARIANA",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 2088,
+    "lc": true,
+    "lt": "9050",
+    "sl": 1,
+    "tl": 10,
+    "tp": "ITAIM BIBI",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 34856,
+    "lc": true,
+    "lt": "9050",
+    "sl": 2,
+    "tl": 10,
+    "tp": "ITAIM BIBI",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 2089,
+    "lc": false,
+    "lt": "9051",
+    "sl": 1,
+    "tl": 10,
+    "tp": "TERM. PINHEIROS",
+    "ts": "LAPA"
+  },
+  {
+    "cl": 34857,
+    "lc": false,
+    "lt": "9051",
+    "sl": 2,
+    "tl": 10,
+    "tp": "TERM. PINHEIROS",
+    "ts": "LAPA"
+  },
+  {
+    "cl": 2282,
+    "lc": false,
+    "lt": "N101",
+    "sl": 1,
+    "tl": 11,
+    "tp": "TERM. PQ. D. PEDRO II",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35050,
+    "lc": false,
+    "lt": "N101",
+    "sl": 2,
+    "tl": 11,
+    "tp": "TERM. PQ. D. PEDRO II",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 2283,
+    "lc": false,
+    "lt": "N102",
+    "sl": 1,
+    "tl": 11,
+    "tp": "TERM. PQ. D. PEDRO II",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35051,
+    "lc": false,
+    "lt": "N102",
+    "sl": 2,
+    "tl": 11,
+    "tp": "TERM. PQ. D. PEDRO II",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 2287,
+    "lc": true,
+    "lt": "N131",
+    "sl": 1,
+    "tl": 11,
+    "tp": "VL. PIAUÍ",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35055,
+    "lc": true,
+    "lt": "N131",
+    "sl": 2,
+    "tl": 11,
+    "tp": "VL. PIAUÍ",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 2292,
+    "lc": true,
+    "lt": "N136",
+    "sl": 1,
+    "tl": 11,
+    "tp": "MORRO DOCE",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35060,
+    "lc": true,
+    "lt": "N136",
+    "sl": 2,
+    "tl": 11,
+    "tp": "MORRO DOCE",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 2431,
+    "lc": true,
+    "lt": "N832",
+    "sl": 1,
+    "tl": 11,
+    "tp": "PQ. CONTINENTAL",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35199,
+    "lc": true,
+    "lt": "N832",
+    "sl": 2,
+    "tl": 11,
+    "tp": "PQ. CONTINENTAL",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 2433,
+    "lc": true,
+    "lt": "N834",
+    "sl": 1,
+    "tl": 11,
+    "tp": "TERM. PINHEIROS",
+    "ts": "TERM. LAPA"
+  },
+  {
+    "cl": 35201,
+    "lc": true,
+    "lt": "N834",
+    "sl": 2,
+    "tl": 11,
+    "tp": "TERM. PINHEIROS",
+    "ts": "TERM. LAPA"
+  }
+]
