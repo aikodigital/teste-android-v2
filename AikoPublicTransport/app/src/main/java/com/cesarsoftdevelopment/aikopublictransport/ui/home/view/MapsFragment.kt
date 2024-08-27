@@ -62,8 +62,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         initMap(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,30 +69,20 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         setViewModel()
         setArgs()
         setBottomSheet()
-        //setBottomSheetBehavior()
         setUpBinding()
         setList()
-
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-//        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            enableUserLocation()
-//        } else {
-//            requestPermissions(
-//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-//                LOCATION_PERMISSION_REQUEST_CODE
-//            )
-//        }
 
         if(args != null) {
             addMarkers(args)
+        }else {
+            validateUserLocation()
         }
-
-
     }
 
     private fun addMarkers(args: Objects?) {
@@ -314,6 +302,20 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     private fun setUpBinding() {
         binding.lifecycleOwner = this
+    }
+
+    private fun validateUserLocation() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                enableUserLocation()
+
+        } else {
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        }
     }
 
 
