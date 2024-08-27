@@ -18,7 +18,9 @@ import com.cesarsoftdevelopment.aikopublictransport.data.model.StopItem
 import com.cesarsoftdevelopment.aikopublictransport.databinding.FragmentBusLinesBinding
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.adapters.BusLinesAdapter
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesViewModel
+import com.cesarsoftdevelopment.aikopublictransport.utils.AppStrings
 import com.cesarsoftdevelopment.aikopublictransport.utils.Resource
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
 class BusLinesFragment : Fragment() {
@@ -30,7 +32,6 @@ class BusLinesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_bus_lines,
@@ -65,7 +66,6 @@ class BusLinesFragment : Fragment() {
     }
 
     private fun observeSelectedLineCode() {
-
         busLinesViewModel.selectedLineCode.observe(viewLifecycleOwner, Observer { selectedLineCode ->
             if(selectedLineCode != null) {
                 binding.fabGoMap.apply {
@@ -88,6 +88,7 @@ class BusLinesFragment : Fragment() {
             when (stopsResponse) {
                 is Resource.Success -> {
                     if(!stopsResponse.data.isNullOrEmpty()) {
+                        Log.i("Bus log", "Success: ${stopsResponse.data}")
                         getVehicle(
                             lineCode,
                             stopsResponse.data
@@ -98,22 +99,21 @@ class BusLinesFragment : Fragment() {
                             "Sem paradas",
                             Toast.LENGTH_SHORT
                         ).show()
+                        busLinesViewModel.removeObserve()
                         hideProgressBar()
                     }
 
                 }
 
                 is Resource.Error -> {
-                    Log.e("BindingAdapter", "Error: ${stopsResponse.message}")
+                    Log.e(AppStrings.ERROR, "${stopsResponse.message}")
                 }
 
                 is Resource.Loading -> {
                     showProgressBar()
                 }
 
-                else -> {
-                    Log.e("BindingAdapter", "Error: $stopsResponse")
-                }
+                else -> {}
             }
         })
 
@@ -126,14 +126,13 @@ class BusLinesFragment : Fragment() {
                 is Resource.Success -> {
                     if (!stopItems.isNullOrEmpty()) {
 
-                        if(vehicleResponse.data != null && vehicleResponse.data.vehicles.isNotEmpty()) {
+                        if(vehicleResponse.data != null && !vehicleResponse.data.vehicles.isNullOrEmpty()) {
                             val objects = Objects(
                                 stopItems,
                                 vehicleResponse.data
                             )
-                            requireView().findNavController().navigate(
-                                BusLinesFragmentDirections.actionBusLinesFragmentToMapsFragment(objects)
-                            )
+
+                            navigateToMapFragment(objects)
 
                         }else {
                             Toast.makeText(
@@ -141,6 +140,7 @@ class BusLinesFragment : Fragment() {
                                 "Sem Veículos",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            busLinesViewModel.removeObserve()
                             hideProgressBar()
                         }
                     }else {
@@ -149,6 +149,7 @@ class BusLinesFragment : Fragment() {
                             "Sem Paradas",
                             Toast.LENGTH_SHORT
                         ).show()
+                        busLinesViewModel.removeObserve()
                         hideProgressBar()
                     }
 
@@ -189,6 +190,7 @@ class BusLinesFragment : Fragment() {
 
                 else -> {
                     Log.e("BindingAdapter", "Error: $response")
+                    hideProgressBar()
                 }
             }
         })
@@ -214,6 +216,21 @@ class BusLinesFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
     }
 
+    private fun navigateToMapFragment(objects: Objects?) {
+        try {
+            val navController = requireView().findNavController()
+            val currentDestination = navController.currentDestination?.id
 
+            if (currentDestination == R.id.busLinesFragment) {
+                navController.navigate(
+                    BusLinesFragmentDirections.actionBusLinesFragmentToMapsFragment(objects)
+                )
+            } else {
+                Log.e(AppStrings.NAVIGATION_ERROR, currentDestination.toString())
+            }
+        } catch (e: Exception) {
+            Log.e(AppStrings.NAVIGATION_EXCEPTION, e.toString())
+        }
+    }
 
 }

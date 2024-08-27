@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class BusLineItem(
     @SerializedName("c")
-    val fullSign : String?,
+    val fullSign : String,
     @SerializedName("cl")
     val lineCode : Int?,
     @SerializedName("lc")
@@ -29,14 +29,14 @@ data class BusLineItem(
     @SerializedName("ts")
     val secondaryTerminal : String?,
     @SerializedName("vs")
-    val vehicles : List<VehicleItem?>,
+    val vehicles : List<VehicleItem?>? = emptyList(),
 ) : Parcelable
 
 
 @Parcelize
 data class StopItem(
     @SerializedName("cp")
-    val stopCode : Int?,
+    val stopCode : Long?,
     @SerializedName("np")
     val stopName : String?,
     @SerializedName("ed")
@@ -46,8 +46,7 @@ data class StopItem(
     @SerializedName("px")
     val stopLongitude : Double?,
     @SerializedName("l")
-    val lines : List<BusLineItem?>,
-
+    val lines : List<BusLineItem>? = emptyList(),
     ) : Parcelable
 
 @Parcelize
@@ -55,7 +54,7 @@ data class VehiclePosition(
     @SerializedName("hr")
     val currentTime : String?,
     @SerializedName("vs")
-    val vehicles : List<VehicleItem?>
+    val vehicles : List<VehicleItem?>? = emptyList()
 ) : Parcelable
 
 
@@ -86,6 +85,6 @@ data class EstimatedArrivalTime (
 
 @Parcelize
 data class Objects(
-    val stops : List<StopItem?>?,
+    val stops : List<StopItem?>? = emptyList(),
     val vehicle : VehiclePosition?
 ) : Parcelable

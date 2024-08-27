@@ -25,11 +25,11 @@ class BusLinesViewModel (
     private val _busLines : MutableLiveData<Resource<List<BusLineItem>>> = MutableLiveData()
     val busLines : LiveData<Resource<List<BusLineItem>>> = _busLines
 
-    private val _vehicle : MutableLiveData<Resource<VehiclePosition?>> = MutableLiveData()
-    val vehicles : LiveData<Resource<VehiclePosition?>> = _vehicle
+    private val _vehicle : MutableLiveData<Resource<VehiclePosition?>?> = MutableLiveData()
+    val vehicles : LiveData<Resource<VehiclePosition?>?> = _vehicle
 
-    private val _stops : MutableLiveData<Resource<List<StopItem>?>> = MutableLiveData()
-    val stops : LiveData<Resource<List<StopItem>?>> = _stops
+    private val _stops : MutableLiveData<Resource<List<StopItem>?>?> = MutableLiveData()
+    val stops : LiveData<Resource<List<StopItem>?>?> = _stops
 
     private val _selectedLineCode : MutableLiveData<Int?> = MutableLiveData()
     val selectedLineCode : LiveData<Int?> = _selectedLineCode
@@ -82,6 +82,8 @@ class BusLinesViewModel (
 
     fun removeObserve() {
         _selectedLineCode.postValue(null)
+        _stops.postValue(null)
+        _vehicle.postValue(null)
     }
 
 

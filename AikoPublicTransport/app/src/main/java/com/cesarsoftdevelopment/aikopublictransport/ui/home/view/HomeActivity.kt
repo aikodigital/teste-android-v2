@@ -6,6 +6,8 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -13,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.cesarsoftdevelopment.aikopublictransport.R
 import com.cesarsoftdevelopment.aikopublictransport.databinding.ActivityHomeBinding
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.adapters.BusLinesAdapter
@@ -31,28 +34,23 @@ import javax.inject.Inject
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-
     private lateinit var navHostFragment: NavHostFragment
-
     private lateinit var navController: NavController
 
     @Inject
     lateinit var homeViewModelFactory : HomeViewModelFactory
-
     private val homeViewModel : HomeViewModel by viewModels {
         homeViewModelFactory
     }
 
     @Inject
     lateinit var busLinesViewModelFactory : BusLinesViewModelFactory
-
     val busLinesViewModel : BusLinesViewModel by viewModels {
         busLinesViewModelFactory
     }
 
     @Inject
     lateinit var mapViewModelFactory : MapViewModelFactory
-
     val mapViewModel : MapViewModel by viewModels {
         mapViewModelFactory
     }
@@ -64,6 +62,7 @@ class HomeActivity : AppCompatActivity() {
         setUpViews()
         observeInternetConnection()
         setUpNavigationBar()
+
     }
 
     private fun setUpViews() {
@@ -95,9 +94,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun observeInternetConnection() {
         homeViewModel.isInternetAvailable.observe(this, Observer { response ->
-
             when(response) {
-
                 is Resource.Success -> {
                     response.data?.let {
                         //observeAuthentication()
@@ -110,19 +107,14 @@ class HomeActivity : AppCompatActivity() {
                     }
 
                 }
-
                 else -> {}
             }
         })
     }
     private fun observeAuthentication() {
-
         homeViewModel.authenticate()
-
         homeViewModel.authenticated.observe(this, Observer { response ->
-
             when(response) {
-
                 is Resource.Error -> {
                     response.message?.let {
                         Toast.makeText(
@@ -133,9 +125,7 @@ class HomeActivity : AppCompatActivity() {
                         ).show()
                     }
                     finish()
-
                 }
-
                 else -> {}
             }
         })
@@ -143,6 +133,8 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun setUpNavigationBar() {
+
+        binding.bottomNavigation.setupWithNavController(navController)
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
 
@@ -167,3 +159,5 @@ class HomeActivity : AppCompatActivity() {
     }
 
 }
+
+

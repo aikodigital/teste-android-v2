@@ -12,23 +12,30 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.cesarsoftdevelopment.aikopublictransport.R
+import com.cesarsoftdevelopment.aikopublictransport.data.model.Objects
 import com.cesarsoftdevelopment.aikopublictransport.databinding.FragmentMapsBinding
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.MapViewModel
+import com.cesarsoftdevelopment.aikopublictransport.utils.ObjectConverter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding : FragmentMapsBinding
     private lateinit var mapViewModel: MapViewModel
     private lateinit var  mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
+    private var args : Objects? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,37 +47,99 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             container,
             false
         )
-        showProgressBar()
         initMap(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         return binding.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapViewModel = (activity as HomeActivity).mapViewModel
-        val args = MapsFragmentArgs.fromBundle(requireArguments()).objects
-        if (args != null) {
-            Log.i("MAPS ARGS", args.vehicle?.vehicles.toString())
-            Log.i("MAPS ARGS", args.stops.toString())
-        }
+        args = MapsFragmentArgs.fromBundle(requireArguments()).objects
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            enableUserLocation()
-        } else {
-            requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
+//        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            enableUserLocation()
+//        } else {
+//            requestPermissions(
+//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                LOCATION_PERMISSION_REQUEST_CODE
+//            )
+//        }
+
+        if(args != null) {
+            addMarkers(args)
+        }
+
+
+    }
+
+    private fun addMarkers(args: Objects?) {
+        if (args != null) {
+            val vehiclePositions = args.vehicle?.vehicles
+            val stopItems = args.stops
+            val boundsBuilder = LatLngBounds.Builder()
+
+            vehiclePositions?.forEach { vehicle ->
+                val iconBitmapBus = BitmapDescriptorFactory.fromBitmap(
+                    ObjectConverter.getBitmapFromVectorDrawable(
+                        requireContext(),
+                        R.drawable.ic_bus_location
+                    )
+                )
+
+                if (vehicle?.vehicleLatitude != null && vehicle.vehicleLongitude != null) {
+                    val position = LatLng(vehicle.vehicleLatitude, vehicle.vehicleLongitude)
+                    mMap.addMarker(
+                        MarkerOptions()
+                            .position(position)
+                            .title("Veículo ${vehicle.vehiclePrefix}")
+                            .icon(iconBitmapBus)
+                    )
+                    boundsBuilder.include(position)
+                }
+            }
+
+            stopItems?.forEach { stop ->
+                val iconBitmapStops = BitmapDescriptorFactory.fromBitmap(
+                    ObjectConverter.getBitmapFromVectorDrawable(
+                        requireContext(),
+                        R.drawable.ic_stops_location
+                    )
+                )
+
+                if (stop?.stopLatitude != null && stop.stopLongitude != null) {
+                    val position = LatLng(stop.stopLatitude, stop.stopLongitude)
+                    mMap.addMarker(
+                        MarkerOptions()
+                            .position(position)
+                            .title(stop.stopName)
+                            .snippet(stop.stopAddress)
+                            .icon(iconBitmapStops)
+                    )
+                    boundsBuilder.include(position)
+                }
+            }
+
+            if (vehiclePositions?.isNotEmpty() == true || stopItems?.isNotEmpty() == true) {
+                val bounds = boundsBuilder.build()
+                val padding = 100
+                val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+                mMap.animateCamera(cameraUpdate)
+            }
+
+
+
         }
     }
+
+
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -79,7 +148,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     ) {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                enableUserLocation()
+                //enableUserLocation()
             } else {
                 hideProgressBar()
                 Toast.makeText(
@@ -132,5 +201,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private fun hideProgressBar() {
         binding.progressBar.visibility = View.GONE
     }
+
 
 }
