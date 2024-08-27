@@ -88,7 +88,6 @@ class BusLinesFragment : Fragment() {
             when (stopsResponse) {
                 is Resource.Success -> {
                     if(!stopsResponse.data.isNullOrEmpty()) {
-                        Log.i("Bus log", "Success: ${stopsResponse.data}")
                         getVehicle(
                             lineCode,
                             stopsResponse.data

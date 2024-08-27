@@ -9,6 +9,6 @@
     <string name="text_no_connection">Verifique sua conexão com a internet</string>
     <string name="text_left_app">Sair do aplicativo</string>
     <string name="searchbar_hint">Pesquise aqui</string>
-    <string name="empty_list">Você ainda não tem pesquisas feitas.</string>
+    <string name="empty_list">Sem pesquisas no momento.</string>
     <string name="search_way">Busque pelo nome ou pelo número da linha.</string>
 </resources>

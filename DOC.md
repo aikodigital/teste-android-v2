@@ -50,7 +50,7 @@ O aplicativo oferece 4 telas que são:
 
 - Primeira splash com o icone da Aiko que contem uma breve animação para Home
 
-- Segunda tela contendo histórico de pesquisa em cache no celualar, cada pesquisa, salvo a pesquisa para visualizar as pesquisas recentes
+- Segunda tela contendo histórico de pesquisa em cache no celualar, cada pesquisa, salvo a pesquisa para visualizar as pesquisas recentes(FUNCIONALIDADE IMCOMPLETA)
 
 - Terceira tela para buscar na barra de pesquisa e escolher uma linha para direcionamento ao mapa
 

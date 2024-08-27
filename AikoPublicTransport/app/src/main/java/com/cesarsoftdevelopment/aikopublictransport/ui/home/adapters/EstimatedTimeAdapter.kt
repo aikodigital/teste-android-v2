@@ -25,7 +25,6 @@ class EstimatedTimeAdapter : ListAdapter<VehicleItem, EstimatedTimeAdapter.ViewH
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
-        Log.i("EstimatedTimeAdapter", "Tamanho da lista: ${currentList.size}")
     }
 
 
@@ -33,7 +32,6 @@ class EstimatedTimeAdapter : ListAdapter<VehicleItem, EstimatedTimeAdapter.ViewH
         val binding: EstimatedArrivalTimeItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(item : VehicleItem) {
-            Log.i("ITEM ADAPTER", item.toString())
             binding.vehicle = item
             binding.executePendingBindings()
 

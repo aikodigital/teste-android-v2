@@ -97,7 +97,7 @@ class HomeActivity : AppCompatActivity() {
             when(response) {
                 is Resource.Success -> {
                     response.data?.let {
-                        //observeAuthentication()
+                        observeAuthentication()
                     }
                 }
 
