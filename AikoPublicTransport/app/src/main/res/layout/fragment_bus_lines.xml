@@ -29,6 +29,19 @@
             android:visibility="gone"
             />
 
+        <TextView
+            android:id="@+id/search_way"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_way"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/open_sans_bold"
+            android:layout_gravity="center"
+            />
+
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

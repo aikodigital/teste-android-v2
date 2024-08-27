@@ -107,6 +107,7 @@ class BusLinesFragment : Fragment() {
 
                 is Resource.Error -> {
                     Log.e(AppStrings.ERROR, "${stopsResponse.message}")
+                    hideProgressBar()
                 }
 
                 is Resource.Loading -> {
@@ -156,7 +157,7 @@ class BusLinesFragment : Fragment() {
                 }
 
                 is Resource.Error -> {
-                    Log.e("BindingAdapter", "Error: ${vehicleResponse.message}")
+                    Log.e(AppStrings.ERROR, "${vehicleResponse.message}")
                 }
 
                 is Resource.Loading -> {
@@ -164,7 +165,8 @@ class BusLinesFragment : Fragment() {
                 }
 
                 else -> {
-                    Log.e("BindingAdapter", "Error: $vehicleResponse")
+                    Log.e(AppStrings.ERROR, "$vehicleResponse")
+                    hideProgressBar()
                 }
             }
         })
@@ -178,19 +180,22 @@ class BusLinesFragment : Fragment() {
                 is Resource.Success -> {
                     hideProgressBar()
                     busLinesAdapter.submitList(response.data)
+                    binding.searchWay.visibility = View.GONE
                 }
 
                 is Resource.Error -> {
-                    Log.e("BindingAdapter", "Error: ${response.message}")
+                    Log.e(AppStrings.ERROR, "${response.message}")
                 }
 
                 is Resource.Loading -> {
                     showProgressBar()
+                    binding.searchWay.visibility = View.GONE
                 }
 
                 else -> {
-                    Log.e("BindingAdapter", "Error: $response")
+                    Log.e(AppStrings.ERROR, "$response")
                     hideProgressBar()
+                    binding.searchWay.visibility = View.VISIBLE
                 }
             }
         })

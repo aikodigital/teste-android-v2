@@ -10,4 +10,5 @@
     <string name="text_left_app">Sair do aplicativo</string>
     <string name="searchbar_hint">Pesquise aqui</string>
     <string name="empty_list">Você ainda não tem pesquisas feitas.</string>
+    <string name="search_way">Busque pelo nome ou pelo número da linha.</string>
 </resources>

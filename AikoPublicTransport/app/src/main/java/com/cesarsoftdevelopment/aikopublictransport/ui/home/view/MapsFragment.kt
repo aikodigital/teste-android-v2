@@ -95,10 +95,17 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
                 if (vehicle?.vehicleLatitude != null && vehicle.vehicleLongitude != null) {
                     val position = LatLng(vehicle.vehicleLatitude, vehicle.vehicleLongitude)
+                    var accessibility = ""
+                    accessibility = if(vehicle.disabledAccess == true) {
+                        "(Acessivel)"
+                    }else {
+                        "(Não acessivel)"
+                    }
                     mMap.addMarker(
                         MarkerOptions()
                             .position(position)
                             .title("Veículo ${vehicle.vehiclePrefix}")
+                            .snippet(accessibility)
                             .icon(iconBitmapBus)
                     )
                     boundsBuilder.include(position)
@@ -137,8 +144,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         }
     }
-
-
 
 
     override fun onRequestPermissionsResult(
