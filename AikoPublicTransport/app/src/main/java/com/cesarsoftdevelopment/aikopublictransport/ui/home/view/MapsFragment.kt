@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var binding : FragmentMapsBinding
@@ -36,6 +38,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var  mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var args : Objects? = null
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
