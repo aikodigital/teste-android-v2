@@ -185,6 +185,7 @@ class BusLinesFragment : Fragment() {
 
                 is Resource.Error -> {
                     Log.e(AppStrings.ERROR, "${response.message}")
+                    hideProgressBar()
                 }
 
                 is Resource.Loading -> {

@@ -4,7 +4,7 @@ import com.cesarsoftdevelopment.aikopublictransport.data.model.EstimatedArrivalT
 import retrofit2.Response
 
 interface EstimatedArrivalTimesRemoteDataSource {
-    suspend fun getEstimatedArrivalTimesByStop(stopCode: Int): Response<EstimatedArrivalTime>
+    suspend fun getEstimatedArrivalTimesByStop(stopCode: Long?): Response<EstimatedArrivalTime>
 
 
 }

@@ -27,7 +27,7 @@ interface PublicTransportApi {
 
     @GET("/Previsao/Parada")
     suspend fun getEstimatedArrivalTimesByStop(
-        @Query("codigoParada") stopCode: Int
+        @Query("codigoParada") stopCode: Long?
     ): Response<EstimatedArrivalTime>
 
     @POST("/Login/Autenticar")

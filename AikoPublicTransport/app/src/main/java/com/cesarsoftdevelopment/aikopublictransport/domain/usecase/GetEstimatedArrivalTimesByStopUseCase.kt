@@ -5,7 +5,7 @@ import com.cesarsoftdevelopment.aikopublictransport.domain.repository.EstimatedA
 class GetEstimatedArrivalTimesByStopUseCase(
     private val estimatedArrivalTimesRepository: EstimatedArrivalTimesRepository
 ) {
-    suspend operator fun invoke(stopCode : Int) = estimatedArrivalTimesRepository.getEstimatedArrivalTimesByStop(stopCode)
+    suspend operator fun invoke(stopCode : Long?) = estimatedArrivalTimesRepository.getEstimatedArrivalTimesByStop(stopCode)
 
 
 }

@@ -13,12 +13,18 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.cesarsoftdevelopment.aikopublictransport.R
 import com.cesarsoftdevelopment.aikopublictransport.data.model.Objects
+import com.cesarsoftdevelopment.aikopublictransport.data.model.VehicleItem
 import com.cesarsoftdevelopment.aikopublictransport.databinding.FragmentMapsBinding
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.adapters.BusLinesAdapter
+import com.cesarsoftdevelopment.aikopublictransport.ui.home.adapters.EstimatedTimeAdapter
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.MapViewModel
+import com.cesarsoftdevelopment.aikopublictransport.utils.AppStrings
 import com.cesarsoftdevelopment.aikopublictransport.utils.ObjectConverter
+import com.cesarsoftdevelopment.aikopublictransport.utils.Resource
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -39,6 +45,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var args : Objects? = null
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
+    private lateinit var estimatedTimeAdapter: EstimatedTimeAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,8 +67,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mapViewModel = (activity as HomeActivity).mapViewModel
-        args = MapsFragmentArgs.fromBundle(requireArguments()).objects
+        setViewModel()
+        setArgs()
+        setBottomSheet()
+        //setBottomSheetBehavior()
+        setUpBinding()
+        setList()
 
     }
 
@@ -125,15 +137,30 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
                 if (stop?.stopLatitude != null && stop.stopLongitude != null) {
                     val position = LatLng(stop.stopLatitude, stop.stopLongitude)
-                    mMap.addMarker(
+                    val marker = mMap.addMarker(
                         MarkerOptions()
                             .position(position)
                             .title(stop.stopName)
                             .snippet(stop.stopAddress)
                             .icon(iconBitmapStops)
                     )
+                    marker?.tag = "stop_marker"
                     boundsBuilder.include(position)
+
+                    mMap.setOnMarkerClickListener { markerSelected ->
+
+                        if (markerSelected.tag == "stop_marker") {
+                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                            Log.i("stop code", stop.stopCode.toString())
+                            getEstimatedTime(stop.stopCode)
+                        } else {
+                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                        }
+
+                        true
+                    }
                 }
+
             }
 
             if (vehiclePositions?.isNotEmpty() == true || stopItems?.isNotEmpty() == true) {
@@ -208,6 +235,95 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     private fun hideProgressBar() {
         binding.progressBar.visibility = View.GONE
+    }
+
+    private fun setBottomSheet() {
+        val bottomSheet = binding.bottomSheet
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+    }
+
+
+//    private fun setBottomSheetBehavior() {
+//
+//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+//
+//        // Listener para mudanças de estado
+//        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+//            override fun onStateChanged(bottomSheet: View, newState: Int) {
+//                when (newState) {
+//                    BottomSheetBehavior.STATE_EXPANDED -> {
+//                        // Ações quando o Bottom Sheet está expandido
+//                    }
+//                    BottomSheetBehavior.STATE_COLLAPSED -> {
+//                        // Ações quando o Bottom Sheet está colapsado
+//                    }
+//                }
+//            }
+//
+//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+//                // Ações durante o deslizamento (opcional)
+//            }
+//        })
+//    }
+
+    private fun setArgs() {
+        args = MapsFragmentArgs.fromBundle(requireArguments()).objects
+    }
+
+    private fun setViewModel() {
+        mapViewModel = (activity as HomeActivity).mapViewModel
+    }
+
+    private fun setList() {
+        estimatedTimeAdapter = EstimatedTimeAdapter()
+        binding.recyclerView.apply {
+            adapter = estimatedTimeAdapter
+        }
+    }
+
+    private fun getEstimatedTime(stopCode : Long?) {
+
+        mapViewModel.getEstimatedArrivalTime(stopCode)
+
+        mapViewModel.estimatedArrivalTime.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
+                is Resource.Success -> {
+                    hideProgressBar()
+
+                    val vehiclesList: MutableList<VehicleItem?> = mutableListOf()
+
+                    if(response.data != null) {
+                        val lines = response.data.stop?.lines
+                        lines?.forEach { line ->
+                            line.vehicles?.let { vehicles ->
+                                vehiclesList.addAll(vehicles)
+                            }
+                        }
+                        estimatedTimeAdapter.submitList(vehiclesList)
+                    }
+
+                }
+
+                is Resource.Error -> {
+                    Log.e(AppStrings.ERROR, "${response.message}")
+                    hideProgressBar()
+                }
+
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+
+                else -> {
+                    Log.e(AppStrings.ERROR, "$response")
+                    hideProgressBar()
+                }
+            }
+        })
+
+    }
+
+    private fun setUpBinding() {
+        binding.lifecycleOwner = this
     }
 
 

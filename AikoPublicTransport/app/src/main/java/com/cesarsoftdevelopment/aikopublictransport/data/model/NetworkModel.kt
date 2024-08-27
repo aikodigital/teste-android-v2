@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class BusLineItem(
     @SerializedName("c")
-    val fullSign : String,
+    val fullSign : String?,
     @SerializedName("cl")
     val lineCode : Int?,
     @SerializedName("lc")

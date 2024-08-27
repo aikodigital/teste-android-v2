@@ -3,6 +3,7 @@ package com.cesarsoftdevelopment.aikopublictransport.di.modules
 import android.app.Application
 import com.cesarsoftdevelopment.aikopublictransport.domain.usecase.AuthenticateUseCase
 import com.cesarsoftdevelopment.aikopublictransport.domain.usecase.GetBusLinesUseCase
+import com.cesarsoftdevelopment.aikopublictransport.domain.usecase.GetEstimatedArrivalTimesByStopUseCase
 import com.cesarsoftdevelopment.aikopublictransport.domain.usecase.GetStopsByLineUseCase
 import com.cesarsoftdevelopment.aikopublictransport.domain.usecase.GetVehiclesPositionByLineUseCase
 import com.cesarsoftdevelopment.aikopublictransport.ui.home.viewmodel.BusLinesViewModelFactory
@@ -49,9 +50,13 @@ class FactoryModule {
 
     @Singleton
     @Provides
-    fun provideMapViewModelFactory(application: Application) : MapViewModelFactory {
+    fun provideMapViewModelFactory(
+        application: Application,
+        getEstimatedArrivalTimesByStopUseCase : GetEstimatedArrivalTimesByStopUseCase
+    ) : MapViewModelFactory {
         return MapViewModelFactory(
-            application
+            application,
+            getEstimatedArrivalTimesByStopUseCase
         )
     }
 
