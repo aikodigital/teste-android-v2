@@ -111,7 +111,7 @@
         android:background="@color/dark_blue"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="center|end"
         android:layout_width="100dp"
         android:layout_height="50dp">
 
@@ -200,6 +200,7 @@
                         android:src="@drawable/icon_line_buss" />
 
                     <TextView
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -221,6 +222,7 @@
         android:layout_height="370dp"
         android:background="@drawable/top_rounded_board"
         android:paddingBottom="70dp"
+        android:visibility="visible"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <androidx.recyclerview.widget.RecyclerView

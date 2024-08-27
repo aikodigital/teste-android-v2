@@ -100,9 +100,9 @@ class LineFragment : Fragment() {
 
     private fun searchLine() {
         binding.searchBtn.setOnClickListener {
-            val termoBusca = binding.searchInput.text.toString()
+            val search = binding.searchInput.text.toString()
             lifecycleScope.launch(Dispatchers.IO) {
-                viewModel.fetchBusLine(termoBusca)
+                viewModel.fetchBusLine(search)
             }
             binding.informationContainer.visibility = View.GONE
             binding.rv.visibility = View.VISIBLE

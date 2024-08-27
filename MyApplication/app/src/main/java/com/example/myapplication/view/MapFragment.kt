@@ -208,13 +208,16 @@ class MapFragment : Fragment() {
     }
 
     private fun initializeMap() {
-        val saoPaulo = LatLng(-23.55052, -46.633308)
+        // Coordenadas do Terminal de Ônibus da Barra Funda
+        val barraFunda = LatLng(-23.534426, -46.638737)
+
         mMap.addMarker(
             MarkerOptions()
-                .position(saoPaulo)
-                .title("Marker Title")
+                .position(barraFunda)
+                .title("Terminal de Ônibus da Barra Funda")
         )
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(saoPaulo, 15f))
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(barraFunda, 15f))
     }
 
     @SuppressLint("PotentialBehaviorOverride")
