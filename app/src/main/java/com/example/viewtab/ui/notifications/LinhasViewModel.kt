@@ -1,24 +1,21 @@
-package com.example.viewtab.ui.home
+package com.example.viewtab.ui.notifications
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.viewtab.network.model.Linha
 import com.example.viewtab.network.model.Parada
 import com.example.viewtab.network.modelNerwork.Resource
-import com.example.viewtab.network.repositories.ParadasRepository
+import com.example.viewtab.network.repositories.LinhasRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
+class LinhasViewModel : ViewModel() {
 
-class HomeViewModel : ViewModel() {
+    private val mParadasRepository: LinhasRepository = LinhasRepository.getInstance()
 
-    private val mParadasRepository: ParadasRepository = ParadasRepository.getInstance()
-
-    val mItemsMaps: ObservableField<Resource<List<Parada?>?>> = ObservableField()
-    val mItemsSearch: ObservableField<Resource<List<Parada?>?>> = ObservableField()
+    val mItems: ObservableField<Resource<List<Linha?>?>> = ObservableField()
 
     private val mCompositeDisposable = CompositeDisposable()
 
@@ -29,20 +26,7 @@ class HomeViewModel : ViewModel() {
             ?.observeOn(Schedulers.computation())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe { listResource ->
-                mItemsMaps.set(listResource)
-            }
-
-        disposable?.apply {addDisposable(this)}
-    }
-
-    fun loadRepositoriesListSearch(page: String) {
-
-        val disposable: Disposable? = mParadasRepository.getBuscar(page)
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(Schedulers.computation())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe { listResource ->
-                mItemsSearch.set(listResource)
+                mItems.set(listResource)
             }
 
         disposable?.apply {addDisposable(this)}

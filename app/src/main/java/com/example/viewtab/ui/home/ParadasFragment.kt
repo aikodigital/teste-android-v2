@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.Observable
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.viewtab.databinding.FragmentHomeBinding
+import com.example.viewtab.databinding.FragmentMapsSeaschBinding
 import com.example.viewtab.network.model.Parada
 import com.example.viewtab.network.modelNerwork.Resource
 import com.example.viewtab.network.modelNerwork.Status
@@ -21,11 +20,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class HomeFragment : BaseMapFragment() {
+class ParadasFragment : BaseMapFragment() {
 
-    private var mBinding: FragmentHomeBinding? = null
+    private var mBinding: FragmentMapsSeaschBinding? = null
 
-    private var mViewModel: HomeViewModel? = null
+    private var mViewModel: ParadasViewModel? = null
 
     private var hashMap = HashMap<LatLng,Parada>()
 
@@ -38,9 +37,9 @@ class HomeFragment : BaseMapFragment() {
             ViewModelProvider(
                 this,
                 ViewModelProvider.NewInstanceFactory()
-            )[HomeViewModel::class.java]
+            )[ParadasViewModel::class.java]
 
-        mBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        mBinding = FragmentMapsSeaschBinding.inflate(inflater, container, false)
         val root: View = mBinding!!.root
 
         setListener()
@@ -67,16 +66,11 @@ class HomeFragment : BaseMapFragment() {
         mViewModel?.mItemsMaps?.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(observable: Observable?, i: Int) {
                 val resource: Resource<List<Parada?>?>? = mViewModel?.mItemsMaps?.get()
-                //mHomeViewModel?.dataLoading.set(resource?.status === Status.LOADING)
 
                 if (resource?.status === Status.SUCCESS) {
                     setParadasMap(resource.data)
                 } else if (resource?.status === Status.ERROR) {
-                    /*DialogUtils.showDialog(
-                        getApplicationContext(),
-                        resource.message.header,
-                        resource.message.body
-                    )*/
+
                 }
             }
         })

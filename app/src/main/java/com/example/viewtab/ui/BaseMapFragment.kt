@@ -23,7 +23,6 @@ abstract class BaseMapFragment: Fragment(), OnMapReadyCallback  {
     protected var mMap: GoogleMap? = null
     protected var myLocation: Location? = null
 
-
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
@@ -31,7 +30,7 @@ abstract class BaseMapFragment: Fragment(), OnMapReadyCallback  {
     override fun onResume() {
         super.onResume()
         checkLocationPermission()
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
@@ -47,7 +46,7 @@ abstract class BaseMapFragment: Fragment(), OnMapReadyCallback  {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED) {
 
-            // Solicitar permissões
+
             ActivityCompat.requestPermissions(safeActivity, arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION

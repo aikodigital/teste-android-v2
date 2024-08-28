@@ -26,11 +26,11 @@ class PosicaoRepository private constructor() {
     fun clearInstance() {
         INSTANCE = null
     }
-
+/*
     fun getBuscar():
             Single<Resource<Posicao?>?>? {
         return mPosicaoRemoteDataSource.getPosisao()
-    }
+    }*/
 
 }
 
