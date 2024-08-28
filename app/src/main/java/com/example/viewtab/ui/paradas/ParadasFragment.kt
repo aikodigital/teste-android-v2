@@ -1,4 +1,4 @@
-package com.example.viewtab.ui.home
+package com.example.viewtab.ui.paradas
 
 import android.location.Location
 import android.os.Bundle
@@ -14,7 +14,7 @@ import com.example.viewtab.network.model.Parada
 import com.example.viewtab.network.modelNerwork.Resource
 import com.example.viewtab.network.modelNerwork.Status
 import com.example.viewtab.ui.BaseMapFragment
-import com.example.viewtab.ui.home.adapter.AdapterSearchParadas
+import com.example.viewtab.ui.paradas.adapter.AdapterSearchParadas
 import com.example.viewtab.util.ScreenManager
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng

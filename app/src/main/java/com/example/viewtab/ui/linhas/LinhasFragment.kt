@@ -1,4 +1,4 @@
-package com.example.viewtab.ui.notifications
+package com.example.viewtab.ui.linhas
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,7 @@ import com.example.viewtab.databinding.FragmentMapsSeaschBinding
 import com.example.viewtab.network.model.Linha
 import com.example.viewtab.network.modelNerwork.Resource
 import com.example.viewtab.network.modelNerwork.Status
-import com.example.viewtab.ui.notifications.adapter.AdapterSearchLinha
-import com.example.viewtab.util.ScreenManager
+import com.example.viewtab.ui.linhas.adapter.AdapterSearchLinha
 
 class LinhasFragment : Fragment() {
 

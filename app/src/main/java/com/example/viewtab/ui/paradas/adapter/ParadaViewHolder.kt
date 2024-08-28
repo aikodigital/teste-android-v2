@@ -1,4 +1,4 @@
-package com.example.viewtab.ui.home.adapter
+package com.example.viewtab.ui.paradas.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.viewtab.databinding.ItemParadaBinding

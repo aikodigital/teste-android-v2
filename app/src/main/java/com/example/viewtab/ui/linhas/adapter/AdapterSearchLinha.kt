@@ -1,4 +1,4 @@
-package com.example.viewtab.ui.notifications.adapter
+package com.example.viewtab.ui.linhas.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.viewtab.R
 import com.example.viewtab.databinding.ItemLinhaBinding
-import com.example.viewtab.databinding.ItemParadaBinding
 import com.example.viewtab.network.model.Linha
-import com.example.viewtab.network.model.Parada
 
 class AdapterSearchLinha:
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {

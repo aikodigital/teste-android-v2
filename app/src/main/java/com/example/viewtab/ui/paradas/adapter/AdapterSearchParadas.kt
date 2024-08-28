@@ -1,4 +1,4 @@
-package com.example.viewtab.ui.home.adapter
+package com.example.viewtab.ui.paradas.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

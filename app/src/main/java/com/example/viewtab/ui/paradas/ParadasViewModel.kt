@@ -1,8 +1,6 @@
-package com.example.viewtab.ui.home
+package com.example.viewtab.ui.paradas
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.viewtab.network.model.Parada
 import com.example.viewtab.network.modelNerwork.Resource

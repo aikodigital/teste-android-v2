@@ -1,9 +1,8 @@
-package com.example.viewtab.ui.notifications
+package com.example.viewtab.ui.linhas
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.example.viewtab.network.model.Linha
-import com.example.viewtab.network.model.Parada
 import com.example.viewtab.network.modelNerwork.Resource
 import com.example.viewtab.network.repositories.LinhasRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
