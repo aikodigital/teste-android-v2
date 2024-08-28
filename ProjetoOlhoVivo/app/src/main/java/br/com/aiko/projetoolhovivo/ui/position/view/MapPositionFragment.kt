@@ -15,6 +15,7 @@ import br.com.aiko.projetoolhovivo.R
 import br.com.aiko.projetoolhovivo.data.model.stop.Stop
 import br.com.aiko.projetoolhovivo.data.model.vehicle.Vehicle
 import br.com.aiko.projetoolhovivo.databinding.MapPositionFragmentBinding
+import br.com.aiko.projetoolhovivo.ui.bus.view.BusStopDetailsActivity
 import br.com.aiko.projetoolhovivo.ui.line.dialog.LineDialog
 import br.com.aiko.projetoolhovivo.ui.position.PositionMap
 import br.com.aiko.projetoolhovivo.ui.position.PositionMapViewModel
@@ -26,11 +27,11 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.android.support.DaggerFragment
 
-//class MapPositionFragment : DaggerFragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
-class MapPositionFragment : DaggerFragment(), OnMapReadyCallback {
+class MapPositionFragment : DaggerFragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     lateinit var viewModel: PositionMapViewModel
 
     private var vehicles: ArrayList<Vehicle> = arrayListOf()
@@ -153,17 +154,7 @@ class MapPositionFragment : DaggerFragment(), OnMapReadyCallback {
             )
             position?.tag = "vehicle_${vehicle.prefixVehicle}"
         }
-//        position1?.tag = "bus_1"
-//        val position2 = mMap.addMarker(
-//            MarkerOptions().position(LatLng(-15.4723554,-44.3612164)).title("Parada 1")
-//        )
-//        position2?.tag = "stop_1"
-//        val position3 = mMap.addMarker(
-//            MarkerOptions().position(LatLng(-15.473074226178218, -44.36118883045619))
-//                .title("Marcador asd")
-//        )
-//        position3?.tag = "bus_2"
-//        mMap.setOnMarkerClickListener(this)
+        mMap.setOnMarkerClickListener(this)
         mMap.moveCamera(CameraUpdateFactory.newLatLng(place))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place, 14f))
     }
@@ -181,11 +172,11 @@ class MapPositionFragment : DaggerFragment(), OnMapReadyCallback {
         }
     }
 
-//    override fun onMarkerClick(marker: Marker): Boolean {
-//        val splitTag = marker.tag.toString().split("_")
-//        if (splitTag.size > 1 && splitTag[0] == "stop") {
-//            BusStopDetailsActivity.startActivity(requireContext(), 0)
-//        }
-//        return true
-//    }
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val splitTag = marker.tag.toString().split("_")
+        if (splitTag.size > 1 && splitTag[0] == "stop") {
+            BusStopDetailsActivity.startActivity(requireContext(), 0)
+        }
+        return true
+    }
 }

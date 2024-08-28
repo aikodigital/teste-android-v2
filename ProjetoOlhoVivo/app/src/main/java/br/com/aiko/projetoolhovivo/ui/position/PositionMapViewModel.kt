@@ -41,7 +41,7 @@ class PositionMapViewModel @Inject constructor(
                 }
             }
             stopUseCase.getStops(token).onSuccess {stops ->
-                val positionMap = PositionMap(arrayListOf(), vehiclesTemp, position.lastUpdate)
+                val positionMap = PositionMap(stops, vehiclesTemp, position.lastUpdate)
                 _lines.postValue(linesTemp)
                 _position_map.postValue(positionMap)
                 _isLoading.postValue(false)
@@ -67,6 +67,7 @@ class PositionMapViewModel @Inject constructor(
                 if (vehiclesTemp.none { vt -> vt.prefixVehicle == vehicle.prefixVehicle })
                     vehiclesTemp.add(vehicle)
             }
+
             if(_position_map.value == null) {
                 val positionMap = PositionMap(arrayListOf(), vehiclesTemp, position.lastUpdate)
                 _position_map.postValue(positionMap)
