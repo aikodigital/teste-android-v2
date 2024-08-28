@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Vehicle(
     @JsonProperty("p")
-    val prefixVehicle: String,
+    val prefixVehicle: Int,
     @JsonProperty("py")
     val latitude: Double,
     @JsonProperty("px")

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Stop(
+    @JsonProperty("cp")
+    val code: Int,
     @JsonProperty("np")
     val name: String,
     @JsonProperty("py")

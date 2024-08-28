@@ -135,20 +135,23 @@ class MapPositionFragment : DaggerFragment(), OnMapReadyCallback {
         mMap = googleMap
         if (!initMap) initMap = true
         mMap.clear()
-        val iconVehicle = BitmapDescriptorFactory.fromResource(R.drawable.baseline_directions_bus_24)
-        val iconStop = BitmapDescriptorFactory.fromResource(R.drawable.baseline_do_disturb_24)
+        val iconVehicle = BitmapDescriptorFactory.fromResource(R.drawable.pin_blue)
+        val iconStop = BitmapDescriptorFactory.fromResource(R.drawable.pin_red)
         val place = LatLng(-23.522339, -46.696246)
         for (stop in stops) {
-            mMap.addMarker(
+            val position = mMap.addMarker(
                 MarkerOptions().position(LatLng(stop.latitude, stop.longitude))
-                    .title(stop.name).icon(iconStop)
+                    .title(stop.name)
+                    .icon(iconStop)
             )
+            position?.tag = "stop_${stop.code}"
         }
         for (vehicle in vehicles) {
-            mMap.addMarker(
+            val position = mMap.addMarker(
                 MarkerOptions().position(LatLng(vehicle.latitude, vehicle.longitude))
-                    .title(vehicle.prefixVehicle).icon(iconVehicle)
+                    .title(vehicle.prefixVehicle.toString()).icon(iconVehicle)
             )
+            position?.tag = "vehicle_${vehicle.prefixVehicle}"
         }
 //        position1?.tag = "bus_1"
 //        val position2 = mMap.addMarker(
