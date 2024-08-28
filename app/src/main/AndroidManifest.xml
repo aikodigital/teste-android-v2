@@ -36,6 +36,10 @@
         <activity android:name=".ui.paradaView.ParadaViewActivity"
             android:exported="true"
             />
+
+        <activity android:name=".ui.linhasDetalhe.LinhaDetalheActivity"
+            android:exported="true"
+            />
     </application>
 
 </manifest>

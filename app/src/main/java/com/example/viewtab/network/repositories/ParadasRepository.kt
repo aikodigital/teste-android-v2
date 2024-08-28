@@ -31,7 +31,7 @@ class ParadasRepository private constructor() {
         return mParadasRemoteDataSource.getBuscar(termo)
     }
 
-    fun getPullRequestList(code: Int):
+    fun getBuscarLinha(code: Long):
             Single<Resource<List<Parada?>?>>? {
         return mParadasRemoteDataSource.getBuscarLinha(code)
     }

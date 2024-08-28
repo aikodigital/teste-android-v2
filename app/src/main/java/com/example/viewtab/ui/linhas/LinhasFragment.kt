@@ -14,6 +14,7 @@ import com.example.viewtab.network.model.Linha
 import com.example.viewtab.network.modelNerwork.Resource
 import com.example.viewtab.network.modelNerwork.Status
 import com.example.viewtab.ui.linhas.adapter.AdapterSearchLinha
+import com.example.viewtab.util.ScreenManager
 
 class LinhasFragment : Fragment() {
 
@@ -75,7 +76,7 @@ class LinhasFragment : Fragment() {
             }
 
             adapter.submitList(ArrayList(data)){
-                //ScreenManager.toGoParadaView(context,it)
+                ScreenManager.toGoLinhaDetalhe(context,it)
             }
         }
     }

@@ -37,14 +37,14 @@ class ParadasRemoteDataSource: BaseRemoteDataSourse() {
            // ?.map { proccessResponse(it) }
     }
 
-    fun getBuscarLinha(code:Int): Single<Resource<List<Parada?>?>>? {
+    fun getBuscarLinha(code:Long,isRepeate:Boolean =false): Single<Resource<List<Parada?>?>>? {
         val mainService: ParadasService = getMainService(ParadasService::class.java)
 
         return mainService.getBuscarLinha(code)
             ?.observeOn(Schedulers.computation())
             ?.onErrorReturn { wrapInErrorResponse(it) }
-            ?.map { isUnauthorizedResponse(it){
-                getBuscarLinha(code)?.blockingGet()
+            ?.map { isUnauthorizedResponse(it,isRepeate){
+                getBuscarLinha(code,true)?.blockingGet()
             }}
         // ?.map { proccessResponse(it) }
     }

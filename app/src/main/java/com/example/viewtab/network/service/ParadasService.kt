@@ -15,7 +15,7 @@ interface ParadasService {
 
     @GET("Parada/BuscarParadasPorLinha")
     fun getBuscarLinha(
-        @Query("codigoLinha") codeLinha: Int,
+        @Query("codigoLinha") codeLinha: Long,
     ): Single<Response<List<Parada?>?>?>?
 
     @GET("Parada/BuscarParadasPorLinha")

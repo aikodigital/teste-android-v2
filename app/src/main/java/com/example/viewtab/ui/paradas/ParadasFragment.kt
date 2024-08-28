@@ -151,7 +151,6 @@ class ParadasFragment : BaseMapFragment() {
         }
 
         mMap = googleMap
-        //getCurrentLocation()
         if (myLocation == null ) return
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(myLocation?.latitude ?: 0.0, myLocation?.longitude ?: 0.0)
