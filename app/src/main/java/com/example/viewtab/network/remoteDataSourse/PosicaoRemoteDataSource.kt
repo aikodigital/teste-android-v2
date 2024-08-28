@@ -23,7 +23,7 @@ class PosicaoRemoteDataSource: BaseRemoteDataSourse() {
     fun clearInstance() {
         INSTANCE = null
     }
-/*
+
     fun getPosisao(isRepeate:Boolean = false): Single<Resource<Posicao?>?>? {
         val mainService: PosicaoVeiculoService = getMainService(PosicaoVeiculoService::class.java)
 
@@ -35,6 +35,6 @@ class PosicaoRemoteDataSource: BaseRemoteDataSourse() {
                     getPosisao(true)?.blockingGet()
                 }
             }
-    }*/
+    }
 
 }
