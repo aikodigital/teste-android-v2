@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.Observable
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.viewtab.databinding.ActivityParadaBinding
 import com.example.viewtab.network.model.Parada
 import com.example.viewtab.network.model.Previsao
@@ -53,8 +54,19 @@ class ParadaViewActivity : AppCompatActivity() {
         binding?.textDescricao?.text = mParadaSelect?.endereço
 
         setListener()
+        setSwipeRefresh()
         mParadaSelect?.apply {
             mParadaViewViewModel?.loadRepositoriesList(paradaCode)
+        }
+    }
+
+    private fun setSwipeRefresh() {
+        val swipeRefreshLayout = binding?.swipeRefreshLayout
+        swipeRefreshLayout?.setOnRefreshListener {
+            mParadaSelect?.apply {
+                mParadaViewViewModel?.loadRepositoriesList(paradaCode)
+            }
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 
