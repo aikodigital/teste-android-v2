@@ -15,7 +15,7 @@ import br.com.aiko.projetoolhovivo.R
 import br.com.aiko.projetoolhovivo.data.model.stop.Stop
 import br.com.aiko.projetoolhovivo.data.model.vehicle.Vehicle
 import br.com.aiko.projetoolhovivo.databinding.MapPositionFragmentBinding
-import br.com.aiko.projetoolhovivo.ui.bus.view.BusStopDetailsActivity
+import br.com.aiko.projetoolhovivo.ui.forecast.view.ForecastDetailsActivity
 import br.com.aiko.projetoolhovivo.ui.line.dialog.LineDialog
 import br.com.aiko.projetoolhovivo.ui.position.PositionMap
 import br.com.aiko.projetoolhovivo.ui.position.PositionMapViewModel
@@ -127,7 +127,7 @@ class MapPositionFragment : DaggerFragment(), OnMapReadyCallback, GoogleMap.OnMa
         binding.tileLineFilterMap.editText?.setOnClickListener {
             LineDialog(requireActivity()) { positionLine ->
                 binding.tileLineFilterMap.editText?.setText(positionLine.sign)
-                viewModel.getPositionByVehicles(positionLine.code)
+                viewModel.getVehiclesPositionByCodeLine(positionLine.code)
             }.show()
         }
     }
@@ -175,7 +175,11 @@ class MapPositionFragment : DaggerFragment(), OnMapReadyCallback, GoogleMap.OnMa
     override fun onMarkerClick(marker: Marker): Boolean {
         val splitTag = marker.tag.toString().split("_")
         if (splitTag.size > 1 && splitTag[0] == "stop") {
-            BusStopDetailsActivity.startActivity(requireContext(), 0)
+            val stopFilter = this.stops.filter { st -> st.code == splitTag[1].toInt() }
+            if (stopFilter.isNotEmpty()) ForecastDetailsActivity.startActivity(
+                requireContext(),
+                stopFilter[0]
+            )
         }
         return true
     }

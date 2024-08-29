@@ -7,4 +7,7 @@ import retrofit2.http.Query
 interface StopService {
     @GET("Parada/Buscar")
     suspend fun getStops(@Query("token") token: String, @Query("termosBusca") search: String): List<Stop>
+
+    @GET("Parada/BuscarParadasPorLinha")
+    suspend fun getStopsByCodeLine(@Query("token") token: String, @Query("codigoLinha") codeLine: Int): List<Stop>
 }

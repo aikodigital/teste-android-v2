@@ -11,6 +11,6 @@ class PositionUseCase @Inject constructor(
     suspend fun getPositionByListLines(token: String): Result<PositionByListLine> =
         repository.getPositionByListLines(token)
 
-    suspend fun getPositionByVehicles(token: String, codeLine: Int): Result<PositionByVehicle> =
-        repository.getPositionByVehicles(token, codeLine)
+    suspend fun getVehiclesPositionByCodeLine(token: String, codeLine: Int): Result<PositionByVehicle> =
+        repository.getVehiclesPositionByCodeLine(token, codeLine)
 }

@@ -8,7 +8,8 @@ import br.com.aiko.projetoolhovivo.databinding.RowListLineBinding
 
 class ListLineViewHolder(
     private val context: Context,
-    private val binding: RowListLineBinding
+    private val binding: RowListLineBinding,
+    private val onClick: (Line) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(line: Line) {
         binding.tvListTitleLine.text =
@@ -30,5 +31,8 @@ class ListLineViewHolder(
             context.getString(R.string.til_begin_line_list).plus(" ").plus(beginLine)
         binding.tvListEndLine.text =
             context.getString(R.string.til_end_line_list).plus(" ").plus(endLine)
+        binding.root.setOnClickListener {
+            onClick(line)
+        }
     }
 }

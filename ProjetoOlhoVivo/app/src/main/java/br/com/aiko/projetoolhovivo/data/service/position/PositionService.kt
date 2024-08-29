@@ -10,7 +10,7 @@ interface PositionService {
     suspend fun getPositionByListLines(@Query("token") token: String): PositionByListLine
 
     @GET("Posicao/Linha")
-    suspend fun getPositionByVehicles(
+    suspend fun getVehiclesPositionByCodeLine(
         @Query("token") token: String,
         @Query("codigoLinha") codeLine: Int
     ): PositionByVehicle

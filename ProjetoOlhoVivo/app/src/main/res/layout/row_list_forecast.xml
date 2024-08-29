@@ -14,7 +14,7 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/tvListComingBusName"
+            android:id="@+id/tvListForecastVehicleName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ONIBUS"
@@ -25,10 +25,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tvListComingBusTime" />
+            app:layout_constraintBottom_toTopOf="@id/tvListForecastTime" />
 
         <TextView
-            android:id="@+id/tvListComingBusTime"
+            android:id="@+id/tvListForecastTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="10:00 para chegar"
@@ -36,9 +36,9 @@
             android:textStyle="bold|italic"
             android:textColor="@color/black"
             android:gravity="end"
-            app:layout_constraintStart_toStartOf="@id/tvListComingBusName"
-            app:layout_constraintEnd_toEndOf="@id/tvListComingBusName"
-            app:layout_constraintTop_toBottomOf="@id/tvListComingBusName"
+            app:layout_constraintStart_toStartOf="@id/tvListForecastVehicleName"
+            app:layout_constraintEnd_toEndOf="@id/tvListForecastVehicleName"
+            app:layout_constraintTop_toBottomOf="@id/tvListForecastVehicleName"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

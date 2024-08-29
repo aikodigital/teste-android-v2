@@ -16,4 +16,7 @@
     <string name="tv_line_filter_map_dialog">LINHAS</string>
 
     <string name="tv_search">BUSCAR</string>
+
+    <string name="title_stop_details">DETALHE DA PARADA</string>
+    <string name="tv_stop_details_time_forecast">PREVISÃO EM: </string>
 </resources>

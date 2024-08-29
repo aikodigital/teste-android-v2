@@ -59,25 +59,32 @@ class PositionMapViewModel @Inject constructor(
         }
     }
 
-    fun getPositionByVehicles(codeLine: Int) = viewModelScope.launch {
+    fun getVehiclesPositionByCodeLine(codeLine: Int) = viewModelScope.launch {
         _isLoading.postValue(true)
-        positionUseCase.getPositionByVehicles(token, codeLine).onSuccess { position ->
+        positionUseCase.getVehiclesPositionByCodeLine(token, codeLine).onSuccess { position ->
             val vehiclesTemp: ArrayList<Vehicle> = arrayListOf()
             for (vehicle in position.vehicles) {
                 if (vehiclesTemp.none { vt -> vt.prefixVehicle == vehicle.prefixVehicle })
                     vehiclesTemp.add(vehicle)
             }
 
-            if(_position_map.value == null) {
-                val positionMap = PositionMap(arrayListOf(), vehiclesTemp, position.lastUpdate)
-                _position_map.postValue(positionMap)
-            } else {
-                val positionMap = _position_map.value!!
-                positionMap.lastUpdate = position.lastUpdate
-                positionMap.vehicles = vehiclesTemp
-                _position_map.postValue(positionMap)
+            stopUseCase.getStopsByCodeLine(token, codeLine).onSuccess { stops ->
+                if (_position_map.value == null) {
+                    val positionMap = PositionMap(stops, vehiclesTemp, position.lastUpdate)
+                    _position_map.postValue(positionMap)
+                } else {
+                    val positionMap = _position_map.value!!
+                    positionMap.lastUpdate = position.lastUpdate
+                    positionMap.vehicles = vehiclesTemp
+                    _position_map.postValue(positionMap)
+                }
+                _isLoading.postValue(false)
+            }.onFailure { fail ->
+                run {
+                    _isLoading.postValue(false)
+                    _error.postValue(fail.stackTraceToString())
+                }
             }
-            _isLoading.postValue(false)
         }.onFailure { fail ->
             run {
                 _isLoading.postValue(false)

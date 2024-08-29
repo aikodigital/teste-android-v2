@@ -9,4 +9,6 @@ class StopUseCase @Inject constructor(
 ) {
     suspend fun getStops(token: String): Result<List<Stop>> =
         repository.getStops(token)
+    suspend fun getStopsByCodeLine(token: String, codeLine: Int): Result<List<Stop>> =
+        repository.getStopsByCodeLine(token, codeLine)
 }

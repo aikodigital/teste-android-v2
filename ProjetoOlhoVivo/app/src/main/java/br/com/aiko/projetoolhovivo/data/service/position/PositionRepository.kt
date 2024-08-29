@@ -21,10 +21,10 @@ class PositionRepository @Inject constructor(
         }
     }
 
-    suspend fun getPositionByVehicles(token: String, codeLine: Int): Result<PositionByVehicle> {
+    suspend fun getVehiclesPositionByCodeLine(token: String, codeLine: Int): Result<PositionByVehicle> {
         return try {
             val positionService: PositionService = retrofit.create(PositionService::class.java)
-            val getPosition = positionService.getPositionByVehicles(token, codeLine)
+            val getPosition = positionService.getVehiclesPositionByCodeLine(token, codeLine)
             Result.success(getPosition)
         } catch (e: Exception) {
             Log.e("RETROFIT", e.message.toString())

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.aiko.projetoolhovivo.databinding.ListLineFragmentBinding
+import br.com.aiko.projetoolhovivo.ui.forecast.view.ForecastDetailsActivity
 import br.com.aiko.projetoolhovivo.ui.line.LineViewModel
 import br.com.aiko.projetoolhovivo.ui.line.adapter.ListLineAdapter
 import br.com.aiko.projetoolhovivo.ui.main.MainViewModel
@@ -54,7 +55,9 @@ class ListLineFragment: DaggerFragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = ListLineAdapter()
+        adapter = ListLineAdapter{
+            ForecastDetailsActivity.startActivity(requireContext(), it)
+        }
         binding.rvListLine.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.rvListLine.adapter = adapter
     }
