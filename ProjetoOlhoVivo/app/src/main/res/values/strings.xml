@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Projeto Olho Vivo</string>
+
+    <string name="app_url_api_sp_trans">https://aiko-olhovivo-proxy.aikodigital.io/</string>
+    <string name="app_token_sp_trans">1d21adf879b29fc2fa89d4301a63fd19f9c3f28a0532fda6a977ff1b16f87c2f</string>
+
+    <string name="main_tab_map">MAPA</string>
+    <string name="main_tab_list_linha">LINHAS</string>
+
+    <string name="til_title_line_list">LINHA:</string>
+    <string name="til_begin_line_list">INÍCIO:</string>
+    <string name="til_end_line_list">FINAL:</string>
+
+    <string name="til_last_update_position">ÚLTIMA ATUALIZAÇÃO:</string>
+    <string name="til_line_filter_map">LINHA</string>
+    <string name="tv_line_filter_map_dialog">LINHAS</string>
+
+    <string name="tv_search">BUSCAR</string>
+
+    <string name="title_stop_details">DETALHE DA PARADA</string>
+    <string name="tv_stop_details_time_forecast">PREVISÃO EM: </string>
+</resources>

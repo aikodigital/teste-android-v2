@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="20dp"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:id="@+id/tvListTitleLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LINHA DE ÔNIBUS"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvListBeginLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="SAÍDA DO ÔNIBUS"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="end"
+            app:layout_constraintStart_toStartOf="@id/tvListTitleLine"
+            app:layout_constraintEnd_toEndOf="@id/tvListTitleLine"
+            app:layout_constraintTop_toBottomOf="@id/tvListTitleLine" />
+
+        <TextView
+            android:id="@+id/tvListEndLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CHEGADA DO ÔNIBUS"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="end"
+            app:layout_constraintStart_toStartOf="@id/tvListBeginLine"
+            app:layout_constraintEnd_toEndOf="@id/tvListBeginLine"
+            app:layout_constraintTop_toBottomOf="@id/tvListBeginLine" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
