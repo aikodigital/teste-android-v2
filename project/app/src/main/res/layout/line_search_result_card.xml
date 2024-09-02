@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="line"
+            type="String" />
+
+        <variable
+            name="sign"
+            type="String" />
+
+        <variable
+            name="terminal1"
+            type="String" />
+
+        <variable
+            name="terminal2"
+            type="String" />
+
+        <variable
+            name="direction"
+            type="Boolean" />
+
+        <variable
+            name="isCircular"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/card_border"
+        android:padding="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#073B4C"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <!-- Bus Icon -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- Vehicle Prefix -->
+                    <TextView
+                        android:id="@+id/tv_line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{line}"
+                        android:textColor="#caf0f8"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- Arrival Time -->
+                    <TextView
+                        android:id="@+id/tv_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{sign}"
+                        android:textColor="#caf0f8"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- Vehicle Prefix -->
+                    <TextView
+                        android:id="@+id/tv_terminals"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:ellipsize="marquee"
+                        android:text="@{direction ? terminal1+`-`+terminal2: terminal2+`-`+terminal1}"
+                        android:textColor="#caf0f8"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                id="@+id/iv_circular"
+                android:layout_width="70dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/icon_frame"
+                android:padding="12dp"
+                visibility="@{isCircular ? View.VISIBLE : View.GONE}"
+                android:src="@drawable/arrows_rotate" />
+
+            <ImageView
+                id="@+id/iv_forward"
+                android:layout_width="70dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/icon_frame"
+                android:padding="12dp"
+                visibility="@{isCircular ? View.GONE : View.VISIBLE}"
+                android:src="@drawable/arrow_forward" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
