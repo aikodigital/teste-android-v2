@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.example.testeaiko.app-mergeDebugResources-49:/layout/arrivals_vehicle_card.xml",
+        "source": "com.example.testeaiko.app-main-52:/layout/arrivals_vehicle_card.xml"
+    },
+    {
+        "merged": "com.example.testeaiko.app-mergeDebugResources-49:/layout/fragment_map.xml",
+        "source": "com.example.testeaiko.app-main-52:/layout/fragment_map.xml"
+    },
+    {
+        "merged": "com.example.testeaiko.app-mergeDebugResources-49:/layout/line_search_result_card.xml",
+        "source": "com.example.testeaiko.app-main-52:/layout/line_search_result_card.xml"
+    },
+    {
+        "merged": "com.example.testeaiko.app-mergeDebugResources-49:/layout/search_filter_item.xml",
+        "source": "com.example.testeaiko.app-main-52:/layout/search_filter_item.xml"
+    },
+    {
+        "merged": "com.example.testeaiko.app-mergeDebugResources-49:/layout/bottom_sheet_layout.xml",
+        "source": "com.example.testeaiko.app-main-52:/layout/bottom_sheet_layout.xml"
+    },
+    {
+        "merged": "com.example.testeaiko.app-mergeDebugResources-49:/layout/activity_main.xml",
+        "source": "com.example.testeaiko.app-main-52:/layout/activity_main.xml"
+    }
+]

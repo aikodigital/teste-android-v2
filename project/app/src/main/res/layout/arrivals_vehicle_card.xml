@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+
+        <variable name="prefix" type="String" />
+        <variable name="arrivalTime" type="String" />
+        <variable name="accessible" type="Boolean" />
+        <import type="android.view.View"/>
+    </data>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#073B4C"
+        android:padding="8dp">
+
+        <!-- Bus Icon -->
+        <ImageView
+            android:id="@+id/busIcon"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="Bus Icon"
+            android:src="@drawable/arrival_icon" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Vehicle Prefix -->
+            <TextView
+                android:id="@+id/vehiclePrefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{prefix}"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#caf0f8" />
+
+            <!-- Arrival Time -->
+            <TextView
+                android:id="@+id/tx_arrival_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{arrivalTime}"
+                android:textSize="14sp"
+                android:textColor="#caf0f8" />
+
+
+
+        </LinearLayout>
+        <!-- Accessibility -->
+        <ImageView
+            android:id="@+id/imv_accessible"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:visibility="@{accessible ?View.VISIBLE:View.GONE}"
+            android:layout_marginVertical="5dp"
+            android:layout_marginEnd="15dp"
+            android:contentDescription="Bus Icon"
+            android:src="@drawable/accessible_icon" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+</layout>
