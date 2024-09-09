@@ -1,8 +1,9 @@
 package com.example.spbustracker.model
 
 data class Vehicle(
-    val id: Int,
-    val lineId: String,
-    val latitude: Double,
-    val longitude: Double
+    val p: Int,       // Prefixo do veículo
+    val a: Boolean,   // Acessibilidade
+    val ta: String,   // Horário da localização
+    val py: Double,   // Latitude
+    val px: Double    // Longitude
 )

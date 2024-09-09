@@ -1,19 +1,27 @@
 package com.example.spbustracker.ui.vehicles
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.spbustracker.R
 import com.example.spbustracker.databinding.FragmentVehiclesBinding
+import com.example.spbustracker.network.SPTransApiService
+import com.example.spbustracker.repository.VehicleRepository
 import com.example.spbustracker.viewmodel.VehiclesViewModel
+import com.example.spbustracker.viewmodel.VehiclesViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class VehiclesFragment : Fragment() {
 
@@ -22,22 +30,27 @@ class VehiclesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val callback = OnMapReadyCallback { googleMap ->
-        googleMap.clear()
-
         viewModel.vehicles.observe(viewLifecycleOwner) { vehicles ->
-            googleMap.clear()
-            vehicles.forEach { vehicle ->
-                val vehiclePosition = LatLng(vehicle.latitude, vehicle.longitude)
-                googleMap.addMarker(
-                    MarkerOptions().position(vehiclePosition)
-                        .title("Veículo da linha ${vehicle.lineId}")
-                )
-            }
-
-            if (vehicles.isNotEmpty()) {
+            if (!vehicles.isNullOrEmpty()) {
+                googleMap.clear()
+                vehicles.forEach { vehicle ->
+                    val position = LatLng(vehicle.py, vehicle.px)
+                    googleMap.addMarker(
+                        MarkerOptions().position(position).title("Veículo da linha ${vehicle.p}")
+                    )
+                }
                 val firstVehicle = vehicles.first()
-                val firstPosition = LatLng(firstVehicle.latitude, firstVehicle.longitude)
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstPosition, 12f))
+                googleMap.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        LatLng(
+                            firstVehicle.py,
+                            firstVehicle.px
+                        ), 12f
+                    )
+                )
+            } else {
+                googleMap.clear()
+                Log.d("VehiclesFragment", "Nenhum veículo encontrado")
             }
         }
     }
@@ -46,32 +59,55 @@ class VehiclesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentVehiclesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        try {
+            val token = getString(R.string.sptrans_token)
+            val repository = VehicleRepository(SPTransApiService.create(token, context = requireContext(), addInterceptor = true))
+            val factory = VehiclesViewModelFactory(repository)
 
-        viewModel = ViewModelProvider(this).get(VehiclesViewModel::class.java)
+            viewModel = ViewModelProvider(this, factory)[VehiclesViewModel::class.java]
+
+            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+            mapFragment?.getMapAsync(callback)
+
+            loadVehiclesWithRetry()
+        } catch (ex: Exception) {
+            showErrorDialog(ex.message ?: "Erro desconhecido")
+        }
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
 
-        binding.searchView.setOnQueryTextListener(object :
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { lineNumber ->
-                    viewModel.searchLine(lineNumber)
-                }
-                return true
-            }
+        loadVehiclesWithRetry()
+    }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
+    private fun loadVehiclesWithRetry() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                viewModel.loadVehicles()
+            } catch (e: Exception) {
+                showErrorDialog(e.message ?: "Erro desconhecido")
             }
-        })
+        }
+    }
+
+    private fun showErrorDialog(message: String) {
+        activity?.runOnUiThread {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Erro")
+                .setMessage(message)
+                .setPositiveButton("Retry") { _, _ ->
+                    loadVehiclesWithRetry()
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
+        }
     }
 
     override fun onDestroyView() {
