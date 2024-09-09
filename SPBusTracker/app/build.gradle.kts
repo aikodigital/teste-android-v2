@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -16,6 +18,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        buildConfigField("String", "SPTRANS_TOKEN", "\"${System.getenv("SPTRANS_TOKEN")}\"")
+        buildConfigField("String", "GOOGLE_MAPS_KEY", "\"${System.getenv("GOOGLE_MAPS_KEY")}\"")
+
     }
 
     buildTypes {
@@ -35,14 +44,15 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }
 
 dependencies {
 
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.spbustracker.BuildConfig.SPTRANS_TOKEN
 import com.example.spbustracker.R
 import com.example.spbustracker.databinding.FragmentVehiclesBinding
 import com.example.spbustracker.network.SPTransApiService
 import com.example.spbustracker.repository.VehicleRepository
 import com.example.spbustracker.viewmodel.VehiclesViewModel
 import com.example.spbustracker.viewmodel.VehiclesViewModelFactory
+import com.google.android.datatransport.BuildConfig
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -67,7 +69,7 @@ class VehiclesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         try {
-            val token = getString(R.string.sptrans_token)
+            val token = SPTRANS_TOKEN
             val repository = VehicleRepository(SPTransApiService.create(token, context = requireContext(), addInterceptor = true))
             val factory = VehiclesViewModelFactory(repository)
 

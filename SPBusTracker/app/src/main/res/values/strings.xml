@@ -6,8 +6,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="sptrans_token">c0057d6d233b1fb5841bf577f442897c51f3b2a877cf3d706ae3771425a37805</string>
-    <string name="google_maps_key">AIzaSyCFH-5_CAzw-Ou9fkcILW8Vdyd9_RBZIoc</string>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_lines_bus">Linhas</string>

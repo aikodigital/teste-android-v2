@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.spbustracker.BuildConfig.SPTRANS_TOKEN
 import com.example.spbustracker.network.SPTransApiService
 import com.example.spbustracker.repository.AutenticacaoRepository
 import com.example.spbustracker.model.AutenticacaoViewModel
@@ -20,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val token = getString(R.string.sptrans_token)
+        val token = SPTRANS_TOKEN
 
         val repository = AutenticacaoRepository(
             SPTransApiService.create(token, this, addInterceptor = false)
