@@ -1,5 +1,7 @@
 package com.example.spbustracker.ui.vehicles
 
+import CustomInfoWindowAdapter
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.widget.SearchView
 import com.example.spbustracker.BuildConfig.SPTRANS_TOKEN
 import com.example.spbustracker.R
 import com.example.spbustracker.databinding.FragmentVehiclesBinding
@@ -31,25 +34,28 @@ class VehiclesFragment : Fragment() {
     private var _binding: FragmentVehiclesBinding? = null
     private val binding get() = _binding!!
 
+    @SuppressLint("PotentialBehaviorOverride")
     private val callback = OnMapReadyCallback { googleMap ->
 
         val saoPauloLatLng = LatLng(-23.55052, -46.633308)
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(saoPauloLatLng, 15f))
         binding.progressBar.visibility = View.VISIBLE
+        googleMap.setInfoWindowAdapter(CustomInfoWindowAdapter(requireContext()))
 
         viewModel.vehicles.observe(viewLifecycleOwner) { vehicles ->
             if (!vehicles.isNullOrEmpty()) {
                 googleMap.clear()
-                vehicles.forEach { vehicle ->
+                vehicles.forEach { (line, vehicle) ->
                     val position = LatLng(vehicle.py, vehicle.px)
                     googleMap.addMarker(
                         MarkerOptions()
                             .position(position)
-                            .title("Veículo da linha ${vehicle.p}")
+                            .title("Linha: ${line.c}")
+                            .snippet("Origem: ${line.lt1}\nDestino: ${line.lt0}")
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_marker))
                     )
                 }
-                val firstVehicle = vehicles.first()
+                val firstVehicle = vehicles.first().second
                 googleMap.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         LatLng(
@@ -94,19 +100,63 @@ class VehiclesFragment : Fragment() {
             val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
             mapFragment?.getMapAsync(callback)
 
+            setupSearchView()
             loadVehiclesWithRetry()
         } catch (ex: Exception) {
             showErrorDialog(ex.message ?: "Erro desconhecido")
         }
+    }
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+    private fun setupSearchView() {
+        val searchView = binding.searchView
+        searchView.queryHint = "Ex.: 8200-10"
 
-        loadVehiclesWithRetry()
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { searchVehicles(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
+    }
+
+    private fun searchVehicles(lineNumber: String) {
+        val filteredVehicles = viewModel.vehicles.value?.filter { (line, _) ->
+            line.c.contains(lineNumber, ignoreCase = true)
+        }
+
+        if (!filteredVehicles.isNullOrEmpty()) {
+            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+            mapFragment?.getMapAsync { googleMap ->
+                googleMap.clear()
+                filteredVehicles.forEach { (line, vehicle) ->
+                    val position = LatLng(vehicle.py, vehicle.px)
+                    googleMap.addMarker(
+                        MarkerOptions()
+                            .position(position)
+                            .title("Linha: ${line.c}")
+                            .snippet("Origem: ${line.lt1}\nDestino: ${line.lt0}")
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_marker))
+                    )
+                }
+
+                val firstVehicle = filteredVehicles.first().second
+                googleMap.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        LatLng(firstVehicle.py, firstVehicle.px),
+                        15f
+                    )
+                )
+            }
+        } else {
+            showErrorDialog("Nenhum veículo encontrado para a linha $lineNumber")
+        }
     }
 
     private fun loadVehiclesWithRetry() {
-        binding.progressBar.visibility = View.VISIBLE
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
@@ -121,8 +171,9 @@ class VehiclesFragment : Fragment() {
     private fun showErrorDialog(message: String) {
         activity?.runOnUiThread {
             AlertDialog.Builder(requireContext())
-                .setTitle("Erro")
+                .setTitle("Ops")
                 .setMessage(message)
+                .setIcon(android.R.drawable.ic_menu_info_details)
                 .setPositiveButton("Retry") { _, _ ->
                     loadVehiclesWithRetry()
                 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blue_aiko">#003084</color>
+    <color name="red_sp_trans_clean">#FDA6B0</color>
     <color name="red_sp_trans_0">#FA394F</color>
     <color name="red_sp_trans_1">#e2001a</color>
     <color name="red_sp_trans_2">#AD0518</color>
