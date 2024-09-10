@@ -12,14 +12,16 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textColor="@android:color/black"
-        android:text="Linha: " />
+        android:text="Linha: "
+        android:layout_marginBottom="4dp" />
 
     <TextView
         android:id="@+id/origin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:text="Origem: " />
+        android:text="Origem: "
+        android:layout_marginBottom="4dp" />
 
     <TextView
         android:id="@+id/destination"
