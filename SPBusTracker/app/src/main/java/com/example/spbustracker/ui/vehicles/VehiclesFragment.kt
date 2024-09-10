@@ -15,10 +15,10 @@ import com.example.spbustracker.network.SPTransApiService
 import com.example.spbustracker.repository.VehicleRepository
 import com.example.spbustracker.viewmodel.VehiclesViewModel
 import com.example.spbustracker.viewmodel.VehiclesViewModelFactory
-import com.google.android.datatransport.BuildConfig
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.CoroutineScope
@@ -32,13 +32,21 @@ class VehiclesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val callback = OnMapReadyCallback { googleMap ->
+
+        val saoPauloLatLng = LatLng(-23.55052, -46.633308)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(saoPauloLatLng, 15f))
+        binding.progressBar.visibility = View.VISIBLE
+
         viewModel.vehicles.observe(viewLifecycleOwner) { vehicles ->
             if (!vehicles.isNullOrEmpty()) {
                 googleMap.clear()
                 vehicles.forEach { vehicle ->
                     val position = LatLng(vehicle.py, vehicle.px)
                     googleMap.addMarker(
-                        MarkerOptions().position(position).title("Veículo da linha ${vehicle.p}")
+                        MarkerOptions()
+                            .position(position)
+                            .title("Veículo da linha ${vehicle.p}")
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_marker))
                     )
                 }
                 val firstVehicle = vehicles.first()
@@ -47,11 +55,13 @@ class VehiclesFragment : Fragment() {
                         LatLng(
                             firstVehicle.py,
                             firstVehicle.px
-                        ), 12f
+                        ), 15f
                     )
                 )
+                binding.progressBar.visibility = View.GONE
             } else {
                 googleMap.clear()
+                binding.progressBar.visibility = View.GONE
                 Log.d("VehiclesFragment", "Nenhum veículo encontrado")
             }
         }
@@ -70,7 +80,13 @@ class VehiclesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         try {
             val token = SPTRANS_TOKEN
-            val repository = VehicleRepository(SPTransApiService.create(token, context = requireContext(), addInterceptor = true))
+            val repository = VehicleRepository(
+                SPTransApiService.create(
+                    token,
+                    context = requireContext(),
+                    addInterceptor = true
+                )
+            )
             val factory = VehiclesViewModelFactory(repository)
 
             viewModel = ViewModelProvider(this, factory)[VehiclesViewModel::class.java]
@@ -90,11 +106,14 @@ class VehiclesFragment : Fragment() {
     }
 
     private fun loadVehiclesWithRetry() {
+        binding.progressBar.visibility = View.VISIBLE
+
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 viewModel.loadVehicles()
             } catch (e: Exception) {
                 showErrorDialog(e.message ?: "Erro desconhecido")
+                binding.progressBar.visibility = View.GONE
             }
         }
     }
@@ -116,4 +135,5 @@ class VehiclesFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }
