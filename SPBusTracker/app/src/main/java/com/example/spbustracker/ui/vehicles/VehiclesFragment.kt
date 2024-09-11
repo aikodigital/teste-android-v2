@@ -1,0 +1,170 @@
+package com.example.spbustracker.ui.vehicles
+
+import CustomInfoWindowAdapter
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.spbustracker.BuildConfig.SPTRANS_TOKEN
+import com.example.spbustracker.R
+import com.example.spbustracker.databinding.FragmentVehiclesBinding
+import com.example.spbustracker.network.SPTransApiService
+import com.example.spbustracker.repository.VehicleRepository
+import com.example.spbustracker.viewmodel.VehiclesViewModel
+import com.example.spbustracker.viewmodel.VehiclesViewModelFactory
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.clustering.ClusterManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class VehiclesFragment : Fragment() {
+
+    private lateinit var viewModel: VehiclesViewModel
+    private var _binding: FragmentVehiclesBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var clusterManager: ClusterManager<VehicleClusterItem>
+    private lateinit var searchManager: SearchVehiclesManager
+
+    @SuppressLint("PotentialBehaviorOverride")
+    private val callback = OnMapReadyCallback { googleMap ->
+
+        val saoPauloLatLng = LatLng(-23.55052, -46.633308)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(saoPauloLatLng, 15f))
+        binding.progressBar.visibility = View.VISIBLE
+
+        clusterManager = ClusterManager(requireContext(), googleMap)
+        clusterManager.renderer =
+            VehicleClusterRenderer(requireContext(), googleMap, clusterManager)
+        googleMap.setInfoWindowAdapter(CustomInfoWindowAdapter(requireContext()))
+        googleMap.setOnCameraIdleListener(clusterManager)
+        googleMap.setOnMarkerClickListener(clusterManager)
+
+        clusterManager.setOnClusterItemClickListener { item ->
+            val marker =
+                clusterManager.markerCollection.markers.firstOrNull { it.position == item.position }
+            marker?.showInfoWindow()
+            true
+        }
+
+        clusterManager.setOnClusterClickListener { cluster ->
+            googleMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    cluster.position,
+                    googleMap.cameraPosition.zoom + 2
+                )
+            )
+            true
+        }
+
+        viewModel.filteredVehicles.observe(viewLifecycleOwner) { vehicles ->
+            if (!vehicles.isNullOrEmpty()) {
+                clusterManager.clearItems()
+
+                vehicles.forEach { (line, vehicle) ->
+                    val position = LatLng(vehicle.py, vehicle.px)
+                    val clusterItem = VehicleClusterItem(
+                        position = position,
+                        title = "Linha: ${line.c}",
+                        snippet = "Origem: ${line.lt1}\n Destino: ${line.lt0}"
+                    )
+                    clusterManager.addItem(clusterItem)
+                }
+
+                clusterManager.cluster()
+
+                val firstVehicle = vehicles.first().second
+                googleMap.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        LatLng(firstVehicle.py, firstVehicle.px),
+                        15f
+                    )
+                )
+                binding.progressBar.visibility = View.GONE
+            } else {
+                showErrorDialog("Nenhum veículo encontrado para a linha!")
+                googleMap.clear()
+                binding.progressBar.visibility = View.GONE
+                Log.d("VehiclesFragment", "Nenhum veículo encontrado")
+            }
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentVehiclesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        try {
+            val token = SPTRANS_TOKEN
+            val repository = VehicleRepository(
+                SPTransApiService.create(
+                    token,
+                    context = requireContext(),
+                    addInterceptor = true
+                )
+            )
+            val factory = VehiclesViewModelFactory(repository)
+
+            viewModel = ViewModelProvider(this, factory)[VehiclesViewModel::class.java]
+
+            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+            mapFragment?.getMapAsync(callback)
+
+            searchManager = SearchVehiclesManager(binding.searchView) { query ->
+                binding.progressBar.visibility = View.VISIBLE
+                viewModel.searchVehicles(query)
+            }
+            searchManager.setupSearchView()
+
+            loadVehiclesWithRetry()
+        } catch (ex: Exception) {
+            showErrorDialog(ex.message ?: "Erro desconhecido")
+        }
+    }
+
+    private fun loadVehiclesWithRetry() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                viewModel.loadVehicles()
+            } catch (e: Exception) {
+                showErrorDialog(e.message ?: "Erro desconhecido")
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun showErrorDialog(message: String) {
+        activity?.runOnUiThread {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Ops")
+                .setMessage(message)
+                .setIcon(android.R.drawable.ic_menu_info_details)
+                .setPositiveButton("OK") { _, _ ->
+                    loadVehiclesWithRetry()
+                }
+                .setNegativeButton("Fechar", null)
+                .show()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
