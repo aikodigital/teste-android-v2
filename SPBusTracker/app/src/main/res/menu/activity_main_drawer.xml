@@ -7,17 +7,17 @@
 
         <item
             android:id="@+id/nav_bus_lines"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_lines"
             android:title="@string/menu_lines_bus" />
 
         <item
             android:id="@+id/nav_bus_stops"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_bus_stop"
             android:title="@string/menu_point_bus" />
 
         <item
             android:id="@+id/nav_where_is_my_bus"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_wheres_bus"
             android:title="@string/menu_wheres_my_bus" />
     </group>
 </menu>

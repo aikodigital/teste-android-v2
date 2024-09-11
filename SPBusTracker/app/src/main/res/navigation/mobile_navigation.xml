@@ -5,17 +5,17 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_where_is_my_bus">
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_bus_stops"-->
-<!--        android:name="com.example.spbustracker.ui.stops.StopsFragment"-->
-<!--        android:label="Pontos de Ônibus"-->
-<!--        tools:layout="@layout/fragment_stops" />-->
+    <fragment
+        android:id="@+id/nav_bus_stops"
+        android:name="com.example.spbustracker.ui.stops.StopsFragment"
+        android:label="Pontos de Ônibus"
+        tools:layout="@layout/fragment_stops" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_bus_lines"-->
-<!--        android:name="com.example.spbustracker.ui.lines.LinesFragment"-->
-<!--        android:label="Linhas"-->
-<!--        tools:layout="@layout/fragment_lines" />-->
+    <fragment
+        android:id="@+id/nav_bus_lines"
+        android:name="com.example.spbustracker.ui.lines.LinesFragment"
+        android:label="Linhas"
+        tools:layout="@layout/fragment_lines" />
 
     <fragment
         android:id="@+id/nav_where_is_my_bus"

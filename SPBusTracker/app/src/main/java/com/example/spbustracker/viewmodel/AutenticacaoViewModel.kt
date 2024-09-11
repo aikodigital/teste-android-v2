@@ -1,4 +1,4 @@
-package com.example.spbustracker.model
+package com.example.spbustracker.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

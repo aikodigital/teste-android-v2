@@ -2,7 +2,6 @@ package com.example.spbustracker.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.spbustracker.model.AutenticacaoViewModel
 import com.example.spbustracker.repository.AutenticacaoRepository
 
 class AutenticacaoViewModelFactory(

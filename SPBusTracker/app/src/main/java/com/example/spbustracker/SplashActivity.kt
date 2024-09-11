@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.spbustracker.BuildConfig.SPTRANS_TOKEN
 import com.example.spbustracker.network.SPTransApiService
 import com.example.spbustracker.repository.AutenticacaoRepository
-import com.example.spbustracker.model.AutenticacaoViewModel
+import com.example.spbustracker.viewmodel.AutenticacaoViewModel
 import com.example.spbustracker.viewmodel.AutenticacaoViewModelFactory
 
 @SuppressLint("CustomSplashScreen")
