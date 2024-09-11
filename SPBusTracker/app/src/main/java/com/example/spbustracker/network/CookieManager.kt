@@ -16,25 +16,26 @@ class CookieManager(context: Context) : CookieJar {
 
         val editor = prefs.edit()
         cookies.forEach { cookie ->
-            editor.putString(url.host(), cookie.toString())
+            editor.putString("${url.host()}_${cookie.name()}", cookie.toString()) // Use cookie.name()
         }
         editor.apply()
     }
 
     override fun loadForRequest(url: HttpUrl): List<Cookie> {
-        val cookies = cookieStore[url.host()] ?: emptyList()
-        return cookies.ifEmpty {
-            loadFromPrefs(url.host())
-        }
+        return cookieStore[url.host()] ?: loadFromPrefs(url.host())
     }
 
     private fun loadFromPrefs(host: String): List<Cookie> {
-        val cookieString = prefs.getString(host, null)
-        return if (cookieString != null) {
-            listOf(Cookie.parse(HttpUrl.parse("http://$host")!!, cookieString)!!)
-        } else {
-            emptyList()
-        }
-    }
+        val cookies = mutableListOf<Cookie>()
 
+        prefs.all.forEach { (key, value) ->
+            if (key.startsWith(host)) {
+                val cookieString = value as String
+                Cookie.parse(HttpUrl.get("http://$host")!!, cookieString)?.let {
+                    cookies.add(it)
+                }
+            }
+        }
+        return cookies
+    }
 }

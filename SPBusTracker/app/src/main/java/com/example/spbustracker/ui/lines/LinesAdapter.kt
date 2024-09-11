@@ -12,9 +12,14 @@ import com.example.spbustracker.model.Line
 
 class LinesAdapter(
     private val context: Context,
-    private val lines: List<Line>,
+    private var lines: List<Line>,
     private val onHeartClicked: (Line) -> Unit
 ) : RecyclerView.Adapter<LinesAdapter.LineViewHolder>() {
+
+    fun submitList(newLines: List<Line>) {
+        lines = newLines
+        notifyDataSetChanged()
+    }
 
     private val sharedPreferences = context.getSharedPreferences("Favorites", Context.MODE_PRIVATE)
 
