@@ -2,8 +2,10 @@ package br.com.aikosptrans.di
 
 import br.com.aikosptrans.domain.repository.DataRepository
 import br.com.aikosptrans.domain.usecase.AuthenticateUserUseCase
+import br.com.aikosptrans.domain.usecase.GetArriveForecastTimeUseCase
 import br.com.aikosptrans.domain.usecase.GetBusLineUseCase
 import br.com.aikosptrans.domain.usecase.GetBusLocationUseCase
+import br.com.aikosptrans.domain.usecase.GetBusStopByLineUseCase
 import br.com.aikosptrans.domain.usecase.GetBusStopUseCase
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -14,5 +16,7 @@ internal object UseCaseModule : KoinModule {
         single { GetBusLocationUseCase(get<DataRepository>()::getBusesLocation) }
         single { GetBusStopUseCase(get<DataRepository>()::getBusStop) }
         single { GetBusLineUseCase(get<DataRepository>()::getBusLineDetail) }
+        single { GetBusStopByLineUseCase(get<DataRepository>()::getBusStopByLine) }
+        single { GetArriveForecastTimeUseCase(get<DataRepository>()::getArriveForecastTime) }
     }
 }

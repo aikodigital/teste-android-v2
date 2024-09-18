@@ -17,13 +17,6 @@ class BusLineViewModel(
             block = {
                 getBusLineUseCase(query)
             },
-            onLoading = {
-                _uiState.update { state ->
-                    state.copy(
-                        isLoading = it
-                    )
-                }
-            },
             onSuccess = {
                 _uiState.update { state ->
                     state.copy(

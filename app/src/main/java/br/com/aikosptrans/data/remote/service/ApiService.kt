@@ -1,5 +1,6 @@
 package br.com.aikosptrans.data.remote.service
 
+import br.com.aikosptrans.data.remote.model.response.ArrivalForecastResponse
 import br.com.aikosptrans.data.remote.model.response.BusLineDetailResponse
 import br.com.aikosptrans.data.remote.model.response.BusStopResponse
 import br.com.aikosptrans.data.remote.model.response.BusesLocationResponse
@@ -8,7 +9,6 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiService {
-
     @POST("Login/Autenticar")
     suspend fun authenticate(): Boolean
     @GET("Posicao")
@@ -21,4 +21,13 @@ interface ApiService {
     suspend fun getBusLine(
         @Query("termosBusca") query: String
     ): List<BusLineDetailResponse>
+    @GET("Parada/BuscarParadasPorLinha")
+    suspend fun getBusStopByLine(
+        @Query("codigoLinha") idLine: String
+    ): List<BusStopResponse>
+    @GET("Previsao")
+    suspend fun getArrivalForecastTime(
+        @Query("codigoParada") idStop: String,
+        @Query("codigoLinha") idLine: String
+    ): ArrivalForecastResponse
 }

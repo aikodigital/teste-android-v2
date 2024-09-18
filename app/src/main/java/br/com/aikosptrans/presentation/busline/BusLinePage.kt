@@ -6,10 +6,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import br.com.aikosptrans.R
-import br.com.aikosptrans.presentation.atomic.organism.DialogLoadingOrganism
 import br.com.aikosptrans.presentation.atomic.organism.DialogMessageOrganism
 import br.com.aikosptrans.presentation.atomic.template.BusLineTemplate
 import br.com.aikosptrans.presentation.busline.viewmodel.BusLineViewModel
+import br.com.aikosptrans.presentation.navigation.AppDestination
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -19,10 +19,6 @@ fun BusLinePage(
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
-
-    if(uiState.isLoading) {
-        DialogLoadingOrganism()
-    }
 
     if(uiState.hasError) {
         DialogMessageOrganism(
@@ -43,6 +39,11 @@ fun BusLinePage(
         lines = uiState.lines,
         onQueryChanged = viewModel::onQueryChanged,
         onSearchPressed = viewModel::getBusLine,
-        query = uiState.query
+        query = uiState.query,
+        onItemClicked = {
+            navController.navigate(
+                AppDestination.BusLineDetail(it).createRoute()
+            )
+        }
     )
 }

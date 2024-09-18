@@ -1,5 +1,6 @@
 package br.com.aikosptrans.data.remote.mapper
 
+import br.com.aikosptrans.data.remote.model.response.ArrivalForecastResponse
 import br.com.aikosptrans.data.remote.model.response.BusLineDetailResponse
 import br.com.aikosptrans.data.remote.model.response.BusLineResponse
 import br.com.aikosptrans.data.remote.model.response.BusResponse
@@ -59,9 +60,17 @@ fun List<BusLineDetailResponse>.mapToBusLine(): List<BusLine> {
             fullNumber = "${it.firstNumber}-${it.secondNumber}",
             lineId = it.lineId,
             flow = it.flow,
-            destination = it.mainTerminalName,
-            origin = it.secondaryTerminalName,
+            destination = if(it.flow == 1) it.secondaryTerminalName else it.mainTerminalName,
+            origin = if(it.flow == 1) it.mainTerminalName else it.secondaryTerminalName,
             isCircular = it.isCircular
         )
     }
+}
+
+fun ArrivalForecastResponse.mapToArriveForecastTime(): List<String> {
+    return this
+        .busStop
+        ?.busLines
+        ?.flatMap { it.buses }
+        ?.map { it.arrivalForecastTime } ?: listOf(this.dateTime)
 }

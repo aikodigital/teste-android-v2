@@ -1,6 +1,7 @@
 package br.com.aikosptrans.data.remote.repository
 
 import br.com.aikosptrans.data.remote.datasource.RemoteDataSource
+import br.com.aikosptrans.data.remote.mapper.mapToArriveForecastTime
 import br.com.aikosptrans.data.remote.mapper.mapToBusLine
 import br.com.aikosptrans.data.remote.mapper.mapToBusStop
 import br.com.aikosptrans.data.remote.mapper.mapToBuses
@@ -32,5 +33,22 @@ class DataRepositoryImpl(
         return dataSource
             .getBusLineDetail(query)
             .mapToBusLine()
+    }
+
+    override suspend fun getBusStopByLine(idLine: String): List<BusStop> {
+        return dataSource
+            .getBusStopByLine(idLine)
+            .mapToBusStop()
+    }
+
+    override suspend fun getArriveForecastTime(
+        idLine: String,
+        idStop: String
+    ): List<String> {
+        return dataSource
+            .getArrivalForecastTime(
+                idLine = idLine,
+                idStop = idStop
+            ).mapToArriveForecastTime()
     }
 }

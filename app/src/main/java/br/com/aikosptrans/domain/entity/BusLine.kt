@@ -1,5 +1,8 @@
 package br.com.aikosptrans.domain.entity
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class BusLine(
     val fullNumber: String,
     val lineId: Int,
