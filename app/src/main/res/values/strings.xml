@@ -5,4 +5,11 @@
     <string name="try_again_message">Erro ao realizar requisição, clique no botão para tentar novamente.</string>
     <string name="try_again">Tentar Novamente</string>
     <string name="cancel">Cancelar</string>
+
+    <string name="bottom_nav_bus">Ônibus</string>
+    <string name="bottom_nav_stop_bus">Paradas</string>
+    <string name="bottom_nav_bus_line">Linhas</string>
+
+    <string name="bus_stop_hint">Digite o nome ou endereço da Parada.</string>
+    <string name="bus_lines_hint">Digite o número da Linha.</string>
 </resources>

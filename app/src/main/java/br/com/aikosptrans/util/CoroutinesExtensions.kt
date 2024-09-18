@@ -7,8 +7,8 @@ import kotlinx.coroutines.launch
 fun <Data> CoroutineScope.launchSuspend(
     block: suspend CoroutineScope.() -> Data,
     onLoading: (Boolean) -> Unit = {},
-    onSuccess: (Data) -> Unit,
-    onError: (Throwable) -> Unit
+    onSuccess: (Data) -> Unit = {},
+    onError: (Throwable) -> Unit = {}
 ) {
     launch(Dispatchers.IO) {
         onLoading(true)

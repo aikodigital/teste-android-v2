@@ -1,7 +1,6 @@
 package br.com.aikosptrans.di
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+import br.com.aikosptrans.data.remote.interceptor.CookieManager
 import br.com.aikosptrans.data.remote.interceptor.TokenInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -29,7 +28,6 @@ internal object NetworkModule : KoinModule {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.GINGERBREAD)
     private fun providesClientBuilder(
         interceptors: List<Interceptor>
     ): OkHttpClient.Builder {
@@ -38,6 +36,7 @@ internal object NetworkModule : KoinModule {
              interceptors.forEach {
                  addInterceptor(it)
              }
+            cookieJar(CookieManager())
             connectTimeout(TIMEOUT_CONNECTION_MIN, TimeUnit.MINUTES)
             readTimeout(TIMEOUT_READ_WRITE_SEC, TimeUnit.SECONDS)
             writeTimeout(TIMEOUT_READ_WRITE_SEC, TimeUnit.SECONDS)
