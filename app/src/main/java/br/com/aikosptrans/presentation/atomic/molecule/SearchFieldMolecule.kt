@@ -31,7 +31,6 @@ fun SearchFieldMolecule(
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth()
-            .background(Colors.white)
     ) {
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),

@@ -25,7 +25,9 @@ fun BottomNavigationOrganism(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    NavigationBar {
+    NavigationBar(
+        containerColor = Colors.white
+    ) {
         BottomNavItem.all().forEach { item ->
             NavigationBarItem(
                 selected = currentRoute == item.route,
