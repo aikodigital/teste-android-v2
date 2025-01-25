@@ -42,7 +42,7 @@ fun AuthenticatorScreen(
         is AuthenticatorState.Success -> {
             LaunchedEffect(Unit) {
                 navController.navigate(BusRoute.BusTabContainer.route) {
-                    popUpTo(BusRoute.BusSplash.route) { inclusive = true }
+                    popUpTo(BusRoute.BusAuthenticator.route) { inclusive = true }
                 }
             }
         }

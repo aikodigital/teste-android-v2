@@ -5,6 +5,7 @@ import br.com.danilo.aikotestebus.data.model.ArrivalForecastRelationResponse
 import br.com.danilo.aikotestebus.data.model.ArrivalForecastResponse
 import br.com.danilo.aikotestebus.data.model.ArrivalForecastStopResponse
 import br.com.danilo.aikotestebus.data.model.BusResponse
+import br.com.danilo.aikotestebus.data.model.BusStopLineResponse
 import br.com.danilo.aikotestebus.data.model.BusesPositionResponse
 import br.com.danilo.aikotestebus.data.model.BusesRelationResponse
 import br.com.danilo.aikotestebus.data.model.LineDetailResponse
@@ -173,11 +174,33 @@ fun ArrivalForecastBusResponse?.toArrivalForecastBus(): ArrivalForecastBus {
     )
 }
 
+fun List<BusStopLineResponse?>?.toBusStopDetailList(): List<StopDetail> {
+    return this?.map { busStopLineResponse ->
+        busStopLineResponse?.toStopDetail() ?: StopDetail(
+            stopId = 0,
+            name = "",
+            address = "",
+            latitude = 0.0,
+            longitude = 0.0
+        )
+    } ?: emptyList()
+}
+
+fun BusStopLineResponse?.toStopDetail(): StopDetail {
+    return StopDetail(
+        stopId = this?.stopId.handleOptional(),
+        name = this?.name.handleOptional(),
+        address = this?.address.handleOptional(),
+        latitude = this?.latitude.handleOptional(),
+        longitude = this?.longitude.handleOptional()
+    )
+}
+
 fun mapBusesToMapMarkers(busesPosition: BusesPosition): List<MapMarker> {
     return busesPosition.busList.flatMap { busesRelation ->
         busesRelation.buses?.map { bus ->
             MapMarker(
-                titleText = bus.prefixNumber.toString(),
+                titleText = busesRelation.fullNumber,
                 snippetText = "Origem: ${busesRelation.origin}, Destino: ${busesRelation.destination}",
                 location = LatLng(bus.latitude, bus.longitude)
             )

@@ -1,7 +1,10 @@
 package br.com.danilo.aikotestebus.presentation.components.organism
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
@@ -26,7 +29,7 @@ fun TabBarGroupScrollable(
     onTabSelected: (tabIndex: Int) -> Unit,
 ) {
     val selectedTabIndex by remember(tabIndex) { mutableIntStateOf(tabIndex) }
-
+    HorizontalDivider(color = colorsMain.inactiveContent, modifier = Modifier.height(10.dp).background(colorsMain.inactiveContent))
     TabRow(
         modifier = modifier.fillMaxWidth(),
         selectedTabIndex = selectedTabIndex,

@@ -1,6 +1,7 @@
 package br.com.danilo.aikotestebus.data.service
 
 import br.com.danilo.aikotestebus.data.model.ArrivalForecastResponse
+import br.com.danilo.aikotestebus.data.model.BusStopLineResponse
 import br.com.danilo.aikotestebus.data.model.BusesPositionResponse
 import br.com.danilo.aikotestebus.data.model.LineDetailResponse
 import br.com.danilo.aikotestebus.data.model.StopDetailResponse
@@ -31,5 +32,10 @@ interface BusApiService {
         @Query("codigoParada") idStop: String,
         @Query("codigoLinha") idLine: String
     ): ArrivalForecastResponse
+
+    @GET("Parada/BuscarParadasPorLinha")
+    suspend fun getBusStopByLine(
+        @Query("codigoLinha") idLine: Int
+    ): List<BusStopLineResponse>?
 
 }

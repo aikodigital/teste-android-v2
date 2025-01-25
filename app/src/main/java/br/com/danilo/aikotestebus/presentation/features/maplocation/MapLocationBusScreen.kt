@@ -64,8 +64,9 @@ fun MapLocationBusScreen(
                 is MapLocationBusState.Success -> {
                     val data = (uiState as MapLocationBusState.Success).items
 
-                    ClusteringMap(clusterItems = mapBusesToMapMarkers(data), markerIcon = painterResource(
-                        R.drawable.ic_bus)
+                    ClusteringMap(
+                        clusterItems = mapBusesToMapMarkers(data),
+                        markerIcon = painterResource(R.drawable.ic_bus)
                     )
                 }
 

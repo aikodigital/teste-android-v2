@@ -20,7 +20,7 @@ class MapLocationBusViewModel(
     fun startPeriodicTask() {
         viewModelScope.launch {
             while (isActive) {
-                delay(5000)
+                delay(20000)
                 fetchLocation()
             }
         }

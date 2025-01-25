@@ -1,6 +1,7 @@
 package br.com.danilo.aikotestebus.presentation.features.lines
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,14 +29,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import br.com.danilo.aikotestebus.R
 import br.com.danilo.aikotestebus.domain.model.LineDetail
 import br.com.danilo.aikotestebus.presentation.components.organism.SearchFieldMolecule
+import br.com.danilo.aikotestebus.presentation.navigation.BusRoute
+import br.com.danilo.aikotestebus.presentation.util.encodeLineDetailItem
 import br.com.danilo.aikotestebus.presentation.util.state.LineBusDetailState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LineBusDetailsScreen(
+    navController: NavController,
     lineBusDetailsViewModel: LineBusDetailsViewModel = koinViewModel()
 ) {
     val uiState by lineBusDetailsViewModel.uiState.collectAsState()
@@ -60,7 +65,13 @@ fun LineBusDetailsScreen(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     items(data) {
-                        LineDetailItem(lineDetail = it)
+                        LineDetailItem(lineDetail = it) { lineDetail ->
+                            navController.navigate(
+                                BusRoute.BusStopByLine.route.replace(
+                                    "{item}", encodeLineDetailItem(lineDetail)
+                                )
+                            )
+                        }
                         HorizontalDivider()
                     }
                 }
@@ -91,13 +102,19 @@ fun LineBusDetailsScreen(
 }
 
 @Composable
-fun LineDetailItem(lineDetail: LineDetail) {
+fun LineDetailItem(
+    lineDetail: LineDetail,
+    clickedItem: (LineDetail) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(12.dp)
             .background(color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(8.dp))
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable {
+                clickedItem.invoke(lineDetail)
+            },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
@@ -106,7 +123,7 @@ fun LineDetailItem(lineDetail: LineDetail) {
             tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .size(48.dp)
-                .padding(end = 16.dp)
+                .padding(end = 24.dp)
         )
 
         Column(modifier = Modifier.fillMaxWidth()) {

@@ -1,7 +1,7 @@
 package br.com.danilo.aikotestebus.presentation.components.organism
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,10 +35,8 @@ fun ClusteringMap(
     val screenHeight = config.screenHeightDp.dp
     val screenWidth = config.screenWidthDp.dp
 
-    // Lembrando o ClusterManager dentro do @Composable
     val clusterMgr = rememberClusterManager<MapMarker>()
 
-    // Criar a função de rendering dentro do composable
     val clusterRenderer = rememberClusterRenderer(
         clusterContent = { cluster ->
             ClusterCircle(
@@ -57,18 +54,27 @@ fun ClusteringMap(
         clusterManager = clusterMgr
     )
 
-    // Inicializando o ClusterManager e Renderer dentro de LaunchedEffect para garantir a execução após a composição
-    LaunchedEffect(clusterMgr) {
-        clusterMgr?.apply {
-            // Definir o algoritmo de cluster
-            algorithm = NonHierarchicalViewBasedAlgorithm(
-                screenWidth.value.toInt(),
-                screenHeight.value.toInt()
-            )
-            if (clusterMgr.renderer != clusterRenderer) {
-                renderer = clusterRenderer ?: return@LaunchedEffect
-
-            }
+    SideEffect {
+        clusterMgr?.algorithm = NonHierarchicalViewBasedAlgorithm(
+            screenWidth.value.toInt(),
+            screenHeight.value.toInt()
+        )
+        clusterMgr ?: return@SideEffect
+        clusterMgr.setOnClusterClickListener {
+            Log.d(TAG, "Cluster clicked! $it")
+            false
+        }
+        clusterMgr.setOnClusterItemClickListener {
+            Log.d(TAG, "Cluster item clicked! $it")
+            false
+        }
+        clusterMgr.setOnClusterItemInfoWindowClickListener {
+            Log.d(TAG, "Cluster item info window clicked! $it")
+        }
+    }
+    SideEffect {
+        if (clusterMgr?.renderer != clusterRenderer) {
+            clusterMgr?.renderer = clusterRenderer ?: return@SideEffect
         }
     }
 
@@ -99,4 +105,3 @@ fun ClusterCircle(
         )
     }
 }
-

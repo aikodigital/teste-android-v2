@@ -9,12 +9,13 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import br.com.danilo.aikotestebus.presentation.components.organism.TabBarGroupScrollable
 import br.com.danilo.aikotestebus.presentation.features.lines.LineBusDetailsScreen
 import br.com.danilo.aikotestebus.presentation.features.maplocation.MapLocationBusScreen
 
 @Composable
-fun TabScreen() {
+fun TabScreen(navController: NavController) {
     var tabIndexParam by remember { mutableIntStateOf(0) }
 
     Column(
@@ -31,7 +32,7 @@ fun TabScreen() {
 
         when(tabIndexParam) {
             0 -> MapLocationBusScreen()
-            1 -> LineBusDetailsScreen()
+            1 -> LineBusDetailsScreen(navController = navController)
         }
     }
 }
