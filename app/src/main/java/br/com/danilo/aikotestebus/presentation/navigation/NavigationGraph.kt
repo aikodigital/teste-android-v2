@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import br.com.danilo.aikotestebus.presentation.features.lines.LineBusDetailsScreen
-import br.com.danilo.aikotestebus.presentation.features.splash.SplashScreen
+import br.com.danilo.aikotestebus.presentation.features.TabScreen
+import br.com.danilo.aikotestebus.presentation.features.authenticator.AuthenticatorScreen
 
 @Composable
 fun NavigationGraph(
@@ -17,11 +17,13 @@ fun NavigationGraph(
         startDestination = initialRoute
     ) {
         composable(route = BusRoute.BusSplash.route) {
-            SplashScreen(navController)
+            AuthenticatorScreen(navController)
         }
 
-        composable(route = BusRoute.BusLineDetails.route) {
-            LineBusDetailsScreen()
+
+
+        composable(route = BusRoute.BusTabContainer.route) {
+            TabScreen()
         }
     }
 }

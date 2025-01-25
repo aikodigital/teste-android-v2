@@ -46,14 +46,6 @@ fun SearchFieldMolecule(
                     color = Color.Gray,
                 )
             },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color.Black,
-                unfocusedBorderColor = Color.Gray,
-                focusedTextColor = Color.Black,
-                cursorColor = Color.Black,
-                focusedLabelColor = Color.Black,
-                unfocusedLabelColor = Color.Gray,
-            ),
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Search
             ),
@@ -78,7 +70,7 @@ fun SearchIcon(onClick: () -> Unit) {
             painter = painterResource(R.drawable.ic_search),
             contentDescription = "Buscar",
             tint = Color.Black,
-            modifier = Modifier.size(20.dp) // Ajuste no tamanho do ícone
+            modifier = Modifier.size(20.dp)
         )
     }
 }

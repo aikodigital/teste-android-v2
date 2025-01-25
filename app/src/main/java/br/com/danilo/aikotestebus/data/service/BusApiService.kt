@@ -1,6 +1,9 @@
 package br.com.danilo.aikotestebus.data.service
 
+import br.com.danilo.aikotestebus.data.model.ArrivalForecastResponse
+import br.com.danilo.aikotestebus.data.model.BusesPositionResponse
 import br.com.danilo.aikotestebus.data.model.LineDetailResponse
+import br.com.danilo.aikotestebus.data.model.StopDetailResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -13,6 +16,20 @@ interface BusApiService {
     @GET("Linha/Buscar")
     suspend fun getBusLine(
         @Query("termosBusca") query: String
-    ): List<LineDetailResponse>
+    ): List<LineDetailResponse>?
+
+    @GET("Posicao")
+    suspend fun getBusesPosition(): BusesPositionResponse
+
+    @GET("Parada/Buscar")
+    suspend fun getBusStop(
+        @Query("termosBusca") query: String
+    ): List<StopDetailResponse>?
+
+    @GET("Previsao")
+    suspend fun getArrivalForecastTime(
+        @Query("codigoParada") idStop: String,
+        @Query("codigoLinha") idLine: String
+    ): ArrivalForecastResponse
 
 }

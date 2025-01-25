@@ -29,8 +29,8 @@ class LineBusDetailsViewModelTest : BusTest() {
 
         viewModel.fetchLines("fetch")
 
-        assertNotNull((viewModel.uiState.value as LineBusDetailState.Success).item)
-        assertEquals(mockListLine.toLineDetailList(), (viewModel.uiState.value as LineBusDetailState.Success).item)
+        assertNotNull((viewModel.uiState.value as LineBusDetailState.Success).items)
+        assertEquals(mockListLine.toLineDetailList(), (viewModel.uiState.value as LineBusDetailState.Success).items)
     }
 
     @Test
@@ -41,7 +41,7 @@ class LineBusDetailsViewModelTest : BusTest() {
         viewModel.fetchLines("fetch")
 
         assertTrue(viewModel.uiState.value is LineBusDetailState.Error)
-        assertEquals(expectedError, (viewModel.uiState.value as LineBusDetailState.Error).throwable)
+        assertEquals(expectedError, (viewModel.uiState.value as LineBusDetailState.Error))
     }
 
     @Test

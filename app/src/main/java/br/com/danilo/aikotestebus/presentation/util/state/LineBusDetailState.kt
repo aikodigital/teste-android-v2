@@ -6,5 +6,5 @@ sealed class LineBusDetailState {
     data object Loading : LineBusDetailState()
     data object Error : LineBusDetailState()
     data object ShowScreen : LineBusDetailState()
-    data class Success(val item: List<LineDetail>): LineBusDetailState()
+    data class Success(val items: List<LineDetail>): LineBusDetailState()
 }

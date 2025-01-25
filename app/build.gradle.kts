@@ -64,5 +64,4 @@ dependencies {
     implementation(libs.bundles.testLibs)
     implementation(libs.bundles.composeLibs)
     implementation(libs.bundles.commonLibs)
-    implementation (libs.androidx.collection.ktx)
 }

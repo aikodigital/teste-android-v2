@@ -10,8 +10,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import br.com.danilo.aikotestebus.ui.theme.colorsMain
 
 @Composable
 fun LoadingOrganism() {
@@ -22,7 +22,7 @@ fun LoadingOrganism() {
         verticalArrangement = Arrangement.Center
     ) {
         CircularProgressIndicator(
-            color = colorsMain.buttonBackground,
+            color = Color.Black,
             modifier = Modifier
                 .size(36.dp)
         )

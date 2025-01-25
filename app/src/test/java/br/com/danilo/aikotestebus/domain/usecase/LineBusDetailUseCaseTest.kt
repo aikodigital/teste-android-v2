@@ -2,7 +2,7 @@ package br.com.danilo.aikotestebus.domain.usecase
 
 import br.com.danilo.aikotestebus.core.BusTest
 import br.com.danilo.aikotestebus.data.model.LineDetailResponse
-import br.com.danilo.aikotestebus.data.repository.IBusRepositoryImpl
+import br.com.danilo.aikotestebus.data.repository.BusRepositoryImpl
 import br.com.danilo.aikotestebus.domain.mapper.toLineDetailList
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -17,7 +17,7 @@ import java.io.IOException
 class LineBusDetailUseCaseTest : BusTest() {
 
     private lateinit var useCase: LineBusDetailUseCase
-    private lateinit var repository: IBusRepositoryImpl
+    private lateinit var repository: BusRepositoryImpl
     private val mockListLine = listOf(
         LineDetailResponse(
             0, false, "", 0, 0, "", "",

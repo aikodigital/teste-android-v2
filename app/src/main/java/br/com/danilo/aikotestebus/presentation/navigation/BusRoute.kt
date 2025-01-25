@@ -4,6 +4,6 @@ sealed class BusRoute(val route: String) {
 
     data object BusSplash : BusRoute(route = "bus_splash")
 
-    data object BusLineDetails : BusRoute(route = "bus_line_details")
+    data object BusTabContainer : BusRoute(route = "bus_tab_container")
 
 }

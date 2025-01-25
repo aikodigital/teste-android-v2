@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import kotlinx.coroutines.flow.Flow
 
-class SplashUseCase(
+class AuthenticatorUseCase(
     private val repository: IBusRepository
 ) {
 
-    suspend fun authenticatorSplash(): Flow<Result<Boolean>> {
+    suspend fun authenticate(): Flow<Result<Boolean>> {
         return flow {
             try {
                 val isAuthenticated = repository.authenticator()
@@ -22,5 +22,4 @@ class SplashUseCase(
             }
         }
     }
-
 }

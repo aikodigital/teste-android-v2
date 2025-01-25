@@ -17,20 +17,23 @@ class LineBusDetailsViewModel(
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
 
     fun fetchLines(query: String) {
-        if (_searchQuery.value != query || uiStateAccess.value == LineBusDetailState.Error) {
-            viewModelScope.launch {
-                uiStateAccess.value = LineBusDetailState.Loading
-                useCase.getBusLine(query).collect { result ->
-                    result.fold(
-                        onSuccess = { data ->
-                            uiStateAccess.value = LineBusDetailState.Success(data)
-                        },
-                        onFailure = {
-                            uiStateAccess.value = LineBusDetailState.Error
-                        }
-                    )
-                }
+        viewModelScope.launch {
+            uiStateAccess.value = LineBusDetailState.Loading
+            useCase.getBusLine(query).collect { result ->
+                result.fold(
+                    onSuccess = { data ->
+                        uiStateAccess.value = LineBusDetailState.Success(data)
+                    },
+                    onFailure = {
+                        uiStateAccess.value = LineBusDetailState.Error
+                    }
+                )
             }
         }
+    }
+
+    fun onSearchQueryChange(query: String) {
+        _searchQuery.value = query
+        fetchLines(query)
     }
 }
