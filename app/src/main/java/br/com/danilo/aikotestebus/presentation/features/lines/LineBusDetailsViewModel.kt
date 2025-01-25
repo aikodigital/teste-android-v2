@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import br.com.danilo.aikotestebus.domain.usecase.LineBusDetailUseCase
 import br.com.danilo.aikotestebus.presentation.util.BaseViewModel
 import br.com.danilo.aikotestebus.presentation.util.state.LineBusDetailState
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

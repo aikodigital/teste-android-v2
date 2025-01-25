@@ -2,10 +2,8 @@ package br.com.danilo.aikotestebus.presentation.features.lines
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import br.com.danilo.aikotestebus.presentation.components.organism.LoadingOrganism
 import br.com.danilo.aikotestebus.presentation.components.organism.SearchFieldMolecule
 import br.com.danilo.aikotestebus.presentation.util.state.LineBusDetailState
