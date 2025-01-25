@@ -18,7 +18,7 @@
         android:theme="@style/Theme.AikoTesteBus"
         tools:targetApi="31">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBtO3mHEpUuZSCqQS9dkVDn62maDS8FeDA"/>
+            android:value="API_TOKEN"/>
         <activity
             android:name=".presentation.features.MainActivity"
             android:exported="true"
