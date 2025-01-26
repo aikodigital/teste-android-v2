@@ -28,4 +28,6 @@
     <string name="bus_line_details_error_paragraph">Tente novamente em alguns instantes</string>
     <string name="bus_stop_detail_item_title">Nome da parada: %1$s</string>
     <string name="bus_stop_detail_item_subtitle">Endereço: %1$s</string>
+    <string name="bus_stop_empty_heading">Não tem paradas disponíveis</string>
+
 </resources>

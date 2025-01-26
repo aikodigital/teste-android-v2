@@ -51,10 +51,13 @@ fun mapBusesToMapMarkers(busesPosition: BusesPosition): List<MapMarker> {
 fun createMapMarkerFromPrefix(
     arrivalForecast: ArrivalForecast,
     prefix: Int,
+    locateResult: (LatLng) -> Unit
 ): List<MapMarker> {
     arrivalForecast.busStop.busList.forEach { relation ->
         val bus = relation.buses.firstOrNull { it.prefixNumber == prefix }
         bus?.let {
+            val locate = LatLng(it.latitude, it.longitude)
+            locateResult(locate)
             return listOf(
                 MapMarker(
                     titleText = "Ônibus: ${it.prefixNumber}, Linha: ${relation.letterComplete}",

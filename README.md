@@ -1,6 +1,6 @@
 # Teste Android
 
-![Aiko](imagens/aiko.png)
+![Aiko](app/src/main/res/mipmap-hdpi/aiko.png)
 
 Neste teste serão avaliados seus conhecimentos e a metodologia aplicada no desenvolvimento de aplicações mobile Android.
 

@@ -53,7 +53,7 @@ fun LineBusDetailsScreen(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     items(data) {
-                        LineDetailItem(lineDetail = it) { lineDetail ->
+                        LineDetailItem(lineDetail = it, true) { lineDetail ->
                             navController.navigate(
                                 BusRoute.BusStopByLine.route.replace(
                                     "{item}", encodeLineDetailItem(lineDetail)

@@ -67,10 +67,12 @@ fun BusStopByLineScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    },
-                        modifier = Modifier.size(spacing_24)) {
+                    IconButton(
+                        onClick = {
+                            navController.popBackStack()
+                        },
+                        modifier = Modifier.size(spacing_24)
+                    ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_back),
                             contentDescription = "Voltar"
@@ -102,29 +104,39 @@ fun BusStopByLineScreen(
                 viewModel.onSearchQueryChange(it)
             }
 
+
+
             when (uiState) {
                 is BusStopByLineState.Success -> {
                     val data = (uiState as BusStopByLineState.Success).items
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        items(data) {
-                            StopDetailItem(stopDetail = it) { stopDetail ->
-                                navController.navigate(
-                                    BusRoute.BusArrivalForecastTime.route.replace(
-                                        "{idStop}", stopDetail.stopId.toString()
-                                    ).replace(
-                                        "{idLine}", lineDetail.lineId.toString()
-                                    ).replace(
-                                        "{item}", encodeStopDetailItem(stopDetail)
+
+                    if (data.isEmpty()) {
+                        GenericError(
+                            iconResId = R.drawable.sentiment_dissatisfied_24px,
+                            heading = stringResource(R.string.bus_stop_empty_heading),
+                            paragraph = stringResource(R.string.bus_arrival_empty_paragraph)
+                        )
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            items(data) {
+                                StopDetailItem(stopDetail = it) { stopDetail ->
+                                    navController.navigate(
+                                        BusRoute.BusArrivalForecastTime.route.replace(
+                                            "{idStop}", stopDetail.stopId.toString()
+                                        ).replace(
+                                            "{idLine}", lineDetail.lineId.toString()
+                                        ).replace(
+                                            "{item}", encodeStopDetailItem(stopDetail)
+                                        )
                                     )
-                                )
+                                }
+                                HorizontalDivider()
                             }
-                            HorizontalDivider()
                         }
                     }
                 }
-
                 is BusStopByLineState.Error -> {
                     Column(Modifier.fillMaxSize()) {
                         GenericError(
@@ -132,7 +144,8 @@ fun BusStopByLineScreen(
                             heading = stringResource(R.string.bus_stop_by_line_error_heading),
                             paragraph = stringResource(R.string.bus_stop_by_line_error_paragraph)
                         )
-                    }                }
+                    }
+                }
 
                 BusStopByLineState.Loading -> {
                     Column(

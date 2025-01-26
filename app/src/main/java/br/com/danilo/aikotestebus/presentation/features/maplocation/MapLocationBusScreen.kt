@@ -32,7 +32,7 @@ fun MapLocationBusScreen(
     isTabVisible: Boolean,
     mapLocationBusViewModel: MapLocationBusViewModel = koinViewModel()
 ) {
-    DisposableEffect(Unit) {
+    DisposableEffect(isTabVisible) {
         if (isTabVisible) {
             mapLocationBusViewModel.startPeriodicLocationTask()
         } else {
@@ -62,7 +62,7 @@ fun MapLocationBusScreen(
 
     val mapProperties by remember {
         mutableStateOf(
-            MapProperties(maxZoomPreference = MIN_ZOOM, minZoomPreference = MAX_ZOOM)
+            MapProperties(maxZoomPreference = MAX_ZOOM, minZoomPreference = MIN_ZOOM)
         )
     }
 

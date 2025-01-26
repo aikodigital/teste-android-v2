@@ -26,7 +26,7 @@ private const val ID_STOP = "idStop"
 private const val ID_LINE = "idLine"
 private const val ITEM = "item"
 private const val PREFIX_BUS = "prefixBus"
-private const val NAME_STOP = "prefixBus"
+private const val NAME_STOP = "nameStop"
 private const val ADDRESS_STOP = "addressStop"
 
 @Composable

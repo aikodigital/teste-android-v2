@@ -25,6 +25,7 @@ import br.com.danilo.aikotestebus.domain.model.StopDetail
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_12
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_16
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_24
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_40
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_48
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_8
 
@@ -51,7 +52,7 @@ fun StopDetailItem(
                 .padding(end = spacing_24)
         )
 
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = stringResource(R.string.bus_stop_detail_item_title, stopDetail.name),
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
@@ -69,5 +70,14 @@ fun StopDetailItem(
                 )
             }
         }
+
+        Icon(
+            painter = painterResource(R.drawable.chevron_right_24px),
+            contentDescription = "Ícone de ônibus",
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier
+                .size(spacing_40)
+                .padding(end = spacing_24)
+        )
     }
 }

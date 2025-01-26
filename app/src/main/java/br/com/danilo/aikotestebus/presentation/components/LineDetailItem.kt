@@ -26,12 +26,14 @@ import br.com.danilo.aikotestebus.domain.model.LineDetail
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_16
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_2
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_24
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_40
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_48
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_8
 
 @Composable
 fun LineDetailItem(
     lineDetail: LineDetail,
+    arrowAllowed: Boolean? = null,
     clickedItem: (LineDetail) -> Unit
 ) {
     Row(
@@ -54,7 +56,7 @@ fun LineDetailItem(
                 .padding(end = spacing_24)
         )
 
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = stringResource(
                     R.string.bus_line_detail_title,
@@ -90,6 +92,19 @@ fun LineDetailItem(
                 style = MaterialTheme.typography.bodySmall.copy(fontStyle = FontStyle.Italic),
                 color = MaterialTheme.colorScheme.onSurface
             )
+        }
+
+        arrowAllowed?.let {
+            if (it) {
+                Icon(
+                    painter = painterResource(R.drawable.chevron_right_24px),
+                    contentDescription = "Ícone de ônibus",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .size(spacing_40)
+                        .padding(start = spacing_16)
+                )
+            }
         }
     }
 }

@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -17,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,7 +27,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import br.com.danilo.aikotestebus.R
 import br.com.danilo.aikotestebus.presentation.components.ClusteringMap
-import br.com.danilo.aikotestebus.presentation.util.INITIAL_ZOOM
 import br.com.danilo.aikotestebus.presentation.util.MAX_ZOOM
 import br.com.danilo.aikotestebus.presentation.util.MIN_ZOOM
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_24
@@ -76,13 +78,17 @@ fun ArrivalMapScreen(
     }
 
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(initialLocation, INITIAL_ZOOM)
+        position = CameraPosition.fromLatLngZoom(initialLocation, 14f)
     }
 
     val mapProperties by remember {
         mutableStateOf(
             MapProperties(maxZoomPreference = MAX_ZOOM, minZoomPreference = MIN_ZOOM)
         )
+    }
+
+    var moveLocate by remember {
+        mutableStateOf(initialLocation)
     }
 
     Scaffold(
@@ -113,7 +119,22 @@ fun ArrivalMapScreen(
                     navigationIconContentColor = colorsMain.text
                 )
             )
-        }
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    cameraPositionState.position = CameraPosition.fromLatLngZoom(moveLocate, 17f)
+
+                },
+                containerColor = colorsMain.buttonBackground
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.point_scan_24px),
+                    contentDescription = "Procurar"
+                )
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End
     ) { paddingValues ->
             Box(
                 Modifier
@@ -130,11 +151,12 @@ fun ArrivalMapScreen(
                             val data = (uiState as ArrivalForecastState.Success).item
 
                             ClusteringMap(
-                                clusterItems = createMapMarkerFromPrefix(data, prefixBus),
+                                clusterItems = createMapMarkerFromPrefix(data, prefixBus) { locate ->
+                                    moveLocate = locate
+                                },
                                 markerIcon = painterResource(R.drawable.ic_bus),
                             )
                         }
-
                         else -> {}
                     }
                 }
