@@ -12,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import br.com.danilo.aikotestebus.presentation.components.organism.LoadingOrganism
+import br.com.danilo.aikotestebus.presentation.components.Loading
 import br.com.danilo.aikotestebus.presentation.navigation.BusRoute
 import br.com.danilo.aikotestebus.presentation.util.state.AuthenticatorState
 import org.koin.androidx.compose.koinViewModel
@@ -52,7 +52,7 @@ fun AuthenticatorScreen(
         }
 
         AuthenticatorState.Loading -> {
-            LoadingOrganism()
+            Loading()
         }
     }
 }

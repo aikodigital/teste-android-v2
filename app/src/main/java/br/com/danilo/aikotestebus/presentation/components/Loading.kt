@@ -1,4 +1,4 @@
-package br.com.danilo.aikotestebus.presentation.components.organism
+package br.com.danilo.aikotestebus.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoadingOrganism() {
+fun Loading() {
     Column(
         modifier = Modifier
             .fillMaxSize(),

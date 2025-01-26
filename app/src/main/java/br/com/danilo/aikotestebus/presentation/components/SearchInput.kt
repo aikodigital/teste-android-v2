@@ -1,4 +1,4 @@
-package br.com.danilo.aikotestebus.presentation.components.organism
+package br.com.danilo.aikotestebus.presentation.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,7 +10,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import br.com.danilo.aikotestebus.R
 
 @Composable
-fun SearchFieldMolecule(
+fun SearchField(
     label: String,
     value: String,
     onValueChanged: (String) -> Unit,

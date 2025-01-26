@@ -12,11 +12,11 @@ interface IBusRepository {
 
     suspend fun getBusLine(query: String): List<LineDetailResponse>?
 
-    suspend fun getBusesPosition(): BusesPositionResponse
+    suspend fun getBusesPosition(): BusesPositionResponse?
 
     suspend fun getBusStop(query: String): List<StopDetailResponse>?
 
-    suspend fun getArrivalForecastTime(idStop: String, idLine: String): ArrivalForecastResponse
+    suspend fun getArrivalForecastTime(idStop: Int, idLine: Int): ArrivalForecastResponse?
 
     suspend fun getBusStopByLine(idLine: Int): List<BusStopLineResponse>?
 }

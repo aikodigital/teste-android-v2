@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.danilo.aikotestebus.R
 import br.com.danilo.aikotestebus.domain.model.LineDetail
-import br.com.danilo.aikotestebus.presentation.components.organism.SearchFieldMolecule
+import br.com.danilo.aikotestebus.presentation.components.SearchField
 import br.com.danilo.aikotestebus.presentation.navigation.BusRoute
 import br.com.danilo.aikotestebus.presentation.util.encodeLineDetailItem
 import br.com.danilo.aikotestebus.presentation.util.state.LineBusDetailState
@@ -49,7 +49,7 @@ fun LineBusDetailsScreen(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        SearchFieldMolecule(
+        SearchField(
             label = "Digite a linha aqui",
             value = searchQuery,
             onValueChanged = {

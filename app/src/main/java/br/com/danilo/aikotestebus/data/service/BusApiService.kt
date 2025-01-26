@@ -20,7 +20,7 @@ interface BusApiService {
     ): List<LineDetailResponse>?
 
     @GET("Posicao")
-    suspend fun getBusesPosition(): BusesPositionResponse
+    suspend fun getBusesPosition(): BusesPositionResponse?
 
     @GET("Parada/Buscar")
     suspend fun getBusStop(
@@ -29,9 +29,9 @@ interface BusApiService {
 
     @GET("Previsao")
     suspend fun getArrivalForecastTime(
-        @Query("codigoParada") idStop: String,
-        @Query("codigoLinha") idLine: String
-    ): ArrivalForecastResponse
+        @Query("codigoParada") idStop: Int,
+        @Query("codigoLinha") idLine: Int
+    ): ArrivalForecastResponse?
 
     @GET("Parada/BuscarParadasPorLinha")
     suspend fun getBusStopByLine(

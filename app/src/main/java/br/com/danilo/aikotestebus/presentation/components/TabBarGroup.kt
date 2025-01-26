@@ -1,4 +1,4 @@
-package br.com.danilo.aikotestebus.presentation.components.organism
+package br.com.danilo.aikotestebus.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth

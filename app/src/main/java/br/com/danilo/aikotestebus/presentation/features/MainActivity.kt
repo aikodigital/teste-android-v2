@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import br.com.danilo.aikotestebus.presentation.navigation.BusRoute
 import br.com.danilo.aikotestebus.presentation.navigation.NavigationGraph
 import br.com.danilo.aikotestebus.ui.theme.AikoTesteBusTheme
+import com.google.android.gms.maps.model.LatLng
 
 class MainActivity : ComponentActivity() {
 
@@ -26,7 +27,6 @@ class MainActivity : ComponentActivity() {
                         Column(
                             modifier = Modifier.fillMaxSize()
                                 .padding(paddingValues)
-
                         ) {
                             if (navController.currentBackStackEntry?.destination?.route == BusRoute.BusTabContainer.route) {
                                 finish()
@@ -37,7 +37,6 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     }
-
                 )
             }
         }

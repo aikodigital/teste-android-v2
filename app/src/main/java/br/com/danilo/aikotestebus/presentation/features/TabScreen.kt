@@ -6,17 +6,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import br.com.danilo.aikotestebus.presentation.components.organism.TabBarGroupScrollable
+import br.com.danilo.aikotestebus.presentation.components.TabBarGroupScrollable
 import br.com.danilo.aikotestebus.presentation.features.lines.LineBusDetailsScreen
 import br.com.danilo.aikotestebus.presentation.features.maplocation.MapLocationBusScreen
+import com.google.android.gms.maps.model.LatLng
 
 @Composable
-fun TabScreen(navController: NavController) {
-    var tabIndexParam by remember { mutableIntStateOf(0) }
+fun TabScreen(
+    initialCoord: LatLng,
+    index: Int,
+    navController: NavController
+) {
+    var tabIndexParam by rememberSaveable { mutableIntStateOf(index) }
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -30,8 +35,8 @@ fun TabScreen(navController: NavController) {
             }
         )
 
-        when(tabIndexParam) {
-            0 -> MapLocationBusScreen()
+        when (tabIndexParam) {
+            0 -> MapLocationBusScreen(initialCoord = initialCoord, isTabVisible = tabIndexParam == 0)
             1 -> LineBusDetailsScreen(navController = navController)
         }
     }

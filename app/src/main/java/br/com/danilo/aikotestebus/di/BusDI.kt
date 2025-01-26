@@ -2,10 +2,12 @@ package br.com.danilo.aikotestebus.di
 
 import br.com.danilo.aikotestebus.data.repository.IBusRepository
 import br.com.danilo.aikotestebus.data.repository.BusRepositoryImpl
+import br.com.danilo.aikotestebus.domain.usecase.ArrivalForecastUseCase
 import br.com.danilo.aikotestebus.domain.usecase.LineBusDetailUseCase
 import br.com.danilo.aikotestebus.domain.usecase.AuthenticatorUseCase
 import br.com.danilo.aikotestebus.domain.usecase.BusStopByLineUseCase
 import br.com.danilo.aikotestebus.domain.usecase.MapLocationBusUseCase
+import br.com.danilo.aikotestebus.presentation.features.arrivalforecast.ArrivalForecastViewModel
 import br.com.danilo.aikotestebus.presentation.features.lines.LineBusDetailsViewModel
 import br.com.danilo.aikotestebus.presentation.features.authenticator.AuthenticatorViewModel
 import br.com.danilo.aikotestebus.presentation.features.maplocation.MapLocationBusViewModel
@@ -20,9 +22,11 @@ object BusDI {
         single { AuthenticatorUseCase(get()) }
         single { MapLocationBusUseCase(get()) }
         single { BusStopByLineUseCase(get()) }
+        single { ArrivalForecastUseCase(get()) }
         viewModel { BusStopByLineViewModel(get()) }
         viewModel { LineBusDetailsViewModel(get()) }
         viewModel { MapLocationBusViewModel(get()) }
         viewModel { AuthenticatorViewModel(get()) }
+        viewModel { ArrivalForecastViewModel(get()) }
     }
 }

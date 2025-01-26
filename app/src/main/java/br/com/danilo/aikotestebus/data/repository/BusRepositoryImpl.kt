@@ -19,8 +19,9 @@ internal class BusRepositoryImpl(
         return service.getBusLine(query)
     }
 
-    override suspend fun getBusesPosition(): BusesPositionResponse {
-        return service.getBusesPosition()
+    override suspend fun getBusesPosition(): BusesPositionResponse? {
+        val response = service.getBusesPosition()
+        return response?.let { response }
     }
 
     override suspend fun getBusStop(query: String): List<StopDetailResponse>? {
@@ -28,9 +29,9 @@ internal class BusRepositoryImpl(
     }
 
     override suspend fun getArrivalForecastTime(
-        idStop: String,
-        idLine: String
-    ): ArrivalForecastResponse {
+        idStop: Int,
+        idLine: Int
+    ): ArrivalForecastResponse? {
         return service.getArrivalForecastTime(idStop, idLine)
     }
 

@@ -1,4 +1,4 @@
-package br.com.danilo.aikotestebus.presentation.components.organism
+package br.com.danilo.aikotestebus.presentation.components
 
 import android.content.ContentValues.TAG
 import android.util.Log

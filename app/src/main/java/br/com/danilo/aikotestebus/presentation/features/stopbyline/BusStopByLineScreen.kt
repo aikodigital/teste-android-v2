@@ -1,6 +1,7 @@
 package br.com.danilo.aikotestebus.presentation.features.stopbyline
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,7 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,8 +39,10 @@ import androidx.navigation.NavController
 import br.com.danilo.aikotestebus.R
 import br.com.danilo.aikotestebus.domain.model.LineDetail
 import br.com.danilo.aikotestebus.domain.model.StopDetail
-import br.com.danilo.aikotestebus.presentation.components.organism.SearchFieldMolecule
+import br.com.danilo.aikotestebus.presentation.components.SearchField
 import br.com.danilo.aikotestebus.presentation.features.lines.LineDetailItem
+import br.com.danilo.aikotestebus.presentation.navigation.BusRoute
+import br.com.danilo.aikotestebus.presentation.util.encodeLineDetailItem
 import br.com.danilo.aikotestebus.presentation.util.state.BusStopByLineState
 import br.com.danilo.aikotestebus.ui.theme.colorsMain
 import org.koin.androidx.compose.koinViewModel
@@ -99,7 +101,7 @@ fun BusStopByLineScreen(
             HorizontalDivider()
             LineDetailItem(lineDetail = lineDetail) {}
 
-            SearchFieldMolecule(
+            SearchField(
                 label = "Digite a parada aqui",
                 value = searchQuery,
                 onValueChanged = {
@@ -115,7 +117,15 @@ fun BusStopByLineScreen(
                         modifier = Modifier.fillMaxSize()
                     ) {
                         items(data) {
-                            StopDetailItem(stopDetail = it)
+                            StopDetailItem(stopDetail = it) { stopDetail ->
+                                navController.navigate(
+                                    BusRoute.BusArrivalForecastTime.route.replace(
+                                        "{idStop}", stopDetail.stopId.toString()
+                                    ).replace(
+                                        "{idStop}", lineDetail.lineId.toString()
+                                    )
+                                )
+                            }
                             HorizontalDivider()
                         }
                     }
@@ -146,14 +156,16 @@ fun BusStopByLineScreen(
 
 @Composable
 fun StopDetailItem(
-    stopDetail: StopDetail
+    stopDetail: StopDetail,
+    clickedItem: (StopDetail) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(12.dp)
             .background(color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(8.dp))
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable { clickedItem.invoke(stopDetail) },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
