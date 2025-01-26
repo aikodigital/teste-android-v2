@@ -5,10 +5,11 @@ import br.com.danilo.aikotestebus.domain.usecase.MapLocationBusUseCase
 import br.com.danilo.aikotestebus.presentation.util.BaseViewModel
 import br.com.danilo.aikotestebus.presentation.util.state.MapLocationBusState
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 
 class MapLocationBusViewModel(
     private val useCase: MapLocationBusUseCase
@@ -19,9 +20,20 @@ class MapLocationBusViewModel(
     fun startPeriodicTask() {
         if (periodicTaskJob?.isActive != true) {
             periodicTaskJob = viewModelScope.launch {
+                var retryDelay = 2500L
                 while (isActive) {
-                    delay(2500)
-                    fetchLocation()
+                    try {
+                        withTimeout(5000) {
+                            fetchLocation()
+                        }
+
+                        retryDelay = 2500L
+                    } catch (e: TimeoutCancellationException) {
+                        retryDelay = minOf(retryDelay * 2, 30000L)
+                        uiStateAccess.value = MapLocationBusState.Error
+                    }
+
+                    delay(retryDelay)
                 }
             }
         }
@@ -31,22 +43,21 @@ class MapLocationBusViewModel(
         periodicTaskJob?.cancel()
     }
 
-    private fun fetchLocation() {
-        viewModelScope.launch {
-            useCase.getBusesPosition().collect { result ->
-                result.fold(
-                    onSuccess = { data ->
-                        if (data.busList.isEmpty()) {
-                            uiStateAccess.value = MapLocationBusState.Error
-                        } else {
-                            uiStateAccess.value = MapLocationBusState.Success(data)
-                        }
-                    },
-                    onFailure = {
+    private suspend fun fetchLocation() {
+        val result = useCase.getBusesPosition()
+        result.collect { result ->
+            result.fold(
+                onSuccess = { data ->
+                    if (data.busList.isEmpty()) {
                         uiStateAccess.value = MapLocationBusState.Error
+                    } else {
+                        uiStateAccess.value = MapLocationBusState.Success(data)
                     }
-                )
-            }
+                },
+                onFailure = {
+                    uiStateAccess.value = MapLocationBusState.Error
+                }
+            )
         }
     }
 }

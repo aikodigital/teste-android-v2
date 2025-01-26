@@ -75,7 +75,7 @@ fun MapLocationBusScreen(
 
                     ClusteringMap(
                         clusterItems = mapBusesToMapMarkers(data),
-                        markerIcon = painterResource(R.drawable.ic_bus)
+                        markerIcon = painterResource(R.drawable.ic_bus),
                     )
                 }
 

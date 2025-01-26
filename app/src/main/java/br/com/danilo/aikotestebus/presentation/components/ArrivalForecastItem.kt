@@ -27,7 +27,7 @@ import br.com.danilo.aikotestebus.domain.model.ArrivalForecastRelation
 @Composable
 fun ArrivalForecastItem(
     arrivalForecast: ArrivalForecastRelation,
-    clickedItem: (ArrivalForecastBus) -> Unit // Agora retorna o ArrivalForecastBus ao invés de ArrivalForecastRelation
+    clickedItem: (ArrivalForecastBus) -> Unit
 ) {
     Row(
         modifier = Modifier
