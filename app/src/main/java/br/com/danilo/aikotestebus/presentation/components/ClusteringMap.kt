@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import br.com.danilo.aikotestebus.domain.model.entity.MapMarker
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_40
 import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_8
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.clustering.Clustering

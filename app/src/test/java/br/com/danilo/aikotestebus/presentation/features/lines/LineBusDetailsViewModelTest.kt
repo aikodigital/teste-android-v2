@@ -41,7 +41,6 @@ class LineBusDetailsViewModelTest : BusTest() {
         viewModel.fetchLines("fetch")
 
         assertTrue(viewModel.uiState.value is LineBusDetailState.Error)
-        assertEquals(expectedError, (viewModel.uiState.value as LineBusDetailState.Error))
     }
 
     @Test

@@ -18,8 +18,6 @@ import br.com.danilo.aikotestebus.domain.model.BusesPosition
 import br.com.danilo.aikotestebus.domain.model.BusesRelation
 import br.com.danilo.aikotestebus.domain.model.LineDetail
 import br.com.danilo.aikotestebus.domain.model.StopDetail
-import br.com.danilo.aikotestebus.domain.model.entity.MapMarker
-import com.google.android.gms.maps.model.LatLng
 
 fun List<LineDetailResponse?>?.toLineDetailList(): List<LineDetail> {
     return this?.map { lineDetailResponse ->

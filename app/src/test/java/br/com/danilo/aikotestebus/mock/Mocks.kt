@@ -7,28 +7,6 @@ import br.com.danilo.aikotestebus.data.model.ArrivalForecastStopResponse
 import br.com.danilo.aikotestebus.data.model.BusResponse
 import br.com.danilo.aikotestebus.data.model.BusesPositionResponse
 import br.com.danilo.aikotestebus.data.model.BusesRelationResponse
-import br.com.danilo.aikotestebus.data.model.LineDetailResponse
-
-val mockLineDetailResponse = listOf(
-    LineDetailResponse(
-        lineId = 1,
-        isCircular = false,
-        firstLabelNumber = "123",
-        secondLabelNumber = 45,
-        sense = 1,
-        mainTerminal = "Main Terminal",
-        secondaryTerminal = "Secondary Terminal"
-    ),
-    LineDetailResponse(
-        lineId = 2,
-        isCircular = true,
-        firstLabelNumber = "456",
-        secondLabelNumber = 67,
-        sense = 2,
-        mainTerminal = "Main Terminal 2",
-        secondaryTerminal = "Secondary Terminal 2"
-    )
-)
 
 val mockBusesPositionResponse = BusesPositionResponse(
     hourGenerated = "12:00",

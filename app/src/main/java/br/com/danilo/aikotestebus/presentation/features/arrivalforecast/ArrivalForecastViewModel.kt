@@ -1,6 +1,5 @@
 package br.com.danilo.aikotestebus.presentation.features.arrivalforecast
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
 import br.com.danilo.aikotestebus.domain.usecase.ArrivalForecastUseCase
 import br.com.danilo.aikotestebus.presentation.util.ARRIVAL_MAP_RETRY_DELAY
@@ -8,7 +7,6 @@ import br.com.danilo.aikotestebus.presentation.util.BaseViewModel
 import br.com.danilo.aikotestebus.presentation.util.MAP_TIMEOUT_DELAY
 import br.com.danilo.aikotestebus.presentation.util.TWO
 import br.com.danilo.aikotestebus.presentation.util.state.ArrivalForecastState
-import br.com.danilo.aikotestebus.presentation.util.state.MapLocationBusState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay

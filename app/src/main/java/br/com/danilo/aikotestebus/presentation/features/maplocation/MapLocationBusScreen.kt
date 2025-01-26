@@ -32,7 +32,7 @@ fun MapLocationBusScreen(
     isTabVisible: Boolean,
     mapLocationBusViewModel: MapLocationBusViewModel = koinViewModel()
 ) {
-    DisposableEffect(isTabVisible) {
+    DisposableEffect(Unit) {
         if (isTabVisible) {
             mapLocationBusViewModel.startPeriodicLocationTask()
         } else {

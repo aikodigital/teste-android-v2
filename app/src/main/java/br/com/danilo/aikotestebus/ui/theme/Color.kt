@@ -14,10 +14,4 @@ data class ColorsMain(
     val tabIndicator: Color = Color(0xFF1737D8)
 )
 
-data class ColorsSecondary(
-    val text: Color = Color(0xFFF9F6F3),
-    val buttonBackground: Color = Color(0xFFE6DBCE)
-)
-
 val colorsMain = ColorsMain()
-val colorsSecondary = ColorsSecondary()
