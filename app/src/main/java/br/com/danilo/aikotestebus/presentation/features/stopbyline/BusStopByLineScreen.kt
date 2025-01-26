@@ -61,12 +61,10 @@ fun BusStopByLineScreen(
                     Text(
                         text = "Paradas",
                         modifier = Modifier
-                            .fillMaxWidth()
                             .padding(start = 24.dp),
                         textAlign = TextAlign.Start,
                     )
                 },
-                modifier = Modifier.height(70.dp),
                 navigationIcon = {
                     IconButton(onClick = {
                         navController.popBackStack()

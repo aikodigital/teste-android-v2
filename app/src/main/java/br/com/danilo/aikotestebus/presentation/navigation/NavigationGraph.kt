@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import br.com.danilo.aikotestebus.domain.mapper.handleOptional
 import br.com.danilo.aikotestebus.presentation.features.TabScreen
 import br.com.danilo.aikotestebus.presentation.features.arrivalforecast.ArrivalForecastScreen
+import br.com.danilo.aikotestebus.presentation.features.arrivalforecast.ArrivalMapScreen
 import br.com.danilo.aikotestebus.presentation.features.authenticator.AuthenticatorScreen
 import br.com.danilo.aikotestebus.presentation.features.stopbyline.BusStopByLineScreen
 import br.com.danilo.aikotestebus.presentation.util.decodeLineDetailItem
@@ -90,6 +91,36 @@ fun NavigationGraph(
                     navController
                 )
             }
+        }
+
+        composable(
+            route = BusRoute.BusArrivalMap.route,
+            arguments = listOf(
+                navArgument("prefixBus") { type = NavType.StringType },
+                navArgument("idStop") { type = NavType.StringType },
+                navArgument("idLine") { type = NavType.StringType },
+                navArgument("latitude") { type = NavType.StringType },
+                navArgument("longitude") { type = NavType.StringType },
+            )
+        ) { entry ->
+            val idStop = entry.arguments?.getString("idStop")?.toIntOrNull()
+            val idLine = entry.arguments?.getString("idLine")?.toIntOrNull()
+            val prefixBus = entry.arguments?.getString("prefixBus")?.toIntOrNull()
+            val latitude = entry.arguments?.getString("latitude")?.toDoubleOrNull()
+            val longitude = entry.arguments?.getString("longitude")?.toDoubleOrNull()
+
+            val coord = LatLng(
+                latitude ?: LATITUTE_SP.toDouble(),
+                longitude ?: LONGITUDE_SP.toDouble()
+            )
+
+            ArrivalMapScreen(
+                prefixBus = prefixBus.handleOptional(),
+                idStop = idStop.handleOptional(),
+                idLine = idLine.handleOptional(),
+                initialLocation = coord,
+                navController
+            )
         }
     }
 }

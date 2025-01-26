@@ -3,8 +3,6 @@ package br.com.danilo.aikotestebus.presentation.features.arrivalforecast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -32,10 +30,8 @@ import androidx.navigation.NavController
 import br.com.danilo.aikotestebus.R
 import br.com.danilo.aikotestebus.domain.model.StopDetail
 import br.com.danilo.aikotestebus.presentation.components.ArrivalForecastItem
-import br.com.danilo.aikotestebus.presentation.components.SearchField
 import br.com.danilo.aikotestebus.presentation.components.StopDetailItem
 import br.com.danilo.aikotestebus.presentation.navigation.BusRoute
-import br.com.danilo.aikotestebus.presentation.util.encodeLineDetailItem
 import br.com.danilo.aikotestebus.presentation.util.state.ArrivalForecastState
 import br.com.danilo.aikotestebus.ui.theme.colorsMain
 import org.koin.androidx.compose.koinViewModel
@@ -50,8 +46,6 @@ fun ArrivalForecastScreen(
     viewModel: ArrivalForecastViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val searchQuery by viewModel.searchQuery.collectAsState()
-
 
     LaunchedEffect(Unit) {
         viewModel.fetchArrivalForecast(idStop, idLine)
@@ -64,19 +58,15 @@ fun ArrivalForecastScreen(
                     Text(
                         text = "Previsões",
                         modifier = Modifier
-                            .fillMaxWidth()
                             .padding(start = 24.dp),
                         textAlign = TextAlign.Start,
                     )
                 },
-                modifier = Modifier.height(70.dp),
                 navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            navController.popBackStack()
-                        },
-                        modifier = Modifier.size(24.dp)
-                    ) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    },
+                        modifier = Modifier.size(24.dp)) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_back),
                             contentDescription = "Voltar"
@@ -98,14 +88,6 @@ fun ArrivalForecastScreen(
         ) {
             StopDetailItem(stopDetail) {}
 
-            SearchField(
-                label = "Procure o ônibus da linha aqui",
-                value = searchQuery,
-                onValueChanged = {
-                    viewModel.onSearchQueryChange(it)
-                }) {
-                viewModel.onSearchQueryChange(it)
-            }
             HorizontalDivider()
 
             when (uiState) {
@@ -118,16 +100,18 @@ fun ArrivalForecastScreen(
                         items(data.busStop.busList) {
                             ArrivalForecastItem(arrivalForecast = it) { bus ->
                                 navController.navigate(
-                                    BusRoute.BusTabContainer.route.replace(
+                                    BusRoute.BusArrivalMap.route.replace(
+                                        "{prefixBus}", bus.prefixNumber.toString()
+                                    ).replace(
+                                        "{idStop}", idStop.toString()
+                                    ).replace(
+                                        "{idLine}", idLine.toString()
+                                    ).replace(
                                         "{latitude}", bus.latitude.toString()
                                     ).replace(
                                         "{longitude}", bus.longitude.toString()
                                     )
-                                ) {
-                                    popUpTo(BusRoute.BusArrivalForecastTime.route) {
-                                        inclusive = true
-                                    }
-                                }
+                                )
                             }
                             HorizontalDivider()
                         }

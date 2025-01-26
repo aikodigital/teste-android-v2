@@ -17,7 +17,7 @@ class MapLocationBusViewModel(
 
     private var periodicTaskJob: Job? = null
 
-    fun startPeriodicTask() {
+    fun startPeriodicLocationTask() {
         if (periodicTaskJob?.isActive != true) {
             periodicTaskJob = viewModelScope.launch {
                 var retryDelay = 2500L
@@ -29,7 +29,7 @@ class MapLocationBusViewModel(
 
                         retryDelay = 2500L
                     } catch (e: TimeoutCancellationException) {
-                        retryDelay = minOf(retryDelay * 2, 30000L)
+                        retryDelay *= 2
                         uiStateAccess.value = MapLocationBusState.Error
                     }
 
@@ -39,14 +39,14 @@ class MapLocationBusViewModel(
         }
     }
 
-    fun stopPeriodicTask() {
+    fun stopPeriodicLocationTask() {
         periodicTaskJob?.cancel()
     }
 
     private suspend fun fetchLocation() {
         val result = useCase.getBusesPosition()
-        result.collect { result ->
-            result.fold(
+        result.collect { collect ->
+            collect.fold(
                 onSuccess = { data ->
                     if (data.busList.isEmpty()) {
                         uiStateAccess.value = MapLocationBusState.Error

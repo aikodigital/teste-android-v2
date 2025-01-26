@@ -31,13 +31,13 @@ fun MapLocationBusScreen(
 ) {
     DisposableEffect(isTabVisible) {
         if (isTabVisible) {
-            mapLocationBusViewModel.startPeriodicTask()
+            mapLocationBusViewModel.startPeriodicLocationTask()
         } else {
-            mapLocationBusViewModel.stopPeriodicTask()
+            mapLocationBusViewModel.stopPeriodicLocationTask()
         }
 
         onDispose {
-            mapLocationBusViewModel.stopPeriodicTask()
+            mapLocationBusViewModel.stopPeriodicLocationTask()
         }
     }
 

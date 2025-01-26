@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.danilo.aikotestebus.domain.model.entity.MapMarker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.clustering.Clustering
@@ -29,7 +30,8 @@ import com.google.maps.android.compose.clustering.rememberClusterRenderer
 @Composable
 fun ClusteringMap(
     clusterItems: List<MapMarker>,
-    markerIcon: Painter
+    markerIcon: Painter,
+    isArrivalMap: Boolean? = null
 ) {
     val config = LocalConfiguration.current
     val screenHeight = config.screenHeightDp.dp
@@ -51,7 +53,8 @@ fun ClusteringMap(
                 contentDescription = "Ícone do ônibus no mapa"
             )
         },
-        clusterManager = clusterMgr
+        clusterManager = clusterMgr,
+
     )
 
     SideEffect {
@@ -59,19 +62,20 @@ fun ClusteringMap(
             screenWidth.value.toInt(),
             screenHeight.value.toInt()
         )
-        clusterMgr ?: return@SideEffect
-        clusterMgr.setOnClusterClickListener {
+
+        clusterMgr?.setOnClusterClickListener {
             Log.d(TAG, "Cluster clicked! $it")
             false
         }
-        clusterMgr.setOnClusterItemClickListener {
+        clusterMgr?.setOnClusterItemClickListener {
             Log.d(TAG, "Cluster item clicked! $it")
             false
         }
-        clusterMgr.setOnClusterItemInfoWindowClickListener {
+        clusterMgr?.setOnClusterItemInfoWindowClickListener {
             Log.d(TAG, "Cluster item info window clicked! $it")
         }
     }
+
     SideEffect {
         if (clusterMgr?.renderer != clusterRenderer) {
             clusterMgr?.renderer = clusterRenderer ?: return@SideEffect

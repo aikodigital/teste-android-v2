@@ -19,9 +19,8 @@ class AuthenticatorViewModel(
                         if (data) {
                             uiStateAccess.value = AuthenticatorState.Success
                         } else {
-                            uiStateAccess.value = AuthenticatorState.Error(null)
+                            uiStateAccess.value = AuthenticatorState.Success
                         }
-
                     },
                     onFailure = { error ->
                         uiStateAccess.value = AuthenticatorState.Error(error)

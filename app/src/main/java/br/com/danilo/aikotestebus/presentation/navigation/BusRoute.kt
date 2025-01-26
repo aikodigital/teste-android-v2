@@ -8,6 +8,8 @@ sealed class BusRoute(val route: String) {
 
     data object BusArrivalForecastTime : BusRoute(route = "bus_arrival_forecast/{idStop}/{idLine}/{item}")
 
+    data object BusArrivalMap : BusRoute(route = "bus_arrival_map/{prefixBus}/{idStop}/{idLine}/{latitude}/{longitude}")
+
     data object BusStopByLine : BusRoute(route = "bus_stop_by_line/{item}")
 
 }

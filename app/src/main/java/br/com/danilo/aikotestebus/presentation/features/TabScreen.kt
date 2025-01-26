@@ -3,6 +3,8 @@ package br.com.danilo.aikotestebus.presentation.features
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -23,23 +25,29 @@ fun TabScreen(
 ) {
     var tabIndexParam by rememberSaveable { mutableIntStateOf(index) }
 
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        TabBarGroupScrollable(
-            modifier = Modifier.fillMaxWidth(),
-            tabs = getTabs(),
-            tabIndex = tabIndexParam,
-            onTabSelected = { index ->
-                tabIndexParam = index
-            }
-        )
+    Scaffold(
+        content = { padding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+            ) {
+                TabBarGroupScrollable(
+                    modifier = Modifier.fillMaxWidth(),
+                    tabs = getTabs(),
+                    tabIndex = tabIndexParam,
+                    onTabSelected = { index ->
+                        tabIndexParam = index
+                    }
+                )
 
-        when (tabIndexParam) {
-            0 -> MapLocationBusScreen(initialCoord = initialCoord, isTabVisible = tabIndexParam == 0)
-            1 -> LineBusDetailsScreen(navController = navController)
+                when (tabIndexParam) {
+                    0 -> MapLocationBusScreen(initialCoord = initialCoord, isTabVisible = tabIndexParam == 0)
+                    1 -> LineBusDetailsScreen(navController = navController)
+                }
+            }
         }
-    }
+    )
 }
 
 private fun getTabs(): List<String> {
