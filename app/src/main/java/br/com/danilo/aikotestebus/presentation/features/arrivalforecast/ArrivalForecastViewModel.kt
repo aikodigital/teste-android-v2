@@ -1,5 +1,6 @@
 package br.com.danilo.aikotestebus.presentation.features.arrivalforecast
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
 import br.com.danilo.aikotestebus.domain.usecase.ArrivalForecastUseCase
 import br.com.danilo.aikotestebus.presentation.util.ARRIVAL_MAP_RETRY_DELAY

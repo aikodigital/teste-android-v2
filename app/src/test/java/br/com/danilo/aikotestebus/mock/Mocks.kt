@@ -70,23 +70,6 @@ val mockBusesPositionResponse = BusesPositionResponse(
     )
 )
 
-val mockStopDetailResponse = listOf(
-    StopDetailResponse(
-        stopId = 1,
-        name = "Stop 1",
-        address = "Address 1",
-        latitude = -23.5505,
-        longitude = -46.6333
-    ),
-    StopDetailResponse(
-        stopId = 2,
-        name = "Stop 2",
-        address = "Address 2",
-        latitude = -23.5510,
-        longitude = -46.6340
-    )
-)
-
 val mockArrivalForecastResponse = ArrivalForecastResponse(
     dateTime = "2025-01-25T12:00:00",
     busStop = ArrivalForecastStopResponse(
@@ -99,6 +82,8 @@ val mockArrivalForecastResponse = ArrivalForecastResponse(
                 letterComplete = "101",
                 idLine = 1,
                 flow = 1,
+                lineDestination = "asd",
+                lineOrigin = "sadksadp",
                 buses = listOf(
                     ArrivalForecastBusResponse(
                         prefixNumber = 101,
@@ -114,6 +99,8 @@ val mockArrivalForecastResponse = ArrivalForecastResponse(
                 letterComplete = "102",
                 idLine = 2,
                 flow = 2,
+                lineDestination = "asd",
+                lineOrigin = "sadksadp",
                 buses = listOf(
                     ArrivalForecastBusResponse(
                         prefixNumber = 102,

@@ -5,7 +5,6 @@ import br.com.danilo.aikotestebus.data.model.LineDetailResponse
 import br.com.danilo.aikotestebus.data.service.BusApiService
 import br.com.danilo.aikotestebus.mock.mockArrivalForecastResponse
 import br.com.danilo.aikotestebus.mock.mockBusesPositionResponse
-import br.com.danilo.aikotestebus.mock.mockStopDetailResponse
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -67,21 +66,10 @@ class BusRepositoryImplTest : BusTest(){
     }
 
     @Test
-    fun `WHEN getBusStop is called THEN verify result is not null and is called one time`() = coTest {
-        coEvery { busApiService.getBusStop(any()) } returns mockStopDetailResponse
-
-        val result = busRepository.getBusStop("")
-
-        assertNotNull(result)
-        assertEquals(mockStopDetailResponse, result)
-        coVerify(exactly = 1) { busApiService.getBusStop(any()) }
-    }
-
-    @Test
     fun `WHEN getArrivalForecastTime is called THEN verify result is not null and is called one time`() = coTest {
         coEvery { busApiService.getArrivalForecastTime(any(), any()) } returns mockArrivalForecastResponse
 
-        val result = busRepository.getArrivalForecastTime("", "")
+        val result = busRepository.getArrivalForecastTime(0, 0)
 
         assertNotNull(result)
         assertEquals(mockArrivalForecastResponse, result)

@@ -21,6 +21,7 @@ class BusStopByLineViewModel(
 
     fun fetchBusStopByLine(idLine: Int) {
         viewModelScope.launch {
+            uiStateAccess.value = BusStopByLineState.Loading
             busStopByLineUseCase.getBusStopByLine(idLine).collect { result ->
                 result.fold(
                     onSuccess = { data ->
