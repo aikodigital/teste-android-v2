@@ -59,7 +59,7 @@ fun MapLocationBusScreen(
 
     val mapProperties by remember {
         mutableStateOf(
-            MapProperties(maxZoomPreference = 18f, minZoomPreference = 10f)
+            MapProperties(maxZoomPreference = 20f, minZoomPreference = 13f)
         )
     }
 

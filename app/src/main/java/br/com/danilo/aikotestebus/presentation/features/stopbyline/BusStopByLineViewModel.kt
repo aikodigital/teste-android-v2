@@ -34,5 +34,4 @@ class BusStopByLineViewModel(
     fun onSearchQueryChange(query: String) {
         _searchQuery.value = query
     }
-
 }

@@ -16,8 +16,10 @@ data class ArrivalForecastStopResponse(
 )
 
 data class ArrivalForecastRelationResponse(
-    @SerializedName("c") val number: String?,
+    @SerializedName("c") val letterComplete: String?,
     @SerializedName("cl") val idLine: Int?,
+    @SerializedName("lt0") val lineDestination: String?,
+    @SerializedName("lt1") val lineOrigin: String?,
     @SerializedName("sl") val flow: Int?,
     @SerializedName("vs") val buses: List<ArrivalForecastBusResponse>?
 )

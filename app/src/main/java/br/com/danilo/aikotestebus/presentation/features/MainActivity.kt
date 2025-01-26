@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxSize()
                                 .padding(paddingValues)
                         ) {
-                            if (navController.currentBackStackEntry?.destination?.route == BusRoute.BusTabContainer.route) {
+                            if (navController.currentBackStackEntry?.destination?.route == "${BusRoute.BusTabContainer.route}/{latitude}/{longitude}") {
                                 finish()
                             }
                             NavigationGraph(

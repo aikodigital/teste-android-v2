@@ -43,7 +43,7 @@ data class StopDetail(
 
 data class ArrivalForecast(
     val dateTime: String,
-    val busStop: ArrivalForecastStop?
+    val busStop: ArrivalForecastStop
 )
 
 data class ArrivalForecastStop(
@@ -55,8 +55,10 @@ data class ArrivalForecastStop(
 )
 
 data class ArrivalForecastRelation(
-    val number: String,
+    val letterComplete: String,
     val idLine: Int,
+    val lineDestination: String,
+    val lineOrigin: String,
     val flow: Int,
     val buses: List<ArrivalForecastBus>
 )

@@ -20,7 +20,7 @@ class MapLocationBusViewModel(
         if (periodicTaskJob?.isActive != true) {
             periodicTaskJob = viewModelScope.launch {
                 while (isActive) {
-                    delay(5000)
+                    delay(2500)
                     fetchLocation()
                 }
             }

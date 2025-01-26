@@ -97,7 +97,7 @@ val mockArrivalForecastResponse = ArrivalForecastResponse(
         longitude = -46.6333,
         busList = listOf(
             ArrivalForecastRelationResponse(
-                number = "101",
+                letterComplete = "101",
                 idLine = 1,
                 flow = 1,
                 buses = listOf(
@@ -112,7 +112,7 @@ val mockArrivalForecastResponse = ArrivalForecastResponse(
                 )
             ),
             ArrivalForecastRelationResponse(
-                number = "102",
+                letterComplete = "102",
                 idLine = 2,
                 flow = 2,
                 buses = listOf(

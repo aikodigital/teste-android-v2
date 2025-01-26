@@ -116,7 +116,13 @@ fun StopDetailResponse?.toStopDetail(): StopDetail {
 fun ArrivalForecastResponse?.toArrivalForecast(): ArrivalForecast {
     return ArrivalForecast(
         dateTime = this?.dateTime.handleOptional(),
-        busStop = this?.busStop?.toArrivalForecastStop()
+        busStop = this?.busStop?.toArrivalForecastStop() ?: ArrivalForecastStop(
+            0,
+            "",
+            0.0,
+            0.0,
+            emptyList()
+        )
     )
 }
 
@@ -133,18 +139,22 @@ fun ArrivalForecastStopResponse?.toArrivalForecastStop(): ArrivalForecastStop {
 fun List<ArrivalForecastRelationResponse?>?.toArrivalForecastRelationList(): List<ArrivalForecastRelation> {
     return this?.map { arrivalForecastRelationResponse ->
         arrivalForecastRelationResponse?.toArrivalForecastRelation() ?: ArrivalForecastRelation(
-            number = "",
+            letterComplete = "",
             idLine = 0,
             flow = 0,
-            buses = emptyList()
+            buses = emptyList(),
+            lineDestination = "",
+            lineOrigin = ""
         )
     } ?: emptyList()
 }
 
 fun ArrivalForecastRelationResponse?.toArrivalForecastRelation(): ArrivalForecastRelation {
     return ArrivalForecastRelation(
-        number = this?.number.handleOptional(),
+        letterComplete = this?.letterComplete.handleOptional(),
         idLine = this?.idLine.handleOptional(),
+        lineDestination = this?.lineDestination.handleOptional(),
+        lineOrigin = this?.lineOrigin.handleOptional(),
         flow = this?.flow.handleOptional(),
         buses = this?.buses?.toArrivalForecastBusList() ?: emptyList()
     )

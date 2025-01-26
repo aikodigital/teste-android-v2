@@ -12,6 +12,7 @@ import br.com.danilo.aikotestebus.presentation.features.arrivalforecast.ArrivalF
 import br.com.danilo.aikotestebus.presentation.features.authenticator.AuthenticatorScreen
 import br.com.danilo.aikotestebus.presentation.features.stopbyline.BusStopByLineScreen
 import br.com.danilo.aikotestebus.presentation.util.decodeLineDetailItem
+import br.com.danilo.aikotestebus.presentation.util.decodeStopDetailItem
 import com.google.android.gms.maps.model.LatLng
 
 private const val LATITUTE_SP = "-23.5489"
@@ -74,15 +75,18 @@ fun NavigationGraph(
             route = BusRoute.BusArrivalForecastTime.route,
             arguments = listOf(
                 navArgument("idStop") { type = NavType.StringType },
-                navArgument("idLine") { type = NavType.StringType }
+                navArgument("idLine") { type = NavType.StringType },
+                navArgument("item") { type = NavType.StringType }
             )
         ) { entry ->
             val idStop = entry.arguments?.getString("idStop")
             val idLine = entry.arguments?.getString("idLine")
-            if (!idStop.isNullOrEmpty() && !idLine.isNullOrEmpty()) {
+            val stopDetail = entry.arguments?.getString("item")
+            if (!idStop.isNullOrEmpty() && !idLine.isNullOrEmpty() && !stopDetail.isNullOrEmpty()) {
                 ArrivalForecastScreen(
                     idStop.toIntOrNull().handleOptional(),
                     idLine.toIntOrNull().handleOptional(),
+                    decodeStopDetailItem(stopDetail),
                     navController
                 )
             }

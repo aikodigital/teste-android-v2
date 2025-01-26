@@ -20,8 +20,12 @@ internal class BusRepositoryImpl(
     }
 
     override suspend fun getBusesPosition(): BusesPositionResponse? {
-        val response = service.getBusesPosition()
-        return response?.let { response }
+        return try {
+            service.getBusesPosition() ?: BusesPositionResponse("", listOf())
+        } catch (e: Exception) {
+            e.printStackTrace()
+            BusesPositionResponse("", listOf())
+        }
     }
 
     override suspend fun getBusStop(query: String): List<StopDetailResponse>? {
