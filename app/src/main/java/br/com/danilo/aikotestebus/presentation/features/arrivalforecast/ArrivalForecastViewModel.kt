@@ -2,7 +2,10 @@ package br.com.danilo.aikotestebus.presentation.features.arrivalforecast
 
 import androidx.lifecycle.viewModelScope
 import br.com.danilo.aikotestebus.domain.usecase.ArrivalForecastUseCase
+import br.com.danilo.aikotestebus.presentation.util.ARRIVAL_MAP_RETRY_DELAY
 import br.com.danilo.aikotestebus.presentation.util.BaseViewModel
+import br.com.danilo.aikotestebus.presentation.util.MAP_TIMEOUT_DELAY
+import br.com.danilo.aikotestebus.presentation.util.TWO
 import br.com.danilo.aikotestebus.presentation.util.state.ArrivalForecastState
 import br.com.danilo.aikotestebus.presentation.util.state.MapLocationBusState
 import kotlinx.coroutines.Job
@@ -21,16 +24,16 @@ class ArrivalForecastViewModel(
     fun startPeriodicTask(idStop: Int, idLine: Int) {
         if (periodicTaskJob?.isActive != true) {
             periodicTaskJob = viewModelScope.launch {
-                var retryDelay = 6000L
+                var retryDelay = ARRIVAL_MAP_RETRY_DELAY
                 while (isActive) {
                     try {
-                        withTimeout(5000) {
+                        withTimeout(MAP_TIMEOUT_DELAY) {
                             fetchArrivalForecast(idStop, idLine)
                         }
 
-                        retryDelay = 6000L
+                        retryDelay = ARRIVAL_MAP_RETRY_DELAY
                     } catch (e: TimeoutCancellationException) {
-                        retryDelay *= 2
+                        retryDelay *= TWO
                         uiStateAccess.value = ArrivalForecastState.Error
                     }
 

@@ -15,14 +15,17 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import br.com.danilo.aikotestebus.presentation.util.ONE
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_2
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_8
+import br.com.danilo.aikotestebus.presentation.util.ZERO
 import br.com.danilo.aikotestebus.ui.theme.colorsMain
 
 @Composable
 fun TabBarGroupScrollable(
     modifier: Modifier = Modifier,
     tabs: List<String>,
-    tabIndex: Int = 0,
+    tabIndex: Int = ZERO,
     onTabSelected: (tabIndex: Int) -> Unit,
 ) {
     val selectedTabIndex by remember(tabIndex) { mutableIntStateOf(tabIndex) }
@@ -37,7 +40,7 @@ fun TabBarGroupScrollable(
         tabs.forEachIndexed { index, title ->
             Tab(
                 modifier = Modifier
-                    .fillMaxWidth(1f),
+                    .fillMaxWidth(ONE.toFloat()),
                 text = {
                     Text(
                         text = title,
@@ -46,7 +49,7 @@ fun TabBarGroupScrollable(
                         color = colorsMain.text,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp),
+                            .padding(spacing_8),
                         textAlign = TextAlign.Center,
                     )
                 },
@@ -75,7 +78,7 @@ private fun TabBarGroupIndicator(
             }
         SecondaryIndicator(
             modifier = Modifier.tabIndicatorOffset(tabPosition),
-            height = 2.dp,
+            height = spacing_2,
             color = color,
         )
     }

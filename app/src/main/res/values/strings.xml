@@ -1,3 +1,31 @@
 <resources>
-    <string name="app_name">AikoTesteBus</string>
+    <string name="app_name">Aiko Teste - Danilo Costa</string>
+    <string name="bus_line_detail_title">Número: %1$s-%2$s</string>
+    <string name="bus_line_detail_subtitle_one">Ponto Inicial: %1$s</string>
+    <string name="bus_line_detail_subtitle_two">Ponto Final: %1$s</string>
+    <string name="bus_line_detail_subtitle_three">Em circulação: %1$s</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="bus_arrival_forecast_item_title">Número: %1$s</string>
+    <string name="bus_arrival_forecast_time_subtitle_one">Origem: %1$s</string>
+    <string name="bus_arrival_forecast_time_subtitle_two">Destino: %1$s</string>
+    <string name="bus_arrival_forecast_time_bus_subtitle_one">Previsão de chegada: %1$s</string>
+    <string name="bus_arrival_forecast_time_bus_subtitle_two">Prefixo do ônibus: %1$s</string>
+    <string name="bus_arrival_forecast_time_bus_subtitle_three">Acessível: %1$s</string>
+    <string name="bus_top_appbar_arrival_map">Ônibus número: %1$s</string>
+    <string name="bus_arrival_top_bar_title">Previsões</string>
+    <string name="bus_arrival_empty_heading">Não tem previsões disponíveis</string>
+    <string name="bus_arrival_empty_paragraph">Tente novamente em outra hora</string>
+    <string name="bus_arrival_error_heading">Ocorreu um erro</string>
+    <string name="bus_arrival_error_paragraph">Tente novamente em alguns instantes</string>
+    <string name="bus_stop_map_app_bar">Parada</string>
+    <string name="bus_stop_by_line_app_bar">Paradas por Linha</string>
+    <string name="bus_stop_by_line_search_label">Digite a parada aqui</string>
+    <string name="bus_stop_by_line_error_heading">Ocorreu um erro</string>
+    <string name="bus_stop_by_line_error_paragraph">Tente novamente em alguns instantes</string>
+    <string name="bus_line_details_search_label">Digite a linha aqui</string>
+    <string name="bus_line_details_error_heading">Ocorreu um erro</string>
+    <string name="bus_line_details_error_paragraph">Tente novamente em alguns instantes</string>
+    <string name="bus_stop_detail_item_title">Nome da parada: %1$s</string>
+    <string name="bus_stop_detail_item_subtitle">Endereço: %1$s</string>
 </resources>

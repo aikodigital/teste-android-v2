@@ -24,17 +24,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.danilo.aikotestebus.R
 import br.com.danilo.aikotestebus.domain.model.StopDetail
 import br.com.danilo.aikotestebus.presentation.components.ArrivalForecastItem
+import br.com.danilo.aikotestebus.presentation.components.GenericError
 import br.com.danilo.aikotestebus.presentation.components.StopDetailItem
 import br.com.danilo.aikotestebus.presentation.navigation.BusRoute
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_24
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_36
 import br.com.danilo.aikotestebus.presentation.util.state.ArrivalForecastState
 import br.com.danilo.aikotestebus.ui.theme.colorsMain
 import org.koin.androidx.compose.koinViewModel
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,9 +61,9 @@ fun ArrivalForecastScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Previsões",
+                        text = stringResource(R.string.bus_arrival_top_bar_title),
                         modifier = Modifier
-                            .padding(start = 24.dp),
+                            .padding(start = spacing_24),
                         textAlign = TextAlign.Start,
                     )
                 },
@@ -66,7 +71,7 @@ fun ArrivalForecastScreen(
                     IconButton(onClick = {
                         navController.popBackStack()
                     },
-                        modifier = Modifier.size(24.dp)) {
+                        modifier = Modifier.size(spacing_24)) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_back),
                             contentDescription = "Voltar"
@@ -86,7 +91,24 @@ fun ArrivalForecastScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            StopDetailItem(stopDetail) {}
+            StopDetailItem(stopDetail) { stop ->
+                val encodedNameStop = URLEncoder.encode(stop.name, StandardCharsets.UTF_8.toString())
+                    .replace("+", " ")
+                val encodedAddressStop = URLEncoder.encode(stop.address, StandardCharsets.UTF_8.toString())
+                    .replace("+", " ")
+
+                navController.navigate(
+                    BusRoute.BusStopMap.route.replace(
+                        "{nameStop}", encodedNameStop
+                    ).replace(
+                        "{addressStop}", encodedAddressStop
+                    ).replace(
+                        "{latitude}", stop.latitude.toString()
+                    ).replace(
+                        "{longitude}", stop.longitude.toString()
+                    )
+                )
+            }
 
             HorizontalDivider()
 
@@ -94,32 +116,46 @@ fun ArrivalForecastScreen(
                 is ArrivalForecastState.Success -> {
                     val data = (uiState as ArrivalForecastState.Success).item
 
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        items(data.busStop.busList) {
-                            ArrivalForecastItem(arrivalForecast = it) { bus ->
-                                navController.navigate(
-                                    BusRoute.BusArrivalMap.route.replace(
-                                        "{prefixBus}", bus.prefixNumber.toString()
-                                    ).replace(
-                                        "{idStop}", idStop.toString()
-                                    ).replace(
-                                        "{idLine}", idLine.toString()
-                                    ).replace(
-                                        "{latitude}", bus.latitude.toString()
-                                    ).replace(
-                                        "{longitude}", bus.longitude.toString()
+                    if (data.busStop.busList.isEmpty()) {
+                        GenericError(
+                            iconResId = R.drawable.sentiment_dissatisfied_24px,
+                            heading = stringResource(R.string.bus_arrival_empty_heading),
+                            paragraph = stringResource(R.string.bus_arrival_empty_paragraph)
+                        )
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            items(data.busStop.busList) {
+                                ArrivalForecastItem(arrivalForecast = it) { bus ->
+                                    navController.navigate(
+                                        BusRoute.BusArrivalMap.route.replace(
+                                            "{prefixBus}", bus.prefixNumber.toString()
+                                        ).replace(
+                                            "{idStop}", idStop.toString()
+                                        ).replace(
+                                            "{idLine}", idLine.toString()
+                                        ).replace(
+                                            "{latitude}", bus.latitude.toString()
+                                        ).replace(
+                                            "{longitude}", bus.longitude.toString()
+                                        )
                                     )
-                                )
+                                }
+                                HorizontalDivider()
                             }
-                            HorizontalDivider()
                         }
                     }
                 }
 
                 is ArrivalForecastState.Error -> {
-                    Text(text = "Erro ao carregar os dados.")
+                    Column(Modifier.fillMaxSize()) {
+                        GenericError(
+                            iconResId = R.drawable.sentiment_dissatisfied_24px,
+                            heading = stringResource(R.string.bus_arrival_error_heading),
+                            paragraph = stringResource(R.string.bus_arrival_error_paragraph)
+                        )
+                    }
                 }
 
                 ArrivalForecastState.Loading -> {
@@ -131,7 +167,7 @@ fun ArrivalForecastScreen(
                         CircularProgressIndicator(
                             color = Color.Black,
                             modifier = Modifier
-                                .size(36.dp)
+                                .size(spacing_36)
                         )
                     }
                 }

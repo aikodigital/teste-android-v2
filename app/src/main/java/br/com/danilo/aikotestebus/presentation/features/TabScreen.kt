@@ -15,7 +15,12 @@ import androidx.navigation.NavController
 import br.com.danilo.aikotestebus.presentation.components.TabBarGroupScrollable
 import br.com.danilo.aikotestebus.presentation.features.lines.LineBusDetailsScreen
 import br.com.danilo.aikotestebus.presentation.features.maplocation.MapLocationBusScreen
+import br.com.danilo.aikotestebus.presentation.util.ONE
+import br.com.danilo.aikotestebus.presentation.util.ZERO
 import com.google.android.gms.maps.model.LatLng
+
+private const val TAB_ONE = "Mapa dos Ônibus"
+private const val TAB_TWO = "Linhas"
 
 @Composable
 fun TabScreen(
@@ -42,8 +47,8 @@ fun TabScreen(
                 )
 
                 when (tabIndexParam) {
-                    0 -> MapLocationBusScreen(initialCoord = initialCoord, isTabVisible = tabIndexParam == 0)
-                    1 -> LineBusDetailsScreen(navController = navController)
+                    ZERO -> MapLocationBusScreen(initialCoord = initialCoord, isTabVisible = tabIndexParam == 0)
+                    ONE -> LineBusDetailsScreen(navController = navController)
                 }
             }
         }
@@ -51,5 +56,5 @@ fun TabScreen(
 }
 
 private fun getTabs(): List<String> {
-    return listOf("Ônibus", "Linhas")
+    return listOf(TAB_ONE, TAB_TWO)
 }

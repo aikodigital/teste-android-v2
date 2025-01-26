@@ -19,6 +19,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.danilo.aikotestebus.domain.model.entity.MapMarker
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_40
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_8
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import com.google.maps.android.compose.MapsComposeExperimentalApi
@@ -31,7 +33,6 @@ import com.google.maps.android.compose.clustering.rememberClusterRenderer
 fun ClusteringMap(
     clusterItems: List<MapMarker>,
     markerIcon: Painter,
-    isArrivalMap: Boolean? = null
 ) {
     val config = LocalConfiguration.current
     val screenHeight = config.screenHeightDp.dp
@@ -42,7 +43,7 @@ fun ClusteringMap(
     val clusterRenderer = rememberClusterRenderer(
         clusterContent = { cluster ->
             ClusterCircle(
-                modifier = Modifier.size(40.dp),
+                modifier = Modifier.size(spacing_40),
                 label = cluster.size.toString(),
                 backgroundColor = Color.Blue
             )
@@ -99,7 +100,7 @@ fun ClusterCircle(
     Box(
         modifier = modifier
             .background(backgroundColor, CircleShape)
-            .padding(8.dp),
+            .padding(spacing_8),
         contentAlignment = Alignment.Center
     ) {
         Text(

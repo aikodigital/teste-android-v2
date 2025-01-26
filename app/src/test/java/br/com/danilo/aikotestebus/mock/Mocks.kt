@@ -8,7 +8,6 @@ import br.com.danilo.aikotestebus.data.model.BusResponse
 import br.com.danilo.aikotestebus.data.model.BusesPositionResponse
 import br.com.danilo.aikotestebus.data.model.BusesRelationResponse
 import br.com.danilo.aikotestebus.data.model.LineDetailResponse
-import br.com.danilo.aikotestebus.data.model.StopDetailResponse
 
 val mockLineDetailResponse = listOf(
     LineDetailResponse(

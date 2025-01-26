@@ -17,12 +17,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import br.com.danilo.aikotestebus.R
 import br.com.danilo.aikotestebus.domain.model.ArrivalForecastBus
 import br.com.danilo.aikotestebus.domain.model.ArrivalForecastRelation
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_12
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_16
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_24
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_48
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_8
 
 @Composable
 fun ArrivalForecastItem(
@@ -32,72 +37,91 @@ fun ArrivalForecastItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp)
-            .background(color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(8.dp))
-            .padding(16.dp),
+            .padding(spacing_12)
+            .background(
+                color = MaterialTheme.colorScheme.surface,
+                shape = RoundedCornerShape(spacing_8)
+            )
+            .padding(spacing_16),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_map),
-            contentDescription = "Ícone de ônibus",
+            contentDescription = "Ícone de mapa",
             tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier
-                .size(48.dp)
-                .padding(end = 24.dp)
+                .size(spacing_48)
+                .padding(end = spacing_24)
         )
 
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
-                text = "Número: ${arrivalForecast.letterComplete}",
+                text = stringResource(
+                    R.string.bus_arrival_forecast_item_title,
+                    arrivalForecast.letterComplete
+                ),
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.onSurface
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(spacing_8))
             Text(
-                text = "Origem: ${arrivalForecast.lineOrigin}",
+                text = stringResource(
+                    R.string.bus_arrival_forecast_time_subtitle_one,
+                    arrivalForecast.lineOrigin
+                ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
-                text = "Destino: ${arrivalForecast.lineDestination}",
+                text = stringResource(
+                    R.string.bus_arrival_forecast_time_subtitle_two,
+                    arrivalForecast.lineDestination
+                ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
-            // Loop para exibir cada ônibus e torná-los clicáveis individualmente
             arrivalForecast.buses.forEach { bus ->
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(spacing_12))
 
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { clickedItem.invoke(bus) } // Clique no ônibus específico
-                        .padding(vertical = 8.dp),
+                        .clickable { clickedItem.invoke(bus) }
+                        .padding(vertical = spacing_8),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Ícone ao lado do ônibus
                     Icon(
-                        painter = painterResource(R.drawable.ic_bus), // Substitua pelo seu ícone de ônibus
+                        painter = painterResource(R.drawable.ic_bus),
                         contentDescription = "Ícone de ônibus",
                         tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
-                            .size(24.dp)
-                            .padding(end = 16.dp)
+                            .size(spacing_24)
+                            .padding(end = spacing_16)
                     )
 
                     Column(modifier = Modifier.fillMaxWidth()) {
                         Text(
-                            text = "Previsão de chegada: ${bus.arrivalForecastTime}",
+                            text = stringResource(
+                                R.string.bus_arrival_forecast_time_bus_subtitle_one,
+                                bus.arrivalForecastTime
+                            ),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = "Prefixo do ônibus: ${bus.prefixNumber}",
+                            text = stringResource(
+                                R.string.bus_arrival_forecast_time_bus_subtitle_two,
+                                bus.prefixNumber
+                            ),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = "Acessível: ${if (bus.isAccessible) "Sim" else "Não"}",
+                            text = stringResource(
+                                R.string.bus_arrival_forecast_time_bus_subtitle_three,
+                                if (bus.isAccessible) stringResource(R.string.yes) else stringResource(R.string.no)
+                            ),
                             style = MaterialTheme.typography.bodySmall.copy(fontStyle = FontStyle.Italic),
                             color = MaterialTheme.colorScheme.onSurface
                         )

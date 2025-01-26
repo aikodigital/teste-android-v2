@@ -3,8 +3,6 @@ package br.com.danilo.aikotestebus.presentation.features.stopbyline
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,15 +24,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.danilo.aikotestebus.R
 import br.com.danilo.aikotestebus.domain.model.LineDetail
+import br.com.danilo.aikotestebus.presentation.components.GenericError
 import br.com.danilo.aikotestebus.presentation.components.LineDetailItem
 import br.com.danilo.aikotestebus.presentation.components.SearchField
 import br.com.danilo.aikotestebus.presentation.components.StopDetailItem
 import br.com.danilo.aikotestebus.presentation.navigation.BusRoute
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_24
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_36
 import br.com.danilo.aikotestebus.presentation.util.encodeStopDetailItem
 import br.com.danilo.aikotestebus.presentation.util.state.BusStopByLineState
 import br.com.danilo.aikotestebus.ui.theme.colorsMain
@@ -59,9 +60,9 @@ fun BusStopByLineScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Paradas",
+                        text = stringResource(R.string.bus_stop_by_line_app_bar),
                         modifier = Modifier
-                            .padding(start = 24.dp),
+                            .padding(start = spacing_24),
                         textAlign = TextAlign.Start,
                     )
                 },
@@ -69,7 +70,7 @@ fun BusStopByLineScreen(
                     IconButton(onClick = {
                         navController.popBackStack()
                     },
-                        modifier = Modifier.size(24.dp)) {
+                        modifier = Modifier.size(spacing_24)) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_back),
                             contentDescription = "Voltar"
@@ -93,7 +94,7 @@ fun BusStopByLineScreen(
             LineDetailItem(lineDetail = lineDetail) {}
 
             SearchField(
-                label = "Digite a parada aqui",
+                label = stringResource(R.string.bus_stop_by_line_search_label),
                 value = searchQuery,
                 onValueChanged = {
                     viewModel.onSearchQueryChange(it)
@@ -125,8 +126,13 @@ fun BusStopByLineScreen(
                 }
 
                 is BusStopByLineState.Error -> {
-                    Text(text = "Erro ao carregar os dados.")
-                }
+                    Column(Modifier.fillMaxSize()) {
+                        GenericError(
+                            iconResId = R.drawable.sentiment_dissatisfied_24px,
+                            heading = stringResource(R.string.bus_stop_by_line_error_heading),
+                            paragraph = stringResource(R.string.bus_stop_by_line_error_paragraph)
+                        )
+                    }                }
 
                 BusStopByLineState.Loading -> {
                     Column(
@@ -137,7 +143,7 @@ fun BusStopByLineScreen(
                         CircularProgressIndicator(
                             color = Color.Black,
                             modifier = Modifier
-                                .size(36.dp)
+                                .size(spacing_36)
                         )
                     }
 

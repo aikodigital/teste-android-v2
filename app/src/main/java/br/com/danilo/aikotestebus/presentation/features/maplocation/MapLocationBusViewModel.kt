@@ -3,6 +3,9 @@ package br.com.danilo.aikotestebus.presentation.features.maplocation
 import androidx.lifecycle.viewModelScope
 import br.com.danilo.aikotestebus.domain.usecase.MapLocationBusUseCase
 import br.com.danilo.aikotestebus.presentation.util.BaseViewModel
+import br.com.danilo.aikotestebus.presentation.util.MAP_RETRY_DELAY
+import br.com.danilo.aikotestebus.presentation.util.MAP_TIMEOUT_DELAY
+import br.com.danilo.aikotestebus.presentation.util.TWO
 import br.com.danilo.aikotestebus.presentation.util.state.MapLocationBusState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.TimeoutCancellationException
@@ -20,16 +23,16 @@ class MapLocationBusViewModel(
     fun startPeriodicLocationTask() {
         if (periodicTaskJob?.isActive != true) {
             periodicTaskJob = viewModelScope.launch {
-                var retryDelay = 2500L
+                var retryDelay = MAP_RETRY_DELAY
                 while (isActive) {
                     try {
-                        withTimeout(5000) {
+                        withTimeout(MAP_TIMEOUT_DELAY) {
                             fetchLocation()
                         }
 
-                        retryDelay = 2500L
+                        retryDelay = MAP_RETRY_DELAY
                     } catch (e: TimeoutCancellationException) {
-                        retryDelay *= 2
+                        retryDelay *= TWO
                         uiStateAccess.value = MapLocationBusState.Error
                     }
 

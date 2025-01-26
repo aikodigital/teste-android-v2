@@ -17,9 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.danilo.aikotestebus.R
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_12
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_16
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_20
+import br.com.danilo.aikotestebus.presentation.util.Spacing.spacing_8
 
 @Composable
 fun SearchField(
@@ -30,7 +33,7 @@ fun SearchField(
 ) {
     Row(
         modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = spacing_16, vertical = spacing_8)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -57,7 +60,7 @@ fun SearchField(
             trailingIcon = {
                 SearchIcon { onSearchPressed(value) }
             },
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(spacing_12),
         )
     }
 }
@@ -69,7 +72,7 @@ fun SearchIcon(onClick: () -> Unit) {
             painter = painterResource(R.drawable.ic_search),
             contentDescription = "Buscar",
             tint = Color.Black,
-            modifier = Modifier.size(20.dp)
+            modifier = Modifier.size(spacing_20)
         )
     }
 }

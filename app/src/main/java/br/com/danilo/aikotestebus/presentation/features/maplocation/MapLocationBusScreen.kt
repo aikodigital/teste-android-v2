@@ -11,8 +11,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import br.com.danilo.aikotestebus.R
-import br.com.danilo.aikotestebus.domain.mapper.mapBusesToMapMarkers
 import br.com.danilo.aikotestebus.presentation.components.ClusteringMap
+import br.com.danilo.aikotestebus.presentation.util.INITIAL_ZOOM
+import br.com.danilo.aikotestebus.presentation.util.MAX_ZOOM
+import br.com.danilo.aikotestebus.presentation.util.MIN_ZOOM
+import br.com.danilo.aikotestebus.presentation.util.mapBusesToMapMarkers
 import br.com.danilo.aikotestebus.presentation.util.state.MapLocationBusState
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -42,7 +45,7 @@ fun MapLocationBusScreen(
     }
 
     val cameraPositionState: CameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(initialCoord, 18f)
+        position = CameraPosition.fromLatLngZoom(initialCoord, INITIAL_ZOOM)
     }
 
     val uiState by mapLocationBusViewModel.uiState.collectAsState()
@@ -59,7 +62,7 @@ fun MapLocationBusScreen(
 
     val mapProperties by remember {
         mutableStateOf(
-            MapProperties(maxZoomPreference = 20f, minZoomPreference = 13f)
+            MapProperties(maxZoomPreference = MIN_ZOOM, minZoomPreference = MAX_ZOOM)
         )
     }
 

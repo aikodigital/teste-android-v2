@@ -47,9 +47,7 @@ fun AuthenticatorScreen(
             }
         }
 
-        is AuthenticatorState.Error -> {
-
-        }
+        is AuthenticatorState.Error -> {}
 
         AuthenticatorState.Loading -> {
             Loading()

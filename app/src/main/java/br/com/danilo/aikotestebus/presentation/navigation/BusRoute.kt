@@ -12,4 +12,6 @@ sealed class BusRoute(val route: String) {
 
     data object BusStopByLine : BusRoute(route = "bus_stop_by_line/{item}")
 
+    data object BusStopMap : BusRoute(route = "bus_stop_map/{nameStop}/{addressStop}/{latitude}/{longitude}")
+
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.danilo.aikotestebus.domain.usecase.LineBusDetailUseCase
 import br.com.danilo.aikotestebus.presentation.util.BaseViewModel
 import br.com.danilo.aikotestebus.presentation.util.state.LineBusDetailState
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,8 +17,10 @@ class LineBusDetailsViewModel(
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
 
+    private var fetchJob: Job? = null
+
     fun fetchLines(query: String) {
-        viewModelScope.launch {
+        fetchJob = viewModelScope.launch {
             uiStateAccess.value = LineBusDetailState.Loading
             useCase.getBusLine(query).collect { result ->
                 result.fold(
@@ -34,6 +37,7 @@ class LineBusDetailsViewModel(
 
     fun onSearchQueryChange(query: String) {
         _searchQuery.value = query
+        fetchJob?.cancel()
         fetchLines(query)
     }
 }
