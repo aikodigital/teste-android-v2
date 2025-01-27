@@ -62,18 +62,6 @@ fun ClusteringMap(
             screenWidth.value.toInt(),
             screenHeight.value.toInt()
         )
-
-        clusterMgr?.setOnClusterClickListener {
-            Log.d(TAG, "Cluster clicked! $it")
-            false
-        }
-        clusterMgr?.setOnClusterItemClickListener {
-            Log.d(TAG, "Cluster item clicked! $it")
-            false
-        }
-        clusterMgr?.setOnClusterItemInfoWindowClickListener {
-            Log.d(TAG, "Cluster item info window clicked! $it")
-        }
     }
 
     SideEffect {
