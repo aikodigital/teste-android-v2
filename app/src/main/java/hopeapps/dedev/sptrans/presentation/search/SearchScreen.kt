@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
+import hopeapps.dedev.sptrans.data.model.BusLine
 import hopeapps.dedev.sptrans.presentation.search.SearchScreenAction.ClickToSwitchTab
 import hopeapps.dedev.sptrans.ui.components.BusListItem
 import hopeapps.dedev.sptrans.ui.components.MySegmentedButton
@@ -31,11 +32,18 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchScreenRoot(
-    viewModel: SearchViewModel = koinViewModel()
+    viewModel: SearchViewModel = koinViewModel(),
+    onItemBusLineClick: (busLine: BusLine) -> Unit
 ) {
     SearchScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when (action) {
+                is SearchScreenAction.ClickListBusLine -> onItemBusLineClick(action.busLine)
+                else -> Unit
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 
@@ -99,8 +107,18 @@ fun SearchScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     if (state.searchBusLines) {
-                        items(state.busLinesItems) {
-                            BusListItem()
+                        items(state.busLinesItems) { busLine ->
+                            BusListItem(
+                                firstLabel = busLine.firstLabelNumber,
+                                secondLabel = busLine.secondLabelNumber,
+                                mainTerminal = busLine.mainTerminal,
+                                secondaryTerminal = busLine.secondaryTerminal,
+                                onClickListener = {
+                                    onAction(SearchScreenAction.ClickListBusLine(
+                                        busLine = busLine
+                                    ))
+                                }
+                            )
                         }
                     } else {
                         items(state.busStopItems) {

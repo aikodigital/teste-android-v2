@@ -14,7 +14,8 @@ okhttp = "4.12.0"
 koin = "4.0.0"
 coreTesting = "2.2.0"
 kotlinxCoroutinesTest = "1.7.3"
-
+navigationCompose = "2.8.4"
+kotlinx-serialization = "1.6.0"
 
 
 [libraries]
@@ -49,6 +50,10 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization"}
 
 [bundles]
 retrofitBundle = [
@@ -90,5 +95,6 @@ androidTests = [
 koin = ["koin-core", "koin-android", "koin-core", "koin-android", "koin-androidx-compose"]
 
 [plugins]
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

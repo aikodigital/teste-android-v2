@@ -17,4 +17,9 @@ interface ApiService {
 
     @GET("Parada/Buscar")
     suspend fun getBusStopWithAddressOrName(@Query("termosBusca") termosBusca: String): List<BusStop>
+
+    @GET("Parada/BuscarParadasPorLinha")
+    suspend fun getBusByBusLineId(
+        @Query("codigoLinha") codigoLinha: String
+    ): List<BusStop>
 }

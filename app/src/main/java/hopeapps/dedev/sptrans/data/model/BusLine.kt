@@ -1,7 +1,9 @@
 package hopeapps.dedev.sptrans.data.model
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class BusLine(
     @SerializedName("cl") val lineId: Int?,
     @SerializedName("lc") val isCircular: Boolean?,

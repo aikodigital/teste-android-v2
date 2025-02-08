@@ -38,4 +38,17 @@ class SearchRepositoryImpl(
             ApiResponse.Error(0)
         }
     }
+
+    override suspend fun searchBusStopByBusLineId(idBusLine: Int): ApiResponse<List<BusStop>> {
+        return try {
+            val response = apiService.getBusByBusLineId(idBusLine.toString())
+            if (response.isNotEmpty()) {
+                ApiResponse.Success(response)
+            } else {
+                ApiResponse.Error(404)
+            }
+        } catch (e: IOException) {
+            ApiResponse.Error(0)
+        }
+    }
 }

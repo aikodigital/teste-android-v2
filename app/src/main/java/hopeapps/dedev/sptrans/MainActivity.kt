@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import hopeapps.dedev.sptrans.presentation.search.SearchScreenRoot
+import hopeapps.dedev.sptrans.ui.navigation.NavigationRoot
 import hopeapps.dedev.sptrans.ui.theme.SpTransTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,13 +22,16 @@ class MainActivity : ComponentActivity() {
             SpTransTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-
-
                 ) { innerPadding ->
                     Surface(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        SearchScreenRoot()
+
+                        val navController = rememberNavController()
+
+                        NavigationRoot(
+                            navController = navController
+                        )
                     }
                 }
             }
