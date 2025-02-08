@@ -8,16 +8,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
-import hopeapps.dedev.sptrans.ui.theme.SptransTheme
+import hopeapps.dedev.sptrans.presentation.search.SearchScreenRoot
+import hopeapps.dedev.sptrans.ui.theme.SpTransTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SptransTheme {
+            SpTransTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
 
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     Surface(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        Text("Aiko teste")
+                        SearchScreenRoot()
                     }
                 }
             }

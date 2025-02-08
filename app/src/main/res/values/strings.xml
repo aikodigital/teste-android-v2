@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">sptrans</string>
+    <string name="bus">Ônibus</string>
+    <string name="bus_stop">Paradas</string>
+    <string name="hint_search_bus_lines">Pesquisar</string>
+    <string name="clear">Limpar busca</string>
 </resources>
