@@ -5,7 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import hopeapps.dedev.sptrans.data.model.BusLine
+import hopeapps.dedev.sptrans.data.models.BusLineDto
+import hopeapps.dedev.sptrans.domain.models.BusLine
 import hopeapps.dedev.sptrans.domain.usecase.BusStopByIdLineUseCase
 import kotlinx.coroutines.launch
 

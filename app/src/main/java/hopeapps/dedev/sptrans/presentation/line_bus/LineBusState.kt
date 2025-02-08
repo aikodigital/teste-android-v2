@@ -1,7 +1,7 @@
 package hopeapps.dedev.sptrans.presentation.line_bus
 
-import hopeapps.dedev.sptrans.data.model.BusLine
-import hopeapps.dedev.sptrans.data.model.BusStop
+import hopeapps.dedev.sptrans.domain.models.BusLine
+import hopeapps.dedev.sptrans.domain.models.BusStop
 
 data class LineBusState(
     var isLoading: Boolean = false,

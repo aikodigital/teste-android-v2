@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,9 +22,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
-import hopeapps.dedev.sptrans.data.model.BusLine
+import hopeapps.dedev.sptrans.domain.models.BusLine
+import hopeapps.dedev.sptrans.domain.models.BusStop
 import hopeapps.dedev.sptrans.presentation.search.SearchScreenAction.ClickToSwitchTab
 import hopeapps.dedev.sptrans.ui.components.BusListItem
+import hopeapps.dedev.sptrans.ui.components.BusStopItem
 import hopeapps.dedev.sptrans.ui.components.MySegmentedButton
 import hopeapps.dedev.sptrans.ui.components.SearchBar
 import org.koin.androidx.compose.koinViewModel
@@ -33,13 +34,15 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun SearchScreenRoot(
     viewModel: SearchViewModel = koinViewModel(),
-    onItemBusLineClick: (busLine: BusLine) -> Unit
+    onItemBusLineClick: (busLine: BusLine) -> Unit,
+    onItemBusStopClick: (busStop: BusStop) -> Unit
 ) {
     SearchScreen(
         state = viewModel.state,
         onAction = { action ->
             when (action) {
                 is SearchScreenAction.ClickListBusLine -> onItemBusLineClick(action.busLine)
+                is SearchScreenAction.ClickListBusStop -> onItemBusStopClick(action.busStop)
                 else -> Unit
             }
             viewModel.onAction(action)
@@ -121,8 +124,12 @@ fun SearchScreen(
                             )
                         }
                     } else {
-                        items(state.busStopItems) {
-                            Text("Olá")
+                        items(state.busStopItems) { busStop ->
+                            BusStopItem(
+                                onClickListener = {
+                                    onAction(SearchScreenAction.ClickListBusStop(busStop))
+                                }
+                            )
                         }
                     }
                 }

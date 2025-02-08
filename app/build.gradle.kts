@@ -74,4 +74,11 @@ dependencies {
     implementation(libs.bundles.koin)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.google.maps.android.compose)
+    implementation(libs.google.maps.android.utils.ktx)
+    implementation(libs.google.maps.android.utils.ktx)
+    implementation(libs.play.services.maps)
+    implementation(libs.google.maps.compose.utils)
+
 }

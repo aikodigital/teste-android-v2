@@ -1,8 +1,9 @@
 package hopeapps.dedev.sptrans.domain.usecase
 
 import hopeapps.dedev.sptrans.data.network.ApiResponse
-import hopeapps.dedev.sptrans.data.model.BusLine
+import hopeapps.dedev.sptrans.data.models.BusLineDto
 import hopeapps.dedev.sptrans.domain.exceptions.DomainException
+import hopeapps.dedev.sptrans.domain.models.BusLine
 import hopeapps.dedev.sptrans.domain.repository.SearchRepository
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -12,7 +13,7 @@ import org.junit.Before
 import org.junit.Test
 
 
-class BusLineUseCaseTest {
+class BusLineDtoUseCaseTest {
 
     private lateinit var repository: SearchRepository
     private lateinit var busLineUseCase: BusLineUseCase

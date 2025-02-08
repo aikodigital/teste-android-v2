@@ -1,7 +1,7 @@
 package hopeapps.dedev.sptrans.presentation.search
 
-import hopeapps.dedev.sptrans.data.model.BusLine
-import hopeapps.dedev.sptrans.data.model.BusStop
+import hopeapps.dedev.sptrans.domain.models.BusLine
+import hopeapps.dedev.sptrans.domain.models.BusStop
 
 data class SearchScreenState(
     var searchBusLines: Boolean = true,

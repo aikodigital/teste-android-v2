@@ -1,8 +1,11 @@
-package hopeapps.dedev.sptrans.data.model
+package hopeapps.dedev.sptrans.data.models
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
-data class BusStop(
+
+@Serializable
+data class BusStopDto(
     @SerializedName("cp")
     val idCodeBusStop: Int,
     @SerializedName("np")

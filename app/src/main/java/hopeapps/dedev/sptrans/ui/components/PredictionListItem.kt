@@ -5,10 +5,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
-
 @Composable
-fun BusStopItem(onClickListener: () -> Unit = {}) {
+fun PredictionListItem(onClickListener: () -> Unit = {}) {
     Text(
         modifier = Modifier.clickable { onClickListener() },
-        text = "Eu sou um bus stop icon")
+        text = "Eu sou um item de previsão")
 }

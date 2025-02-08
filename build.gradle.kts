@@ -2,4 +2,8 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
+
+    //Maps
+    alias(libs.plugins.mapsplatform.secrets.plugin) apply false
+
 }

@@ -17,6 +17,10 @@ kotlinxCoroutinesTest = "1.7.3"
 navigationCompose = "2.8.4"
 kotlinx-serialization = "1.6.0"
 
+secretsPlugin = "2.0.1"
+playServicesMaps = "19.0.0"
+maps = "4.3.3"
+mapsUtils = "5.0.0"
 
 [libraries]
 androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
@@ -54,6 +58,12 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization"}
+
+#Maps
+google-maps-android-compose = { module = "com.google.maps.android:maps-compose", version.ref = "maps" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
+google-maps-android-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtils"}
+google-maps-compose-utils = { module = "com.google.maps.android:maps-compose-utils", version.ref = "maps"}
 
 [bundles]
 retrofitBundle = [
@@ -98,3 +108,5 @@ koin = ["koin-core", "koin-android", "koin-core", "koin-android", "koin-androidx
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+#Maps
+mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin"}
