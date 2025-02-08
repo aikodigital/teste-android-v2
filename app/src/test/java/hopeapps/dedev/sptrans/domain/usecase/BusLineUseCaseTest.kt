@@ -45,7 +45,7 @@ class BusLineUseCaseTest {
 
     @Test
     fun `invoke should return NotFoundException when API responds with 404 error`() = runBlocking {
-        coEvery { repository.searchBusLines("Unknown") } returns ApiResponse.Error(404, "")
+        coEvery { repository.searchBusLines("Unknown") } returns ApiResponse.Error(404)
         val result = busLineUseCase("Unknown")
         assertTrue(result.isFailure)
         assertTrue(result.exceptionOrNull() is DomainException.NotFoundException)
@@ -53,7 +53,7 @@ class BusLineUseCaseTest {
 
     @Test
     fun `invoke should return ServerException when API responds with 500 error`() = runBlocking {
-        coEvery { repository.searchBusLines("Error") } returns ApiResponse.Error(500, "")
+        coEvery { repository.searchBusLines("Error") } returns ApiResponse.Error(500)
         val result = busLineUseCase("Error")
         assertTrue(result.isFailure)
         assertTrue(result.exceptionOrNull() is DomainException.ServerException)

@@ -33,7 +33,7 @@ class BusStopUseCaseTest {
 
     @Test
     fun `invoke should return NotFoundException when API responds with 404 error`() = runBlocking {
-        coEvery { repository.searchBusStop("Unknown") } returns ApiResponse.Error(404, "")
+        coEvery { repository.searchBusStop("Unknown") } returns ApiResponse.Error(404)
         val result = busStopUseCase("Unknown")
         assertTrue(result.isFailure)
         assertTrue(result.exceptionOrNull() is DomainException.NotFoundException)
