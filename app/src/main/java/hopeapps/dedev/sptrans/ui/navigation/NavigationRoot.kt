@@ -7,14 +7,19 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import hopeapps.dedev.sptrans.domain.models.ActionPoint
 import hopeapps.dedev.sptrans.domain.models.BusStop
 import hopeapps.dedev.sptrans.presentation.bus_stop.BusStopDetailsRoot
 import hopeapps.dedev.sptrans.presentation.bus_stop.BusStopViewModel
 import hopeapps.dedev.sptrans.presentation.line_bus.LineBusRoot
 import hopeapps.dedev.sptrans.presentation.line_bus.LineBusViewModel
+import hopeapps.dedev.sptrans.presentation.maps.MapsOverviewScreenRoot
+import hopeapps.dedev.sptrans.presentation.maps.OverviewMapsViewModel
 import hopeapps.dedev.sptrans.presentation.search.SearchScreenRoot
 import hopeapps.dedev.sptrans.utils.JsonHelper.decodeBusLineJson
 import hopeapps.dedev.sptrans.utils.JsonHelper.decodeBusStopJson
+import hopeapps.dedev.sptrans.utils.JsonHelper.decodeFromUrl
+import hopeapps.dedev.sptrans.utils.JsonHelper.decodeMapPoints
 import hopeapps.dedev.sptrans.utils.JsonHelper.encodeJson
 import hopeapps.dedev.sptrans.utils.JsonHelper.encodeToUrl
 import org.koin.androidx.compose.koinViewModel
@@ -42,6 +47,10 @@ fun NavigationRoot(
                     navController.navigate(Routes.BusStopDetails.route.replace(
                         "{busStopJson}", busStop.encodeJson().encodeToUrl()
                     ))
+                },
+                navigateToMaps = {
+                    val json = listOf(ActionPoint).encodeJson()
+                    navController.navigate("maps/${json}")
                 }
             )
         }
@@ -57,7 +66,7 @@ fun NavigationRoot(
 
 
             LaunchedEffect(busLineJson) {
-                busLineJson?.decodeBusLineJson()?.let { busLine ->
+                busLineJson?.decodeFromUrl()?.decodeBusLineJson()?.let { busLine ->
                     viewModel.load(busLine = busLine)
                 }
             }
@@ -80,17 +89,35 @@ fun NavigationRoot(
             val viewModel =  koinViewModel<BusStopViewModel>()
 
             LaunchedEffect(busStopJson) {
-                busStopJson?.decodeBusStopJson()?.let { busStop ->
+                busStopJson?.decodeFromUrl()?.decodeBusStopJson()?.let { busStop ->
                     viewModel.load(busStop = busStop)
                 }
             }
 
             BusStopDetailsRoot(
                 viewModel = viewModel,
-                viewInMapClick = {
-
+                viewInMapClick = { staticPoint ->
+                    val json = listOf(staticPoint).encodeJson()
+                    navController.navigate("maps/${json}")
                 }
             )
+        }
+
+        composable(
+            route = Routes.Maps.route,
+            arguments = listOf(
+                navArgument("mapsPoint") { type = NavType.StringType }
+            )
+        ) { entry ->
+            val mapsPoints = entry.arguments?.getString("mapsPoint")
+            val viewModel =  koinViewModel<OverviewMapsViewModel>()
+
+            LaunchedEffect(mapsPoints) {
+                mapsPoints?.decodeMapPoints()?.let { mapsPoints ->
+                    viewModel.load(mapsPoints)
+                }
+            }
+            MapsOverviewScreenRoot()
         }
     }
 }

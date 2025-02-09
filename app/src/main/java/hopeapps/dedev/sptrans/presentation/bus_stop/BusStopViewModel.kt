@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hopeapps.dedev.sptrans.domain.models.BusStop
+import hopeapps.dedev.sptrans.domain.models.StaticPoint
 import hopeapps.dedev.sptrans.domain.usecase.BusStopPredictionUseCase
 import kotlinx.coroutines.launch
 
@@ -36,7 +37,10 @@ class BusStopViewModel (
 
 
     fun load(busStop: BusStop) {
-        state = state.copy(busStop = busStop)
+        state = state.copy(
+            busStop = busStop,
+            busStopPoint = StaticPoint(busStop.latitude, busStop.longitude, busStop.name)
+        )
         loadLineBusItems(busLineId = busStop.idCodeBusStop)
     }
 }

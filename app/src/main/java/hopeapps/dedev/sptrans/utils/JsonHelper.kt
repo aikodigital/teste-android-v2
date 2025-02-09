@@ -2,6 +2,7 @@ package hopeapps.dedev.sptrans.utils
 
 import hopeapps.dedev.sptrans.domain.models.BusLine
 import hopeapps.dedev.sptrans.domain.models.BusStop
+import hopeapps.dedev.sptrans.domain.models.MapPoint
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.net.URLDecoder
@@ -13,6 +14,10 @@ object JsonHelper {
     fun BusStop.encodeJson(): String = Json.encodeToString(this)
     fun String.decodeBusLineJson(): BusLine = Json.decodeFromString(this)
     fun String.decodeBusStopJson(): BusStop = Json.decodeFromString(this)
+
+
+    fun List<MapPoint>.encodeJson(): String = Json.encodeToString(this)
+    fun String.decodeMapPoints(): List<MapPoint> = Json.decodeFromString(this)
 
 
     fun String.encodeToUrl(): String {

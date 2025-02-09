@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
+import hopeapps.dedev.sptrans.domain.models.StaticPoint
 import hopeapps.dedev.sptrans.ui.components.BusStopItem
 import hopeapps.dedev.sptrans.ui.components.EmptyState
 import hopeapps.dedev.sptrans.ui.components.PredictionListItem
@@ -31,13 +32,13 @@ import hopeapps.dedev.sptrans.ui.components.ViewOnMapCard
 @Composable
 fun BusStopDetailsRoot(
     viewModel: BusStopViewModel,
-    viewInMapClick: () -> Unit
+    viewInMapClick: (mapPoint: StaticPoint) -> Unit
 ) {
     BusStopScreen(
         state = viewModel.state,
         onAction = { action ->
             when (action) {
-                is BusStopAction.ViewInMapClick -> viewInMapClick()
+                is BusStopAction.ViewInMapClick -> viewInMapClick(action.staticPoint)
                 else -> Unit
             }
             viewModel.onAction(action)
@@ -83,12 +84,11 @@ fun BusStopScreen(
                     modifier = Modifier
                         .padding(horizontal = 20.dp, vertical = 16.dp),
                     name = state.busStop?.name ?: "Nome Exemplo",
-                    address = state.busStop?.address ?: "Endereço Exemplo",
-                    onClickListener = { onAction(BusStopAction.ViewInMapClick) }
+                    address = state.busStop?.address ?: "Endereço Exemplo"
                 )
 
                 ViewOnMapCard(
-                    onClick = { onAction(BusStopAction.ViewInMapClick) },
+                    onClick = { onAction(BusStopAction.ViewInMapClick(state.busStopPoint)) },
                     modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp)
                 )
 

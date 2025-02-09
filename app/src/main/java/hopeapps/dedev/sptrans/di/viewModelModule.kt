@@ -2,6 +2,7 @@ package hopeapps.dedev.sptrans.di
 
 import hopeapps.dedev.sptrans.presentation.bus_stop.BusStopViewModel
 import hopeapps.dedev.sptrans.presentation.line_bus.LineBusViewModel
+import hopeapps.dedev.sptrans.presentation.maps.OverviewMapsViewModel
 import hopeapps.dedev.sptrans.presentation.search.SearchViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -11,4 +12,5 @@ val viewModelModule = module {
     viewModelOf(::LineBusViewModel)
     viewModelOf(::BusStopViewModel)
     viewModelOf(::BusStopViewModel)
+    viewModelOf(::OverviewMapsViewModel)
 }

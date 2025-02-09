@@ -13,20 +13,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,13 +41,15 @@ import hopeapps.dedev.sptrans.ui.components.BusStopItem
 import hopeapps.dedev.sptrans.ui.components.EmptyState
 import hopeapps.dedev.sptrans.ui.components.MySegmentedButton
 import hopeapps.dedev.sptrans.ui.components.SearchBar
+import hopeapps.dedev.sptrans.ui.utils.keyboardAsState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchScreenRoot(
     viewModel: SearchViewModel = koinViewModel(),
     onItemBusLineClick: (busLine: BusLine) -> Unit,
-    onItemBusStopClick: (busStop: BusStop) -> Unit
+    onItemBusStopClick: (busStop: BusStop) -> Unit,
+    navigateToMaps: () -> Unit
 ) {
     SearchScreen(
         state = viewModel.state,
@@ -53,6 +57,7 @@ fun SearchScreenRoot(
             when (action) {
                 is SearchScreenAction.ClickListBusLine -> onItemBusLineClick(action.busLine)
                 is SearchScreenAction.ClickListBusStop -> onItemBusStopClick(action.busStop)
+                is SearchScreenAction.NavigateToMaps -> navigateToMaps()
                 else -> Unit
             }
             viewModel.onAction(action)
@@ -61,19 +66,27 @@ fun SearchScreenRoot(
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     state: SearchScreenState,
     onAction: (SearchScreenAction) -> Unit,
 ) {
     var searchText by remember { mutableStateOf("") }
+    val lazyListState = rememberLazyListState()
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val isKeyboardOpen by keyboardAsState()
+
+    LaunchedEffect(lazyListState.firstVisibleItemIndex) {
+        if (isKeyboardOpen) {
+            keyboardController?.hide()
+        }
+    }
 
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-
+                    onAction(SearchScreenAction.NavigateToMaps)
                 },
                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 content = {
@@ -145,7 +158,8 @@ fun SearchScreen(
                             .fillMaxWidth()
                             .background(MaterialTheme.colorScheme.background),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
-                        contentPadding = PaddingValues(vertical = 16.dp)
+                        contentPadding = PaddingValues(vertical = 16.dp),
+                        state = lazyListState
                     ) {
                         if (state.searchBusLines) {
                             if (state.busLinesItems.isEmpty()) {

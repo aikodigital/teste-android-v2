@@ -1,6 +1,8 @@
 package hopeapps.dedev.sptrans.presentation.bus_stop
 
+import hopeapps.dedev.sptrans.domain.models.StaticPoint
+
 sealed interface BusStopAction {
-    data object ViewInMapClick: BusStopAction
+    data class ViewInMapClick(val staticPoint: StaticPoint): BusStopAction
     data object NavigateBack: BusStopAction
 }
