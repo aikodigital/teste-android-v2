@@ -1,31 +1,31 @@
 package hopeapps.dedev.sptrans.presentation.line_bus
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
 import hopeapps.dedev.sptrans.ui.components.BusListItem
 import hopeapps.dedev.sptrans.ui.components.BusStopItem
+import hopeapps.dedev.sptrans.ui.components.EmptyState
 import hopeapps.dedev.sptrans.ui.components.ViewOnMapCard
 
 @Composable
@@ -46,91 +46,91 @@ fun LineBusRoot(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LineBusScreen(
     state: LineBusState,
     onAction: (LineBusAction) -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
 
-        BusListItem(
-            modifier = Modifier
-                .padding(
-                    horizontal = 20.dp
-                )
-                .padding(top = 32.dp, bottom = 16.dp),
-            firstLabel = "",
-            secondLabel = 0,
-            mainTerminal = "",
-            secondaryTerminal = "",
-            onClickListener = {
-                onAction(LineBusAction.ViewInMapClick)
-            }
-        )
-
-        ViewOnMapCard(
-            onClick = {
-
-            }
-        )
-
-        Text(
-            modifier = Modifier.padding(horizontal = 20.dp),
-            text = "Paradas da linha"
-        )
-
-        LazyColumn {
-            items(state.busStopItems) {
-                BusStopItem()
-            }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = state.busLine?.secondaryTerminal ?: stringResource(R.string.bus),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { onAction(LineBusAction.NavigateBack) }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back),
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                }
+            )
         }
-    }
-}
-
-@Composable
-fun ViewOnMapCard(
-    onClick: () -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .padding(20.dp),
-        contentAlignment = Alignment.Center
     ) {
-        Card(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .clickable(onClick = onClick),
-            shape = RoundedCornerShape(12.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainer
-            ),
-            elevation = CardDefaults.elevatedCardElevation(1.dp)
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(it)
         ) {
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
+            BusListItem(
+                modifier = Modifier.padding(
+                    horizontal = 20.dp,
+                    vertical = 16.dp
+                ),
+                firstLabel = state.busLine?.firstLabelNumber ?: "000",
+                secondLabel = state.busLine?.secondLabelNumber ?: 0,
+                mainTerminal = state.busLine?.mainTerminal ?: "Terminal A",
+                secondaryTerminal = state.busLine?.secondaryTerminal ?: "Terminal B",
+                elevation = 0.dp,
+                onClickListener = {
+                    onAction(LineBusAction.ViewInMapClick)
+                }
+            )
+
+            ViewOnMapCard(
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
+                onClick = { onAction(LineBusAction.ViewInMapClick) }
+            )
+
+            Text(
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
+                text = stringResource(R.string.stop_bus_line),
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            LazyColumn(
+                modifier = Modifier.weight(1f).padding(horizontal = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                contentPadding = PaddingValues(vertical = 16.dp)
             ) {
-                Text(
-                    text = "Ver no mapa",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Image(
-                    modifier = Modifier.size(48.dp),
-                    painter = painterResource(R.drawable.google_maps_img),
-                    contentDescription = "Ver no mapa"
-                )
+                if (state.busStopItems.isEmpty()) {
+                    item {
+                        EmptyState(
+                            title = stringResource(R.string.no_bus_stops),
+                            description = stringResource(R.string.no_bus_stops_description)
+                        )
+                    }
+                } else {
+                    items(state.busStopItems) { busStop ->
+                        BusStopItem(
+                            name = busStop.name,
+                            address = busStop.address
+                        )
+                    }
+                }
             }
         }
     }
 }
+
 
 @Preview
 @Composable

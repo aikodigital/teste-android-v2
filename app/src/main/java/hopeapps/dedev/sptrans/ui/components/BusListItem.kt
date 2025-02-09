@@ -2,30 +2,92 @@ package hopeapps.dedev.sptrans.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import hopeapps.dedev.sptrans.R
 
 @Composable
 fun BusListItem(
     modifier: Modifier = Modifier,
     firstLabel: String? = "",
-    secondLabel: Int?,
+    secondLabel: Int? = null,
     mainTerminal: String? = "",
     secondaryTerminal: String? = "",
+    isCircular: Boolean = false,
+    elevation: Dp = 4.dp,
     onClickListener: () -> Unit = {}
 ) {
-    Column(
+    Card(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onClickListener() }
+            .clickable { onClickListener() },
+        shape = RoundedCornerShape(8.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = elevation)
     ) {
-        Text("first label: $firstLabel")
-        Text("second label: $secondLabel")
-        Text("main terminal: $mainTerminal")
-        Text("secondary terminal: $secondaryTerminal")
+        Column(modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)) {
+            Text(
+                text = firstLabel.orEmpty(),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary
+            )
+
+            if (secondLabel != null) {
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Linha: $secondLabel",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+
+            if (!mainTerminal.isNullOrEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = mainTerminal,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            if (!secondaryTerminal.isNullOrEmpty()) {
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = secondaryTerminal,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            if (isCircular) {
+                Text(
+                    text = stringResource(R.string.line_is_in_circulation),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            } else {
+                Text(
+                    text = stringResource(R.string.line_is_not_in_circulation),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
     }
 }
 
@@ -33,10 +95,10 @@ fun BusListItem(
 @Composable
 private fun BusItemPreview() {
     BusListItem(
-        firstLabel = "",
-        secondLabel = 0,
-        mainTerminal = "",
-        secondaryTerminal = "",
+        firstLabel = "3001",
+        secondLabel = 10,
+        mainTerminal = "terminal principal",
+        secondaryTerminal = "terminal secundário",
         onClickListener = {}
     )
 }

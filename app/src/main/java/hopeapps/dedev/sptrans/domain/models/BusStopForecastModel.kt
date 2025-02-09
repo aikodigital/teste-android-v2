@@ -11,5 +11,5 @@ data class BusPrediction(
     val py: Double,
     val lastUpdateTime: String,
     val predictionTime: String,
-    val accessibleVehicle: String
+    val accessibleVehicle: Boolean
 )

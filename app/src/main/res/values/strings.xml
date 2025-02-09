@@ -1,7 +1,25 @@
 <resources>
     <string name="app_name">sptrans</string>
-    <string name="bus">Ônibus</string>
+    <string name="bus">Linhas</string>
     <string name="bus_stop">Paradas</string>
-    <string name="hint_search_bus_lines">Pesquisar</string>
+    <string name="hint_search_bus_lines">Digite o nome ou número da linha</string>
     <string name="clear">Limpar busca</string>
+    <string name="empty_state_bus_lines_title">Nenhuma linha encontrada</string>
+    <string name="empty_state_bus_lines_description">Não foram encontradas linhas de ônibus. Tente outra busca.</string>
+    <string name="empty_state_bus_stop_title">Nenhuma parada encontrada</string>
+    <string name="empty_state_bus_stop_description">Não foram encontradas paradas de ônibus. Tente novamente mais tarde.</string>
+    <string name="hint_search_stop_bus">Digite endereço ou nome da parada</string>
+    <string name="back">Voltar</string>
+    <string name="bus_stop_predictions">Previsões de parada</string>
+    <string name="no_predictions_title">Não há previsões de parada.</string>
+    <string name="no_predictions_description">Ainda não há previsões de parada, volte mais tarde.</string>
+    <string name="prediction">Previsão: %1$s</string>
+    <string name="accessible_vehicle">Acessível para PCD ♿</string>
+    <string name="last_update">Última atualização: %1$s</string>
+    <string name="see_maps">Ver no mapa</string>
+    <string name="stop_bus_line">Paradas da linha</string>
+    <string name="no_bus_stops">A linha está fora de circulação</string>
+    <string name="no_bus_stops_description">Não há paradas para essa linha porque não está em circulação.</string>
+    <string name="line_is_in_circulation">Essa linha está em circulação</string>
+    <string name="line_is_not_in_circulation">Essa linha não está em circulação.</string>
 </resources>

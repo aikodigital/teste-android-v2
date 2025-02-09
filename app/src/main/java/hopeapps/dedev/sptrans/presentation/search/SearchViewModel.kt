@@ -36,7 +36,7 @@ class SearchViewModel(
     private suspend fun authenticateUser() {
         val result = authUseCase()
         if (result.isSuccess) {
-            searchItems(query = "")
+            searchItems(query = "1")
         } else {
             state = state.copy(isLoading = false)
         }

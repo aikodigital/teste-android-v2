@@ -8,7 +8,6 @@ import hopeapps.dedev.sptrans.domain.models.BusPrediction
 import hopeapps.dedev.sptrans.domain.models.BusStop
 
 
-
 fun List<BusStopDto>.toBusStopDomain(): List<BusStop> {
     return map { busStopDetail ->
         BusStop(
@@ -54,7 +53,7 @@ fun BusStopPredictionDto.toBusStopPredictionDomain(): List<BusPrediction> {
                     py = vehicle.py,
                     lastUpdateTime = vehicle.hourLastLocation,
                     predictionTime = vehicle.arrivalForecast,
-                    accessibleVehicle = if (vehicle.accessibleForDisability) "sim" else "não"
+                    accessibleVehicle = vehicle.accessibleForDisability
                 )
             )
         }
