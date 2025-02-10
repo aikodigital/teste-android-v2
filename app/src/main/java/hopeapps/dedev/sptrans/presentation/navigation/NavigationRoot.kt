@@ -72,6 +72,9 @@ fun NavigationRoot(
                 },
                 navigateBackClick = {
                     navController.popBackStack()
+                },
+                navigateToBusStop = { busStop ->
+                    navController.navigate("bus_stop_details/${busStop.encodeJson()}")
                 }
             )
         }

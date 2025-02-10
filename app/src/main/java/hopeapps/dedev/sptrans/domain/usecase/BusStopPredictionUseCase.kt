@@ -10,6 +10,8 @@ class BusStopPredictionUseCase(
     suspend operator fun invoke(idBusStop: Int): Result<List<BusPrediction>> {
         return try {
             Result.success(repository.searchBusStopPrediction(idBusStop))
+        } catch (e: NullPointerException) {
+            Result.success(emptyList())
         } catch (e: Exception) {
             e.printStackTrace()
             Result.failure(DomainException.UnknownException())

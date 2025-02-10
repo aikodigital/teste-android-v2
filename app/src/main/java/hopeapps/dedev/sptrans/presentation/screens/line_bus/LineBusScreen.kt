@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
+import hopeapps.dedev.sptrans.domain.models.BusStop
 import hopeapps.dedev.sptrans.domain.models.DynamicPoint
 import hopeapps.dedev.sptrans.presentation.design_system.components.BusListItem
 import hopeapps.dedev.sptrans.presentation.design_system.components.BusStopItem
@@ -34,7 +35,8 @@ import hopeapps.dedev.sptrans.presentation.design_system.theme.Dimens
 fun LineBusRoot(
     viewModel: LineBusViewModel,
     viewInMapClick: (busLinePositions: List<DynamicPoint>) -> Unit,
-    navigateBackClick: () -> Unit
+    navigateBackClick: () -> Unit,
+    navigateToBusStop: (busStop: BusStop) -> Unit
 ) {
     LineBusScreen(
         state = viewModel.state,
@@ -42,6 +44,7 @@ fun LineBusRoot(
             when (action) {
                 is LineBusAction.ViewInMapClick -> viewInMapClick(action.dynamicPoint)
                 is LineBusAction.NavigateBack -> navigateBackClick()
+                is LineBusAction.NavigateToBusStop -> navigateToBusStop(action.busStop)
             }
             viewModel.onAction(action)
         }
@@ -131,7 +134,10 @@ fun LineBusScreen(
                     items(state.busStopItems) { busStop ->
                         BusStopItem(
                             name = busStop.name,
-                            address = busStop.address
+                            address = busStop.address,
+                            onClickListener = {
+                                onAction(LineBusAction.NavigateToBusStop(busStop))
+                            }
                         )
                     }
                 }
