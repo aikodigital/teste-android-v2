@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
+import hopeapps.dedev.sptrans.ui.theme.Dimens
 
 
 @Composable
@@ -31,7 +32,7 @@ fun ViewOnMapCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = Dimens.Dimens_16_Dp)
             .clickable(
                 onClick = onClick
             ),
@@ -43,18 +44,18 @@ fun ViewOnMapCard(
     ) {
         Row(
             modifier = Modifier
-                .padding(vertical = 12.dp, horizontal = 20.dp)
+                .padding(vertical = Dimens.Dimens_16_Dp, horizontal = Dimens.Dimens_16_Dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Image(
-                modifier = Modifier.size(32.dp),
+                modifier = Modifier.size(Dimens.FloatingButtonSize),
                 painter = painterResource(R.drawable.google_maps_img),
                 contentDescription = stringResource(R.string.see_maps)
             )
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(Dimens.Dimens_8_Dp))
 
             Text(
                 text = stringResource(R.string.see_maps),

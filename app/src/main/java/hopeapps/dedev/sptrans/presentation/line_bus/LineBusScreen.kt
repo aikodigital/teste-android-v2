@@ -27,7 +27,7 @@ import hopeapps.dedev.sptrans.domain.models.DynamicPoint
 import hopeapps.dedev.sptrans.ui.components.BusListItem
 import hopeapps.dedev.sptrans.ui.components.BusStopItem
 import hopeapps.dedev.sptrans.ui.components.EmptyState
-import hopeapps.dedev.sptrans.ui.components.ViewOnMapCard
+import hopeapps.dedev.sptrans.ui.theme.Dimens
 
 @Composable
 fun LineBusRoot(
@@ -46,7 +46,6 @@ fun LineBusRoot(
         }
     )
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,8 +83,8 @@ fun LineBusScreen(
         ) {
             BusListItem(
                 modifier = Modifier.padding(
-                    horizontal = 20.dp,
-                    vertical = 16.dp
+                    horizontal = Dimens.Dimens_16_Dp,
+                    vertical = Dimens.Dimens_16_Dp
                 ),
                 firstLabel = state.busLine?.firstLabelNumber ?: "000",
                 secondLabel = state.busLine?.secondLabelNumber ?: 0,
@@ -95,15 +94,15 @@ fun LineBusScreen(
             )
 
             Text(
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
+                modifier = Modifier.padding(horizontal = Dimens.Dimens_16_Dp, vertical = Dimens.Dimens_12_Dp),
                 text = stringResource(R.string.stop_bus_line),
                 style = MaterialTheme.typography.titleMedium
             )
 
             LazyColumn(
-                modifier = Modifier.weight(1f).padding(horizontal = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(vertical = 16.dp)
+                modifier = Modifier.weight(1f).padding(horizontal = Dimens.Dimens_16_Dp),
+                verticalArrangement = Arrangement.spacedBy(Dimens.Dimens_16_Dp),
+                contentPadding = PaddingValues(vertical = Dimens.Dimens_16_Dp)
             ) {
                 if (state.busStopItems.isEmpty()) {
                     item {
@@ -124,7 +123,6 @@ fun LineBusScreen(
         }
     }
 }
-
 
 @Preview
 @Composable

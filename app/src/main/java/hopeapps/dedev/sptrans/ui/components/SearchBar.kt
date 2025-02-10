@@ -22,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hopeapps.dedev.sptrans.R
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_12_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_4_Dp
 import hopeapps.dedev.sptrans.ui.theme.SpTransTheme
 
 @Composable
@@ -50,7 +52,7 @@ fun SearchBar(
             onSearch = { keyboardController?.hide() }
         ),
         singleLine = true,
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(Dimens_12_Dp),
         colors = OutlinedTextFieldDefaults.colors(),
         trailingIcon = {
             if (value.isNotEmpty()) {

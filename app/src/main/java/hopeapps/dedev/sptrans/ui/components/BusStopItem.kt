@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens
 
 
 @Composable
@@ -33,7 +34,7 @@ fun BusStopItem(
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(Dimens.Dimens_16_Dp)
         ) {
             if (name.isNotBlank() && name.isNotEmpty()) {
                 Text(

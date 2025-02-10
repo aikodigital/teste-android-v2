@@ -23,4 +23,6 @@
     <string name="line_is_in_circulation">Essa linha está em circulação</string>
     <string name="line_is_not_in_circulation">Essa linha não está em circulação.</string>
     <string name="you_are_here">Você está aqui!</string>
+    <string name="acessible">Acessível</string>
+    <string name="not_accessible">Não acessível</string>
 </resources>

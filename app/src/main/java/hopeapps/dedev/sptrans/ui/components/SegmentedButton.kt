@@ -22,6 +22,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_16_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_20_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_8_Dp
 
 @Composable
 fun MySegmentedButton(
@@ -37,13 +40,13 @@ fun MySegmentedButton(
             label = firstLabel,
             isSelected = selectedOption,
             onClick = onFirstClick,
-            shape = RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp)
+            shape = RoundedCornerShape(topStart = Dimens_20_Dp, bottomStart = Dimens_20_Dp)
         )
         SegmentedButtonItem(
             label = secondLabel,
             isSelected = !selectedOption,
             onClick = onSecondClick,
-            shape = RoundedCornerShape(topEnd = 20.dp, bottomEnd = 20.dp)
+            shape = RoundedCornerShape(topEnd = Dimens_20_Dp, bottomEnd = Dimens_20_Dp)
         )
     }
 }
@@ -73,14 +76,14 @@ private fun RowScope.SegmentedButtonItem(
     ) {
         AnimatedVisibility(visible = isSelected) {
             Icon(
-                modifier = Modifier.padding(end = 8.dp),
+                modifier = Modifier.padding(end = Dimens_8_Dp),
                 imageVector = Icons.Outlined.Check,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
         Text(
-            modifier = Modifier.padding(14.dp),
+            modifier = Modifier.padding(Dimens_16_Dp),
             text = label,
             color = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer
             else MaterialTheme.colorScheme.onSurface,

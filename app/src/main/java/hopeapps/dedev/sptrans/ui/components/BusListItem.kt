@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
+import hopeapps.dedev.sptrans.ui.theme.Dimens
 
 @Composable
 fun BusListItem(
@@ -34,11 +35,16 @@ fun BusListItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClickListener() },
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(Dimens.Dimens_16_Dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = elevation)
     ) {
-        Column(modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)) {
+        Column(
+            modifier = Modifier.padding(
+                horizontal = Dimens.Dimens_16_Dp,
+                vertical = Dimens.Dimens_16_Dp
+            )
+        ) {
             Text(
                 text = firstLabel.orEmpty(),
                 style = MaterialTheme.typography.titleMedium,
@@ -46,7 +52,7 @@ fun BusListItem(
             )
 
             if (secondLabel != null) {
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(Dimens.Dimens_8_Dp))
                 Text(
                     text = "Linha: $secondLabel",
                     style = MaterialTheme.typography.bodyMedium,
@@ -55,7 +61,7 @@ fun BusListItem(
             }
 
             if (!mainTerminal.isNullOrEmpty()) {
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(Dimens.Dimens_16_Dp))
                 Text(
                     text = mainTerminal,
                     style = MaterialTheme.typography.bodyLarge,
@@ -64,7 +70,7 @@ fun BusListItem(
             }
 
             if (!secondaryTerminal.isNullOrEmpty()) {
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(Dimens.Dimens_16_Dp))
                 Text(
                     text = secondaryTerminal,
                     style = MaterialTheme.typography.bodyMedium,
@@ -72,7 +78,7 @@ fun BusListItem(
                 )
             }
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(Dimens.Dimens_16_Dp))
 
             if (isCircular) {
                 Text(

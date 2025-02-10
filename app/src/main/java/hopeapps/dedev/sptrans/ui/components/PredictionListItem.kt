@@ -14,8 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_12_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_16_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_4_Dp
 
 @Composable
 fun PredictionListItem(
@@ -29,23 +31,23 @@ fun PredictionListItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(vertical = Dimens_4_Dp)
             .clickable { onClickListener() },
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(Dimens_12_Dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(Dimens_16_Dp)
         ) {
             Text(
                 text = "$origin → $destination",
                 style = MaterialTheme.typography.titleMedium
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(Dimens_4_Dp))
 
             Text(
                 text = stringResource(R.string.prediction, predictionTime),
@@ -54,7 +56,7 @@ fun PredictionListItem(
             )
 
             if (accessibleVehicle) {
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(Dimens_4_Dp))
                 Text(
                     text = stringResource(R.string.accessible_vehicle),
                     style = MaterialTheme.typography.bodySmall,
@@ -62,7 +64,7 @@ fun PredictionListItem(
                 )
             }
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(Dimens_4_Dp))
 
             Text(
                 text = stringResource(R.string.last_update, lastUpdateTime),

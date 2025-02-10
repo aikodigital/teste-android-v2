@@ -20,22 +20,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import hopeapps.dedev.sptrans.R
 import hopeapps.dedev.sptrans.domain.models.DynamicPoint
+import hopeapps.dedev.sptrans.ui.theme.Dimens
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_12_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_16_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_4_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_8_Dp
 
 @Composable
 fun DynamicPointItem(dynamicPoint: DynamicPoint, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            .padding(Dimens_8_Dp),
+        shape = RoundedCornerShape(Dimens_12_Dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = Dimens_4_Dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(Dimens_16_Dp)
                 .fillMaxWidth()
         ) {
             Text(
@@ -44,7 +51,7 @@ fun DynamicPointItem(dynamicPoint: DynamicPoint, modifier: Modifier = Modifier) 
                 color = MaterialTheme.colorScheme.primary
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(Dimens_4_Dp))
 
             Text(
                 text = "Última atualização: ${dynamicPoint.lastUpdate}",
@@ -52,22 +59,24 @@ fun DynamicPointItem(dynamicPoint: DynamicPoint, modifier: Modifier = Modifier) 
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(Dimens_4_Dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = if (dynamicPoint.accessible) Icons.Default.CheckCircle else Icons.Default.Lock,
-                    contentDescription = "Acessível",
+                    contentDescription = stringResource(R.string.acessible),
                     tint = if (dynamicPoint.accessible) Color.Green else Color.Red
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(Dimens_8_Dp))
                 Text(
-                    text = if (dynamicPoint.accessible) "Acessível" else "Não acessível",
+                    text = if (dynamicPoint.accessible) stringResource(R.string.acessible) else stringResource(
+                        R.string.not_accessible
+                    ),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(Dimens_8_Dp))
 
             Text(
                 text = "ID: ${dynamicPoint.id}  •  Prefixo: ${dynamicPoint.prefix}",

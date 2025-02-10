@@ -33,7 +33,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
 import hopeapps.dedev.sptrans.domain.models.BusLine
 import hopeapps.dedev.sptrans.domain.models.BusStop
@@ -42,6 +41,9 @@ import hopeapps.dedev.sptrans.ui.components.BusStopItem
 import hopeapps.dedev.sptrans.ui.components.EmptyState
 import hopeapps.dedev.sptrans.ui.components.MySegmentedButton
 import hopeapps.dedev.sptrans.ui.components.SearchBar
+import hopeapps.dedev.sptrans.ui.theme.Dimens
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_4_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_8_Dp
 import hopeapps.dedev.sptrans.ui.utils.keyboardAsState
 import org.koin.androidx.compose.koinViewModel
 
@@ -66,7 +68,6 @@ fun SearchScreenRoot(
     )
 }
 
-
 @Composable
 fun SearchScreen(
     state: SearchScreenState,
@@ -87,9 +88,7 @@ fun SearchScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {
-                    onAction(SearchScreenAction.NavigateToMaps)
-                },
+                onClick = { onAction(SearchScreenAction.NavigateToMaps) },
                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 content = {
                     Icon(
@@ -109,7 +108,10 @@ fun SearchScreen(
         ) {
             MySegmentedButton(
                 modifier = Modifier
-                    .padding(horizontal = 20.dp, vertical = 32.dp),
+                    .padding(
+                        horizontal = Dimens.Dimens_20_Dp,
+                        vertical = Dimens.SegmentedButtonVerticalPadding
+                    ),
                 selectedOption = state.searchBusStop,
                 firstLabel = stringResource(R.string.bus_stop),
                 secondLabel = stringResource(R.string.bus),
@@ -119,10 +121,10 @@ fun SearchScreen(
 
             SearchBar(
                 modifier = Modifier
-                    .padding(horizontal = 20.dp)
+                    .padding(horizontal = Dimens.Dimens_16_Dp)
                     .background(
                         color = MaterialTheme.colorScheme.surface,
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(Dimens_8_Dp)
                     ),
                 hintText = if (state.searchBusStop)
                     stringResource(R.string.hint_search_stop_bus)
@@ -135,24 +137,24 @@ fun SearchScreen(
                 }
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(Dimens.Dimens_16_Dp))
 
             Box(
                 modifier = Modifier
-                    .padding(horizontal = 20.dp)
+                    .padding(horizontal = Dimens.Dimens_16_Dp)
                     .weight(1f)
                     .fillMaxWidth()
                     .background(
                         color = MaterialTheme.colorScheme.surface,
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(Dimens_8_Dp)
                     ),
                 contentAlignment = Alignment.Center
             ) {
                 if (state.isLoading) {
                     CircularProgressIndicator(
-                        modifier = Modifier.size(48.dp),
+                        modifier = Modifier.size(Dimens.ButtonHeight),
                         color = MaterialTheme.colorScheme.primary,
-                        strokeWidth = 4.dp
+                        strokeWidth = Dimens_4_Dp
                     )
                 } else {
                     LazyColumn(
@@ -160,8 +162,8 @@ fun SearchScreen(
                             .fillMaxSize()
                             .fillMaxWidth()
                             .background(MaterialTheme.colorScheme.background),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        contentPadding = PaddingValues(vertical = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(Dimens.Dimens_8_Dp),
+                        contentPadding = PaddingValues(vertical = Dimens.Dimens_16_Dp),
                         state = lazyListState
                     ) {
                         if (!state.searchBusStop) {
@@ -219,8 +221,6 @@ fun SearchScreen(
 private fun SearchScreenPreview() {
     SearchScreen(
         state = SearchScreenState(),
-        onAction = {
-
-        }
+        onAction = {}
     )
 }

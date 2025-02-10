@@ -23,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
 import hopeapps.dedev.sptrans.domain.models.DynamicPoint
 import hopeapps.dedev.sptrans.domain.models.StaticPoint
@@ -31,6 +30,7 @@ import hopeapps.dedev.sptrans.ui.components.BusStopItem
 import hopeapps.dedev.sptrans.ui.components.EmptyState
 import hopeapps.dedev.sptrans.ui.components.PredictionListItem
 import hopeapps.dedev.sptrans.ui.components.ViewOnMapCard
+import hopeapps.dedev.sptrans.ui.theme.Dimens
 
 @Composable
 fun BusStopDetailsRoot(
@@ -98,20 +98,20 @@ fun BusStopTopBar(busStopName: String?, onAction: (BusStopAction) -> Unit) {
 @Composable
 fun BusStopInfoSection(state: BusStopState, onAction: (BusStopAction) -> Unit) {
     Column(
-        modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp)
+        modifier = Modifier.padding(horizontal = Dimens.Dimens_16_Dp, vertical = Dimens.Dimens_16_Dp)
     ) {
         BusStopItem(
             name = state.busStop?.name ?: "",
             address = state.busStop?.address ?: ""
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Dimens.Dimens_16_Dp))
 
         ViewOnMapCard(
             onClick = { onAction(BusStopAction.ViewInMapClick(state.busStopPoint)) }
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Dimens.Dimens_16_Dp))
 
         Text(
             text = stringResource(R.string.bus_stop_predictions),
@@ -120,12 +120,13 @@ fun BusStopInfoSection(state: BusStopState, onAction: (BusStopAction) -> Unit) {
     }
 }
 
+
 @Composable
 fun BusStopPredictionsList(state: BusStopState, onAction: (BusStopAction) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 16.dp)
+        verticalArrangement = Arrangement.spacedBy(Dimens.Dimens_8_Dp),
+        contentPadding = PaddingValues(horizontal = Dimens.Dimens_16_Dp, vertical = Dimens.Dimens_16_Dp)
     ) {
         if (state.busStopPrediction.isEmpty()) {
             item {
@@ -162,6 +163,7 @@ fun BusStopPredictionsList(state: BusStopState, onAction: (BusStopAction) -> Uni
         }
     }
 }
+
 
 @Preview
 @Composable

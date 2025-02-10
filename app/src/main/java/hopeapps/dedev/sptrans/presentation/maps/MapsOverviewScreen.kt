@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.domain.models.DynamicPoint
 import hopeapps.dedev.sptrans.ui.components.DynamicPointItem
+import hopeapps.dedev.sptrans.ui.theme.Dimens
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -64,20 +65,21 @@ fun MapsOverviewScreen(
             FloatingActionButton(
                 onClick = {
                     onAction.invoke(MapsOverviewAction.NavigateToBack)
-                }) {
+                }
+            ) {
                 Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "")
             }
         }
     ) { padding ->
         Surface(
-            if (isSheetOpen) {
+            modifier = if (isSheetOpen) {
                 Modifier
                     .padding(
                         PaddingValues(
                             bottom = padding.calculateBottomPadding(),
-                            top = 0.dp,
-                            start = 0.dp,
-                            end = 0.dp
+                            top = Dimens.Dimens_16_Dp,
+                            start = Dimens.Dimens_16_Dp,
+                            end = Dimens.Dimens_16_Dp
                         )
                     )
             } else Modifier.padding(0.dp)
@@ -105,3 +107,4 @@ fun MapsOverviewScreen(
         }
     }
 }
+

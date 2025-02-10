@@ -27,6 +27,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_16_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_32_Dp
+import hopeapps.dedev.sptrans.ui.theme.Dimens.Dimens_8_Dp
 
 @Preview
 @Composable
@@ -49,7 +52,7 @@ fun EmptyState(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(32.dp)
+            .padding(Dimens_32_Dp)
             .padding(bottom = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -63,7 +66,7 @@ fun EmptyState(
                 .scale(scale)
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(Dimens_16_Dp))
 
         Text(
             text = title,
@@ -72,14 +75,14 @@ fun EmptyState(
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(Dimens_8_Dp))
 
         Text(
             text = description,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = Dimens_16_Dp)
         )
     }
 }
