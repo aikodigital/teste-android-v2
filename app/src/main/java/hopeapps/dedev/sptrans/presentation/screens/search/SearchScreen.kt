@@ -15,6 +15,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -168,11 +170,21 @@ fun SearchScreen(
                     ) {
                         if (!state.searchBusStop) {
                             if (state.busLinesItems.isEmpty()) {
-                                item {
-                                    EmptyState(
-                                        title = stringResource(R.string.empty_state_bus_lines_title),
-                                        description = stringResource(R.string.empty_state_bus_lines_description)
-                                    )
+                                if (state.errorMessage != null) {
+                                    item {
+                                        EmptyState(
+                                            icon = Icons.Filled.Close,
+                                            title = stringResource(R.string.error_message),
+                                            description = stringResource(R.string.error_description)
+                                        )
+                                    }
+                                } else {
+                                    item {
+                                        EmptyState(
+                                            title = stringResource(R.string.empty_state_bus_lines_title),
+                                            description = stringResource(R.string.empty_state_bus_lines_description)
+                                        )
+                                    }
                                 }
                             } else {
                                 items(state.busLinesItems) { busLine ->
@@ -191,11 +203,21 @@ fun SearchScreen(
                             }
                         } else {
                             if (state.busStopItems.isEmpty()) {
-                                item {
-                                    EmptyState(
-                                        title = stringResource(R.string.empty_state_bus_stop_title),
-                                        description = stringResource(R.string.empty_state_bus_stop_description)
-                                    )
+                                if (state.errorMessage != null) {
+                                    item {
+                                        EmptyState(
+                                            icon = Icons.Filled.Close,
+                                            title = "Houve um problema!",
+                                            description = "Tente novamente mais tarde."
+                                        )
+                                    }
+                                } else {
+                                    item {
+                                        EmptyState(
+                                            title = stringResource(R.string.empty_state_bus_stop_title),
+                                            description = stringResource(R.string.empty_state_bus_stop_description)
+                                        )
+                                    }
                                 }
                             } else {
                                 items(state.busStopItems) { busStop ->

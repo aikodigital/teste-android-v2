@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -94,22 +95,37 @@ fun LineBusScreen(
             )
 
             Text(
-                modifier = Modifier.padding(horizontal = Dimens.Dimens_16_Dp, vertical = Dimens.Dimens_12_Dp),
+                modifier = Modifier.padding(
+                    horizontal = Dimens.Dimens_16_Dp,
+                    vertical = Dimens.Dimens_12_Dp
+                ),
                 text = stringResource(R.string.stop_bus_line),
                 style = MaterialTheme.typography.titleMedium
             )
 
             LazyColumn(
-                modifier = Modifier.weight(1f).padding(horizontal = Dimens.Dimens_16_Dp),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = Dimens.Dimens_16_Dp),
                 verticalArrangement = Arrangement.spacedBy(Dimens.Dimens_16_Dp),
                 contentPadding = PaddingValues(vertical = Dimens.Dimens_16_Dp)
             ) {
                 if (state.busStopItems.isEmpty()) {
-                    item {
-                        EmptyState(
-                            title = stringResource(R.string.no_bus_stops),
-                            description = stringResource(R.string.no_bus_stops_description)
-                        )
+                    if (state.errorMessage != null) {
+                        item {
+                            EmptyState(
+                                icon = Icons.Filled.Close,
+                                title = stringResource(R.string.error_message),
+                                description = stringResource(R.string.error_description)
+                            )
+                        }
+                    } else {
+                        item {
+                            EmptyState(
+                                title = stringResource(R.string.no_bus_stops),
+                                description = stringResource(R.string.no_bus_stops_description)
+                            )
+                        }
                     }
                 } else {
                     items(state.busStopItems) { busStop ->

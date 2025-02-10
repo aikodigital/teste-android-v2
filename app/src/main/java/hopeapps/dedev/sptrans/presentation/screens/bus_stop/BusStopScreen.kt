@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -98,7 +99,10 @@ fun BusStopTopBar(busStopName: String?, onAction: (BusStopAction) -> Unit) {
 @Composable
 fun BusStopInfoSection(state: BusStopState, onAction: (BusStopAction) -> Unit) {
     Column(
-        modifier = Modifier.padding(horizontal = Dimens.Dimens_16_Dp, vertical = Dimens.Dimens_16_Dp)
+        modifier = Modifier.padding(
+            horizontal = Dimens.Dimens_16_Dp,
+            vertical = Dimens.Dimens_16_Dp
+        )
     ) {
         BusStopItem(
             name = state.busStop?.name ?: "",
@@ -126,14 +130,27 @@ fun BusStopPredictionsList(state: BusStopState, onAction: (BusStopAction) -> Uni
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(Dimens.Dimens_8_Dp),
-        contentPadding = PaddingValues(horizontal = Dimens.Dimens_16_Dp, vertical = Dimens.Dimens_16_Dp)
+        contentPadding = PaddingValues(
+            horizontal = Dimens.Dimens_16_Dp,
+            vertical = Dimens.Dimens_16_Dp
+        )
     ) {
         if (state.busStopPrediction.isEmpty()) {
-            item {
-                EmptyState(
-                    title = stringResource(R.string.no_predictions_title),
-                    description = stringResource(R.string.no_predictions_description)
-                )
+            if (state.errorMessage != null) {
+                item {
+                    EmptyState(
+                        icon = Icons.Filled.Close,
+                        title = stringResource(R.string.error_message),
+                        description = stringResource(R.string.error_description)
+                    )
+                }
+            } else {
+                item {
+                    EmptyState(
+                        title = stringResource(R.string.no_predictions_title),
+                        description = stringResource(R.string.no_predictions_description)
+                    )
+                }
             }
         } else {
             items(state.busStopPrediction) { prediction ->

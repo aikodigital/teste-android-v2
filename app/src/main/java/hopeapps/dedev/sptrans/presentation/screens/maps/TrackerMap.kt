@@ -69,7 +69,7 @@ fun TrackerMap(
     GoogleMap(
         cameraPositionState = cameraPositionState,
         properties = MapProperties(
-            mapStyleOptions = if (isSystemInDarkTheme()) mapStyle else mapStyleLight
+            mapStyleOptions = if (isSystemInDarkTheme()) mapStyle else null
         ),
         uiSettings = MapUiSettings(
             zoomControlsEnabled = false,

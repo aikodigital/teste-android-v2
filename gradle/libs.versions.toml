@@ -94,8 +94,11 @@ debugTools = [
 unitTests = [
     "junit",
     "mockk",
-    "mockk-android"
+    "mockk-android",
+    "kotlinx-coroutines-test",
+    "androidx-core-testing"
 ]
+
 
 androidTests = [
     "androidx-junit",

@@ -1,5 +1,6 @@
 package hopeapps.dedev.sptrans.presentation.screens.search
 
+import androidx.annotation.OpenForTesting
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -40,24 +41,29 @@ class SearchViewModel(
     fun onAction(action: SearchScreenAction) {
         when (action) {
             is SearchScreenAction.SearchItems -> searchItems(action.query)
-            is SearchScreenAction.ClickToSwitchTab -> state =
-                state.copy(searchBusStop = action.searchBusStop)
-
-            else -> {}
+            is SearchScreenAction.ClickToSwitchTab -> updateSearchTab(action.searchBusStop)
+            else -> { }
         }
     }
 
-    private suspend fun authenticateUser() {
-        val result = authUseCase()
+    @OpenForTesting
+    suspend fun authenticateUser() {
+        state = state.copy(isLoading = true)
+        val result = authUseCase.invoke()
         if (result.isSuccess) {
-            searchItems(query = "")
+            searchItems("")
         } else {
-            state = state.copy(isLoading = false)
+            state = state.copy(isLoading = false, errorMessage = "Authentication failed")
         }
     }
 
+    @OpenForTesting
+    fun updateSearchTab(isBusStop: Boolean) {
+        state = state.copy(searchBusStop = isBusStop)
+    }
 
-    private fun searchItems(query: String) {
+    @OpenForTesting
+    fun searchItems(query: String) {
         viewModelScope.launch {
             state = state.copy(isLoading = true, errorMessage = null)
             searchQueryFlow.emit(query)
@@ -68,14 +74,22 @@ class SearchViewModel(
         if (state.searchBusStop) {
             val result = searchBusStopUseCase(query)
             result.fold(
-                onSuccess = { state = state.copy(busStopItems = it, isLoading = false) },
-                onFailure = { state = state.copy(errorMessage = it.message, isLoading = false) }
+                onSuccess = {
+                    state = state.copy(busStopItems = it, isLoading = false)
+                },
+                onFailure = {
+                    state = state.copy(errorMessage = it.message, isLoading = false)
+                }
             )
         } else {
             val result = busLineUseCase(query)
             result.fold(
-                onSuccess = { state = state.copy(busLinesItems = it, isLoading = false) },
-                onFailure = { state = state.copy(errorMessage = it.message, isLoading = false) }
+                onSuccess = {
+                    state = state.copy(busLinesItems = it, isLoading = false)
+                },
+                onFailure = {
+                    state = state.copy(errorMessage = it.message, isLoading = false)
+                }
             )
         }
     }

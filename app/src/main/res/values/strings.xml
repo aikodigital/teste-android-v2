@@ -25,4 +25,6 @@
     <string name="you_are_here">Você está aqui!</string>
     <string name="acessible">Acessível</string>
     <string name="not_accessible">Não acessível</string>
+    <string name="error_message">Houve um problema!</string>
+    <string name="error_description">Tente novamente mais tarde.</string>
 </resources>
