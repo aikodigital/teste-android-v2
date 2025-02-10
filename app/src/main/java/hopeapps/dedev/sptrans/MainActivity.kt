@@ -5,8 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
-import hopeapps.dedev.sptrans.ui.navigation.NavigationRoot
-import hopeapps.dedev.sptrans.ui.theme.SpTransTheme
+import hopeapps.dedev.sptrans.presentation.navigation.NavigationRoot
+import hopeapps.dedev.sptrans.presentation.design_system.theme.SpTransTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
