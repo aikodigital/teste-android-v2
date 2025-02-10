@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hopeapps.dedev.sptrans.R
+import hopeapps.dedev.sptrans.domain.models.DynamicPoint
 import hopeapps.dedev.sptrans.ui.components.BusListItem
 import hopeapps.dedev.sptrans.ui.components.BusStopItem
 import hopeapps.dedev.sptrans.ui.components.EmptyState
@@ -31,14 +32,15 @@ import hopeapps.dedev.sptrans.ui.components.ViewOnMapCard
 @Composable
 fun LineBusRoot(
     viewModel: LineBusViewModel,
-    viewInMapClick: () -> Unit
+    viewInMapClick: (busLinePositions: List<DynamicPoint>) -> Unit,
+    navigateBackClick: () -> Unit
 ) {
     LineBusScreen(
         state = viewModel.state,
         onAction = { action ->
             when (action) {
-                is LineBusAction.ViewInMapClick -> viewInMapClick()
-                else -> Unit
+                is LineBusAction.ViewInMapClick -> viewInMapClick(action.dynamicPoint)
+                is LineBusAction.NavigateBack -> navigateBackClick()
             }
             viewModel.onAction(action)
         }
@@ -89,15 +91,7 @@ fun LineBusScreen(
                 secondLabel = state.busLine?.secondLabelNumber ?: 0,
                 mainTerminal = state.busLine?.mainTerminal ?: "Terminal A",
                 secondaryTerminal = state.busLine?.secondaryTerminal ?: "Terminal B",
-                elevation = 0.dp,
-                onClickListener = {
-                    onAction(LineBusAction.ViewInMapClick)
-                }
-            )
-
-            ViewOnMapCard(
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
-                onClick = { onAction(LineBusAction.ViewInMapClick) }
+                elevation = 0.dp
             )
 
             Text(

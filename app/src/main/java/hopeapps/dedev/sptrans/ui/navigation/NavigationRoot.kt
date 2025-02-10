@@ -1,5 +1,7 @@
 package hopeapps.dedev.sptrans.ui.navigation
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
@@ -18,12 +20,9 @@ import hopeapps.dedev.sptrans.presentation.maps.OverviewMapsViewModel
 import hopeapps.dedev.sptrans.presentation.search.SearchScreenRoot
 import hopeapps.dedev.sptrans.utils.JsonHelper.decodeBusLineJson
 import hopeapps.dedev.sptrans.utils.JsonHelper.decodeBusStopJson
-import hopeapps.dedev.sptrans.utils.JsonHelper.decodeFromUrl
-import hopeapps.dedev.sptrans.utils.JsonHelper.decodeMapPoints
+import hopeapps.dedev.sptrans.utils.JsonHelper.decodeMapPoint
 import hopeapps.dedev.sptrans.utils.JsonHelper.encodeJson
-import hopeapps.dedev.sptrans.utils.JsonHelper.encodeToUrl
 import org.koin.androidx.compose.koinViewModel
-
 
 @Composable
 fun NavigationRoot(
@@ -39,17 +38,13 @@ fun NavigationRoot(
         ) {
             SearchScreenRoot(
                 onItemBusLineClick = { busLine ->
-                    navController.navigate(Routes.BusLineDetails.route.replace(
-                        "{busLineJson}", busLine.encodeJson().encodeToUrl()
-                    ))
+                    navController.navigate("bus_line_details/${busLine.encodeJson()}")
                 },
                 onItemBusStopClick = { busStop: BusStop ->
-                    navController.navigate(Routes.BusStopDetails.route.replace(
-                        "{busStopJson}", busStop.encodeJson().encodeToUrl()
-                    ))
+                    navController.navigate("bus_stop_details/${busStop.encodeJson()}")
                 },
                 navigateToMaps = {
-                    val json = listOf(ActionPoint).encodeJson()
+                    val json = ActionPoint.encodeJson()
                     navController.navigate("maps/${json}")
                 }
             )
@@ -62,19 +57,21 @@ fun NavigationRoot(
             )
         ) { entry ->
             val busLineJson = entry.arguments?.getString("busLineJson")
-            val viewModel =  koinViewModel<LineBusViewModel>()
+            val viewModel = koinViewModel<LineBusViewModel>()
 
 
             LaunchedEffect(busLineJson) {
-                busLineJson?.decodeFromUrl()?.decodeBusLineJson()?.let { busLine ->
+                busLineJson?.decodeBusLineJson()?.let { busLine ->
                     viewModel.load(busLine = busLine)
                 }
             }
 
-            viewModel.state
             LineBusRoot(
                 viewModel = viewModel,
                 viewInMapClick = {
+                },
+                navigateBackClick = {
+                    navController.popBackStack()
                 }
             )
         }
@@ -86,10 +83,10 @@ fun NavigationRoot(
             )
         ) { entry ->
             val busStopJson = entry.arguments?.getString("busStopJson")
-            val viewModel =  koinViewModel<BusStopViewModel>()
+            val viewModel = koinViewModel<BusStopViewModel>()
 
             LaunchedEffect(busStopJson) {
-                busStopJson?.decodeFromUrl()?.decodeBusStopJson()?.let { busStop ->
+                busStopJson?.decodeBusStopJson()?.let { busStop ->
                     viewModel.load(busStop = busStop)
                 }
             }
@@ -97,27 +94,40 @@ fun NavigationRoot(
             BusStopDetailsRoot(
                 viewModel = viewModel,
                 viewInMapClick = { staticPoint ->
-                    val json = listOf(staticPoint).encodeJson()
+                    val json = staticPoint.encodeJson()
                     navController.navigate("maps/${json}")
+                },
+                viewBusInMap = { dynamicPoint ->
+                    val json = dynamicPoint.encodeJson()
+                    navController.navigate("maps/${json}")
+                },
+                navigateToBack = {
+                    navController.popBackStack()
                 }
             )
         }
 
         composable(
             route = Routes.Maps.route,
+            enterTransition = { slideInHorizontally() },
+            exitTransition = { slideOutHorizontally() },
             arguments = listOf(
                 navArgument("mapsPoint") { type = NavType.StringType }
             )
         ) { entry ->
             val mapsPoints = entry.arguments?.getString("mapsPoint")
-            val viewModel =  koinViewModel<OverviewMapsViewModel>()
+            val viewModel = koinViewModel<OverviewMapsViewModel>()
 
             LaunchedEffect(mapsPoints) {
-                mapsPoints?.decodeMapPoints()?.let { mapsPoints ->
-                    viewModel.load(mapsPoints)
+                mapsPoints?.decodeMapPoint()?.let { mapPoint ->
+                    viewModel.load(mapPoint)
                 }
             }
-            MapsOverviewScreenRoot()
+            MapsOverviewScreenRoot(
+                navigateToBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

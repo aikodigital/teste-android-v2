@@ -5,24 +5,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import hopeapps.dedev.sptrans.data.models.BusLineDto
 import hopeapps.dedev.sptrans.domain.models.BusLine
 import hopeapps.dedev.sptrans.domain.usecase.BusStopByIdLineUseCase
 import kotlinx.coroutines.launch
 
 class LineBusViewModel (
-    private val lineBusUseCase: BusStopByIdLineUseCase
+    private val lineBusUseCase: BusStopByIdLineUseCase,
 ) : ViewModel() {
 
     var state by mutableStateOf(LineBusState())
         private set
 
-    fun onAction(action: LineBusAction) {
-        when (action) {
-            is LineBusAction.ViewInMapClick -> { }
-            else -> {}
-        }
-    }
+    fun onAction(action: LineBusAction) { }
 
     private fun loadBusStopItems(busLineId: Int) {
         viewModelScope.launch {

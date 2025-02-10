@@ -10,7 +10,7 @@ import hopeapps.dedev.sptrans.domain.models.StaticPoint
 import hopeapps.dedev.sptrans.domain.usecase.BusStopPredictionUseCase
 import kotlinx.coroutines.launch
 
-class BusStopViewModel (
+class BusStopViewModel(
     private val busStopPredictionUseCase: BusStopPredictionUseCase
 ) : ViewModel() {
 
@@ -19,7 +19,7 @@ class BusStopViewModel (
 
     fun onAction(action: BusStopAction) {
         when (action) {
-            is BusStopAction.ViewInMapClick -> { }
+            is BusStopAction.ViewInMapClick -> {}
             else -> {}
         }
     }

@@ -1,5 +1,6 @@
 package hopeapps.dedev.sptrans.di
 
+import hopeapps.dedev.sptrans.domain.usecase.AllVehiclesPositionUseCase
 import hopeapps.dedev.sptrans.domain.usecase.AuthUseCase
 import hopeapps.dedev.sptrans.domain.usecase.BusStopUseCase
 import hopeapps.dedev.sptrans.domain.usecase.BusLineUseCase
@@ -14,4 +15,5 @@ val useCaseModule = module {
     single { BusStopUseCase(get()) }
     single { BusStopByIdLineUseCase(get()) }
     single { BusStopPredictionUseCase(get()) }
+    single { AllVehiclesPositionUseCase(get()) }
 }

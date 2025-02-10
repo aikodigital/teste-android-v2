@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ListOfLocalizedLines(
+data class ListOfLocalizedLinesDto(
     @SerializedName("c")
     val sign: String,
     @SerializedName("cl")
@@ -18,5 +18,5 @@ data class ListOfLocalizedLines(
     @SerializedName("qv")
     val numberVehiclesLocated: String,
     @SerializedName("vs")
-    val vehicleList: List<ListOfVehiclesLocated>
+    val vehicleList: List<ListOfVehiclesLocatedDto>
 )

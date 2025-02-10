@@ -41,7 +41,7 @@ class SearchViewModel(
         when (action) {
             is SearchScreenAction.SearchItems -> searchItems(action.query)
             is SearchScreenAction.ClickToSwitchTab -> state =
-                state.copy(searchBusLines = action.searchBusLines)
+                state.copy(searchBusStop = action.searchBusStop)
 
             else -> {}
         }
@@ -50,7 +50,7 @@ class SearchViewModel(
     private suspend fun authenticateUser() {
         val result = authUseCase()
         if (result.isSuccess) {
-            searchItems(query = "1")
+            searchItems(query = "")
         } else {
             state = state.copy(isLoading = false)
         }
@@ -65,16 +65,16 @@ class SearchViewModel(
     }
 
     private suspend fun executeSearch(query: String) {
-        if (state.searchBusLines) {
-            val result = busLineUseCase(query)
-            result.fold(
-                onSuccess = { state = state.copy(busLinesItems = it, isLoading = false) },
-                onFailure = { state = state.copy(errorMessage = it.message, isLoading = false) }
-            )
-        } else {
+        if (state.searchBusStop) {
             val result = searchBusStopUseCase(query)
             result.fold(
                 onSuccess = { state = state.copy(busStopItems = it, isLoading = false) },
+                onFailure = { state = state.copy(errorMessage = it.message, isLoading = false) }
+            )
+        } else {
+            val result = busLineUseCase(query)
+            result.fold(
+                onSuccess = { state = state.copy(busLinesItems = it, isLoading = false) },
                 onFailure = { state = state.copy(errorMessage = it.message, isLoading = false) }
             )
         }

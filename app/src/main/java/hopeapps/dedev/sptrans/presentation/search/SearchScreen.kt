@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -76,7 +77,8 @@ fun SearchScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
     val isKeyboardOpen by keyboardAsState()
 
-    LaunchedEffect(lazyListState.firstVisibleItemIndex) {
+    val firstItemIsVisible = remember { derivedStateOf { lazyListState.firstVisibleItemIndex } }
+    LaunchedEffect(firstItemIsVisible) {
         if (isKeyboardOpen) {
             keyboardController?.hide()
         }
@@ -108,11 +110,11 @@ fun SearchScreen(
             MySegmentedButton(
                 modifier = Modifier
                     .padding(horizontal = 20.dp, vertical = 32.dp),
-                selectedOption = state.searchBusLines,
-                firstLabel = stringResource(R.string.bus),
-                secondLabel = stringResource(R.string.bus_stop),
-                onFirstClick = { onAction(SearchScreenAction.ClickToSwitchTab(searchBusLines = true)) },
-                onSecondClick = { onAction(SearchScreenAction.ClickToSwitchTab(searchBusLines = false)) }
+                selectedOption = state.searchBusStop,
+                firstLabel = stringResource(R.string.bus_stop),
+                secondLabel = stringResource(R.string.bus),
+                onFirstClick = { onAction(SearchScreenAction.ClickToSwitchTab(searchBusStop = true)) },
+                onSecondClick = { onAction(SearchScreenAction.ClickToSwitchTab(searchBusStop = false)) }
             )
 
             SearchBar(
@@ -122,10 +124,10 @@ fun SearchScreen(
                         color = MaterialTheme.colorScheme.surface,
                         shape = RoundedCornerShape(8.dp)
                     ),
-                hintText = if (state.searchBusLines)
-                    stringResource(R.string.hint_search_bus_lines)
+                hintText = if (state.searchBusStop)
+                    stringResource(R.string.hint_search_stop_bus)
                 else
-                    stringResource(R.string.hint_search_stop_bus),
+                    stringResource(R.string.hint_search_bus_lines),
                 value = searchText,
                 onValueChanged = { newText ->
                     searchText = newText
@@ -155,13 +157,14 @@ fun SearchScreen(
                 } else {
                     LazyColumn(
                         modifier = Modifier
+                            .fillMaxSize()
                             .fillMaxWidth()
                             .background(MaterialTheme.colorScheme.background),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         contentPadding = PaddingValues(vertical = 16.dp),
                         state = lazyListState
                     ) {
-                        if (state.searchBusLines) {
+                        if (!state.searchBusStop) {
                             if (state.busLinesItems.isEmpty()) {
                                 item {
                                     EmptyState(

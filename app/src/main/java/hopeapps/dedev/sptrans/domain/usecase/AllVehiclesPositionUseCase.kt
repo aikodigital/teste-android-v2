@@ -1,16 +1,15 @@
 package hopeapps.dedev.sptrans.domain.usecase
 
 import hopeapps.dedev.sptrans.domain.exceptions.DomainException
-import hopeapps.dedev.sptrans.domain.models.BusStop
+import hopeapps.dedev.sptrans.domain.models.DynamicPoint
 import hopeapps.dedev.sptrans.domain.repository.SearchRepository
 
-class BusStopByIdLineUseCase(
+class AllVehiclesPositionUseCase(
     private val repository: SearchRepository
-
 ) {
-    suspend operator fun invoke(idLine: Int): Result<List<BusStop>> {
+    suspend operator fun invoke(): Result<List<DynamicPoint>> {
         return try {
-            Result.success(repository.searchBusStopByBusLineId(idLine))
+            Result.success(repository.searchAllBusMapPoints())
         } catch (e: Exception) {
             e.printStackTrace()
             Result.failure(DomainException.UnknownException())

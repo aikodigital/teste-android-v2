@@ -1,7 +1,6 @@
 package hopeapps.dedev.sptrans.domain.exceptions
 
 sealed class DomainException(message: String) : Exception(message) {
-    class NoInternetException : DomainException("Sem conexão com a Internet.")
     class ServerException : DomainException("Erro no servidor, tente novamente.")
     class NotFoundException : DomainException("Nenhum resultado encontrado.")
     class UnknownException : DomainException("Erro desconhecido.")

@@ -7,60 +7,77 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hopeapps.dedev.sptrans.domain.models.ActionPoint
 import hopeapps.dedev.sptrans.domain.models.DynamicPoint
+import hopeapps.dedev.sptrans.domain.models.Location
 import hopeapps.dedev.sptrans.domain.models.MapPoint
+import hopeapps.dedev.sptrans.domain.models.StaticPoint
+import hopeapps.dedev.sptrans.domain.usecase.AllVehiclesPositionUseCase
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class OverviewMapsViewModel(
+    private val allVehiclesPositionUseCase: AllVehiclesPositionUseCase
 ) : ViewModel() {
-
 
     var state by mutableStateOf(OverviewMapsState())
         private set
 
+    fun load(mapPoint: MapPoint) {
+        state = when (mapPoint) {
+            is DynamicPoint -> state.copy(
+                focusLocation = Location(mapPoint.latitude, mapPoint.longitude)
+            ).also { startDynamicPointsUpdate(mapPoint.id) }
 
-    fun load(mapPoints: List<MapPoint>) {
+            is StaticPoint -> state.copy(
+                busStopLocation = mapPoint,
+                focusLocation = Location(mapPoint.latitude, mapPoint.longitude)
+            ).also { startAllPointsUpdate() }
 
-        val hasActionPoint = mapPoints.filterIsInstance<ActionPoint>().isNotEmpty()
-        val dynamicPoints = mapPoints.filterIsInstance<DynamicPoint>().isNotEmpty()
-
-        if (hasActionPoint) {
-            loadAllPoints()
-        } else {
-            loadStaticOrDynamicsPoints(mapPoints)
-        }
-        state = state.copy(
-//            locations = markerList
-        )
-    }
-
-    private fun loadStaticOrDynamicsPoints(mapPoints: List<MapPoint>) {
-        val isDynamicPoints = mapPoints.filterIsInstance<DynamicPoint>().isNotEmpty()
-        if (isDynamicPoints) {
-            while (true) {
-                viewModelScope.launch {
-                    delay(5000)
-                    // Puxa dados de das posições dos veiculos e coloca no state.
+            ActionPoint -> {
+                state = state.copy(
+                    focusLocation = Location(
+                        lat = -23.550520,
+                        long = -46.633309
+                    )
+                )
+                state.also {
+                    startAllPointsUpdate()
                 }
-
-
             }
-        } else {
-//            state.locations
         }
-
     }
 
 
-    private fun loadAllPoints() {
-        //Deixar carregar todos os pontos vindos da API
-    }
-
-
-    init {
+    private fun startAllPointsUpdate() {
         viewModelScope.launch {
-//            val result = overviewMapsRepository.getBusLocations()
-//            state = state.copy(busLocations = result.toClusterBusLines())
+            while (isActive) {
+                updateDynamicPoints()
+                delay(6000)
+            }
         }
+    }
+
+    private fun startDynamicPointsUpdate(dynamicPointId: Int) {
+        viewModelScope.launch {
+            while (isActive) {
+                updateDynamicPoints(dynamicPointId)
+                delay(6000)
+            }
+        }
+    }
+
+    private suspend fun updateDynamicPoints(filterId: Int? = null) {
+        val result = allVehiclesPositionUseCase()
+        result.fold(
+            onSuccess = { response ->
+                val newFocus = filterId?.let { id -> response.firstOrNull { it.id == id } }
+                state = state.copy(
+                    dynamicPoints = response,
+                    focusLocation = newFocus?.let { Location(it.latitude, it.longitude) }
+                        ?: state.focusLocation
+                )
+            },
+            onFailure = { state = state.copy(errorMessage = it.message ?: "") }
+        )
     }
 }

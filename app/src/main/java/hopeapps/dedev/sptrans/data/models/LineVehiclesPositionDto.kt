@@ -2,9 +2,9 @@ package hopeapps.dedev.sptrans.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class BusStopPredictionDto(
+data class LineVehiclesPositionDto(
     @SerializedName("hr")
     val hour: String,
-    @SerializedName("p")
-    val busStop: BusStopForecastModelDto
+    @SerializedName("vs")
+    val vehicles: List<VehicleRelationDto>
 )

@@ -1,6 +1,5 @@
 package hopeapps.dedev.sptrans.domain.usecase
 
-import hopeapps.dedev.sptrans.data.network.ApiResponse
 import hopeapps.dedev.sptrans.domain.exceptions.DomainException
 import hopeapps.dedev.sptrans.domain.models.BusStop
 import hopeapps.dedev.sptrans.domain.repository.SearchRepository
@@ -21,7 +20,7 @@ class BusStopByIdLineUseCaseTest {
     private lateinit var useCase: BusStopByIdLineUseCase
 
     private val mockBusStopList = listOf(
-        BusStop(1,"","",0.0,0.0)
+        BusStop(1, "", "", 0.0, 0.0)
     )
 
     @Before
@@ -31,25 +30,20 @@ class BusStopByIdLineUseCaseTest {
 
     @Test
     fun `invoke should return success when repository returns a valid list`() = runBlocking {
-        val busStops = mockBusStopList
-        coEvery { repository.searchBusStopByBusLineId(10) } returns ApiResponse.Success(busStops)
-        val result = useCase(10)
-        assertTrue(result.isSuccess)
-        assertEquals(busStops, result.getOrNull())
-    }
+        coEvery { repository.searchBusStopByBusLineId(10) } returns mockBusStopList
 
-    @Test
-    fun `invoke should return failure when repository returns an error`() = runBlocking {
-        coEvery { repository.searchBusStopByBusLineId(10) } returns ApiResponse.Error(404)
         val result = useCase(10)
-        assertTrue(result.isFailure)
-        assertTrue(result.exceptionOrNull() is DomainException.NotFoundException)
+
+        assertTrue(result.isSuccess)
+        assertEquals(mockBusStopList, result.getOrNull())
     }
 
     @Test
     fun `invoke should return failure when repository throws an exception`() = runBlocking {
         coEvery { repository.searchBusStopByBusLineId(10) } throws IOException("Network Error")
+
         val result = useCase(10)
+
         assertTrue(result.isFailure)
         assertTrue(result.exceptionOrNull() is DomainException.UnknownException)
     }

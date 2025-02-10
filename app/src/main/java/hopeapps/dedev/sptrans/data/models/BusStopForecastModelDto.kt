@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class BusStopForecastModel(
+data class BusStopForecastModelDto(
     @SerializedName("cp")
     val id: Int,
     @SerializedName("np")
@@ -15,5 +15,5 @@ data class BusStopForecastModel(
     @SerializedName("px")
     val longitude: Double,
     @SerializedName("l")
-    val listOfLinesFound: List<ListOfLocalizedLines>
+    val listOfLinesFound: List<ListOfLocalizedLinesDto>
 )

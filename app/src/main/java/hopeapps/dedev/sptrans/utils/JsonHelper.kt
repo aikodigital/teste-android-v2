@@ -7,24 +7,24 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.net.URLDecoder
 import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 
 object JsonHelper {
-    fun BusLine.encodeJson(): String = Json.encodeToString(this)
-    fun BusStop.encodeJson(): String = Json.encodeToString(this)
-    fun String.decodeBusLineJson(): BusLine = Json.decodeFromString(this)
-    fun String.decodeBusStopJson(): BusStop = Json.decodeFromString(this)
+    fun BusLine.encodeJson(): String =
+        URLEncoder.encode(Json.encodeToString(this), StandardCharsets.UTF_8.toString())
 
+    fun BusStop.encodeJson(): String =
+        URLEncoder.encode(Json.encodeToString(this), StandardCharsets.UTF_8.toString())
 
-    fun List<MapPoint>.encodeJson(): String = Json.encodeToString(this)
-    fun String.decodeMapPoints(): List<MapPoint> = Json.decodeFromString(this)
+    fun MapPoint.encodeJson(): String =
+        URLEncoder.encode(Json.encodeToString(this), StandardCharsets.UTF_8.toString())
 
+    fun String.decodeBusLineJson(): BusLine =
+        Json.decodeFromString(URLDecoder.decode(this, "UTF-8"))
 
-    fun String.encodeToUrl(): String {
-        return URLEncoder.encode(this, "UTF-8")
-    }
+    fun String.decodeBusStopJson(): BusStop =
+        Json.decodeFromString(URLDecoder.decode(this, "UTF-8"))
 
-    fun String.decodeFromUrl(): String {
-        return URLDecoder.decode(this, "UTF-8")
-    }
+    fun String.decodeMapPoint(): MapPoint = Json.decodeFromString(URLDecoder.decode(this, "UTF-8"))
 }

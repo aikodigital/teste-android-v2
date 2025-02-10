@@ -3,18 +3,17 @@ package hopeapps.dedev.sptrans.data.models
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
+
 @Serializable
-data class ListOfVehiclesLocated(
+data class VehicleRelationDto(
     @SerializedName("p")
     val prefixVehicle: Int,
-    @SerializedName("t")
-    val arrivalForecast: String,
     @SerializedName("a")
-    val accessibleForDisability: Boolean,
+    val accessible: Boolean,
     @SerializedName("ta")
-    val hourLastLocation: String,
+    val lastUpdateTime: String,
     @SerializedName("py")
-    val py: Double,
+    val latitude: Double,
     @SerializedName("px")
-    val px: Double
+    val longitude: Double
 )
