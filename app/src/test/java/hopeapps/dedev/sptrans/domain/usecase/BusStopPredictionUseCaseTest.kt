@@ -56,4 +56,15 @@ class BusStopPredictionUseCaseTest {
         assertTrue(result.isFailure)
         assertTrue(result.exceptionOrNull() is DomainException.UnknownException)
     }
+
+    @Test
+    fun `invoke should return NullPointerException when no have predictions in api`() = runBlocking {
+        coEvery { repository.searchBusStopPrediction(123) } throws NullPointerException()
+
+        val result = useCase(123)
+
+        assertTrue(result.isSuccess)
+        assertEquals(emptyList<BusPrediction>(), result.getOrNull())
+    }
+
 }
