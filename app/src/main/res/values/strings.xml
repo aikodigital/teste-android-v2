@@ -19,9 +19,9 @@
     <string name="see_maps">Ver no mapa</string>
     <string name="stop_bus_line">Paradas da linha</string>
     <string name="no_bus_stops">A linha está fora de circulação</string>
-    <string name="no_bus_stops_description">Não há paradas para essa linha porque não está em circulação.</string>
-    <string name="line_is_in_circulation">Essa linha está em circulação</string>
-    <string name="line_is_not_in_circulation">Essa linha não está em circulação.</string>
+    <string name="no_bus_stops_description">Não há paradas para essa linha ainda…</string>
+    <string name="line_is_in_circulation">Modo circular: Sim</string>
+    <string name="line_is_not_in_circulation">Modo circular: Não</string>
     <string name="you_are_here">Você está aqui!</string>
     <string name="acessible">Acessível</string>
     <string name="not_accessible">Não acessível</string>
