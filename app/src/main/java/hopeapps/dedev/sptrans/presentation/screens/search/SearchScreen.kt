@@ -79,9 +79,7 @@ fun SearchScreen(
     val lazyListState = rememberLazyListState()
     val keyboardController = LocalSoftwareKeyboardController.current
     val isKeyboardOpen by keyboardAsState()
-
-    val firstItemIsVisible = remember { derivedStateOf { lazyListState.firstVisibleItemIndex } }
-    LaunchedEffect(firstItemIsVisible) {
+    LaunchedEffect(lazyListState.firstVisibleItemIndex) {
         if (isKeyboardOpen) {
             keyboardController?.hide()
         }
