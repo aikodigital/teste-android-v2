@@ -1,28 +1,36 @@
-# API - Olho vivo
+# 🚌 API - Olho vivo
 
-A API do Olho Vivo provê informações em tempo real do monitoramento da frota de ônibus da cidade de São Paulo.
+A API **Olho Vivo** fornece **dados em tempo real** sobre a frota de ônibus da cidade de **São Paulo**, permitindo acesso a informações como **localização dos veículos, linhas, paradas e previsões de chegada**.  
 
-## Acesso
+## 📡 Acesso à API
 
-Para ter acesso a API siga as instruções no [Guia de referência](http://www.sptrans.com.br/desenvolvedores/api-do-olho-vivo-guia-de-referencia/)
+Para utilizar a API, siga as instruções do [Guia de Referência da SPTrans](https://www.sptrans.com.br/desenvolvedores/api-do-olho-vivo-guia-de-referencia/).  
 
 Após a criação da chave, pode ser necessário aguardar algumas horas para que o uso da API seja permitido.
 
-## Proxy AIKO
+### 🔑 Obtenção da Chave de Acesso  
 
-Se estiver tendo problema com **CORS** você pode utilizar o proxy da API fornecido pela AIKO:
+1. Acesse a área de **desenvolvedor** da SPTrans:  
+   👉 [Meus Aplicativos](https://www.sptrans.com.br/desenvolvedores/perfil-desenvolvedor/meus-aplicativos/)  
+2. **Crie um novo aplicativo** e copie a chave gerada.  
+
+   ![Chave API](imagens/chave_api_exemplo.png)  
+
+## 🌎 Proxy AIKO (Correção de CORS)  
+
+Se estiver enfrentando **problemas de CORS** ao consumir a API diretamente, utilize o **proxy da Aiko** para contornar essa restrição:  
 
 ```HTML
 https://aiko-olhovivo-proxy.aikodigital.io/
 ```
 
-## Documentação
+## 📖 Documentação Oficial
 
-Para saber mais sobre os dados e métodos da API consulte a [Documentação](http://www.sptrans.com.br/desenvolvedores/api-do-olho-vivo-guia-de-referencia/documentacao-api/)
+Para informações detalhadas sobre endpoints, parâmetros e formatos de resposta, consulte a documentação oficial da API: [Documentação](http://www.sptrans.com.br/desenvolvedores/api-do-olho-vivo-guia-de-referencia/documentacao-api/)
 
-## Projeto Postman
+## 🔬 Projeto Postman
 
-Para entender mais e usar a API você pode utilizar o [projeto do postman](anexos/SP%20TRANS.postman_collection.json) disponível na pasta **anexos** neste repositório
+Para facilitar a exploração e teste da API, utilize o [projeto do postman](anexos/SP%20TRANS.postman_collection.json) disponível na pasta **anexos** deste repositório.
 
 ### Acesso básico
 
@@ -36,3 +44,8 @@ Para entender mais e usar a API você pode utilizar o [projeto do postman](anexo
 ![Variaveis do postman](imagens/postman_variaveis.png)
 
 * Envie a requisição `POST` chamada de `Autenticação` no projeto, se for retornado `true` o acesso a API foi concedido para chave inserida e já é possível enviar as outras requisições.
+
+## 🚀 Considerações
+- O tempo de resposta da API pode variar devido à atualização dos dados em tempo real.
+- Certifique-se de armazenar sua chave de acesso com segurança.
+- Caso tenha problemas com a API, verifique a documentação oficial da SPTrans ou tente utilizar o proxy da Aiko.

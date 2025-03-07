@@ -1,65 +1,69 @@
-# Teste Android
+# 🏆 Teste Android
 
 ![Aiko](imagens/aiko.png)
 
-Neste teste serão avaliados seus conhecimentos e a metodologia aplicada no desenvolvimento de aplicações mobile Android.
+Neste desafio, iremos avaliar seu conhecimento técnico e a metodologia aplicada no desenvolvimento de aplicações Android nativas.  
 
-## O Desafio
+## 🚀 O Desafio  
 
-Seu objetivo é criar um aplicativo que exiba dados sobre o transporte público da cidade de São Paulo, consultando a [API **Olho Vivo**](api.md) que provê informações em tempo real do monitoramento da frota de ônibus da cidade de São Paulo.
+Seu objetivo é criar um aplicativo Android que exiba dados sobre o **transporte público da cidade de São Paulo**, consumindo a [API **Olho Vivo**](api.md), que fornece informações em tempo real sobre a frota de ônibus da cidade.  
 
-## Requisitos
+### 🎯 Requisitos Obrigatórios  
 
-Esses requisitos são obrigatórios e devem ser desenvolvidos para a entrega do teste
+O projeto deve contemplar as seguintes funcionalidades:  
 
-* **Posições dos veículos**: Exibir no mapa onde os veículos estavam na sua última atualização.
+- **Posições dos veículos** – Exibir no mapa onde os ônibus estavam na última atualização.  
+- **Linhas** – Listar e exibir detalhes sobre as linhas de ônibus disponíveis.  
+- **Paradas** – Exibir os pontos de parada da cidade no mapa.  
+- **Previsão de chegada** – Informar a previsão de chegada dos veículos para uma parada selecionada.  
+- **Pesquisa e Filtros** – Permitir que o usuário pesquise e filtre os dados exibidos.  
 
-* **Linhas**: Exibir informações sobre as linhas de ônibus.
+## 🛠️ Regras do Teste  
 
-* **Paradas**: Exibir os pontos de parada da cidade no mapa.
+### ✅ O que é permitido  
 
-* **Previsão de chegada**: Dado uma parada informar a previsão de chegada de cada veículo que passe pela parada selecionada.
+- **Desenvolvimento Android Nativo** utilizando **Java ou Kotlin**.  
 
-* **Pesquisa e Filtros**: Permitir que o usuário pesquise e filtre esses dados, interagindo com a interface.
+### ❌ O que não é permitido  
 
-## O que é permitido
+- Utilizar bibliotecas ou códigos de terceiros que implementem diretamente algum dos requisitos do desafio.  
 
-* Android Nativo (Java/Kotlin)
+## 💡 Recomendações  
 
-## O que não é permitido
+- **Padrão de Código** – Utilize um **Linter** para manter a formatação do código consistente.  
+- **Organização** – Estruture o código seguindo boas práticas e padrões arquiteturais (MVVM, Clean Architecture, etc.).  
 
-* Utilizar bibliotecas ou códigos de terceiros que implementem algum dos requisitos.
+## 🌟 Extras  
 
-## Recomendações
+Se quiser ir além dos requisitos obrigatórios, aqui estão algumas ideias que podem agregar ainda mais valor ao seu teste:  
 
-* **Linter**: Desenvolva o projeto utilizando algum padrão de formatação de código.
+- **Refresh Automático** – Atualização periódica das informações sem necessidade de interação do usuário.  
+- **Cálculo de Rotas** – Exibir rotas de ônibus para uma parada ou a melhor rota do usuário até uma parada (Google Maps API ou similar).  
+- **Corredores de Ônibus** – Mostrar informações sobre os corredores de ônibus de São Paulo.  
+- **Velocidade das Vias** – Exibir informações sobre velocidades das vias utilizadas pelos ônibus.  
+- **Testes Automatizados** – Implementar testes unitários e/ou instrumentados.  
+- **Documentação** – Criar um **README.md** detalhando as decisões técnicas, funcionalidades implementadas e instruções de uso do projeto.  
 
-## Extras
+## 📦 Entrega  
 
-Aqui estão listadas algumas sugestões para você que quer ir além do desafio inicial. Lembrando que você não precisa se limitar a essas sugestões; se tiver pensado em outra funcionalidade que considere relevante ao escopo da aplicação, fique à vontade para implementá-la.
+Para submeter o teste, siga as etapas abaixo:  
 
-* **Refresh automático**: Que as informações exibidas no aplicativo sejam atualizadas de tempo em tempo de forma transparente ao usuário
+1. Faça um **fork** deste repositório e clone-o em sua máquina.  
+2. Crie uma **branch** com o nome no formato `teste/[SEU_NOME]`.  
+    - **Exemplos:**  
+      - `teste/fulano-da-silva`  
+      - `teste/beltrano-primeiro-gomes`  
+3. Desenvolva e **faça commits** na sua branch com a implementação do desafio.  
+4. Grave um **vídeo demonstrando a solução desenvolvida** e passando pelo código.  
+   - O vídeo pode ser postado no **YouTube como "Não listado"**.  
+   - O **link do vídeo deve estar no `README.md` do seu projeto** ou no **Pull Request**.
+5. Após finalizar, **realize um Pull Request (PR)** para este repositório.  
 
-* **Cálculo de rotas**: Exibir a possível rota de um ou mais ônibus em relação a uma parada, ou do usuário em relação a uma parada (Utilizando API do Google Maps ou equivalentes)
+## 📌 Considerações  
 
-* **Corredores**: Mostrar informações sobre os corredores de ônibus de SP.
+- **Qualquer tecnologia adicional ou abordagem diferente pode ser utilizada**, desde que seja devidamente **justificada no README.md**.  
+- **A estrutura do código e da solução será avaliada**, então priorize boas práticas, organização e clareza no desenvolvimento.  
+- Se tiver dúvidas, **sinta-se à vontade para perguntar**.  
 
-* **Velocidade das vias**: Mostrar informações sobre as velocidades das vias.
 
-* **Testes**: Desenvolva testes que achar necessário para a aplicação.
-
-* **Documentação**: Gerar documentação da aplicação, incluindo detalhes sobre as decisões tomadas, especificação das funcionalidades desenvolvidas, instruções de uso, entre outras informações que achar relevantes.
-
-## Entrega
-
-Para realizar a entrega do teste você deve:
-
-* Relizar o fork e clonar esse repositório para sua máquina.
-  
-* Criar uma branch com o nome de `teste/[NOME]`.
-  * `[NOME]`: Seu nome.
-  * Exemplos: `teste/fulano-da-silva`; `teste/beltrano-primeiro-gomes`.
-  
-* Faça um commit da sua branch com a implementação do teste.
-  
-* Realize o pull request da sua branch nesse repositório.
+📩 **Boa sorte! Estamos ansiosos para ver seu código e sua apresentação!** 🚀
